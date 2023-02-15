@@ -55,6 +55,7 @@ function moveToDst(ev) {
 }
 function _to_compute(ev, dst) {
   ev.preventDefault();
+  ev.stopPropagation();
   var el = ev.target
   if (ev.target.tagName != "BUTTON") {
     el = ev.target.parentElement
@@ -191,7 +192,24 @@ function _to_formula(objects, dst_id, active_val) {
   }
   try {
     var formula_value = $(`#${dst_id}`).val()
+    var formula_value_length = formula_value.length
     var cursorPosition = $(`#${dst_id}`).prop("selectionStart");
+    var originalStartCursorPosition = 0
+    var originalEndCursorPosition =  $(`#${dst_id}`).prop("selectionEnd");
+
+    if (originalEndCursorPosition > cursorPosition && originalEndCursorPosition  <= formula_value_length)
+    {
+      cursorPosition = originalEndCursorPosition
+    }
+    if (cursorPosition > 0) originalStartCursorPosition = cursorPosition
+    // User hasnt specified a cursor position but may have specified it in the past
+    // If the user has cleared out the formula, I ignore the prior selected cursor position
+    /*  if (cursorPosition == 0 && formula_value.length !=0)
+    {
+      if (document.getElementById(dst_id).hasAttribute("originalCursorPosition"))
+        cursorPosition = parseInt($(`#${dst_id}`).attr("originalCursorPosition"));
+    } */
+
   } catch (ex) {
     var formula_value = dst_id.val()
     var cursorPosition = 0
@@ -199,21 +217,26 @@ function _to_formula(objects, dst_id, active_val) {
   let splinesDeg =""
   let polyDeg =""
   splinesDeg = $(`#${dst_id}_splinesDeg`).val() 
-  polyDeg = $(`#${dst_id}_polyDeg`).val()
-  cursorPosition = cursorPosition == 0 ? formula_value.length : cursorPosition
-  var formula_addon = _form_new_formula_value(objects, cursorPosition, formula_value, active_val, false,splinesDeg, polyDeg)
+  polyDeg = $(`#${dst_id}_polyDeg`).val() 
+  //This ensures I insert at the end
+  if (cursorPosition == 0 || cursorPosition > formula_value.length)
+  {
+    cursorPosition = formula_value.length
+  }
+  var results = _form_new_formula_value(objects, cursorPosition, formula_value, active_val, false,splinesDeg, polyDeg)
+  formula_addon = results.formula_addon
   try {
     $(`#${dst_id}`).val(formula_addon)
-    if (cursorPosition == 0) {
-      $(`#${dst_id}`).trigger('focus')
-    }
+    
+    //Code for optionally storing the cursor position
+    //$(`#${dst_id}`).attr("originalCursorPosition", cursorPosition);
   } catch (ex) {
     dst_id.val(formula_addon)
     dst_id[0].scrollLeft = dst_id[0].scrollWidth;
   }
-  $(`#${dst_id}`)[0].selectionStart = cursorPosition + formula_addon.length - formula_value.length
-  $(`#${dst_id}`)[0].selectionEnd= cursorPosition + formula_addon.length - formula_value.length
-  $(`#${dst_id}`).trigger('focus')
+  $(`#${dst_id}`).prop('selectionEnd', cursorPosition + results.lengthInserted +1);
+  $(`#${dst_id}`).prop('selectionStart', cursorPosition);
+  $(`#${dst_id}`).trigger('focus')  
 }
 function _drop_to_compute(ev, parentID) {
   ev.preventDefault();
@@ -231,7 +254,6 @@ function _toCodeMirrorCompute(objects, editor, newline, active_val) {
   if (!newline) {
     var newline = _form_new_formula_value(objects, newpos.ch, editor.getValue(), active_val, true)
   }
-
   doc.replaceRange(newline, newpos)
   doc.setValue(doc.getValue().replace(/  +/g, ' '))
   newpos.ch = newpos.ch + newline.trim().length+1
@@ -310,58 +332,124 @@ function toggleSelectPoly(ev, dest) {
     $(ev.target).removeClass("activated")
   }
 }
-
-
+//Does the following
+//1. Returns the formula string to be inserted into the compute control with the handling of a sign, basically should a sign be added (prefix or postfix)
+//2. Returns the whole string in the compute control with the newly inserted formula string added
+//3. Returns the number of characters in the newly inserted formula control
+//4. Also inserts a +. -... on double click
 function _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement = false) {
-  //Inserting to the beginning
-  if (cursorPosition === 0 && formula_value.length > 0) {
+  let lengthInserted =0;
+  
+
+  //Inserting to the beginning when the formula control is empty
+  if (cursorPosition === 0 && formula_value.length === 0 || formula_value.trim() =="" ) 
+  {
     if (onlyIncrement) {
-      formula_addon += ` ${sign}`
+      lengthInserted = formula_addon.length 
+	    formula_addon = `${formula_addon} `
     } else {
-      formula_addon += ` ${sign} ${formula_value}`
-    }
-  } else if (cursorPosition > 0) {
-    //You are inserting inbetween
-    if (formula_value.length > cursorPosition) {
-      var last_ = formula_value.slice(0, cursorPosition).trim()
-      //original
-      //var first_ = formula_value.slice(cursorPosition, formula_value.length-1).trim() 
-      //There is a + where I am inserting (Inserting after the plus)
-      var first_ = formula_value.slice(cursorPosition, formula_value.length).trim()
-      if (additive.indexOf(last_[last_.length - 1]) > -1) {
+      lengthInserted = formula_addon.length 
+	  formula_addon = `${formula_addon} `
+   }
+  //Inserting to the beginning when the formula control has content
+  } else if (cursorPosition === 0 && formula_value.length > 0)
+ {
+	if (formula_value.trim() !="")
+	{
+		if (additive.indexOf(formula_value.trim()[0] > -1))
+		{
+			if (onlyIncrement) {
+			  formula_addon = ` ${formula_addon} `
+			} else {
+			  lengthInserted = 1 + formula_addon.length 
+			  formula_addon = `${formula_addon} ${formula_value}`
+			}
+		} else
+		{
+			if (onlyIncrement) {
+			  formula_addon = `${formula_addon} ${sign}`
+			} else {
+			  lengthInserted = formula_addon.length  +1+ sign.length 
+			  formula_addon = `${formula_addon} ${sign} ${formula_value}`
+			}
+		}
+	 }
+}
+  else if (cursorPosition > 0) {
+    //You are inserting inbetween or at the very end
+    if (formula_value.length >= cursorPosition) {
+      var last_ = formula_value.slice(0, cursorPosition)
+      var first_ = formula_value.slice(cursorPosition, formula_value.length)
+      //I am inserting between 2 pluses/additive characters
+      if (additive.indexOf(last_.trim()[last_.trim().length - 1]) > -1 && additive.indexOf(first_.trim()[0]) > -1)
+      {
         if (onlyIncrement) {
-          formula_addon = ` ${formula_addon} ${sign} `
+          formula_addon = ` ${formula_addon} `
         } else {
-          formula_addon = `${last_} ${formula_addon} ${sign} ${first_}`
+          lengthInserted = 1 + formula_addon.length 
+          formula_addon = `${last_} ${formula_addon} ${first_}`
         }
-        //I am inserting before the plus
-      } else if (additive.indexOf(first_[0]) > -1) {
+      } else if (additive.indexOf(last_.trim()[last_.trim().length - 1]) > -1 && first_.trim()=="") {
+        //I am inserting at the end and the first part has an additive at the end
+        if (onlyIncrement) {
+          formula_addon = ` ${formula_addon} `
+        } else {
+          lengthInserted = 1 + formula_addon.length 
+          formula_addon = `${last_} ${formula_addon} `
+        }
+      }
+      else if (additive.indexOf(last_.trim()[last_.trim().length - 1]) == -1 && first_.trim()=="") {
+        //I am inserting at the end and the first part does not have an additive at the end
         if (onlyIncrement) {
           formula_addon = ` ${sign} ${formula_addon} `
         } else {
+          lengthInserted = 1 + sign.length +1+ formula_addon.length 
+          formula_addon = `${last_}  ${sign} ${formula_addon} `
+        }       
+      }
+      else if (additive.indexOf(last_.trim()[last_.trim().length - 1]) > -1 && additive.indexOf(first_.trim()[0]) == -1) {
+        ////I am inserting inbetween and the first part has an additive at the end but the last does not start with an additive
+        if (onlyIncrement) {
+          formula_addon = ` ${formula_addon} ${sign} `
+        } else {
+          lengthInserted = 1 + formula_addon.length + 1+ sign.length
+          formula_addon = `${last_} ${formula_addon} ${sign} ${first_}`
+        }
+        
+      } else if (additive.indexOf(first_.trim()[0]) > -1 && additive.indexOf(last_.trim()[last_.trim().length - 1]) == -1 ) {
+        //inserting in the middle, first part does not have an additive but last part does
+        if (onlyIncrement) {
+          formula_addon = ` ${sign} ${formula_addon} `
+        } else {
+          lengthInserted = 1 + sign.length + 1 + formula_addon.length
           formula_addon = `${last_} ${sign} ${formula_addon} ${first_}`
         }
-      } else {
+      } else if (additive.indexOf(first_.trim()[0]) == -1 && additive.indexOf(last_.trim()[last_.trim().length - 1]) == -1 ) {
+        //inserting in the middle, first part does not have an additive niether does the last
         if (onlyIncrement) {
-          formula_addon = ` ${sign} ${formula_addon}`
+          formula_addon = ` ${sign} ${formula_addon} ${sign}`
         } else {
+          lengthInserted = 1 + sign.length + 1 +  formula_addon.length + sign.length
           formula_addon = `${last_} ${sign} ${formula_addon} ${sign} ${first_}`
         }
-      }
-      //else case is when I am not inserting before or after a plus
+      }  
+     //else case is when I am not inserting before or after a plus, I don't think this is executed
     } else {
       if (onlyIncrement) {
         formula_addon = ` ${sign} ${formula_addon}`
       } else {
+        lengthInserted = 1 + sign.length + 1 + formula_addon.length
         formula_addon = `${formula_value} ${sign} ${formula_addon}`
       }
     }
  
   } else if (formula_addon === undefined) {
     formula_addon = sign
+    lengthInserted = sign.length
   }
   //When we are dragging and dropping into an empty text area we return formula_addon
-  return formula_addon
+  results = {formula_addon: formula_addon, lengthInserted: lengthInserted}
+  return results
 }
 function combinations(arr, k) {
   let n = arr.length
@@ -390,8 +478,8 @@ function combinations(arr, k) {
   return result;
 }
 function _form_new_formula_value(objects, cursorPosition, formula_value, active_val, onlyIncrement = false, splinesDeg="", polyDeg="") {
-  var additive = ['+', '-', '*', '^', '/', ':', '%', '']
-  var insertive = ['(', ')', '|', '&', '>', '<', '==', '!=', '>=', '=<', '%in%', '%/%']
+  var additive = ['+', '-', '*', '^', '/', ':', '%', '','%%']
+  var insertive = ['(', ')', '|', '&', '>', '<', '==', '!=', '>=', '<=', '%in%', '%/%']
   var wraparive = ['sqrt', 'log', 'log10', 'log2', 'abs', 'exp', 'ceiling', 'floor', "as.numeric", "max", "min", "mean", "median", "sd", "sum", "variance"]
   //Multiple variables NOT allowed
   var multiVariables = ['ToOrdered', 'ToFactor', "ToLogical", "Day of Week", "Month", "Quarters", "Year(XXXX)", "Year(XX)", "Hour(00-12)", "Hour(00-23)", "Date from String", 'Numeric to date', "isTRUE", "is.na"]
@@ -457,46 +545,87 @@ var complexerapDynamic ={
   }
   if (objects.length > 1 && multiVariables.includes(active_val)) {
     dialog.showErrorBox("Formula Error", "The function " + active_val + " does not support multiple variables, please select one variable and retry")
-    return formula_value
+    if (onlyIncrement)
+    {
+      results = { formula_addon: "", lengthInserted:0}
+    return results.formula_addon  
+    } else
+    {
+      results = { formula_addon: formula_value, lengthInserted:0}
+      return results
+    }
   }
   var formula_addon = ""
   var sign = "+"
+  var lengthInserted =0
   if (additive.indexOf(active_val) > -1 && active_val != '%in%' && active_val != '%/%') {
+   //If there are destination variables selected
     if (objects.length > 1) {
       formula_addon = objects.join(` ${active_val} `)
     } else {
       formula_addon = objects[0] !== undefined ? objects[0] : ""
       sign = active_val
     }
-    formula_addon = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
+    if ( formula_addon !="")
+    {
+       results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
+    }
+    else
+    //Here I am just inserting the symbol at the cursor position
+    {
+        if (onlyIncrement)
+        {
+          results = { formula_addon: `${active_val} `, lengthInserted:active_val.length}
+        } 
+        else
+        {
+          var last_ = formula_value.slice(0, cursorPosition)
+          var first_ = formula_value.slice(cursorPosition, formula_value.length)
+          formula_addon = `${last_} ${active_val} ${first_}`
+          lengthInserted = 1 + sign.length
+          results = { formula_addon: formula_addon, lengthInserted:lengthInserted}
+        }
+    }
   } else if (insertive.indexOf(active_val) > -1) {
     if (onlyIncrement) {
-      formula_addon = active_val
+      results = { formula_addon: `${active_val} `, lengthInserted:active_val.length}      
     } 
     else
     {
-    var last_ = formula_value.slice(0, cursorPosition)
-    var first_ = formula_value.slice(cursorPosition, formula_value.length)
-    formula_addon = `${last_} ${active_val}   ${first_}`
+      var last_ = formula_value.slice(0, cursorPosition)
+      var first_ = formula_value.slice(cursorPosition, formula_value.length)
+      formula_addon = `${last_} ${active_val} ${first_}`
+      lengthInserted = 1+ active_val.length
+    results = { formula_addon: formula_addon, lengthInserted:lengthInserted}
     }
   } else if (Object.keys(complexinsert).indexOf(active_val) > -1) {
     var last_ = formula_value.slice(0, cursorPosition)
     var first_ = formula_value.slice(cursorPosition, formula_value.length)
-    formula_addon = `${last_}${complexinsert[active_val]}${first_}`
+    lengthInserted = 1+ complexinsert[active_val].length
+    if (onlyIncrement) {    
+      results = { formula_addon: ` ${complexinsert[active_val]} `, lengthInserted:lengthInserted}
+    } 
+    else
+    {
+      formula_addon = `${last_} ${complexinsert[active_val]} ${first_}`
+      results = { formula_addon: formula_addon, lengthInserted:lengthInserted }
+    }
   } else if (wraparive.indexOf(active_val) > -1) {
     if (objects.length > 1) {
       formula_addon = `${active_val}(` + objects.join(`) + ${active_val}(`) + ')'
     } else {
       formula_addon = `${active_val}(${objects[0] !== undefined ? objects[0] : ""})`
     }
-    formula_addon = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
+    //lengthInserted =formula_addon.length
+    results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
   } else if (Object.keys(complexerap).indexOf(active_val) > -1) {
     if (objects.length > 1) {
       formula_addon = `${complexerap[active_val][0]}` + objects.join(`${complexerap[active_val][1]} + ${complexerap[active_val][0]}`) + complexerap[active_val][1]
     } else {
       formula_addon = `${complexerap[active_val][0]}${objects[0] !== undefined ? objects[0] : ""}${complexerap[active_val][1]}`
     }
-    formula_addon = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
+    //lengthInserted =formula_addon.length
+    results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
     //handling functions that work on strings where + generates an error
   }  else if (Object.keys(complexerapDynamic).indexOf(active_val) > -1) {
       if (active_val =="B-spline" || active_val == "natural spline")
@@ -528,7 +657,8 @@ var complexerapDynamic ={
         //`${complexerapDynamic[active_val][0]}` + objects.join(`${complexerapDynamic[active_val][1]} + ${complexerapDynamic[active_val][2]}+ ${complexerapDynamic[active_val][0]}`) + complexerapDynamic[active_val][1]
       }
     }
-    formula_addon = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
+    //lengthInserted =formula_addon.length
+    results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
     //handling functions that work on strings where + generates an error
   } else if (Object.keys(complexerapstr).indexOf(active_val) > -1) {
     sign = " "
@@ -537,7 +667,8 @@ var complexerapDynamic ={
     } else {
       formula_addon = `${complexerapstr[active_val][0]}${objects[0] !== undefined ? objects[0] : ""}${complexerapstr[active_val][1]}`
     }
-    formula_addon = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
+    //lengthInserted =formula_addon.length
+    results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
     sign = "+"
   } else if (Object.keys(differenceInsert).indexOf(active_val) > -1) {
     sign = " "
@@ -549,7 +680,8 @@ var complexerapDynamic ={
     } else {
       formula_addon = `${differenceInsert[active_val][0]}` + "variable 1" + `${differenceInsert[active_val][1]}` + "variable 2" + `${differenceInsert[active_val][2]}`
     }
-    formula_addon = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
+    //lengthInserted =formula_addon.length
+    results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
     sign = "+"
   } else if (Object.keys(pasting).indexOf(active_val) > -1) {
     sign = " "
@@ -560,7 +692,8 @@ var complexerapDynamic ={
     } else {
       formula_addon = "paste(variable 1, variable 2..." + pasting[active_val][1]
     }
-    formula_addon = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
+    //lengthInserted = formula_addon.length
+    results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
     sign = "+"
   } else if (active_val.length > 1 && active_val.indexOf("^") > -1) {
     active_val = parseInt(active_val.replace("^", ""))
@@ -569,17 +702,26 @@ var complexerapDynamic ={
         formula_addon += ` + I(${item}^${i})`
       }
     })
-    formula_addon = _calculate_position(formula_value, formula_addon.slice(3), cursorPosition, sign, additive, onlyIncrement)
+    //lengthInserted =formula_addon.length
+    results = _calculate_position(formula_value, formula_addon.slice(3), cursorPosition, sign, additive, onlyIncrement)
   } else if (parseInt(active_val) !== NaN) {
     active_val = parseInt(active_val)
     if (objects.length < active_val) {
       dialog.showErrorBox("Formula Error", "You need to select N or more variables when creating All N Way interactions")
     } else {
       formula_addon = combinations(objects, active_val).join(" + ")
-      formula_addon = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
+      lengthInserted =formula_addon.length
+      results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
     }
   }
-  return formula_addon
+  if (onlyIncrement)
+  {
+  return results.formula_addon
+  } else
+  {
+    return results
+  }
+
 }
 function tramsformFilter(filter_setting) {
   var check = {
@@ -927,6 +1069,40 @@ module.exports.drag = (ev, action) => {
 module.exports.toFormula = (ev) => {
   _to_compute(ev, $(ev.target).closest('.formula-builder').find("textarea").attr('id'))
 }
+
+let timer
+
+module.exports.cancelSingleClick = (ev) => {
+  ev.preventDefault();
+  ev.stopPropagation();
+  clearTimeout(timer)
+ 
+}
+
+module.exports.toFormulaWithTimer = (ev) => {
+  if (ev.detail === 1) {
+    timer = setTimeout(() => {
+      _to_compute(ev, $(ev.target).closest('.formula-builder').find("textarea").attr('id'))
+    }, 200)
+  } 
+}
+
+module.exports.toFocusedInputWithTimer = (ev) => {
+  if (ev.detail === 1) {
+    timer = setTimeout(() => {
+      //_to_compute(ev, $(ev.target).closest('.formula-builder').find("textarea").attr('id'))
+      if ($(ev.target).closest('div.tab-content').closest('.row.mb-1').next().find("div.col-10.focus")[0] ==undefined)
+        { 
+          dialog.showErrorBox("Error", "An input control associated with a if or then condition needs to be selected. Use your mouse to select a position in the if or then control and retry.")
+        }
+        else
+        {
+          _to_compute(ev, $(ev.target).closest('div.tab-content').closest('.row.mb-1').next().find("div.col-10.focus"))
+        }
+    }, 200)
+  } 
+}
+
 module.exports.toFocusedInput = (ev) => {
   if ($(ev.target).closest('div.tab-content').closest('.row.mb-1').next().find("div.col-10.focus")[0] ==undefined)
   { 
