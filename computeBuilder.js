@@ -182,14 +182,7 @@ class computeBuilder extends baseElement{
                                     ^
                                 </button>
                             </div>
-                            <div class="col p-0">
-                                <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" val="%in%" 
-                                onclick="toFormula(event)"
-                                    data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click %in%  to insert it. %in% is used to check whether a variable contains values e.g. var1 %in% c(1,2)">
-                                    %in%
-                                </button>
-                            </div>
+
                         </div>
                         <div class="row pr-15">
                             <div class="col p-0">
@@ -258,7 +251,7 @@ class computeBuilder extends baseElement{
                         <div class="row pr-15">
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
-                                    val=">" onclick="toFormula(event)" 
+                                    val=">"    onclick="toFormula(event)"  
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
                                     title="Click to insert the > symbol">
                                     <b>&gt;</b>
@@ -282,10 +275,10 @@ class computeBuilder extends baseElement{
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
-                                    val="=<" onclick="toFormula(event)" 
+                                    val="<=" onclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click to insert the =< symbol">
-                                    <b>=&lt;</b>
+                                    title="Click to insert the <= symbol">
+                                    <b>&lt;=</b>
                                 </button>
                             </div>
                             <div class="col p-0">
@@ -298,7 +291,7 @@ class computeBuilder extends baseElement{
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
-                                    val="!=" onclick="toFormula(event)" 
+                                    val="!=" onclick="toFormula(event)"
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
                                     title="Click to insert the !- (not equal) symbol">
                                     <b>!=</b>
@@ -334,7 +327,7 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="isTRUE" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click isTRUE to select and move the variable to check for TRUE values. Returns TRUE/FALSE">
+                                title="Click isTRUE to select and move the variable to check for TRUE values. Returns TRUE/FALSE, to insert generic code double click">
                                     isTRUE
                                 </button>
                             </div>
@@ -342,7 +335,7 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="is.na" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click is.na to select and move the variable to check for NA values. Returns TRUE/FALSE">
+                                title="Click is.na to select and move the variable to check for NA values. Returns TRUE/FALSE, to insert generic code double click">
                                     is.na
                                 </button>
                             </div>
@@ -649,7 +642,7 @@ class computeBuilder extends baseElement{
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="runif" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Double Click RUNIF and random numbers will be generated from a uniform distribution with min and max">
+                    title="Double Click RUNIF and random numbers will be generated from a uniform distribution with min and max.">
                     <b>runif</b>
                 </button>
             </div>
