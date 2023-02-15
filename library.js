@@ -62,7 +62,7 @@ if (sessionStore.get("appVersion") == "10.2.1" || sessionStore.get("appVersion")
     }
     try{
         if (restart_required) {
-            fs.writeFileSync(path.join(sessionStore.get("appRoot").replace("app.asar", ""), "modules.json"), JSON.stringify(modules, null, 4), 'utf8')
+            fs.writeFileSync(store.get("modulespath"), JSON.stringify(modules, null, 4), 'utf8')
             ipcRenderer.invoke("restart-app")
         }
     } catch (err) {
