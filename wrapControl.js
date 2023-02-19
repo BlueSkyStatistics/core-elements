@@ -52,7 +52,7 @@ class wrapControl extends baseElement {
                 <label class="form-check-label" for="{{modal.id}}_{{ms.no}}_checkbox">Display counts in aggregated dataset</label>
             </div>
             <div class="form-group">
-            <label for="{{modal.id}}_{{ms.no}}_input" class="mr-2 small-label">Optimonally enter names for counts and aggregated variables separated by , (comma)</label>
+            <label for="{{modal.id}}_{{ms.no}}_input" class="mr-2 small-label">Optionally enter names for counts and aggregated variables separated by , (comma)</label>
             <input class="w-100" type="text" bs-type="text" 
                 id="{{modal.id}}_{{ms.no}}_input" 
                 no="{{ms.no}}_input"
