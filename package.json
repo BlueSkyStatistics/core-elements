@@ -1,10 +1,10 @@
 {
     "name": "@BlueSkyStatistics/elementslib",
-    "productName": "BlueSky Statistics Elements Librarty",
-    "description": "Elements Librarty",
+    "productName": "BlueSky Statistics Elements Library",
+    "description": "Elements Library",
     "keywords": [],
     "main": "library.js",
-    "version": "1.1.3",
+    "version": "1.1.5",
     "author": "BlueSky Statistics",
     "scripts": {},
     "dependencies": {

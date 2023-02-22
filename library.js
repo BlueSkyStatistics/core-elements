@@ -1,4 +1,3 @@
-const { ipcRenderer, dialog } = require('electron')
 const common = require('./common')
 var handlers = require('./handlers')
 var modal = require('./modal').element
@@ -37,39 +36,6 @@ var MiscOpt = require('./settingsOptions').MiscOpt
 var DatabaseOpt = require('./settingsOptions').DatabaseOpt
 var SaveAppSettings = require('./settingsOptions').SaveAppSettings
 
-
-const sessionStore = new Store({name:`constants`});
-if (sessionStore.get("appVersion") == "10.2.1" || sessionStore.get("appVersion") == undefined) {
-    var restart_required = false
-    var modules = JSON.parse(fs.readFileSync(path.join(sessionStore.get("appRoot").replace("app.asar", ""), "modules.json"), 'utf8'))
-    for (var i=0; i < modules.core.length; i++) {
-        if (modules.core[i].update == "auto") {
-            modules.core[i].update = "manual"
-            restart_required = true;
-        }
-    }
-    for (var i=0; i < modules.extentions.length; i++) {
-        if (modules.extentions[i].update == "auto") {
-            modules.extentions[i].update = "manual"
-            restart_required = true
-        }
-    }
-    for (var i=0; i < modules.dialogs.length; i++) {
-        if (modules.dialogs[i].update == "auto") {
-            modules.dialogs[i].update = "manual"
-            restart_required = true
-        }
-    }
-    try{
-        if (restart_required) {
-            fs.writeFileSync(path.join(sessionStore.get("appRoot").replace("app.asar", ""), "modules.json"), JSON.stringify(modules, null, 4), 'utf8')
-            ipcRenderer.invoke("restart-app")
-        }
-    } catch (err) {
-        
-    }
-    
-}
 
 
 module.exports = {
