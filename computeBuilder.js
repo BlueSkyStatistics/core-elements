@@ -27,7 +27,7 @@ class computeBuilder extends baseElement{
                         <div class="scwrapper">
                             <ul class="nav nav-pils sclist nav-black" style="width:100%" role="tablist">
                                 <li class="nav-item">
-                                    <a class="nav-link btn-secondary btn-top-menu btn-top-menu-tab active" 
+                                    <a class="nav-link btn-secondary btn-top-menu active" 
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab1" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab1" 
                                     aria-selected="true" role="tab">
@@ -35,7 +35,7 @@ class computeBuilder extends baseElement{
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link btn-secondary btn-top-menu btn-top-menu-tab" 
+                                    <a class="nav-link btn-secondary btn-top-menu" 
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab2" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab2" 
                                     aria-selected="true" role="tab">
@@ -43,7 +43,7 @@ class computeBuilder extends baseElement{
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link btn-secondary btn-top-menu btn-top-menu-tab" 
+                                    <a class="nav-link btn-secondary btn-top-menu" 
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab3" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab3" 
                                     aria-selected="true" role="tab">
@@ -51,7 +51,7 @@ class computeBuilder extends baseElement{
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link btn-secondary btn-top-menu btn-top-menu-tab" 
+                                    <a class="nav-link btn-secondary btn-top-menu" 
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab4" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab4" 
                                     aria-selected="true" role="tab">
@@ -61,7 +61,7 @@ class computeBuilder extends baseElement{
 
                                 
                                 <li class="nav-item">
-                                    <a class="nav-link btn-secondary btn-top-menu btn-top-menu-tab" 
+                                    <a class="nav-link btn-secondary btn-top-menu" 
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab5" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab5" 
                                     aria-selected="true" role="tab">
@@ -69,7 +69,7 @@ class computeBuilder extends baseElement{
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link btn-secondary btn-top-menu btn-top-menu-tab" 
+                                    <a class="nav-link btn-secondary btn-top-menu" 
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab6" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab6" 
                                     aria-selected="true" role="tab">
@@ -77,7 +77,7 @@ class computeBuilder extends baseElement{
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link btn-secondary btn-top-menu btn-top-menu-tab" 
+                                    <a class="nav-link btn-secondary btn-top-menu" 
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab7" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab7" 
                                     aria-selected="true" role="tab">
@@ -85,7 +85,7 @@ class computeBuilder extends baseElement{
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link btn-secondary btn-top-menu btn-top-menu-tab" 
+                                    <a class="nav-link btn-secondary btn-top-menu" 
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab8" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab8" 
                                     aria-selected="true" role="tab">
@@ -93,7 +93,7 @@ class computeBuilder extends baseElement{
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link btn-secondary btn-top-menu btn-top-menu-tab" 
+                                    <a class="nav-link btn-secondary btn-top-menu" 
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab9" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab9" 
                                     aria-selected="true" role="tab">
@@ -101,7 +101,7 @@ class computeBuilder extends baseElement{
                                     </a>
                                 </li>
                                     <li class="nav-item">
-                                    <a class="nav-link btn-secondary btn-top-menu btn-top-menu-tab" 
+                                    <a class="nav-link btn-secondary btn-top-menu" 
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab10" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab10" 
                                     aria-selected="true" role="tab">
@@ -110,7 +110,7 @@ class computeBuilder extends baseElement{
                                  </li>
                                  </li>
                                  <li class="nav-item">
-                                    <a class="nav-link btn-secondary btn-top-menu btn-top-menu-tab" 
+                                    <a class="nav-link btn-secondary btn-top-menu" 
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab11" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab11" 
                                     aria-selected="true" role="tab">
@@ -118,7 +118,7 @@ class computeBuilder extends baseElement{
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link btn-secondary btn-top-menu btn-top-menu-tab" 
+                                    <a class="nav-link btn-secondary btn-top-menu" 
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab12" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab12" 
                                     aria-selected="true" role="tab">
