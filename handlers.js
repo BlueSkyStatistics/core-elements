@@ -1121,12 +1121,12 @@ module.exports.enablyStickyDivs = (modal_id) => {
         $(el).attr("data-offset", el.offsetTop)
         $(el).attr("data-height", $(el).parent().height())
       }
-      if (ev.target.scrollTop < 70) {
-        var offsetT = $(el).attr("data-offset")
-        $(el).css("top", `${offsetT - ev.target.scrollTop}px`)
-        $(el).css("position", "")
-        $(el).css("width", "")
-      }
+      // if (ev.target.scrollTop < 70) {
+      //   var offsetT = $(el).attr("data-offset")
+      //   $(el).css("top", `${offsetT - ev.target.scrollTop}px`)
+      //   $(el).css("position", "")
+      //   $(el).css("width", "")
+      // }
       if (ev.target.scrollTop > $(el).attr("data-height") + 20 - $(el).height()) {
         if ($(el).css("position") == "fixed") {
           $(el).css({
