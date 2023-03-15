@@ -56,10 +56,11 @@ class inputVariable extends baseElement {
     
     canExecute(refToBaseModal) {
         var outer_this = this;
+        var value = this.getVal()
         switch (this.overwrite){
             case "variable":
-               if (getActiveVariables().indexOf(outer_this.getVal()) > -1){
-                var ret = dialog.showMessageBoxSync({type: "question", buttons: ["Ok", "Cancel"], title: "Overwrite Alert", message: `The value specified in the field with label: "${outer_this.label}" will overwrite the existing variable: ${outer_this.getVal()}`})
+               if (getActiveVariables().indexOf(value) > -1){
+                var ret = dialog.showMessageBoxSync({type: "question", buttons: ["Ok", "Cancel"], title: "Overwrite Alert", message: `The value specified in the field with label: "${outer_this.label}" will overwrite the existing variable: ${value}`})
                 if (ret === 0){
                     break
                 } else {
@@ -67,8 +68,8 @@ class inputVariable extends baseElement {
                 }
                }
             case "dataset":
-               if ( getAllDatasets().indexOf(outer_this.getVal()) > -1 ){
-                var ret = dialog.showMessageBoxSync({type: "question", buttons: ["Ok", "Cancel"], title: "Overwrite Alert", message: `The value specified in the field with label: "${outer_this.label}" will overwrite the dataset: ${outer_this.getVal()}`})
+               if ( getAllDatasets().indexOf(value) > -1 ){
+                var ret = dialog.showMessageBoxSync({type: "question", buttons: ["Ok", "Cancel"], title: "Overwrite Alert", message: `The value specified in the field with label: "${outer_this.label}" will overwrite the dataset: ${value}`})
                 if (ret === 0){
                     break
                 } else {
@@ -76,16 +77,16 @@ class inputVariable extends baseElement {
                 }
             }
         }
-        if (this.required && (this.getVal() === "" || this.getVal() == undefined)){
+        if (this.required && (value === "" || value == undefined)){
             dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Field with label: "${outer_this.label}" needs to be populated to proceed`})
             return false
-        } else if ( ! this.required && (this.getVal() === "" || this.getVal() == undefined)){
+        } else if ( ! this.required && (value === "" || value == undefined)){
             return true
         }
-        if (this.type_expected === 'numeric' && isNaN(this.getVal())){
+        if (this.type_expected === 'numeric' && isNaN(value)){
             dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Field with label: "${outer_this.label}" needs to be populated with a numeric value to proceed`})
             return false
-        } else if (this.type_expected === 'character' && ! isNaN(this.getVal())) {
+        } else if (this.type_expected === 'character' && ! isNaN(value)) {
             dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Field with label: "${outer_this.label}" needs to be populated with a character value to proceed`})
             return false
         }
@@ -93,21 +94,21 @@ class inputVariable extends baseElement {
         {
             //let pattern =/[0-9][0-9a-zA-Z._\s]*/g
             let pattern =/^[0-9]/g
-            let result = this.getVal().match(pattern);
+            let result = value.match(pattern);
             if (result != null) 
             {
                 dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `The input field with label: "${outer_this.label}" cannot start with a number. You cannot create variable, dataset or model names that start with a number.`})
                 return false
             }
             pattern = /\s+/g
-            result = this.getVal().match(pattern);
+            result = value.match(pattern);
             if (result != null) 
             {
                 dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `The input field with label: "${outer_this.label}" cannot contain spaces. You cannot create variable, dataset or model names that contain spaces.`})
                 return false
             }
            pattern = "^((([A-Za-z]|[.][._A-Za-z])[._A-Za-z0-9]*)|[.])$"
-           result = this.getVal().match(pattern);
+           result = value.match(pattern);
            if (result == null) 
            {
                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `The input field with label: "${outer_this.label}" must contain only letters, numbers and the dot or underline characters. It must start with a letter or the dot not followed by a number.`})

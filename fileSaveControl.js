@@ -44,10 +44,11 @@ class fileSaveControl extends baseElement{
     
     canExecute(refToBaseModal) {
         var outer_this = this;
-        if (this.required && (this.getVal() === "" || this.getVal() == undefined)){
+        var value = this.getVal()
+        if (this.required && (value === "" || value == undefined)){
             dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `You need to select a file using the button with label: "${outer_this.label}" to proceed`})
             return false
-        } else if ( ! this.required && (this.getVal() === "" || this.getVal() == undefined)){
+        } else if ( ! this.required && (value === "" || value == undefined)){
             return true
         }
       return true

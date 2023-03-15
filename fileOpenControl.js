@@ -50,17 +50,18 @@ class fileOpenControl extends baseElement{
     
     canExecute(refToBaseModal) {
         var outer_this = this;
-        if (this.required && (this.getVal() === "" || this.getVal() == undefined) && this.type =="file"){
+        var value = this.getVal()
+        if (this.required && (value === "" || value == undefined) && this.type =="file"){
             dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Please select a file from the browse button with label: "${outer_this.label}" and re-execute`})
             return false
-        } else if (this.required && (this.getVal() === "" || this.getVal() == undefined) && this.type =="folder"){
+        } else if (this.required && (value === "" || value == undefined) && this.type =="folder"){
             dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Please select a folder from the browse button with label: "${outer_this.label}" and re-execute`})
             return false
-        } else if ( ! this.required && (this.getVal() === "" || this.getVal() == undefined)){
+        } else if ( ! this.required && (value === "" || value == undefined)){
             return true
         }
         try {
-            fs.statSync(this.getVal())
+            fs.statSync(value)
         } catch (ex) {
             dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "File input field rule violation", message: `The browse button with label: "${outer_this.label}" contains path that doesn't exist`})
             return false
