@@ -878,6 +878,7 @@ class switchCase extends baseElement {
         var then_elements = $(`#${this.id}`).children().find('div[bs-type="switchthen"] .CodeMirror')
         var else_elements = $(`#${this.id}`).children().find('div[bs-type="switchelse"] .CodeMirror')
         var res = []
+        var value = this.getVal()
         for (var i = 0 ; i < if_elements.length; i ++) {
             if (if_elements[i].CodeMirror.getValue() == "" || if_elements[i].CodeMirror == undefined )
             {
@@ -899,10 +900,10 @@ class switchCase extends baseElement {
                 return false
             }
         }
-        if (this.required && (this.getVal() === "" || this.getVal() == undefined)){
+        if (this.required && (value === "" || value == undefined)){
             dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Conditional input rule violation", message: `Conditional input with label: "${outer_this.label}" needs to be populated to proceed`})
             return false
-        } else if ( ! this.required && (this.getVal() === "" || this.getVal() == undefined)){
+        } else if ( ! this.required && (value === "" || value == undefined)){
             return true
         }
         return true
