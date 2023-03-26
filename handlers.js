@@ -1176,9 +1176,14 @@ module.exports.removeSwitchCase = (el, el_index) => {
   $(`#${el}`).find(`div[el_index=${el_index}]`).remove()
 }
 module.exports.changeRadio = (event) => {
-  if ($(`input[name="${event.target.name}"]`).attr("data-dependants")) {
-    $(`input[name="${event.target.name}"]`).each(function (_, item) {
-      renderDependants(item)
+  let flag =false
+  $(`input[name="${event.target.name}"]`).each(function (_, item) {
+    if (item.getAttribute("data-dependants")!= null)
+      flag =true
+  })
+if (flag ){
+      $(`input[name="${event.target.name}"]`).each(function (_, item) {
+        if (item.getAttribute("data-dependants")!= null) renderDependants(item)
     })
   }
 }
