@@ -1176,8 +1176,7 @@ module.exports.removeSwitchCase = (el, el_index) => {
   $(`#${el}`).find(`div[el_index=${el_index}]`).remove()
 }
 module.exports.changeRadio = (event) => {
-  let flag =false
-  $(`input[name="${event.target.name}"]`).each(function (_, item) {
+    $(`input[name="${event.target.name}"]`).each(function (_, item) {
     if (item.getAttribute("data-dependants")!= null)
     renderDependants(item)
   })
