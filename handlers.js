@@ -1179,13 +1179,8 @@ module.exports.changeRadio = (event) => {
   let flag =false
   $(`input[name="${event.target.name}"]`).each(function (_, item) {
     if (item.getAttribute("data-dependants")!= null)
-      flag =true
+    renderDependants(item)
   })
-if (flag ){
-      $(`input[name="${event.target.name}"]`).each(function (_, item) {
-        if (item.getAttribute("data-dependants")!= null) renderDependants(item)
-    })
-  }
 }
 module.exports.changeCheckBox = (event) => {
   if ($(`#${event.target.id}`).attr("data-dependants")) {
