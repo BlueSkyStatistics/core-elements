@@ -1176,11 +1176,10 @@ module.exports.removeSwitchCase = (el, el_index) => {
   $(`#${el}`).find(`div[el_index=${el_index}]`).remove()
 }
 module.exports.changeRadio = (event) => {
-  if ($(`input[name="${event.target.name}"]`).attr("data-dependants")) {
     $(`input[name="${event.target.name}"]`).each(function (_, item) {
-      renderDependants(item)
-    })
-  }
+    if (item.getAttribute("data-dependants")!= null)
+    renderDependants(item)
+  })
 }
 module.exports.changeCheckBox = (event) => {
   if ($(`#${event.target.id}`).attr("data-dependants")) {
