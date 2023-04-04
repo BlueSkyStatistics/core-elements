@@ -136,7 +136,9 @@ class modal {
         // Move modal to undraggable state
         // $(`.modal.show .modal-dialog`).draggable("disable");
         $(`.modal.show [action='attach']`).hide()
-        $(`.modal.show .modal-dialog`).css({top: '', left: ''})
+        var increment = $(".nav.main-sub-menu").not(":hidden").parent().parent().height()
+        var activeModalSub = 53 + increment
+        $(`.modal.show .modal-dialog`).css({top: `${activeModalSub}px`, left: ''})
     }
 
     compile(onShow, onHide, onSubmit, onSyntax, help, onSave) {
