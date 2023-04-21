@@ -20,6 +20,7 @@ calls_map = {
     "switchcase": getSwitchCase,
     "label": getHTMLVal,
     "joinMapping": getJoinMapping,
+    "advTxt": getAdvTxt,
 }
 
 function getVal(id){
@@ -37,6 +38,13 @@ function getFromMeasureList( id) {
         res.push(value.innerHTML);
     })
     return res;
+}
+
+function getAdvTxt(id) {
+    let res=[];
+    let textBoxValue = $(`#${id}`).children().find('div[bs-type="advancedTextBox"] .CodeMirror')
+    res.push(textBoxValue[0].CodeMirror.getValue())
+    return (res)
 }
 
 function getSwitchCase(id) {
@@ -62,7 +70,6 @@ function getWrapControl(id){
     var objects = getMultiVal(id)
     var counts = getValueBoxVal(`${id}_checkbox`)
     var variables = getTextVal(`${id}_input`).split(",")
-    
     if (variables[0] === "") {
         variables = []
         if (counts) {

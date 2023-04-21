@@ -45,7 +45,7 @@ function moveToDst(ev) {
     })
     _to_formula(objects, dst_id)
   } else {
-    $(`#${modal_id} .list-group-item-action.active`).each(function (index, item) {
+      $(`#${modal_id} .list-group-item-action.active`).each(function (index, item) {
       objects.push(item.outerHTML)
       ids.push(item.id)
       action = $(`#${item.id.split("_")[0]}`).attr("act")
@@ -108,8 +108,11 @@ function _drop(objects, action, object_ids, parentID) {
     var object = objects[i];
     var object_id = object_ids[i];
     var inserted_object_id = object_id;
+    //Comes here when adding a variable to a destination variable control including aggregate control
     if (_filter(el.attr('filter'), object)) {
       if (!document.getElementById(parentID).getAttribute("draggable")) {
+        //Comes here when adding to a destination variable control including aggregate control and skips 
+        //the if loop below when adding but NOT when dragging back from destination to source
         if (object_id.indexOf(":") > -1) {
           inserted_object_id = object_id.split(":")[0]
           object = object.replace(object_id, inserted_object_id)
@@ -125,18 +128,25 @@ function _drop(objects, action, object_ids, parentID) {
           }
         } else if (object_id.indexOf(":") === -1) {
           var id_addon = parentID;
-          inserted_object_id = `${object_id}:${id_addon}`
+         //Comes here when adding a variable to a destination variable control including aggregate control, 
+         //but does NOT come here when moving back from destination to source
+          let func =$(`#${parentID}_select option:selected`).html()
+          inserted_object_id = `${object_id}:${id_addon}_${func}`
           object = object.replace(object_id, inserted_object_id)
         }
+        //Executes below when adding and moving back, note that $1 is the first match of the expression /(drop\(event, ')(.\\w*)('\))/ $3 the 3rd match
         object = object.replace(/(drop\(event, ')(.\\w*)('\))/, "$1" + parentID + "$3")
+        //Executes if below when adding, NOT when moving back from destination to source
         if (isWrapped) {
           object = object.replace(/>(.*)</, " aggregation='" + $(`#${parentID}_select option:selected`).html() + "' original='$1'>" + $(`#${parentID}_select`).val().replace("%", "$1") + "<")
         }
+        //Executes this when adding not when moving back
         if (!document.getElementById(inserted_object_id)) {
           if (!document.getElementById(parentID).getAttribute("order")) {
             if ($(`#${parentID}`).attr("bs-type") == 'single') {
               document.getElementById(parentID).innerHTML = object;
             } else {
+              //Executes this when adding
               document.getElementById(parentID).innerHTML += object;
             }
           } else {
@@ -270,7 +280,7 @@ function createCMFromTestArea(modal_id) {
         showCursorWhenSelecting: true
       })
       editor.on("focus", function (editor, e) {
-        var parent_div = $(e.target).closest("div.col-10")
+        var parent_div =  $(e.target).closest("div.col-10")
         $(parent_div).closest('div[bs-type="switchcase"]').find("div.col-10.focus").removeClass('focus')
         $(parent_div).addClass('focus')
       })
@@ -1023,8 +1033,17 @@ module.exports.drop = (ev, parentID = null) => {
     parentID = ev.target.id;
   }
   var objects = [];
+  var elTarget = document.getElementById(parentID)
   var action = ev.dataTransfer.getData("action");
   var object_ids = ev.dataTransfer.getData("id").split(",");
+  if (document.getElementById(object_ids[0]))
+  {
+    //If I am dropping a variable from the aggregate control to the same aggregate control, I do nothing
+    //There are 2 cases here, case 1, I drop an existing variable in the aggregate control to an empty place in the same control
+    //Case 2, I drop an existing variable to an already exsting variable in that aggregate control
+    if (((document.getElementById(object_ids[0]).parentNode.id == elTarget.parentNode.id) || (document.getElementById(object_ids[0]).parentNode.id == elTarget.id)) && elTarget.closest('div[bs-type="wrapcontrol"]') != null)
+      return
+  }
   object_ids.forEach((item) => {
     if (document.getElementById(item)) {
       if (document.getElementById(item).getAttribute("original")) {
@@ -1035,8 +1054,14 @@ module.exports.drop = (ev, parentID = null) => {
       objects.push(document.getElementById(item).outerHTML)
     }
   })
-  _drop(objects, action, object_ids, parentID)
+  //I noticed that whenever I dropped an item from an aggregate control to the same aggregate control over an existing variable OR
+  //I drop an item from the aggregate control to the source variable list over an existing variable, the 
+  //the code comes to this function 2 times, the if loop just prevents the _drop from running twice
+  //in the event I am moving from the destination aggregate control back to the source as the destination variable is removed
+  if (objects.length > 0 )
+    _drop(objects, action, object_ids, parentID)
 }
+
 module.exports.dropToInput = (ev) => {
   ev.preventDefault();
   var parentID = ev.target.id;

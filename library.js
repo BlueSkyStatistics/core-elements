@@ -35,6 +35,7 @@ var OutputTblOpt = require('./settingsOptions').OutputTblOpt
 var MiscOpt = require('./settingsOptions').MiscOpt
 var DatabaseOpt = require('./settingsOptions').DatabaseOpt
 var SaveAppSettings = require('./settingsOptions').SaveAppSettings
+var advancedTextBox = require('./advancedTextBox').element
 
 
 
@@ -117,5 +118,6 @@ module.exports = {
     "removeFromJoin" : handlers.removeFromJoin,
     "selectForDeletionMergeDatasets": handlers.selectForDeletionMergeDatasets,
     "selectListItem":handlers.selectListItem,
+    "advancedTextBox":advancedTextBox
     
 }
