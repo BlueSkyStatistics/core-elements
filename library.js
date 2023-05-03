@@ -36,6 +36,7 @@ var MiscOpt = require('./settingsOptions').MiscOpt
 var RLocaleOpt = require('./settingsOptions').RLocaleOpt
 var DatabaseOpt = require('./settingsOptions').DatabaseOpt
 var SaveAppSettings = require('./settingsOptions').SaveAppSettings
+var advancedTextBox = require('./advancedTextBox').element
 
 
 
@@ -119,5 +120,7 @@ module.exports = {
     "addToJoin" : handlers.addToJoin,
     "removeFromJoin" : handlers.removeFromJoin,
     "selectForDeletionMergeDatasets": handlers.selectForDeletionMergeDatasets,
-    "selectListItem":handlers.selectListItem
+    "selectListItem":handlers.selectListItem,
+    "advancedTextBox":advancedTextBox
+    
 }

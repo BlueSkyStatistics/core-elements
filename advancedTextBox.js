@@ -2,33 +2,34 @@ var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
 
 
-class inputVariable extends baseElement {
+class advancedTextBox extends baseElement {
     content;
     id;
     value = null;
     required = false;
     type_expected = null;
     overwrite = null;
-    allow_spaces=false;
-        label = null
-    width = "w-75"
-    htmlTemplate = `<div class="mb-2 {{if(options.ms.style)}}{{ms.style}}{{/if}} {{if(options.ms.ml)}}ml-{{ms.ml}}{{/if}}">
-    <div class="row">
-        <div class="col-12">
-            <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
-        </div>
+    label = null
+    no = null   
+    htmlTemplate = `
+    <div class="row mt-3">
+        <div class="col destination">
+            <h6>Multiple Condition Builder:{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</h6>
+            <div class="small-label">
+                    Click on a button and drag and drop variables to create an expression.<br> Clicking a selected button will toggle its state.<br> To insert at a designated position, drag and drop directly to that position.<br> Mouse over a button for help.
+            </div>  
+        </div>    
     </div>
-    <div class="row">
-        <div class="col-12">
-            <input class="{{if(options.ms.width)}}{{ms.width}}{{#else}}w-75{{/if}}" type="text" bs-type="{{if(options.ms.type)}}{{ms.type}}{{#else}}text{{/if}}" 
-                   id="{{modal.id}}_{{ms.no}}" 
-                   {{if(options.ms.placeholder)}} placeholder="{{ms.placeholder}}" {{/if}}
-                   no="{{ms.no}}" extractable=true extractionRule="{{ms.extraction}}" 
-                   {{if(options.ms.wrapped)}} wrapped="{{ms.wrapped}}" {{/if}} 
-                   {{if(options.ms.value !== undefined)}} default="{{ms.value}}" value="{{ms.value}}" {{#else}} default="" {{/if}}
-                   {{if(options.ms.filter)}} filter="{{ms.filter}}" {{/if}} ondrop="dropToInput(event)">
+    <div id="{{modal.id}}_{{ms.no}}" {{if(options.ms.ml)}}class="ml-{{ms.ml}}"{{/if}}
+         extractable=true bs-type="advTxt" no="{{ms.no}}" extractionRule="{{ms.extraction}}"
+         style="overflow: auto"> 
+         <div class="row bg-gray m-1 p-2" el_index=0> 
+            <div class="col-12">
+                <div class="row">
+                   <div class="col-10 cm focus" bs-type="advancedTextBox"></div>
+                </div>
+            </div>
         </div>
-    </div>
     </div>`
 
     constructor(modal, config) {
@@ -49,15 +50,14 @@ class inputVariable extends baseElement {
         if (config.allow_spaces ) {
             this.allow_spaces = config.allow_spaces;
         }
-        
         this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config})
         this.id = `${modal.id}_${config.no}`
-       
+        this.no = config.no
     }
     
     canExecute(refToBaseModal) {
         var outer_this = this;
-        var value = this.getVal()
+        var value = this.getVal().toString()
         switch (this.overwrite){
             case "variable":
                if (getActiveVariables().indexOf(value) > -1){
@@ -117,19 +117,20 @@ class inputVariable extends baseElement {
            }
            
         }
-
-        return true
+      return true
     }
 
     clearContent() {
-        if (this.value !== null) {
-            $(`#${this.id}`).val(this.value)
-        } else {
-            $(`#${this.id}`).val("")
-        }
-        
+        var textBoxValue = $(`#${this.id}`).children().find('div[bs-type="advancedTextBox"] .CodeMirror')
+        textBoxValue[0].CodeMirror.setValue("")
     }
 
+    getVal() {
+        var textBoxValue = $(`#${this.id}`).children().find('div[bs-type="advancedTextBox"] .CodeMirror')
+        var res = []
+        res.push(textBoxValue[0].CodeMirror.getValue())
+        return (res)
+    }
 }
 
-module.exports.element = inputVariable;
+module.exports.element = advancedTextBox;
