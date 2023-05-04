@@ -161,7 +161,7 @@ class MiscOpt {
           <label class="form-check-label ml-4 w-50" for="maxfactorcount">Specify the maximum number of distinct values to control creation of factor variables</label>
           <input class="w-25 float-right" type="number" id="maxfactorcount" name="maxfactorcount">
         </div>
-      </div>              
+      </div>   
     `
     constructor(modal, config) {
         this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
@@ -170,6 +170,36 @@ class MiscOpt {
         return true
     }
     clearContent() { }
+}
+
+
+class RLocaleOpt {
+  content;
+  id; 
+  htmlTemplate = `
+                <div id="rlocalediv" class="pb-3">
+                <label class="form-check-label mr-2" for="rlocale">Set R locale :</label>
+                <input list="rlocalelist" name="rlocale" class="w-25 float-right" id="rlocale">
+                <datalist id="rlocalelist">
+                  <option value="Chinese (Simplified)">
+                  <option value="Turkish">
+                  <option value="French">
+                  <option value="Portuguese">
+                </datalist>                
+                  <div id="rlocalekiddiv" class="pb-3">
+                  <label class="form-check-label mr-2" for="rlocale">1. Enter a valid R locale in the text field</label>
+                  <label class="form-check-label mr-2" for="rlocale">2. To pick a locale from the dropdown, make the text field empty and click in the text field</label>
+                  <label class="form-check-label mr-2" for="rlocale">3. Leave the text field empty if you want to set the system locale</label>
+                  </div>            
+                </div>
+  `
+  constructor(modal, config) {
+      this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
+  }
+  canExecute() {
+      return true
+  }
+  clearContent() { }
 }
 
 class DatabaseOpt {
@@ -213,5 +243,6 @@ class SaveAppSettings {
 module.exports.OutputOpt = OutputOpt;
 module.exports.OutputTblOpt = OutputTblOpt;
 module.exports.MiscOpt = MiscOpt;
+module.exports.RLocaleOpt = RLocaleOpt;
 module.exports.DatabaseOpt = DatabaseOpt;
 module.exports.SaveAppSettings = SaveAppSettings;
