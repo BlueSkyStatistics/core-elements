@@ -21,10 +21,31 @@ calls_map = {
     "label": getHTMLVal,
     "joinMapping": getJoinMapping,
     "advTxt": getAdvTxt,
+    "sem": getSem,
+   "semModelTermsDest":getSemModelTerms
 }
 
 function getVal(id){
     return calls_map[$(`#${id}`).attr("bs-type")](id);
+}
+
+function getSemModelTerms(id)
+{
+    getSingleVal(id)
+}
+
+
+function getSem(id)
+{
+    let results = {}
+    let textContents =""
+    let dstVarContents =""
+    $(`#${id}`).find('.list-group1').each(function (index, item) {
+        textContents =$(`#${item.id}`).find('input').val()
+        dstVarContents = getMultiVal($(`#${item.id}`).find('.list-group').attr('id'))
+        results [textContents] = dstVarContents
+    })
+    return results
 }
 
 function getHTMLVal(id) {
@@ -175,12 +196,15 @@ function transform(val, rule) {
     // UseComma is default   
     var separator  = ','; 
     //Checking separator
+    var finalRetString ="";
     if (rule.includes("UsePlus")) {
         separator = "+";
     } 
     var value;
+    var res =[];
     var item;
     var retval;
+    var tempretval =""
     // Checking if value Enclosed
     if (rule.includes("Enclosed")) {
         // Enclosed is surrounded by '
@@ -188,6 +212,19 @@ function transform(val, rule) {
     } else {
         item = '{{item | safe}}';
     }
+
+    if (rule =="modelTerms")
+    {     
+        finalRetString =""
+        val.forEach(function(element, index) {
+            let myArray = element.split("->");
+           // val[index] = Sqrl.Render(value, {item: Sqrl.Render(item, {item: element})});
+           finalRetString = finalRetString + myArray[1] + "~" +  myArray[0] +"\n"
+        })
+        //finalRetString = finalRetString.replace(/\n$/, '');
+        return finalRetString
+    }
+
     //This supports the removal of spaces in a textbox
     //This was added as users were enter multiple R package names to install by specifying foreign, car and it was failing as
     //we were looking for a package name " car"
@@ -221,7 +258,26 @@ function transform(val, rule) {
               val[index] = Sqrl.Render(value, {item: Sqrl.Render(item, {item: element})});
           })
           retval = val.join(separator);
-    } else if (type === "string") {
+    } else if (type === 'object' && !Array.isArray(val)) {   
+        value = `{{item | safe}}`;
+        Object.keys(val).forEach(function (key, index) {
+            val[key].forEach(function(element, index) {
+                res[index] = Sqrl.Render(value, {item: Sqrl.Render(item, {item: element})});
+            })
+            tempretval = res.join(separator);
+            val[key] = tempretval
+            finalRetString = finalRetString + key + "=~" + tempretval +"\n"
+        })
+        //finalRetString = finalRetString.replace(/\n$/, '');
+        //retval = JSON.stringify(val)
+        //finalRetString = "'" + finalRetString + "'\n";
+        return finalRetString
+    } 
+
+
+    
+    
+    else if (type === "string") {
         retval = Sqrl.Render(value, {item: Sqrl.Render(item, {item: val})});
     } else if (type === "boolean") {
         retval = val.toString().toUpperCase();

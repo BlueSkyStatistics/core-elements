@@ -1,7 +1,7 @@
 function attachActionToMoveArrow(parentId) {
   var modal_id = document.getElementById(parentId).getAttribute("modal_id");
-  if ($(`#${parentId}`).parent().siblings().length > 0 && $(`#${parentId}`).parent().siblings()[0].classList.contains("col-xx")) {
-    var btn = $(`#${parentId}`).parent().siblings()[0].children[0]
+  if ($(`#${parentId}`).parent().siblings().length > 0 && ( $(`#${parentId}`).parent().siblings()[0].classList.contains("col-xx") || $(`#${parentId}`).parent().siblings()[0].classList.contains("mvbtn")  )  ) {
+    var btn =   $(`#${parentId}`).parent().siblings()[0].children[0]
     btn.innerHTML = '<i class="fas fa-arrow-left"></i>'
     btn.removeEventListener("click", moveToSrc)
     btn.removeEventListener("click", moveToDst)
@@ -31,28 +31,7 @@ function moveToSrc(ev) {
   })
   _drop(objects, "move", ids, ids[0].split("_")[0])
 }
-function moveToDst(ev) {
-  ev.preventDefault();
-  ev.stopPropagation();
-  var objects = []
-  var ids = []
-  var modal_id = $(`#${ev.currentTarget.id}`).parent().siblings()[0].children[0].getAttribute("modal_id")
-  var dst_id = $(`#${ev.currentTarget.id}`).parent().siblings()[0].children[0].id
-  var action;
-  if ($(`#${dst_id}`)[0].type == "textarea") {
-    $(`#${modal_id} .list-group-item-action.active`).each(function (index, item) {
-      objects.push(item.textContent)
-    })
-    _to_formula(objects, dst_id)
-  } else {
-      $(`#${modal_id} .list-group-item-action.active`).each(function (index, item) {
-      objects.push(item.outerHTML)
-      ids.push(item.id)
-      action = $(`#${item.id.split("_")[0]}`).attr("act")
-    })
-    _drop(objects, action, ids, dst_id)
-  }
-}
+
 function _to_compute(ev, dst) {
   ev.preventDefault();
   ev.stopPropagation();
@@ -881,6 +860,31 @@ function focusInput(ev) {
   $(ev.target.closest('div[bs-type="switchcase"]')).find('input').removeClass('focus')
   $(ev.target).addClass('focus')
 }
+
+function moveToDst (ev) {
+  ev.preventDefault();
+  ev.stopPropagation();
+  var objects = []
+  var ids = []
+  var modal_id = $(`#${ev.currentTarget.id}`).parent().siblings()[0].children[0].getAttribute("modal_id")
+  var dst_id = $(`#${ev.currentTarget.id}`).parent().siblings()[0].children[0].id
+  var action;
+  if ($(`#${dst_id}`)[0].type == "textarea") {
+    $(`#${modal_id} .list-group-item-action.active`).each(function (index, item) {
+      objects.push(item.textContent)
+    })
+    _to_formula(objects, dst_id)
+  } else {
+      $(`#${modal_id} .list-group-item-action.active`).each(function (index, item) {
+      objects.push(item.outerHTML)
+      ids.push(item.id)
+      action = $(`#${item.id.split("_")[0]}`).attr("act")
+    })
+    _drop(objects, action, ids, dst_id)
+  }
+}
+
+
 module.exports.selectElement = (ev) => {
   ev.preventDefault();
   ev.stopPropagation();
@@ -931,7 +935,11 @@ module.exports.selectElement = (ev) => {
   } else {
     el.setAttribute("active", "");
     el.classList.add("active");
-    attachActionToMoveArrow(parentId);
+
+    
+    //The if is added to make sure that the direction of the move button does not change on the semmodelterms control
+   // if ($(`#${parentId}`).attr("type") != "semModelTerms")
+      attachActionToMoveArrow(parentId);
   }
 }
 module.exports.selectListItem = (ev) => {

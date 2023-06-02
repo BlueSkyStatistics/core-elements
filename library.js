@@ -36,6 +36,13 @@ var MiscOpt = require('./settingsOptions').MiscOpt
 var DatabaseOpt = require('./settingsOptions').DatabaseOpt
 var SaveAppSettings = require('./settingsOptions').SaveAppSettings
 var advancedTextBox = require('./advancedTextBox').element
+var semControl = require('./semControl').element
+var semSuppCtrl = require('./semSuppCtrl').element
+var semModelTerms = require('./semModelTerms').element
+var semModelTermsDest = require('./semModelTermsDest').element
+
+
+
 
 
 
@@ -45,7 +52,7 @@ module.exports = {
     "allowDrop": handlers.allowDrop,
     "attachActionToMoveArrow": handlers.attachActionToMoveArrow,
     "moveToSrc": handlers.moveToSrc,
-    "modeToDst": handlers.moveToDst,
+    "moveToDst": handlers.moveToDst,
     "arrangeFocus": handlers.arrangeFocus,
     "toFormula": handlers.toFormula,  
     "toFocusedInput": handlers.toFocusedInput,
@@ -118,6 +125,10 @@ module.exports = {
     "removeFromJoin" : handlers.removeFromJoin,
     "selectForDeletionMergeDatasets": handlers.selectForDeletionMergeDatasets,
     "selectListItem":handlers.selectListItem,
-    "advancedTextBox":advancedTextBox
+    "advancedTextBox":advancedTextBox,
+    "semControl":semControl,
+    "semSuppCtrl":semSuppCtrl,
+    "semModelTerms":semModelTerms,
+    "semModelTermsDest":semModelTermsDest
     
 }

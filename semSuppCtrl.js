@@ -1,7 +1,7 @@
 
 var Sqrl = require('squirrelly');
 
-class srcVariableList {
+class semSuppCtrl {
     content;
     id;
     modalID;
@@ -9,20 +9,16 @@ class srcVariableList {
     order = []
     htmlTemplate = `{{if (options.ms.scroll)}}<div class="sticky-left">{{/if}}
 <h6>{{if (options.ms.label)}}{{ms.label}}{{#else}}Source variables{{/if}}</h6>
-<div class="form-check list-group {{if (options.ms.semMain)}}var-listSem{{#else}}var-list{{/if}}" multiple 
-     id="{{modal.id}}Vars"
-     modal_id="{{modal.id}}"
+<div class="form-check list-group var-list" multiple 
+    id="{{modal.id}}_{{ms.no}}"  no="{{ms.no}}" modal_id="{{modal.id}}" count ="{{ms.count}}"
      {{if (options.ms.action)}}act="{{ms.action}}"{{#else}}act="copy"{{/if}}  
-     bs-type="cols" ondrop="drop(event)" ondragover="allowDrop(event)">
-     <div class="curtain" id="{{modal.id}}VarsCurtain" bs-type="curtain">
-        <div class="fa fa-spinner fa-spin"></div>
-    </div>
+      ondrop="drop(event)" ondragover="allowDrop(event)">
 </div>
 {{if (options.ms.scroll)}}</div>{{/if}}`
 
     constructor(modal, config={}) {
         this.modalID = modal.id;
-        this.id = `${modal.id}Vars`
+        this.id = `${modal.id}_${config.no}`
         this.action = config.hasOwnProperty("action") ? config.action : "copy"
         this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config});
     }
@@ -37,27 +33,6 @@ class srcVariableList {
                     var data = store.get(dataset);
                     if (data !== undefined) {
                         var order = []
-                        
-                        if (element.getAttribute('type') =="semModelTerms")
-                        {
-                            data.cols.forEach(element => {
-                                var item_name = element.Name[0];
-                                order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
-                                $(`#${item_id}`).append(`<a href="#" 
-                                id="${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}"
-                                class="list-group-item list-group-item-sm list-group-item-action measure-${element.Measure[0]} class-${element.ColClass[0]}" 
-                                draggable="true" 
-                                bs-row-type="${element.Type[0]}" 
-                                bs-row-class="${element.ColClass[0]}" 
-                                bs-row-measure="${element.Measure[0]}" 
-                                >${item_name}</a>`) 
-                            });
-                            $(`#${item_id}`).attr('order', order.join("|||"))  
-                        }
-                        else
-                        {
-                        
-
                         data.cols.forEach(element => {
                             var item_name = element.Name[0];
                             order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
@@ -73,12 +48,7 @@ class srcVariableList {
                             onclick="selectElement(event)">${item_name}</a>`) 
                         });
                         $(`#${item_id}`).attr('order', order.join("|||"))
-                    
-                    
-                    
-                    
-                    }
-                 } else {
+                    } else {
                         throw (`${dataset} is empty`)
                     }
                 }
@@ -103,4 +73,4 @@ class srcVariableList {
 }
 
 
-module.exports.element = srcVariableList;
+module.exports.element = semSuppCtrl;
