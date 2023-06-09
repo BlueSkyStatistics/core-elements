@@ -191,8 +191,9 @@ function getSelectValue(id) {
     }
 }
 
-function transform(val, rule) {
+function transform(val, rule, id) {
     var type=typeof(val); 
+    let parameterCount =0
     // UseComma is default   
     var separator  = ','; 
     //Checking separator
@@ -212,19 +213,32 @@ function transform(val, rule) {
     } else {
         item = '{{item | safe}}';
     }
-
     if (rule =="modelTerms")
     {     
+        parameterCount = $(`#${id}`).attr('parameterCount') +1
+        parameterString = "p" +parameterCount
         finalRetString =""
         val.forEach(function(element, index) {
             let myArray = element.split("->");
-           // val[index] = Sqrl.Render(value, {item: Sqrl.Render(item, {item: element})});
+           // finalRetString = finalRetString + myArray[1] + "~" + " " + parameterString + "*" + myArray[0] +"\n"
            finalRetString = finalRetString + myArray[1] + "~" +  myArray[0] +"\n"
         })
-        //finalRetString = finalRetString.replace(/\n$/, '');
+        $(`#${id}`).attr('parameterCount', parameterCount)
         return finalRetString
     }
-
+    if (rule =="coVariances")
+    {     
+        parameterCount = $(`#${id}`).attr('parameterCount') +1
+        parameterString = "p" +parameterCount
+        finalRetString =""
+        val.forEach(function(element, index) {
+            let myArray = element.split("<->");
+           // finalRetString = finalRetString + myArray[1] + " " + parameterString + "~~" +  myArray[0] +"\n"
+           finalRetString = finalRetString + myArray[1] + "~~" +  myArray[0] +"\n"
+        })  
+        $(`#${id}`).attr('parameterCount', parameterCount)    
+        return finalRetString
+    }
     //This supports the removal of spaces in a textbox
     //This was added as users were enter multiple R package names to install by specifying foreign, car and it was failing as
     //we were looking for a package name " car"

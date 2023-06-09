@@ -6,7 +6,7 @@ class semControl extends baseElement {
     id;
     htmlTemplate = `
     <h6>{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</h6>
-        <div class="ms-list2 list-group1" id = "{{modal.id}}_{{ms.no}}" count ={{ms.count}} extractable =true bs-type="sem" no="{{ms.no}}" extractionRule="{{ms.extraction}}"  suppCtrlIds ="{{ms.suppCtrl}}">
+        <div class="ms-list2 list-group1" id = "{{modal.id}}_{{ms.no}}" parameterCount = {{ms.parameterCount}} count = {{ms.count}} extractable =true bs-type="sem" no="{{ms.no}}" extractionRule="{{ms.extraction}}"  suppCtrlIds ="{{ms.suppCtrl}}">
         <div class="row">
             <div class="col-1">
             </div>
@@ -22,6 +22,7 @@ class semControl extends baseElement {
         this.label = config.label
         this.id = `${modal.id}_${config.no}`
         config.count =0
+        config.parameterCount =0
         //config.modal_id = modal.id
         if (config.hasOwnProperty("suppCtrlIds") )
             config.suppCtrl =JSON.stringify(config.suppCtrlIds)
@@ -86,7 +87,7 @@ class semControl extends baseElement {
         }
         if (numofvars ==0)
         {
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `No latent traits have been specifide in the "${outer_this.label}" control. Please add latent traits or delete the control.`})
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `No latent traits have been specified in the "${outer_this.label}" control. Please add latent traits or delete the control.`})
             retval = false
         }
 
