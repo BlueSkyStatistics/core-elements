@@ -1,4 +1,3 @@
-
 var Sqrl = require('squirrelly');
 
 class semModelTerms {

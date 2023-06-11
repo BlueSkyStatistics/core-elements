@@ -72,6 +72,9 @@ function arrangeFocus(inserted_object_id, parentID) {
   attachActionToMoveArrow(parentID);
 }
 function _drop(objects, action, object_ids, parentID) {
+  let index = 1
+  let priorElementOrder = 0
+  let finalOrder =0
   for (var i = 0; i < objects.length; i++) {
     var el = undefined
     try {
@@ -133,9 +136,21 @@ function _drop(objects, action, object_ids, parentID) {
             var order = document.getElementById(parentID).getAttribute("order").split("|||").indexOf(inserted_object_id)
             var template = document.createElement('template');
             template.innerHTML = object;
-            if (order == parentElement.children.length) {
+            if (order >= parentElement.children.length -1) {
               parentElement.append(template.content.firstChild);
             } else {
+              order = order + 1
+              index = order - 1
+              finalOrder = order
+              while (index < order && index != 0) {
+                priorElementOrder = document.getElementById(parentID).getAttribute("order").split("|||").indexOf(parentElement.children[index].id) + 1
+                if (priorElementOrder > order)
+                {
+                    finalOrder = index
+                }
+                index--
+              }
+              order = finalOrder
               parentElement.insertBefore(template.content.firstChild, parentElement.children[order]);
             }
           }
