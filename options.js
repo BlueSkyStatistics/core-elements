@@ -10,18 +10,63 @@ class optionsMenu {
         data-toggle="collapse" href="#{{modal.id}}_{{ms.no}}" 
         role="button" aria-expanded="false" aria-controls="{{modal.id}}_{{ms.no}}">
       {{if(options.ms.name)}} {{ms.name}} {{#else}} Options {{/if}}
-      <div class="ripple-container"></div>
+        <div class="ripple-container"></div>
       </a>
       <div class="collapse" id="{{modal.id}}_{{ms.no}}">
         <div class="card card-body card-dark">
-          <div>
-            {{each(options.ms.content)}}
-              {{ @this.content | safe }}
-            {{/each}}
-          </div>
+          {{if (options.ms.layout =="two"|| options.ms.layout =="three")}}
+            {{if (options.ms.layout =="two")}}
+              <div class="row">
+                <div class="col  col-4 destination ">
+                  {{each(options.ms.left)}}
+                    {{ @this.content | safe }}
+                  {{/each}}
+                </div>
+                <div class="col  col-8 destination ">
+                  {{each(options.ms.right)}}
+                    {{ @this.content | safe }}
+                  {{/each}}
+                </div>
+              </div>
+            {{/if}}
+            {{if (options.ms.layout =="three")}}
+
+            <div class="row">
+              <div class="col  col-12 destination ">
+                {{each(options.ms.top)}}
+                  {{ @this.content | safe }}
+                {{/each}}
+              </div>
+              </div>
+
+             <div class="row">
+              <div class="col  col-3 destination ">
+                {{each(options.ms.left)}}
+                  {{ @this.content | safe }}
+                {{/each}}
+              </div>
+              <div class="col  col-3 destination ">
+                {{each(options.ms.center)}}
+                  {{ @this.content | safe }}
+                {{/each}}
+              </div>
+              <div class="col  col-6 destination ">
+                {{each(options.ms.right)}}
+                  {{ @this.content | safe }}
+                {{/each}}
+              </div>
+              </div>
+	          {{/if}} 
+          {{#else}}
+            <div>
+              {{each(options.ms.content)}}
+                {{ @this.content | safe }}
+              {{/each}}
+            </div>
+          {{/if}}  
         </div>
       </div>
-    </div>`
+  </div>`
 
     constructor(modal, config) {
       this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config})

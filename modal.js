@@ -8,6 +8,16 @@ class modal {
         <div class="col {{if (options.content.sizeleft) }} col-{{content.sizeleft}} {{#else}} col-4 {{/if}}">{{each(options.content.left)}}{{ @this | safe }}{{/each}}</div>
         <div class="col {{if (options.content.sizeright) }} col-{{content.sizeright}} {{#else}} col-8 destination{{/if}} ">{{each(options.content.right)}}{{ @this | safe }}{{/each}}</div>
         </div>`,
+
+        doubletwo: `<div class="row">
+        <div class="col {{if (options.content.sizeleft) }} col-{{content.sizeleft}} {{#else}} col-4 {{/if}}">{{each(options.content.left)}}{{ @this | safe }}{{/each}}</div>
+        <div class="col {{if (options.content.sizeright) }} col-{{content.sizeright}} {{#else}} col-8 destination{{/if}} ">{{each(options.content.right)}}{{ @this | safe }}{{/each}}</div>
+        </div>
+        <div class="row">
+        <div class="col {{if (options.content.sizeleft) }} col-{{content.sizeleft}} {{#else}} col-4 {{/if}}">{{each(options.content.leftbottom)}}{{ @this | safe }}{{/each}}</div>
+        <div class="col {{if (options.content.sizeright) }} col-{{content.sizeright}} {{#else}} col-8 destination{{/if}} ">{{each(options.content.rightbottom)}}{{ @this | safe }}{{/each}}</div>
+        </div>`,
+
         three: `<div class="row">
         <div class="col {{if (options.content.sizeleft) }} col-{{content.sizeleft}} {{#else}} col-4 {{/if}}">{{each(options.content.left)}}{{ @this | safe }}{{/each}}</div>
         <div class="col {{if (options.content.sizecenter) }} col-{{content.sizecenter}} {{#else}} col-6 {{/if}}">{{each(options.content.center)}}{{ @this | safe }}{{/each}}</div>
@@ -124,7 +134,7 @@ class modal {
         var code_vars = {}
         code_vars ["BSkyThemes"] = themeRsyntax;
         $(`#${this.id}`).find((`[extractable=true]`)).each(function (index, item) {
-            code_vars[item.getAttribute("no")] = common.transform(common.getVal(item.getAttribute("id")), item.getAttribute("extractionRule"))
+            code_vars[item.getAttribute("no")] = common.transform(common.getVal(item.getAttribute("id")), item.getAttribute("extractionRule"),item.getAttribute("id") )
             if (code_vars[item.getAttribute("no")] && item.hasAttribute("wrapped")) {
                 code_vars[item.getAttribute("no")] = item.getAttribute("wrapped").replace("%val%", code_vars[item.getAttribute("no")])
             }

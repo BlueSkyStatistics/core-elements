@@ -12,7 +12,8 @@ class inputVariable extends baseElement {
     allow_spaces=false;
         label = null
     width = "w-75"
-    htmlTemplate = `<div class="mb-2 {{if(options.ms.style)}}{{ms.style}}{{/if}} {{if(options.ms.ml)}}ml-{{ms.ml}}{{/if}}">
+    htmlTemplate = `
+    <div class="mb-2 {{if(options.ms.style)}}{{ms.style}}{{/if}} {{if(options.ms.ml)}}ml-{{ms.ml}}{{/if}}">
     <div class="row">
         <div class="col-12">
             <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
