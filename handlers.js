@@ -75,6 +75,8 @@ function _drop(objects, action, object_ids, parentID) {
   let index = 1
   let priorElementOrder = 0
   let finalOrder =0
+  let greatestOrderInParent =0
+  let position =0
   for (var i = 0; i < objects.length; i++) {
     var el = undefined
     try {
@@ -136,22 +138,13 @@ function _drop(objects, action, object_ids, parentID) {
             var order = document.getElementById(parentID).getAttribute("order").split("|||").indexOf(inserted_object_id)
             var template = document.createElement('template');
             template.innerHTML = object;
-            if (order >= parentElement.children.length -1) {
+            greatestOrderInParent =findGreatestOrder(parentID)
+
+            if (order > greatestOrderInParent) {
               parentElement.append(template.content.firstChild);
             } else {
-              order = order + 1
-              index = order - 1
-              finalOrder = order
-              while (index < order && index != 0) {
-                priorElementOrder = document.getElementById(parentID).getAttribute("order").split("|||").indexOf(parentElement.children[index].id) + 1
-                if (priorElementOrder > order)
-                {
-                    finalOrder = index
-                }
-                index--
-              }
-              order = finalOrder
-              parentElement.insertBefore(template.content.firstChild, parentElement.children[order]);
+              position =findPosition (parentID, order)
+              parentElement.insertBefore(template.content.firstChild, parentElement.children[position]);
             }
           }
         }
@@ -174,6 +167,44 @@ function _drop(objects, action, object_ids, parentID) {
     }
   }
 }
+
+function findGreatestOrder (parentID)
+{
+  let maxOrder =0
+  let orderedArray = document.getElementById(parentID).getAttribute("order").split("|||")
+  let parentDiv = $('#'+ parentID)
+  parentDiv.children().each(function() {
+    // Access the current child element
+    if ( orderedArray.indexOf(this.id) > maxOrder)
+      maxOrder = orderedArray.indexOf(this.id) 
+    // Perform actions on the child element
+    // For example, you can add a class to each child element
+     // child.addClass('childClass');
+})
+  return maxOrder
+}
+
+function findPosition (parentID, order)
+{
+  let position =0
+  let orderedArray = document.getElementById(parentID).getAttribute("order").split("|||")
+  let parentDiv = $('#'+ parentID)
+  parentDiv.children().each(function() {
+    // Access the current child element
+  if (  orderedArray.indexOf(this.id) > order)
+  {
+     
+     return false
+  }
+    // Perform actions on the child element
+    // For example, you can add a class to each child element
+     // child.addClass('childClass');
+     position++
+  })
+  return position
+}
+
+
 function getActiveVal(dst_id) {
   var active_val = ''
   try {
@@ -777,6 +808,10 @@ function tramsformFilter(filter_setting) {
     check.class.push('Date')
     check.class.push('POSIXct')
     check.type.push('double')
+  }
+  if (filter_setting.includes('semFactor')) {
+        check.class.push('semFactor')
+    
   }
   return check
 }
