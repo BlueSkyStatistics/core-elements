@@ -188,7 +188,7 @@ class RLocaleOpt {
                 </datalist>                
                   <div id="rlocalekiddiv" class="pb-3">
                   <p>
-                  <label class="form-check-label mr-2">1. If you want to set to the system default locale, manually delete any text in the field if not it is already empty.</label>
+                  <label class="form-check-label mr-2">1. If you want to set to the system default locale, manually delete any text in the field if it is not already empty.</label>
                   <p>
                   <label class="form-check-label mr-2">The following examples are illustration purposes only to explain what system default locale setting means  </label>
                   <p>
