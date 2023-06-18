@@ -201,11 +201,15 @@ function transform(val, rule, id) {
     if (rule.includes("UsePlus")) {
         separator = "+";
     } 
-    var value;
-    var res =[];
-    var item;
-    var retval;
-    var tempretval =""
+    let value;
+    let res =[];
+    let item;
+    let retval;
+    let tempretval =""
+    let modalDiv =""
+    let parameterizeFormulaChk;
+    let parameterizeFormulaChkId;
+
     // Checking if value Enclosed
     if (rule.includes("Enclosed")) {
         // Enclosed is surrounded by '
@@ -215,28 +219,53 @@ function transform(val, rule, id) {
     }
     if (rule =="modelTerms")
     {     
-        parameterCount = $(`#${id}`).attr('parameterCount') +1
-        parameterString = "p" +parameterCount
+        modalDiv =$(`#${id}`).closest('[parameterCount]')
+        parameterCount = $(`#${modalDiv[0].id}`).attr('parameterCount')
+        parameterizeFormulaChkId = $(`#${modalDiv[0].id}`).find('[parameterizeFormula]')[0].id
+        parameterizeFormulaChk = $(`#${parameterizeFormulaChkId}`).prop('checked');
         finalRetString =""
         val.forEach(function(element, index) {
             let myArray = element.split("->");
-           // finalRetString = finalRetString + myArray[1] + "~" + " " + parameterString + "*" + myArray[0] +"\n"
-           finalRetString = finalRetString + myArray[1] + "~" +  myArray[0] +"\n"
+            if (parameterizeFormulaChk)
+            {        
+                parameterString = "p" + parameterCount
+                finalRetString = finalRetString + myArray[1] + " " + "~" + " " + parameterString + "*" + myArray[0] +"\n"
+                parameterCount = parseInt(parameterCount ) +1 
+            }
+            else
+            {
+                finalRetString = finalRetString + myArray[1] + "~" +  myArray[0] +"\n"
+            }
+           //finalRetString = finalRetString + myArray[1] + "~" +  myArray[0] +"\n"
         })
-        $(`#${id}`).attr('parameterCount', parameterCount)
+        $(`#${modalDiv[0].id}`).attr('parameterCount', parameterCount)
         return finalRetString
     }
     if (rule =="coVariances")
     {     
-        parameterCount = $(`#${id}`).attr('parameterCount') +1
-        parameterString = "p" +parameterCount
+        //Get the modal
+        modalDiv  =$(`#${id}`).closest('[parameterCount]')
+        //Get the setting on the checkbox to check whether syntax should be parameterized or not
+        parameterizeFormulaChkId = $(`#${modalDiv[0].id}`).find('[parameterizeFormula]')[0].id
+        parameterizeFormulaChk = $(`#${parameterizeFormulaChkId}`).prop('checked');
+        //Get the parameter count
+        parameterCount = $(`#${modalDiv[0].id}`).attr('parameterCount')
         finalRetString =""
         val.forEach(function(element, index) {
             let myArray = element.split("<->");
-           // finalRetString = finalRetString + myArray[1] + " " + parameterString + "~~" +  myArray[0] +"\n"
-           finalRetString = finalRetString + myArray[1] + "~~" +  myArray[0] +"\n"
+            if (parameterizeFormulaChk)
+            {
+                parameterString = "p" + parameterCount
+                finalRetString = finalRetString + myArray[1] + " " +  "~~" + " "+ parameterString + "*" + myArray[0] +"\n"
+                parameterCount = parseInt(parameterCount ) +1 
+            }
+            else
+            {
+                finalRetString = finalRetString + myArray[1] + "~~" +  myArray[0] +"\n"
+            }
         })  
-        $(`#${id}`).attr('parameterCount', parameterCount)    
+        //Save the parameter count
+        $(`#${modalDiv[0].id}`).attr('parameterCount', parameterCount)    
         return finalRetString
     }
     //This supports the removal of spaces in a textbox
@@ -246,7 +275,6 @@ function transform(val, rule, id) {
         // Enclosed is surrounded by '
         val = val.replace(/\s+/g, '');
     } 
-
     // Checking how to represent value
     // TextAsIs is equal to NoPrefix
     if ((rule.includes("Prefix") && !rule.includes("NoPrefix")) || rule.includes("PrefixByDatasetName")) {
@@ -274,13 +302,34 @@ function transform(val, rule, id) {
           retval = val.join(separator);
     } else if (type === 'object' && !Array.isArray(val)) {   
         value = `{{item | safe}}`;
+        //Get the modal
+        modalDiv  =$(`#${id}`).closest('[parameterCount]')
+        //Get the setting on the checkbox to check whether syntax should be parameterized or not
+        parameterizeFormulaChkId = $(`#${modalDiv[0].id}`).find('[parameterizeFormula]')[0].id
+        parameterizeFormulaChk = $(`#${parameterizeFormulaChkId}`).prop('checked');
+        //Get the parameter count
+        parameterCount = $(`#${modalDiv[0].id}`).attr('parameterCount')
+        parameterString = "p" + parameterCount
+        finalRetString =""
         Object.keys(val).forEach(function (key, index) {
             val[key].forEach(function(element, index) {
-                res[index] = Sqrl.Render(value, {item: Sqrl.Render(item, {item: element})});
+                if (parameterizeFormulaChk)
+                {
+                    res[index] = parameterString + "*" + Sqrl.Render(value, {item: Sqrl.Render(item, {item: element})});
+                    parameterCount = parseInt(parameterCount ) + 1 
+                    parameterString = "p" + parameterCount
+                }
+                else
+                {
+                    res[index] = Sqrl.Render(value, {item: Sqrl.Render(item, {item: element})});
+                }
             })
             tempretval = res.join(separator);
             val[key] = tempretval
+            //Save the parameter count
+             $(`#${modalDiv[0].id}`).attr('parameterCount', parameterCount)   
             finalRetString = finalRetString + key + "=~" + tempretval +"\n"
+
         })
         //finalRetString = finalRetString.replace(/\n$/, '');
         //retval = JSON.stringify(val)
