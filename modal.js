@@ -25,7 +25,7 @@ class modal {
         </div>`
     }
 
-    htmlTemplate = `<div class="modal right fade" id="{{modal.id}}" tabindex="-1" role="dialog" 
+    htmlTemplate = `<div class="modal right fade" id="{{modal.id}}" {{if (options.modal.parameterCount != undefined)}} parameterCount = "{{modal.parameterCount}}" {{/if}} tabindex="-1" role="dialog" 
     data-backdrop="false" data-keyboard="false"
     aria-labelledby="{{modal.id}}Label"
     aria-hidden="true">

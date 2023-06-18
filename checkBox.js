@@ -11,6 +11,7 @@ class checkBox extends baseElement{
     label = null
     htmlTemplate = `<div class="form-check {{if(!options.ms.newline)}}form-check-inline{{/if}} {{if(options.ms.style)}}{{ms.style}}{{/if}}">
     <input type="checkbox" bs-type="{{if(options.ms.bs_type)}}{{ms.bs_type}}{{#else}}checkbox{{/if}}" 
+            {{if (options.ms.parameterizeFormula)}} parameterizeFormula = "TRUE" {{/if}}
            class="form-check-input" id="{{modal.id}}_{{ms.no}}" no="{{ms.no}}" 
            extractable=true extractionRule="{{ms.extraction}}" 
            {{if(options.ms.true_value)}} true-value="{{ms.true_value}}"{{/if}}

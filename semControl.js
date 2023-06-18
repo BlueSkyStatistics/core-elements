@@ -5,7 +5,7 @@ class semControl extends baseElement {
     id;
     htmlTemplate = `
     <h6>{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</h6>
-        <div class="ms-list2 list-group1" id = "{{modal.id}}_{{ms.no}}" parameterCount = {{ms.parameterCount}} count = {{ms.count}} extractable =true bs-type="sem" no="{{ms.no}}" extractionRule="{{ms.extraction}}"  suppCtrlIds ="{{ms.suppCtrl}}">
+        <div class="ms-list2 list-group1" id = "{{modal.id}}_{{ms.no}}" count = {{ms.count}} extractable =true bs-type="sem" no="{{ms.no}}" extractionRule="{{ms.extraction}}"  suppCtrlIds ="{{ms.suppCtrl}}">
         <div class="row">
             <div class="col-1">
             </div>
