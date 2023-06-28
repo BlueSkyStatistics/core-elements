@@ -34,7 +34,7 @@ class radioButton extends baseElement{
     constructor(modal, config) {
         super(modal, config);
         this.label = config.label;
-        this.default_state = config.state !== "" ? true : false
+        this.default_state = config.state == "checked" ? true : false
         var outer_this = this
         this.increment = config.increment;
         if (config.dependant_objects) {
