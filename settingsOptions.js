@@ -156,11 +156,23 @@ class MiscOpt {
       </div>  
       <div id="factorCreationControlDiv" class="form-check pb-3">
         <input class="form-check-input" type="checkbox" id="factorCreationControl" name="factorCreationControl" onclick="maxFactorCheckedChange(this)">
-        <label class="form-check-label" for="factorCreationControlDiv">Control the creation of factor variables</label>
+        <label class="form-check-label" for="factorCreationControlDiv">Convert character variables to factor when importing datasets</label>
+        <label>
+        For the files of type Excel, CSV, DAT and SAS we automatically convert all the character variables to factor. For all other file types, we rely on the R package to set the class of the dataset variables. This setting post processes the dataset after opening it to allow you to control the creation of factor variables based on the criteria below.
+        </label>
         <div id="maxfactorcountdiv" class="pb-3">
-          <label class="form-check-label ml-4 w-50" for="maxfactorcount">Specify the maximum number of distinct values to control creation of factor variables</label>
+          <label class="form-check-label ml-4 w-50" for="maxfactorcount">Specify the maximum number of distinct values to control creation of factor variables. When the number of unique values in a variable exceeds the speicified value we will create a variable of class character else a variable of class factor is created.</label>
           <input class="w-25 float-right" type="number" id="maxfactorcount" name="maxfactorcount">
         </div>
+        <label>
+          1: Uncheck this setting to load character variables as character. 
+        </label>
+        <label>
+          2: Check this setting and provide a positive number to create a factor if the variable contains unique values less than or equal the specified number. 
+        </label>
+        <label>
+          3: Check this setting and set a value of 0 to convert all character variables to factor.
+        </label>                
       </div>   
     `
     constructor(modal, config) {
