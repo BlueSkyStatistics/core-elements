@@ -329,17 +329,12 @@ function transform(val, rule, id) {
             //Save the parameter count
              $(`#${modalDiv[0].id}`).attr('parameterCount', parameterCount)   
             finalRetString = finalRetString + key + "=~" + tempretval +"\n"
-
         })
         //finalRetString = finalRetString.replace(/\n$/, '');
         //retval = JSON.stringify(val)
         //finalRetString = "'" + finalRetString + "'\n";
         return finalRetString
     } 
-
-
-    
-    
     else if (type === "string") {
         retval = Sqrl.Render(value, {item: Sqrl.Render(item, {item: val})});
     } else if (type === "boolean") {
