@@ -14,7 +14,7 @@ class optionsMenu {
       </a>
       <div class="collapse" id="{{modal.id}}_{{ms.no}}">
         <div class="card card-body card-dark">
-          {{if (options.ms.layout =="two"|| options.ms.layout =="three" ||options.ms.layout =="four")}}
+         {{if (options.ms.layout =="two"|| options.ms.layout =="three" ||options.ms.layout =="four")}}
             {{if (options.ms.layout =="two")}}
               <div class="row">
                 <div class="col  col-4 destination ">
@@ -56,38 +56,38 @@ class optionsMenu {
               </div>
 	          {{/if}}
             {{if (options.ms.layout =="four")}}
-            <div class="row">
-              <div class="col  col-12 destination ">
-                {{each(options.ms.top)}}
-                  {{ @this.content | safe }}
-                {{/each}}
+              <div class="row">
+                <div class="col  col-12 destination ">
+                  {{each(options.ms.top)}}
+                    {{ @this.content | safe }}
+                  {{/each}}
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col  col-4 destination ">
-                {{each(options.ms.left)}}
-                  {{ @this.content | safe }}
-                {{/each}}
+              <div class="row">
+                <div class="col  col-4 destination ">
+                  {{each(options.ms.left)}}
+                    {{ @this.content | safe }}
+                  {{/each}}
+                </div>
+                <div class="col  col-4 destination ">
+                  {{each(options.ms.center)}}
+                    {{ @this.content | safe }}
+                  {{/each}}
+                </div>
+                <div class="col  col-4 destination ">
+                  {{each(options.ms.right)}}
+                    {{ @this.content | safe }}
+                  {{/each}}
+                </div>
               </div>
-              <div class="col  col-4 destination ">
-                {{each(options.ms.center)}}
-                  {{ @this.content | safe }}
-                {{/each}}
-              </div>
-              <div class="col  col-4 destination ">
-                {{each(options.ms.right)}}
-                  {{ @this.content | safe }}
-                {{/each}}
-              </div>
-            </div>
-          {{/if}} 
-          {{#else}}
+            {{/if}} 
+        {{#else}}
             <div>
               {{each(options.ms.content)}}
                 {{ @this.content | safe }}
               {{/each}}
             </div>
-          {{/if}}  
+        {{/if}}  
         </div>
       </div>
   </div>`

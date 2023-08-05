@@ -1,13 +1,14 @@
 
 var Sqrl = require('squirrelly');
+var baseElement = require('./baseElement').baseElement;
 
-class semModelTermsDest {
+class semModelTermsDest extends baseElement {
     content;
     id;
     modalID;
     action;
     order = []
-    htmlTemplate = `<div class="row">
+    htmlTemplate = `<div class="row" bs-type="semModelTermsDest">
                 <div class="col col-2">
                 </div>
                 <div class="col col-9"><h6>{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</h6>
@@ -30,18 +31,19 @@ class semModelTermsDest {
                             <i class ="fas fa-trash">
                             </i>
                         </button>
-                </div> 
+        </div> 
         
     </div>`
 
-    constructor(modal, config={}) {
+    constructor(modal, config) {
+        super(modal, config)
         this.modalID = modal.id;
         this.id = `${modal.id}_${config.no}`
         this.action = config.hasOwnProperty("action") ? config.action : "copy"
         this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config});
     }
 
-    fillContent() {
+  /*   fillContent() {
         var _action = this.action
         if ($(`#${this.modalID}`).find("[bs-type=cols]").length !== 0) {
             $(`#${this.modalID}`).find("[bs-type=cols]").each(
@@ -73,7 +75,7 @@ class semModelTermsDest {
             )
         }
         $(`#${this.id}Curtain`).hide()
-    }
+    } */
     
     canExecute() {
         return true

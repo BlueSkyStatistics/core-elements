@@ -38,6 +38,7 @@ class semControl extends baseElement {
         let listGrp = ""
         let retval = true
         let numofvars = 0
+        let namesOfLatentVars =[]
         $(`#${this.id}`).find('.list-group1').each(function (index, item) {
             textContents = $(`#${item.id}`).find('input').val()
             listGrp = $(`#${item.id}`).find('.list-group')
@@ -49,6 +50,15 @@ class semControl extends baseElement {
             if (numofvars == 0) {
                 dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `No latent traits have been specified in the "${outer_this.label}" control. Please add latent traits or delete the control.` })
                 retval = false
+            }
+            if (textContents != "" || textContents != null)
+            {
+                if (namesOfLatentVars.includes(textContents)) {
+                    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `You have specified a duplicate name "${textContents}" for a latent trait.` })
+                    retval = false     
+                } else {
+                    namesOfLatentVars.push(textContents)
+                }
             }
         })
         return retval

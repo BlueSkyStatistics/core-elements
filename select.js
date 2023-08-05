@@ -8,7 +8,7 @@ class select extends baseElement{
     label = null
     htmlTemplate = `<div class="simple-select">
     <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label {{if(options.ms.style)}}{{ms.style}}{{/if}}">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
-    <select class="form-select mb-3 w-100" bs-type="select" id="{{modal.id}}_{{ms.no}}" no="{{ms.no}}" extractable=true default="{{ms.default}}" extractionRule="{{ms.extraction}}">
+    <select class="form-select mb-3 {{if(options.ms.width)}}{{ms.width}}{{#else}}w-100{{/if}}" bs-type="select" id="{{modal.id}}_{{ms.no}}" no="{{ms.no}}" extractable=true default="{{ms.default}}" extractionRule="{{ms.extraction}}">
         {{ each(options.ms.options) }}
             <option {{ if (options.ms.hasOwnProperty("default") && options.ms.default == @this)}} selected="selected"{{/if}}>{{@this}}</option>
         {{/each}}
