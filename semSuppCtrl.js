@@ -10,15 +10,15 @@ class semSuppCtrl {
     htmlTemplate = `{{if (options.ms.scroll)}}<div class="sticky-left">{{/if}}
 <h6>{{if (options.ms.label)}}{{ms.label}}{{#else}}Source variables{{/if}}</h6>
 <div class="form-check list-group var-list" multiple 
-    id="{{modal.id}}_{{ms.no}}"  no="{{ms.no}}" modal_id="{{modal.id}}" count ="{{ms.count}}"
+    id="{{modal.id}}{{ms.no}}"  no="{{ms.no}}" modal_id="{{modal.id}}" count ="{{ms.count}}"
      {{if (options.ms.action)}}act="{{ms.action}}"{{#else}}act="copy"{{/if}}  
-      ondrop="drop(event)" ondragover="allowDrop(event)">
+     bs-type="semSuppCtrl" ondrop="drop(event)" ondragover="allowDrop(event)">
 </div>
 {{if (options.ms.scroll)}}</div>{{/if}}`
 
     constructor(modal, config={}) {
         this.modalID = modal.id;
-        this.id = `${modal.id}_${config.no}`
+        this.id = `${modal.id}${config.no}`
         this.action = config.hasOwnProperty("action") ? config.action : "copy"
         this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config});
     }

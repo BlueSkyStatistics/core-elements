@@ -369,4 +369,6 @@ module.exports = {
     getVal: getVal,
     getCheckedRadio: getCheckedRadio,
     transform: transform,
+    getSemModelTerms: getSemModelTerms,
+    getMultiVal:getMultiVal
   }

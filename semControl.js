@@ -38,20 +38,31 @@ class semControl extends baseElement {
         let listGrp = ""
         let retval = true
         let numofvars = 0
-        let namesOfLatentVars =[]
+       // let namesOfLatentVars =[]
         $(`#${this.id}`).find('.list-group1').each(function (index, item) {
             textContents = $(`#${item.id}`).find('input').val()
             listGrp = $(`#${item.id}`).find('.list-group')
             numofvars = $(`#${listGrp[0].id}`).find('a').length
             if (textContents == "") {
-                dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `One of the names of the latent traits in the "${outer_this.label}" control are not populated.` })
+                if (outer_this.label =="Latent variables")
+                {
+                    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `One of the names of the latent traits in the "${outer_this.label}" control are not populated.` })
+                } else {
+                    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `One of the names of the higher order factors in the "${outer_this.label}" control are not populated.` })
+                }
+
                 retval = false
             }
             if (numofvars == 0) {
-                dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `No latent traits have been specified in the "${outer_this.label}" control. Please add latent traits or delete the control.` })
+                if (outer_this.label =="Latent variables")
+                {
+                    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Variables that make up the latent trait have not been specified in the "${outer_this.label}" control. Please add variables or delete the control.` })
+                } else {
+                    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `No latent traits have been specified in the "${outer_this.label}" control. Please add latent traits or delete the control.` })
+                }
                 retval = false
             }
-            if (textContents != "" || textContents != null)
+           /*  if (textContents != "" || textContents != null)
             {
                 if (namesOfLatentVars.includes(textContents)) {
                     dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `You have specified a duplicate name "${textContents}" for a latent trait.` })
@@ -59,7 +70,7 @@ class semControl extends baseElement {
                 } else {
                     namesOfLatentVars.push(textContents)
                 }
-            }
+            } */
         })
         return retval
     }

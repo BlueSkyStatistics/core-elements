@@ -84,7 +84,7 @@ function _drop(objects, action, object_ids, parentID) {
     } catch {
       el = $(document.getElementById(parentID))
     }
-    if (!el.attr("bs-type")) {
+    if (!el.attr("bs-type") ) {
       el = el.parent()
       parentID = el.attr("id")
     }
@@ -166,7 +166,18 @@ function _drop(objects, action, object_ids, parentID) {
       }
     }
   }
+  if ($("#" +parentID).attr("modal_id") =="sem")
+  {
+    let autoPopCovarId =  modalId + "_" + "autoComputeCovar"
+    let autoPopCovarState = $(`#${autoPopCovarId}`).prop('checked');
+    if (autoPopCovarState)
+    {
+        autoPopulateCovar()
+    }
+  } 
 }
+
+
 
 function findGreatestOrder (parentID)
 {
