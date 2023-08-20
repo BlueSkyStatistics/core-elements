@@ -22,18 +22,18 @@ calls_map = {
     "joinMapping": getJoinMapping,
     "advTxt": getAdvTxt,
     "sem": getSem,
-   "semModelTermsDest":getSemModelTerms
+   "semModelTermsDest":getMultiVal
 }
 
 function getVal(id){
     return calls_map[$(`#${id}`).attr("bs-type")](id);
 }
 
-function getSemModelTerms(id)
+/* function getSemModelTerms(id)
 {
     getSingleVal(id)
 }
-
+ */
 
 function getSem(id)
 {
@@ -369,6 +369,6 @@ module.exports = {
     getVal: getVal,
     getCheckedRadio: getCheckedRadio,
     transform: transform,
-    getSemModelTerms: getSemModelTerms,
+  //  getSemModelTerms: getSemModelTerms,
     getMultiVal:getMultiVal
   }
