@@ -41,6 +41,8 @@ var semControl = require('./semControl').element
 var semSuppCtrl = require('./semSuppCtrl').element
 var semModelTerms = require('./semModelTerms').element
 var semModelTermsDest = require('./semModelTermsDest').element
+var equalityConstraints = require('./equalityConstraints').element
+
 
 
 
@@ -51,6 +53,7 @@ var semModelTermsDest = require('./semModelTermsDest').element
 module.exports = {
     "drag": handlers.drag,
     "drop": handlers.drop,
+    "_drop": handlers._drop,
     "allowDrop": handlers.allowDrop,
     "attachActionToMoveArrow": handlers.attachActionToMoveArrow,
     "moveToSrc": handlers.moveToSrc,
@@ -132,6 +135,7 @@ module.exports = {
     "semControl":semControl,
     "semSuppCtrl":semSuppCtrl,
     "semModelTerms":semModelTerms,
-    "semModelTermsDest":semModelTermsDest
+    "semModelTermsDest":semModelTermsDest,
+    "equalityConstraints":equalityConstraints
     
 }

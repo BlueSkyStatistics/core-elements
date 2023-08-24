@@ -21,7 +21,9 @@ function moveToSrc(ev) {
   var objects = []
   var ids = []
   var modal_id = $(`#${ev.currentTarget.id}`).parent().siblings()[0].children[0].getAttribute("modal_id")
-  $(`#${modal_id} .list-group-item-action.active`).each(function (index, item) {
+  // the filter function prevents selected items from objects of class modelTermsDst from being moved
+  $(`#${modal_id} .list-group-item-action.active`).filter(function() {
+    return !$(this).hasClass('termsDst')}).each(function (index, item) {
     if (item.getAttribute("original")) {
       item.innerText = item.getAttribute("original")
       item.removeAttribute("original")
@@ -936,11 +938,14 @@ function moveToDst (ev) {
     })
     _to_formula(objects, dst_id)
   } else {
-      $(`#${modal_id} .list-group-item-action.active`).each(function (index, item) {
-      objects.push(item.outerHTML)
-      ids.push(item.id)
-      action = $(`#${item.id.split("_")[0]}`).attr("act")
-    })
+        // the filter function prevents selected items from objects of class modelTermsDst from being moved
+        $(`#${modal_id} .list-group-item-action.active`).filter(function() {
+        return !$(this).hasClass('termsDst')}).each(function (index, item) {
+        objects.push(item.outerHTML)
+        ids.push(item.id)
+        action = $(`#${item.id.split("_")[0]}`).attr("act")
+      })
+      
     _drop(objects, action, ids, dst_id)
   }
 }
@@ -1463,3 +1468,4 @@ module.exports.populateVariablesOfDataset = populateVariablesOfDataset
 module.exports.addToJoin = addToJoin
 module.exports.removeFromJoin = removeFromJoin
 module.exports.toggleSelectPoly = toggleSelectPoly
+module.exports._drop = _drop

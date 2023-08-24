@@ -45,7 +45,7 @@ class srcVariableList {
                                 order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
                                 $(`#${item_id}`).append(`<a href="#" 
                                 id="${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}"
-                                class="list-group-item list-group-item-sm list-group-item-action measure-${element.Measure[0]} class-${element.ColClass[0]}" 
+                                class="list-group-item list-group-item-sm termsDst list-group-item-action measure-${element.Measure[0]} class-${element.ColClass[0]}" 
                                 draggable="true" 
                                 bs-row-type="${element.Type[0]}" 
                                 bs-row-class="${element.ColClass[0]}" 

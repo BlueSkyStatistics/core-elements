@@ -1,7 +1,7 @@
 
 var Sqrl = require('squirrelly');
 
-class semSuppCtrl {
+class equalityConstraints {
     content;
     id;
     modalID;
@@ -12,7 +12,7 @@ class semSuppCtrl {
 <div class="form-check list-group var-list" multiple 
     id="{{modal.id}}{{ms.no}}"  no="{{ms.no}}" modal_id="{{modal.id}}" count ="{{ms.count}}"
      {{if (options.ms.action)}}act="{{ms.action}}"{{#else}}act="copy"{{/if}}  
-     bs-type="semSuppCtrl" ondrop="drop(event)" ondragover="allowDrop(event)">
+     bs-type="equalityConstraints" ondrop="drop(event)" ondragover="allowDrop(event)">
 </div>
 {{if (options.ms.scroll)}}</div>{{/if}}`
 
@@ -40,4 +40,4 @@ class semSuppCtrl {
 }
 
 
-module.exports.element = semSuppCtrl;
+module.exports.element = equalityConstraints;
