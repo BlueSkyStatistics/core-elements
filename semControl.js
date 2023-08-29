@@ -10,7 +10,7 @@ class semControl extends baseElement {
             <div class="col-1">
             </div>
             <div class="col-11" id ="{{modal.id}}_{{ms.no}}_insertionPt">
-                    <button type="button" id ="{{modal.id}}_{{ms.no}}_btn" class="btn formula-btn p-1 w-25" onclick="createEndoExoVariables( modelid = &quot;{{modal.id}}&quot;, no =&quot;{{ms.no}}&quot;)">+ Add</button> 
+                    <button type="button" id ="{{modal.id}}_{{ms.no}}_btn" class="btn formula-btn p-1 w-25" onclick="createEndoExoVariables( modelid = &quot;{{modal.id}}&quot;, no = &quot;{{ms.no}}&quot;, filter = &quot;{{ms.filter}}&quot;{{if(options.ms.equalityConstraints)}},equalityConstraints = true{{/if}})">+ Add</button> 
             </div>
         </div>    
         </div>  
@@ -38,7 +38,6 @@ class semControl extends baseElement {
         let listGrp = ""
         let retval = true
         let numofvars = 0
-       // let namesOfLatentVars =[]
         $(`#${this.id}`).find('.list-group1').each(function (index, item) {
             textContents = $(`#${item.id}`).find('input').val()
             listGrp = $(`#${item.id}`).find('.list-group')
@@ -50,7 +49,6 @@ class semControl extends baseElement {
                 } else {
                     dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `One of the names of the higher order factors in the "${outer_this.label}" control are not populated.` })
                 }
-
                 retval = false
             }
             if (numofvars == 0) {

@@ -1,3 +1,5 @@
+const { getMultiVal } = require("./common");
+
 function attachActionToMoveArrow(parentId) {
   var modal_id = document.getElementById(parentId).getAttribute("modal_id");
   if ($(`#${parentId}`).parent().siblings().length > 0 && ( $(`#${parentId}`).parent().siblings()[0].classList.contains("col-xx") || $(`#${parentId}`).parent().siblings()[0].classList.contains("mvbtn")  )  ) {
@@ -73,12 +75,56 @@ function arrangeFocus(inserted_object_id, parentID) {
   el.classList.add("active");
   attachActionToMoveArrow(parentID);
 }
+
+
+function areAllElementsSame(arr) {
+  if (arr.length === 0) {
+    return true; // An empty array is considered to have all elements the same
+  }
+
+  const firstElement = arr[0];
+
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] !== firstElement) {
+      return false; // If any element is different, return false
+    }
+  }
+
+  return true; // If no different elements found, return true
+}
+
+
+
+//When dragging and dropping 
+//      From source to destination, the parentID is the destination
 function _drop(objects, action, object_ids, parentID) {
   let index = 1
   let priorElementOrder = 0
   let finalOrder =0
   let greatestOrderInParent =0
   let position =0
+  let stop = false
+  //Getting all the iconTypes of the variables being dragged
+  if ($("#" +parentID).attr("modal_id") =="sem" && extractBeforeLastUnderscore(parentID) == 'sem_sem3_depVar')
+  {
+    let elements=[];
+    $(`#${parentID} a`).each(function(index, item) {
+          //elements.push($("#" +item.id).attr("bs-row-class"));
+          elements.push(item.getAttribute("bs-row-class"))
+      });
+    if (elements.length !=0)
+    {
+      object_ids.forEach (function(element, index){
+      if ( document.getElementById(element).getAttribute("bs-row-class") != elements[0])
+      {
+          dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Incompatible types", message: `Equality constraints sets must contain all latent relationships, covariance relationships or structural relationships. You cannot combine relationship types in a single set.` })
+          stop = true
+          return
+      }
+      })
+    }
+  }
+  if (stop == true) return
   for (var i = 0; i < objects.length; i++) {
     var el = undefined
     try {
@@ -103,6 +149,7 @@ function _drop(objects, action, object_ids, parentID) {
           inserted_object_id = object_id.split(":")[0]
           object = object.replace(object_id, inserted_object_id)
         }
+        // The or part below checks if the parent is a source variable
         if (action === "move" || document.getElementById(parentID).getAttribute("bs-type") === "cols") {
           document.getElementById(`${object_id}`).remove()
           if (el.attr("bs-type") == 'single') {
@@ -117,10 +164,13 @@ function _drop(objects, action, object_ids, parentID) {
          //Comes here when adding a variable to a destination variable control including aggregate control, 
          //but does NOT come here when moving back from destination to source
           let func =$(`#${parentID}_select option:selected`).html()
+          //is_addon stores the destination variable name control
+          //func is undefined for normal destination variable controls but not when moving to an aggregate control
           inserted_object_id = `${object_id}:${id_addon}_${func}`
           object = object.replace(object_id, inserted_object_id)
         }
-        //Executes below when adding and moving back, note that $1 is the first match of the expression /(drop\(event, ')(.\\w*)('\))/ $3 the 3rd match
+        //Executes below when adding and when moving back to source, note that $1 is the first match of the expression /(drop\(event, ')(.\\w*)('\))/ $3 the 3rd match
+        //I am not sure but when moving from source to destination, the code below does not change anything
         object = object.replace(/(drop\(event, ')(.\\w*)('\))/, "$1" + parentID + "$3")
         //Executes if below when adding, NOT when moving back from destination to source
         if (isWrapped) {
@@ -133,6 +183,10 @@ function _drop(objects, action, object_ids, parentID) {
               document.getElementById(parentID).innerHTML = object;
             } else {
               //Executes this when adding
+              /*  if ($("#" +parentID).attr("modal_id") =="sem" && $("#" +parentID).attr("equalityConstraint"))
+              {
+                object
+              } */
               document.getElementById(parentID).innerHTML += object;
             }
           } else {
@@ -168,15 +222,30 @@ function _drop(objects, action, object_ids, parentID) {
       }
     }
   }
-  if ($("#" +parentID).attr("modal_id") =="sem")
+  //we don't populate covariances AND EQUALITY CONSTRAINTS when dragging and dropping to source and dest EQUALITY CONSTRAINTS
+  //Also when latent controls are being deleted as we have already deleted the entries and we don't want them automatically populated
+  //before the control is completely deleted
+      if ($("#" +parentID).attr("modal_id") =="sem" && ( extractBeforeLastUnderscore(parentID) != 'sem_sem3_depVar' && parentID != "semequalityConstraints1" && parentID !=="") && $("#" +parentID).attr("bskyState") !="deleted"  )
   {
-    let autoPopCovarId =  modalId + "_" + "autoComputeCovar"
+    let autoPopCovarId =  "sem" + "_" + "autoComputeCovar"
     let autoPopCovarState = $(`#${autoPopCovarId}`).prop('checked');
     if (autoPopCovarState)
     {
         autoPopulateCovar()
     }
+    populateEqualityConstraints()
   } 
+}
+
+function extractBeforeLastUnderscore(inputString) {
+  const lastUnderscoreIndex = inputString.lastIndexOf('_');
+  
+  if (lastUnderscoreIndex !== -1) {
+    const extractedPart = inputString.substring(0, lastUnderscoreIndex);
+    return extractedPart;
+  } else {
+    return inputString; // No underscore found, return the original string
+  }
 }
 
 
@@ -823,8 +892,13 @@ function tramsformFilter(filter_setting) {
     check.type.push('double')
   }
   if (filter_setting.includes('semFactor')) {
-        check.class.push('semFactor')
-    
+        check.class.push('semFactor')   
+  }
+  if (filter_setting.includes('relation')) {
+    check.class.push('relation')
+  }
+  if (filter_setting.includes('covariance')) {
+    check.class.push('covariance')
   }
   return check
 }

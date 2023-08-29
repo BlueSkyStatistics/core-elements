@@ -12,13 +12,11 @@ class advancedTextBox extends baseElement {
     label = null
     no = null   
     htmlTemplate = `
-    <div class="row mt-3">
-        <div class="col destination">
-            <h6>Multiple Condition Builder:{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</h6>
-            <div class="small-label">
-                    Click on a button and drag and drop variables to create an expression.<br> Clicking a selected button will toggle its state.<br> To insert at a designated position, drag and drop directly to that position.<br> Mouse over a button for help.
-            </div>  
-        </div>    
+    <div class="mb-2 {{if(options.ms.style)}}{{ms.style}}{{/if}} {{if(options.ms.ml)}}ml-{{ms.ml}}{{/if}}">
+    <div class="row">
+        <div class="col-12">
+            <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
+        </div>
     </div>
     <div id="{{modal.id}}_{{ms.no}}" {{if(options.ms.ml)}}class="ml-{{ms.ml}}"{{/if}}
          extractable=true bs-type="advTxt" no="{{ms.no}}" extractionRule="{{ms.extraction}}"
@@ -30,6 +28,7 @@ class advancedTextBox extends baseElement {
                 </div>
             </div>
         </div>
+    </div>
     </div>`
 
     constructor(modal, config) {
