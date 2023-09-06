@@ -142,6 +142,29 @@ class modal {
         return code_vars
     }
 
+
+    extractSemData() {
+        var code_vars = {}
+        code_vars ["BSkyThemes"] = themeRsyntax;
+        $(`#${this.id}`).find((`[extractable=true]`)).each(function (index, item) {
+
+            if (item.getAttribute("no") == "sem" || item.getAttribute("no") == "sem2"|| item.getAttribute("no") == "sem3" ||item.getAttribute("no") == "modelTermsDst"||item.getAttribute("no") == "coVarDst")
+            {
+                code_vars[item.getAttribute("no")] = common.getVal(item.getAttribute("id"))
+            }
+            else
+            {
+                code_vars[item.getAttribute("no")] = common.transform(common.getVal(item.getAttribute("id")), item.getAttribute("extractionRule"),item.getAttribute("id") )
+            }
+            if (code_vars[item.getAttribute("no")] && item.hasAttribute("wrapped")) {
+                code_vars[item.getAttribute("no")] = item.getAttribute("wrapped").replace("%val%", code_vars[item.getAttribute("no")])
+            }
+        })
+        return code_vars
+    }
+
+
+
     static attachSidebar() {
         // Move modal to undraggable state
         // $(`.modal.show .modal-dialog`).draggable("disable");

@@ -5,12 +5,12 @@ class semControl extends baseElement {
     id;
     htmlTemplate = `
     <h6>{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</h6>
-        <div class="ms-list2 list-group1" id = "{{modal.id}}_{{ms.no}}" count = {{ms.count}} extractable =true bs-type="sem" no="{{ms.no}}" extractionRule="{{ms.extraction}}"  suppCtrlIds ="{{ms.suppCtrl}}">
+        <div class="ms-list2 list-group1" id = "{{modal.id}}_{{ms.no}}" count = {{ms.count}} extractable =true bs-type="sem" no="{{ms.no}}" extractionRule="{{ms.extraction}}"  suppCtrlIds ="{{ms.suppCtrl}}" ctrlsToDeleteFrom = "{{ms.ctrlsToDeleteFrom}}">
         <div class="row">
             <div class="col-1">
             </div>
             <div class="col-11" id ="{{modal.id}}_{{ms.no}}_insertionPt">
-                    <button type="button" id ="{{modal.id}}_{{ms.no}}_btn" class="btn formula-btn p-1 w-25" onclick="createEndoExoVariables( modelid = &quot;{{modal.id}}&quot;, no = &quot;{{ms.no}}&quot;, filter = &quot;{{ms.filter}}&quot;{{if(options.ms.equalityConstraints)}},equalityConstraints = true{{/if}})">+ Add</button> 
+                    <button type="button" id ="{{modal.id}}_{{ms.no}}_btn" class="btn formula-btn p-1 w-25" onclick="createEndoExoVariables( modelid = &quot;{{modal.id}}&quot;, no = &quot;{{ms.no}}&quot;, filter = &quot;{{ms.filter}}&quot;{{if(options.ms.equalityConstraints)}},equalityConstraints = true{{/if}})">+ Add</button>
             </div>
         </div>    
         </div>  
@@ -23,6 +23,8 @@ class semControl extends baseElement {
         config.parameterCount = 0
         if (config.hasOwnProperty("suppCtrlIds"))
             config.suppCtrl = JSON.stringify(config.suppCtrlIds)
+        if (config.hasOwnProperty("ctrlsToDeleteFrom"))
+            config.ctrlsToDeleteFrom = JSON.stringify(config.ctrlsToDeleteFrom)
         this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
     }
     clearContent() {
@@ -64,7 +66,7 @@ class semControl extends baseElement {
             {
                 if (namesOfLatentVars.includes(textContents)) {
                     dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `You have specified a duplicate name "${textContents}" for a latent trait.` })
-                    retval = false     
+                    retval = false    
                 } else {
                     namesOfLatentVars.push(textContents)
                 }

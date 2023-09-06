@@ -107,6 +107,28 @@ function _drop(objects, action, object_ids, parentID) {
   //Getting all the iconTypes of the variables being dragged
   if ($("#" +parentID).attr("modal_id") =="sem" && extractBeforeLastUnderscore(parentID) == 'sem_sem3_depVar')
   {
+    
+    //Making sure all the elements being dragged into a set are the same type
+    // Check if there are at least two elements
+  if (object_ids.length >= 2) {  
+  // Get the attribute value of the first element
+  let firstElementValue = $("#" + object_ids[0]).attr("bs-row-class");
+  
+  // Loop through the remaining elements and compare their attribute values
+  for (let i = 1; i < object_ids.length; i++) {
+    let currentValue = $("#"+object_ids[i]).attr("bs-row-class");
+    
+    // If the current value is different from the first element's value, they are not all the same
+    if (currentValue !== firstElementValue) {
+      dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Incompatible types", message: `An equality constraint set must contain all factor loadings, covariance relationships or structural relationships. The elements you are moving have different types.` })
+          stop = true
+          return
+    }
+  }
+  if (stop == true) return
+  } 
+    
+    
     let elements=[];
     $(`#${parentID} a`).each(function(index, item) {
           //elements.push($("#" +item.id).attr("bs-row-class"));
@@ -117,7 +139,7 @@ function _drop(objects, action, object_ids, parentID) {
       object_ids.forEach (function(element, index){
       if ( document.getElementById(element).getAttribute("bs-row-class") != elements[0])
       {
-          dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Incompatible types", message: `Equality constraints sets must contain all latent relationships, covariance relationships or structural relationships. You cannot combine relationship types in a single set.` })
+          dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Incompatible types", message: `An equality constraint set must contain all factor loadings, covariance relationships or structural relationships. You cannot combine types in a single set.` })
           stop = true
           return
       }
@@ -225,7 +247,7 @@ function _drop(objects, action, object_ids, parentID) {
   //we don't populate covariances AND EQUALITY CONSTRAINTS when dragging and dropping to source and dest EQUALITY CONSTRAINTS
   //Also when latent controls are being deleted as we have already deleted the entries and we don't want them automatically populated
   //before the control is completely deleted
-      if ($("#" +parentID).attr("modal_id") =="sem" && ( extractBeforeLastUnderscore(parentID) != 'sem_sem3_depVar' && parentID != "semequalityConstraints1" && parentID !=="") && $("#" +parentID).attr("bskyState") !="deleted"  )
+  if ($("#" +parentID).attr("modal_id") =="sem" && ( extractBeforeLastUnderscore(parentID) != 'sem_sem3_depVar' && parentID != "semequalityConstraints1" && parentID !=="") && $("#" +parentID).attr("bskyState") !="deleted"  )
   {
     let autoPopCovarId =  "sem" + "_" + "autoComputeCovar"
     let autoPopCovarState = $(`#${autoPopCovarId}`).prop('checked');
@@ -899,6 +921,9 @@ function tramsformFilter(filter_setting) {
   }
   if (filter_setting.includes('covariance')) {
     check.class.push('covariance')
+  }
+  if (filter_setting.includes('structuralParameter')) {
+    check.class.push('structuralParameter')
   }
   return check
 }
