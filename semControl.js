@@ -10,7 +10,7 @@ class semControl extends baseElement {
             <div class="col-1">
             </div>
             <div class="col-11" id ="{{modal.id}}_{{ms.no}}_insertionPt">
-                    <button type="button" id ="{{modal.id}}_{{ms.no}}_btn" class="btn formula-btn p-1 w-25" onclick="createEndoExoVariables( modelid = &quot;{{modal.id}}&quot;, no = &quot;{{ms.no}}&quot;, filter = &quot;{{ms.filter}}&quot;{{if(options.ms.equalityConstraints)}},equalityConstraints = true{{/if}})">+ Add</button>
+                    <button type="button" id ="{{modal.id}}_{{ms.no}}_btn" class="btn formula-btn p-1 w-25" onclick="createEndoExoVariables( modelid = &quot;{{modal.id}}&quot;, no = &quot;{{ms.no}}&quot;, filter = &quot;{{ms.filter}}&quot;{{if(options.ms.equalityConstraints)}}, equalityConstraints = true{{#else}}, equalityConstraints = false{{/if}}, placeHolderText = &quot;{{ms.placeHolderText}}&quot;, type = &quot;{{ms.type}}&quot;)", >+ Add</button>
             </div>
         </div>    
         </div>  
@@ -18,6 +18,7 @@ class semControl extends baseElement {
     constructor(modal, config) {
         super(modal, config)
         this.label = config.label
+      //  this.type =config.type
         this.id = `${modal.id}_${config.no}`
         config.count = 0
         config.parameterCount = 0
@@ -62,17 +63,11 @@ class semControl extends baseElement {
                 }
                 retval = false
             }
-           /*  if (textContents != "" || textContents != null)
-            {
-                if (namesOfLatentVars.includes(textContents)) {
-                    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `You have specified a duplicate name "${textContents}" for a latent trait.` })
-                    retval = false    
-                } else {
-                    namesOfLatentVars.push(textContents)
-                }
-            } */
+           
         })
-        return retval
+
+     /*    if (this.type =="equalityConstraint") */
+        return retval 
     }
 }
 module.exports.element = semControl;
