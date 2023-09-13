@@ -23,7 +23,8 @@ function moveToSrc(ev) {
   var objects = []
   var ids = []
   var modal_id = $(`#${ev.currentTarget.id}`).parent().siblings()[0].children[0].getAttribute("modal_id")
-  // the filter function prevents selected items from objects of class modelTermsDst from being moved
+    // the filter function prevents selected items from modelTermsDst (structural parameters) from being moved
+    //Every item in modeltermsdst has a class termsDst
   $(`#${modal_id} .list-group-item-action.active`).filter(function() {
     return !$(this).hasClass('termsDst')}).each(function (index, item) {
     if (item.getAttribute("original")) {

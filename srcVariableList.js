@@ -36,10 +36,11 @@ class srcVariableList {
                     var item_id = element.id
                     var data = store.get(dataset);
                     if (data !== undefined) {
-                        var order = []
-                        
+                        var order = []      
                         if (element.getAttribute('type') =="semModelTerms")
                         {
+                            // the filter function prevents selected items from modelTermsDst (structural parameters) from being moved
+                            //Every item in modeltermsdst has a class termsDst
                             data.cols.forEach(element => {
                                 var item_name = element.Name[0];
                                 order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
@@ -56,9 +57,7 @@ class srcVariableList {
                         }
                         else
                         {
-                        
-
-                        data.cols.forEach(element => {
+                            data.cols.forEach(element => {
                             var item_name = element.Name[0];
                             order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
                             $(`#${item_id}`).append(`<a href="#" 
@@ -73,10 +72,7 @@ class srcVariableList {
                             onclick="selectElement(event)">${item_name}</a>`) 
                         });
                         $(`#${item_id}`).attr('order', order.join("|||"))
-                    
-                    
-                    
-                    
+                  
                     }
                  } else {
                         throw (`${dataset} is empty`)

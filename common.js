@@ -366,12 +366,12 @@ function transform(val, rule, id) {
                     if (element.includes("->") && hasStructuralEqualConstraints == true) {
                         firstElement = element.split("->")[0]
                         secondElement = element.split("->")[1]
-                        res[index] = firstElement + "~ " + parameterString + " *" + secondElement+"\n"
+                        res[index] = secondElement + "~ " + parameterString + " *" + firstElement+"\n"
                     }
                     if (element.includes("<->") && hasStructuralEqualConstraints == false) {
                         firstElement = element.split("<->")[0]
                         secondElement = element.split("<->")[1]
-                        res[index] = firstElement + "~~ " + parameterString + " *" + secondElement+"\n"
+                        res[index] = secondElement + "~~ " + parameterString + " *" +firstElement +"\n"
                     }
                 }
                 else {
@@ -383,18 +383,18 @@ function transform(val, rule, id) {
                     if (element.includes("->") && hasStructuralEqualConstraints == false) {
                         firstElement = element.split("->")[0]
                         secondElement = element.split("->")[1]
-                        res[index] = firstElement + "=~ " + secondElement+"\n"
+                        res[index] = firstElement + "=~ " + secondElement +"\n"
                     }
                     if (element.includes("->") && hasStructuralEqualConstraints == true) {
                         firstElement = element.split("->")[0]
                         secondElement = element.split("->")[1]
-                        res[index] = firstElement + "~ " + secondElement+"\n"
+                        res[index] = secondElement + "~ " + firstElement+"\n"
                     }
                     
                     if (element.includes("<->") && hasStructuralEqualConstraints == false) {
                         firstElement = element.split("<->")[0]
                         secondElement = element.split("<->")[1]
-                        res[index] = firstElement + "~~ " + secondElement+"\n"
+                        res[index] = secondElement + "~~ " +firstElement +"\n"
                     }
                 }
             })

@@ -18,12 +18,12 @@ class semModelTerms {
 
     constructor(modal, config={}) {
         this.modalID = modal.id;
-        this.id = `${modal.id}Vars`
+        this.id = `${modal.id}${config.no}`
         this.action = config.hasOwnProperty("action") ? config.action : "copy"
         this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config});
     }
 
-   
+    
     
     canExecute() {
         return true
@@ -32,11 +32,8 @@ class semModelTerms {
     clearContent() {
         var outerthis = this
         $(`#${this.id}`).children().each(function(index, element) {
-            if (element.id != `${outerthis.id}Curtain`) {
-                element.remove()
-            }
+                element.remove()  
         })
-        $(`#${this.id}Curtain`).show()
     }
 }
 
