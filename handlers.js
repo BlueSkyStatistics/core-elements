@@ -2,8 +2,8 @@ const { getMultiVal } = require("./common");
 
 function attachActionToMoveArrow(parentId) {
   var modal_id = document.getElementById(parentId).getAttribute("modal_id");
-  if ($(`#${parentId}`).parent().siblings().length > 0 && ( $(`#${parentId}`).parent().siblings()[0].classList.contains("col-xx") || $(`#${parentId}`).parent().siblings()[0].classList.contains("mvbtn")  )  ) {
-    var btn =   $(`#${parentId}`).parent().siblings()[0].children[0]
+  if ($(`#${parentId}`).parent().siblings().length > 0 && ($(`#${parentId}`).parent().siblings()[0].classList.contains("col-xx") || $(`#${parentId}`).parent().siblings()[0].classList.contains("mvbtn"))) {
+    var btn = $(`#${parentId}`).parent().siblings()[0].children[0]
     btn.innerHTML = '<i class="fas fa-arrow-left"></i>'
     btn.removeEventListener("click", moveToSrc)
     btn.removeEventListener("click", moveToDst)
@@ -23,10 +23,11 @@ function moveToSrc(ev) {
   var objects = []
   var ids = []
   var modal_id = $(`#${ev.currentTarget.id}`).parent().siblings()[0].children[0].getAttribute("modal_id")
-    // the filter function prevents selected items from modelTermsDst (structural parameters) from being moved
-    //Every item in modeltermsdst has a class termsDst
-  $(`#${modal_id} .list-group-item-action.active`).filter(function() {
-    return !$(this).hasClass('termsDst')}).each(function (index, item) {
+  // the filter function prevents selected items from modelTermsDst (structural parameters) from being moved
+  //Every item in modeltermsdst has a class termsDst
+  $(`#${modal_id} .list-group-item-action.active`).filter(function () {
+    return !$(this).hasClass('termsDst')
+  }).each(function (index, item) {
     if (item.getAttribute("original")) {
       item.innerText = item.getAttribute("original")
       item.removeAttribute("original")
@@ -45,7 +46,7 @@ function _to_compute(ev, dst) {
     el = ev.target.parentElement
   }
   if (dst[0].tagName == 'DIV') {
-    _toCodeMirrorCompute([], dst.find('.CodeMirror')[0].CodeMirror,undefined, el.getAttribute("val"))
+    _toCodeMirrorCompute([], dst.find('.CodeMirror')[0].CodeMirror, undefined, el.getAttribute("val"))
   } else {
     _to_formula([], dst, el.getAttribute("val"))
   }
@@ -101,49 +102,46 @@ function areAllElementsSame(arr) {
 function _drop(objects, action, object_ids, parentID) {
   let index = 1
   let priorElementOrder = 0
-  let finalOrder =0
-  let greatestOrderInParent =0
-  let position =0
+  let finalOrder = 0
+  let greatestOrderInParent = 0
+  let position = 0
   let stop = false
   //Getting all the iconTypes of the variables being dragged
-  if ($("#" +parentID).attr("modal_id") =="sem" && extractBeforeLastUnderscore(parentID) == 'sem_sem3_depVar')
-  {
-    
+  if ($("#" + parentID).attr("modal_id") == "sem" && extractBeforeLastUnderscore(parentID) == 'sem_sem3_depVar') {
+
     //Making sure all the elements being dragged into a set are the same type
     // Check if there are at least two elements
-  if (object_ids.length >= 2) {  
-  // Get the attribute value of the first element
-  let firstElementValue = $("#" + object_ids[0]).attr("bs-row-class");
-  
-  // Loop through the remaining elements and compare their attribute values
-  for (let i = 1; i < object_ids.length; i++) {
-    let currentValue = $("#"+object_ids[i]).attr("bs-row-class");
-    
-    // If the current value is different from the first element's value, they are not all the same
-    if (currentValue !== firstElementValue) {
-      dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Incompatible types", message: `An equality constraint set must contain all factor loadings, covariance relationships or structural relationships. The elements you are moving have different types.` })
+    if (object_ids.length >= 2) {
+      // Get the attribute value of the first element
+      let firstElementValue = $("#" + object_ids[0]).attr("bs-row-class");
+
+      // Loop through the remaining elements and compare their attribute values
+      for (let i = 1; i < object_ids.length; i++) {
+        let currentValue = $("#" + object_ids[i]).attr("bs-row-class");
+
+        // If the current value is different from the first element's value, they are not all the same
+        if (currentValue !== firstElementValue) {
+          dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Incompatible types", message: `An equality constraint set must contain all factor loadings, covariance relationships or structural relationships. The elements you are moving have different types.` })
           stop = true
           return
+        }
+      }
+      if (stop == true) return
     }
-  }
-  if (stop == true) return
-  } 
-    
-    
-    let elements=[];
-    $(`#${parentID} a`).each(function(index, item) {
-          //elements.push($("#" +item.id).attr("bs-row-class"));
-          elements.push(item.getAttribute("bs-row-class"))
-      });
-    if (elements.length !=0)
-    {
-      object_ids.forEach (function(element, index){
-      if ( document.getElementById(element).getAttribute("bs-row-class") != elements[0])
-      {
+
+
+    let elements = [];
+    $(`#${parentID} a`).each(function (index, item) {
+      //elements.push($("#" +item.id).attr("bs-row-class"));
+      elements.push(item.getAttribute("bs-row-class"))
+    });
+    if (elements.length != 0) {
+      object_ids.forEach(function (element, index) {
+        if (document.getElementById(element).getAttribute("bs-row-class") != elements[0]) {
           dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Incompatible types", message: `An equality constraint set must contain all factor loadings, covariance relationships or structural relationships. You cannot combine types in a single set.` })
           stop = true
           return
-      }
+        }
       })
     }
   }
@@ -155,7 +153,7 @@ function _drop(objects, action, object_ids, parentID) {
     } catch {
       el = $(document.getElementById(parentID))
     }
-    if (!el.attr("bs-type") ) {
+    if (!el.attr("bs-type")) {
       el = el.parent()
       parentID = el.attr("id")
     }
@@ -184,9 +182,9 @@ function _drop(objects, action, object_ids, parentID) {
           }
         } else if (object_id.indexOf(":") === -1) {
           var id_addon = parentID;
-         //Comes here when adding a variable to a destination variable control including aggregate control, 
-         //but does NOT come here when moving back from destination to source
-          let func =$(`#${parentID}_select option:selected`).html()
+          //Comes here when adding a variable to a destination variable control including aggregate control, 
+          //but does NOT come here when moving back from destination to source
+          let func = $(`#${parentID}_select option:selected`).html()
           //is_addon stores the destination variable name control
           //func is undefined for normal destination variable controls but not when moving to an aggregate control
           inserted_object_id = `${object_id}:${id_addon}_${func}`
@@ -217,12 +215,12 @@ function _drop(objects, action, object_ids, parentID) {
             var order = document.getElementById(parentID).getAttribute("order").split("|||").indexOf(inserted_object_id)
             var template = document.createElement('template');
             template.innerHTML = object;
-            greatestOrderInParent =findGreatestOrder(parentID)
+            greatestOrderInParent = findGreatestOrder(parentID)
 
             if (order > greatestOrderInParent) {
               parentElement.append(template.content.firstChild);
             } else {
-              position =findPosition (parentID, order)
+              position = findPosition(parentID, order)
               parentElement.insertBefore(template.content.firstChild, parentElement.children[position]);
             }
           }
@@ -248,21 +246,19 @@ function _drop(objects, action, object_ids, parentID) {
   //we don't populate covariances AND EQUALITY CONSTRAINTS when dragging and dropping to source and dest EQUALITY CONSTRAINTS
   //Also when latent controls are being deleted as we have already deleted the entries and we don't want them automatically populated
   //before the control is completely deleted
-  if ($("#" +parentID).attr("modal_id") =="sem" && ( extractBeforeLastUnderscore(parentID) != 'sem_sem3_depVar' && parentID != "semequalityConstraints1" && parentID !=="") && $("#" +parentID).attr("bskyState") !="deleted"  )
-  {
-    let autoPopCovarId =  "sem" + "_" + "autoComputeCovar"
+  if ($("#" + parentID).attr("modal_id") == "sem" && (extractBeforeLastUnderscore(parentID) != 'sem_sem3_depVar' && parentID != "semequalityConstraints1" && parentID !== "") && $("#" + parentID).attr("bskyState") != "deleted") {
+    let autoPopCovarId = "sem" + "_" + "autoComputeCovar"
     let autoPopCovarState = $(`#${autoPopCovarId}`).prop('checked');
-    if (autoPopCovarState)
-    {
-        autoPopulateCovar()
+    if (autoPopCovarState) {
+      autoPopulateCovar()
     }
     populateEqualityConstraints()
-  } 
+  }
 }
 
 function extractBeforeLastUnderscore(inputString) {
   const lastUnderscoreIndex = inputString.lastIndexOf('_');
-  
+
   if (lastUnderscoreIndex !== -1) {
     const extractedPart = inputString.substring(0, lastUnderscoreIndex);
     return extractedPart;
@@ -273,38 +269,35 @@ function extractBeforeLastUnderscore(inputString) {
 
 
 
-function findGreatestOrder (parentID)
-{
-  let maxOrder =0
+function findGreatestOrder(parentID) {
+  let maxOrder = 0
   let orderedArray = document.getElementById(parentID).getAttribute("order").split("|||")
-  let parentDiv = $('#'+ parentID)
-  parentDiv.children().each(function() {
+  let parentDiv = $('#' + parentID)
+  parentDiv.children().each(function () {
     // Access the current child element
-    if ( orderedArray.indexOf(this.id) > maxOrder)
-      maxOrder = orderedArray.indexOf(this.id) 
+    if (orderedArray.indexOf(this.id) > maxOrder)
+      maxOrder = orderedArray.indexOf(this.id)
     // Perform actions on the child element
     // For example, you can add a class to each child element
-     // child.addClass('childClass');
-})
+    // child.addClass('childClass');
+  })
   return maxOrder
 }
 
-function findPosition (parentID, order)
-{
-  let position =0
+function findPosition(parentID, order) {
+  let position = 0
   let orderedArray = document.getElementById(parentID).getAttribute("order").split("|||")
-  let parentDiv = $('#'+ parentID)
-  parentDiv.children().each(function() {
+  let parentDiv = $('#' + parentID)
+  parentDiv.children().each(function () {
     // Access the current child element
-  if (  orderedArray.indexOf(this.id) > order)
-  {
-     
-     return false
-  }
+    if (orderedArray.indexOf(this.id) > order) {
+
+      return false
+    }
     // Perform actions on the child element
     // For example, you can add a class to each child element
-     // child.addClass('childClass');
-     position++
+    // child.addClass('childClass');
+    position++
   })
   return position
 }
@@ -335,10 +328,9 @@ function _to_formula(objects, dst_id, active_val) {
     var formula_value_length = formula_value.length
     var cursorPosition = $(`#${dst_id}`).prop("selectionStart");
     var originalStartCursorPosition = 0
-    var originalEndCursorPosition =  $(`#${dst_id}`).prop("selectionEnd");
+    var originalEndCursorPosition = $(`#${dst_id}`).prop("selectionEnd");
 
-    if (originalEndCursorPosition > cursorPosition && originalEndCursorPosition  <= formula_value_length)
-    {
+    if (originalEndCursorPosition > cursorPosition && originalEndCursorPosition <= formula_value_length) {
       cursorPosition = originalEndCursorPosition
     }
     if (cursorPosition > 0) originalStartCursorPosition = cursorPosition
@@ -354,29 +346,28 @@ function _to_formula(objects, dst_id, active_val) {
     var formula_value = dst_id.val()
     var cursorPosition = 0
   }
-  let splinesDeg =""
-  let polyDeg =""
-  splinesDeg = $(`#${dst_id}_splinesDeg`).val() 
-  polyDeg = $(`#${dst_id}_polyDeg`).val() 
+  let splinesDeg = ""
+  let polyDeg = ""
+  splinesDeg = $(`#${dst_id}_splinesDeg`).val()
+  polyDeg = $(`#${dst_id}_polyDeg`).val()
   //This ensures I insert at the end
-  if (cursorPosition == 0 || cursorPosition > formula_value.length)
-  {
+  if (cursorPosition == 0 || cursorPosition > formula_value.length) {
     cursorPosition = formula_value.length
   }
-  var results = _form_new_formula_value(objects, cursorPosition, formula_value, active_val, false,splinesDeg, polyDeg)
+  var results = _form_new_formula_value(objects, cursorPosition, formula_value, active_val, false, splinesDeg, polyDeg)
   formula_addon = results.formula_addon
   try {
     $(`#${dst_id}`).val(formula_addon)
-    
+
     //Code for optionally storing the cursor position
     //$(`#${dst_id}`).attr("originalCursorPosition", cursorPosition);
   } catch (ex) {
     dst_id.val(formula_addon)
     dst_id[0].scrollLeft = dst_id[0].scrollWidth;
   }
-  $(`#${dst_id}`).prop('selectionEnd', cursorPosition + results.lengthInserted +1);
+  $(`#${dst_id}`).prop('selectionEnd', cursorPosition + results.lengthInserted + 1);
   $(`#${dst_id}`).prop('selectionStart', cursorPosition);
-  $(`#${dst_id}`).trigger('focus')  
+  $(`#${dst_id}`).trigger('focus')
 }
 function _drop_to_compute(ev, parentID) {
   ev.preventDefault();
@@ -396,7 +387,7 @@ function _toCodeMirrorCompute(objects, editor, newline, active_val) {
   }
   doc.replaceRange(newline, newpos)
   doc.setValue(doc.getValue().replace(/  +/g, ' '))
-  newpos.ch = newpos.ch + newline.trim().length+1
+  newpos.ch = newpos.ch + newline.trim().length + 1
   editor.setCursor(newpos)
 }
 function createCMFromTestArea(modal_id) {
@@ -410,7 +401,7 @@ function createCMFromTestArea(modal_id) {
         showCursorWhenSelecting: true
       })
       editor.on("focus", function (editor, e) {
-        var parent_div =  $(e.target).closest("div.col-10")
+        var parent_div = $(e.target).closest("div.col-10")
         $(parent_div).closest('div[bs-type="switchcase"]').find("div.col-10.focus").removeClass('focus')
         $(parent_div).addClass('focus')
       })
@@ -463,12 +454,10 @@ function toggleSelect(ev) {
   ev.target.parentElement.classList.add("activated")
 }
 function toggleSelectPoly(ev, dest) {
-    $(`#${dest}`).trigger("click")
-  if ($(`#${dest}`).hasClass("activated"))
-  {
-      $(ev.target).addClass("activated")
-  } else
-  {
+  $(`#${dest}`).trigger("click")
+  if ($(`#${dest}`).hasClass("activated")) {
+    $(ev.target).addClass("activated")
+  } else {
     $(ev.target).removeClass("activated")
   }
 }
@@ -478,85 +467,79 @@ function toggleSelectPoly(ev, dest) {
 //3. Returns the number of characters in the newly inserted formula control
 //4. Also inserts a +. -... on double click
 function _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement = false) {
-  let lengthInserted =0;
-  
+  let lengthInserted = 0;
+
 
   //Inserting to the beginning when the formula control is empty
-  if (cursorPosition === 0 && formula_value.length === 0 || formula_value.trim() =="" ) 
-  {
+  if (cursorPosition === 0 && formula_value.length === 0 || formula_value.trim() == "") {
     if (onlyIncrement) {
-      lengthInserted = formula_addon.length 
-	    formula_addon = `${formula_addon} `
+      lengthInserted = formula_addon.length
+      formula_addon = `${formula_addon} `
     } else {
-      lengthInserted = formula_addon.length 
-	  formula_addon = `${formula_addon} `
-   }
-  //Inserting to the beginning when the formula control has content
-  } else if (cursorPosition === 0 && formula_value.length > 0)
- {
-	if (formula_value.trim() !="")
-	{
-		if (additive.indexOf(formula_value.trim()[0] > -1))
-		{
-			if (onlyIncrement) {
-			  formula_addon = ` ${formula_addon} `
-			} else {
-			  lengthInserted = 1 + formula_addon.length 
-			  formula_addon = `${formula_addon} ${formula_value}`
-			}
-		} else
-		{
-			if (onlyIncrement) {
-			  formula_addon = `${formula_addon} ${sign}`
-			} else {
-			  lengthInserted = formula_addon.length  +1+ sign.length 
-			  formula_addon = `${formula_addon} ${sign} ${formula_value}`
-			}
-		}
-	 }
-}
+      lengthInserted = formula_addon.length
+      formula_addon = `${formula_addon} `
+    }
+    //Inserting to the beginning when the formula control has content
+  } else if (cursorPosition === 0 && formula_value.length > 0) {
+    if (formula_value.trim() != "") {
+      if (additive.indexOf(formula_value.trim()[0] > -1)) {
+        if (onlyIncrement) {
+          formula_addon = ` ${formula_addon} `
+        } else {
+          lengthInserted = 1 + formula_addon.length
+          formula_addon = `${formula_addon} ${formula_value}`
+        }
+      } else {
+        if (onlyIncrement) {
+          formula_addon = `${formula_addon} ${sign}`
+        } else {
+          lengthInserted = formula_addon.length + 1 + sign.length
+          formula_addon = `${formula_addon} ${sign} ${formula_value}`
+        }
+      }
+    }
+  }
   else if (cursorPosition > 0) {
     //You are inserting inbetween or at the very end
     if (formula_value.length >= cursorPosition) {
       var last_ = formula_value.slice(0, cursorPosition)
       var first_ = formula_value.slice(cursorPosition, formula_value.length)
       //I am inserting between 2 pluses/additive characters
-      if (additive.indexOf(last_.trim()[last_.trim().length - 1]) > -1 && additive.indexOf(first_.trim()[0]) > -1)
-      {
+      if (additive.indexOf(last_.trim()[last_.trim().length - 1]) > -1 && additive.indexOf(first_.trim()[0]) > -1) {
         if (onlyIncrement) {
           formula_addon = ` ${formula_addon} `
         } else {
-          lengthInserted = 1 + formula_addon.length 
+          lengthInserted = 1 + formula_addon.length
           formula_addon = `${last_} ${formula_addon} ${first_}`
         }
-      } else if (additive.indexOf(last_.trim()[last_.trim().length - 1]) > -1 && first_.trim()=="") {
+      } else if (additive.indexOf(last_.trim()[last_.trim().length - 1]) > -1 && first_.trim() == "") {
         //I am inserting at the end and the first part has an additive at the end
         if (onlyIncrement) {
           formula_addon = ` ${formula_addon} `
         } else {
-          lengthInserted = 1 + formula_addon.length 
+          lengthInserted = 1 + formula_addon.length
           formula_addon = `${last_} ${formula_addon} `
         }
       }
-      else if (additive.indexOf(last_.trim()[last_.trim().length - 1]) == -1 && first_.trim()=="") {
+      else if (additive.indexOf(last_.trim()[last_.trim().length - 1]) == -1 && first_.trim() == "") {
         //I am inserting at the end and the first part does not have an additive at the end
         if (onlyIncrement) {
           formula_addon = ` ${sign} ${formula_addon} `
         } else {
-          lengthInserted = 1 + sign.length +1+ formula_addon.length 
+          lengthInserted = 1 + sign.length + 1 + formula_addon.length
           formula_addon = `${last_}  ${sign} ${formula_addon} `
-        }       
+        }
       }
       else if (additive.indexOf(last_.trim()[last_.trim().length - 1]) > -1 && additive.indexOf(first_.trim()[0]) == -1) {
         ////I am inserting inbetween and the first part has an additive at the end but the last does not start with an additive
         if (onlyIncrement) {
           formula_addon = ` ${formula_addon} ${sign} `
         } else {
-          lengthInserted = 1 + formula_addon.length + 1+ sign.length
+          lengthInserted = 1 + formula_addon.length + 1 + sign.length
           formula_addon = `${last_} ${formula_addon} ${sign} ${first_}`
         }
-        
-      } else if (additive.indexOf(first_.trim()[0]) > -1 && additive.indexOf(last_.trim()[last_.trim().length - 1]) == -1 ) {
+
+      } else if (additive.indexOf(first_.trim()[0]) > -1 && additive.indexOf(last_.trim()[last_.trim().length - 1]) == -1) {
         //inserting in the middle, first part does not have an additive but last part does
         if (onlyIncrement) {
           formula_addon = ` ${sign} ${formula_addon} `
@@ -564,16 +547,16 @@ function _calculate_position(formula_value, formula_addon, cursorPosition, sign,
           lengthInserted = 1 + sign.length + 1 + formula_addon.length
           formula_addon = `${last_} ${sign} ${formula_addon} ${first_}`
         }
-      } else if (additive.indexOf(first_.trim()[0]) == -1 && additive.indexOf(last_.trim()[last_.trim().length - 1]) == -1 ) {
+      } else if (additive.indexOf(first_.trim()[0]) == -1 && additive.indexOf(last_.trim()[last_.trim().length - 1]) == -1) {
         //inserting in the middle, first part does not have an additive niether does the last
         if (onlyIncrement) {
           formula_addon = ` ${sign} ${formula_addon} ${sign}`
         } else {
-          lengthInserted = 1 + sign.length + 1 +  formula_addon.length + sign.length
+          lengthInserted = 1 + sign.length + 1 + formula_addon.length + sign.length
           formula_addon = `${last_} ${sign} ${formula_addon} ${sign} ${first_}`
         }
-      }  
-     //else case is when I am not inserting before or after a plus, I don't think this is executed
+      }
+      //else case is when I am not inserting before or after a plus, I don't think this is executed
     } else {
       if (onlyIncrement) {
         formula_addon = ` ${sign} ${formula_addon}`
@@ -582,13 +565,13 @@ function _calculate_position(formula_value, formula_addon, cursorPosition, sign,
         formula_addon = `${formula_value} ${sign} ${formula_addon}`
       }
     }
- 
+
   } else if (formula_addon === undefined) {
     formula_addon = sign
     lengthInserted = sign.length
   }
   //When we are dragging and dropping into an empty text area we return formula_addon
-  results = {formula_addon: formula_addon, lengthInserted: lengthInserted}
+  results = { formula_addon: formula_addon, lengthInserted: lengthInserted }
   return results
 }
 function combinations(arr, k) {
@@ -617,8 +600,8 @@ function combinations(arr, k) {
   recurse(1, []);
   return result;
 }
-function _form_new_formula_value(objects, cursorPosition, formula_value, active_val, onlyIncrement = false, splinesDeg="", polyDeg="") {
-  var additive = ['+', '-', '*', '^', '/', ':', '%', '','%%']
+function _form_new_formula_value(objects, cursorPosition, formula_value, active_val, onlyIncrement = false, splinesDeg = "", polyDeg = "") {
+  var additive = ['+', '-', '*', '^', '/', ':', '%', '', '%%']
   var insertive = ['(', ')', '|', '&', '>', '<', '==', '!=', '>=', '<=', '%in%', '%/%']
   var wraparive = ['sqrt', 'log', 'log10', 'log2', 'abs', 'exp', 'ceiling', 'floor', "as.numeric", "max", "min", "mean", "median", "sd", "sum", "variance"]
   //Multiple variables NOT allowed
@@ -643,15 +626,15 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
     'Month(decimal)': ['as.numeric(strftime(x= ', ', format ="%m", tz=""))'],
     'Minutes': ['as.numeric(strftime(x= ', ', format="%I", tz=""))'],
     'Secs': ['as.numeric(strftime(x= ', ', format="%S", tz=""))'],
-    
-  }
-var complexerapDynamic ={
-  'B-spline': ['splines::bs(', ', deg = 5)'],
-  'natural spline': ['splines::ns(', ', deg = 5)'],
-  'Orthogonal polynomial': ['stats::poly(', ', deg = 5)'],
-  'Raw polynomial': ['stats::poly(', ', deg = 5)', ', raw = TRUE)']
 
-}
+  }
+  var complexerapDynamic = {
+    'B-spline': ['splines::bs(', ', deg = 5)'],
+    'natural spline': ['splines::ns(', ', deg = 5)'],
+    'Orthogonal polynomial': ['stats::poly(', ', deg = 5)'],
+    'Raw polynomial': ['stats::poly(', ', deg = 5)', ', raw = TRUE)']
+
+  }
 
   var differenceInsert = { 'Date Difference': ['as.double(difftime(time1= ', ', time2 =', ', units=c("days")))'] }
   var complexerapstr = {
@@ -678,77 +661,70 @@ var complexerapDynamic ={
     'String to date': ['as.Date(x= ', ')'],
     'is.na': ['is.na(', ')'],
     'isTRUE': ['isTRUE(', ')'],
-    
+
   }
   var pasting = {
     'Concatenate': ['', ', sep ="" )'],
   }
   if (objects.length > 1 && multiVariables.includes(active_val)) {
     dialog.showErrorBox("Formula Error", "The function " + active_val + " does not support multiple variables, please select one variable and retry")
-    if (onlyIncrement)
-    {
-      results = { formula_addon: "", lengthInserted:0}
-    return results.formula_addon  
-    } else
-    {
-      results = { formula_addon: formula_value, lengthInserted:0}
+    if (onlyIncrement) {
+      results = { formula_addon: "", lengthInserted: 0 }
+      return results.formula_addon
+    } else {
+      results = { formula_addon: formula_value, lengthInserted: 0 }
       return results
     }
   }
   var formula_addon = ""
   var sign = "+"
-  var lengthInserted =0
+  var lengthInserted = 0
   if (additive.indexOf(active_val) > -1 && active_val != '%in%' && active_val != '%/%') {
-   //If there are destination variables selected
+    //If there are destination variables selected
     if (objects.length > 1) {
       formula_addon = objects.join(` ${active_val} `)
     } else {
       formula_addon = objects[0] !== undefined ? objects[0] : ""
       sign = active_val
     }
-    if ( formula_addon !="")
-    {
-       results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
+    if (formula_addon != "") {
+      results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
     }
     else
     //Here I am just inserting the symbol at the cursor position
     {
-        if (onlyIncrement)
-        {
-          results = { formula_addon: `${active_val} `, lengthInserted:active_val.length}
-        } 
-        else
-        {
-          var last_ = formula_value.slice(0, cursorPosition)
-          var first_ = formula_value.slice(cursorPosition, formula_value.length)
-          formula_addon = `${last_} ${active_val} ${first_}`
-          lengthInserted = 1 + sign.length
-          results = { formula_addon: formula_addon, lengthInserted:lengthInserted}
-        }
+      if (onlyIncrement) {
+        results = { formula_addon: `${active_val} `, lengthInserted: active_val.length }
+      }
+      else {
+        var last_ = formula_value.slice(0, cursorPosition)
+        var first_ = formula_value.slice(cursorPosition, formula_value.length)
+        formula_addon = `${last_} ${active_val} ${first_}`
+        lengthInserted = 1 + sign.length
+        results = { formula_addon: formula_addon, lengthInserted: lengthInserted }
+      }
     }
   } else if (insertive.indexOf(active_val) > -1) {
     if (onlyIncrement) {
-      results = { formula_addon: `${active_val} `, lengthInserted:active_val.length}      
-    } 
-    else
-    {
+      results = { formula_addon: `${active_val} `, lengthInserted: active_val.length }
+    }
+    else {
       var last_ = formula_value.slice(0, cursorPosition)
       var first_ = formula_value.slice(cursorPosition, formula_value.length)
       formula_addon = `${last_} ${active_val} ${first_}`
-      lengthInserted = 1+ active_val.length
-    results = { formula_addon: formula_addon, lengthInserted:lengthInserted}
+      lengthInserted = 1 + active_val.length
+      results = { formula_addon: formula_addon, lengthInserted: lengthInserted }
     }
   } else if (Object.keys(complexinsert).indexOf(active_val) > -1) {
     var last_ = formula_value.slice(0, cursorPosition)
     var first_ = formula_value.slice(cursorPosition, formula_value.length)
-    lengthInserted = 1+ complexinsert[active_val].length
-    if (onlyIncrement) {    
-      results = { formula_addon: ` ${complexinsert[active_val]} `, lengthInserted:lengthInserted}
-    } 
-    else
-    {
+    lengthInserted = 1 + complexinsert[active_val].length
+    if (onlyIncrement) {
+      results = { formula_addon: ` ${complexinsert[active_val]} `, lengthInserted: lengthInserted }
+    }
+    else {
       formula_addon = `${last_} ${complexinsert[active_val]} ${first_}`
-      results = { formula_addon: formula_addon, lengthInserted:lengthInserted }
+      results = { formula_addon: formula_addon, lengthInserted: lengthInserted }
     }
   } else if (wraparive.indexOf(active_val) > -1) {
     if (objects.length > 1) {
@@ -767,32 +743,28 @@ var complexerapDynamic ={
     //lengthInserted =formula_addon.length
     results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
     //handling functions that work on strings where + generates an error
-  }  else if (Object.keys(complexerapDynamic).indexOf(active_val) > -1) {
-      if (active_val =="B-spline" || active_val == "natural spline")
-      {
-        if (splinesDeg =="") splinesDeg ="5"
-        complexerapDynamic[active_val][1] =", df =" +splinesDeg +")";
-      }
-      if (active_val =="Orthogonal polynomial" || active_val =="Raw polynomial")
-      {
-        if (polyDeg =="") polyDeg ="5"
-        complexerapDynamic[active_val][1] =", degree =" + polyDeg +")";
-      }
+  } else if (Object.keys(complexerapDynamic).indexOf(active_val) > -1) {
+    if (active_val == "B-spline" || active_val == "natural spline") {
+      if (splinesDeg == "") splinesDeg = "5"
+      complexerapDynamic[active_val][1] = ", df =" + splinesDeg + ")";
+    }
+    if (active_val == "Orthogonal polynomial" || active_val == "Raw polynomial") {
+      if (polyDeg == "") polyDeg = "5"
+      complexerapDynamic[active_val][1] = ", degree =" + polyDeg + ")";
+    }
     if (objects.length > 1) {
-      if (active_val =="Orthogonal polynomial" || active_val =="B-spline" || active_val == "natural spline")
-      {
+      if (active_val == "Orthogonal polynomial" || active_val == "B-spline" || active_val == "natural spline") {
         formula_addon = `${complexerapDynamic[active_val][0]}` + objects.join(`${complexerapDynamic[active_val][1]} + ${complexerapDynamic[active_val][0]}`) + complexerapDynamic[active_val][1]
-      } else  if(active_val =="Raw polynomial") {
-        complexerapDynamic[active_val][1] =", deg =" + polyDeg;
+      } else if (active_val == "Raw polynomial") {
+        complexerapDynamic[active_val][1] = ", deg =" + polyDeg;
         formula_addon = `${complexerapDynamic[active_val][0]}` + objects.join(`${complexerapDynamic[active_val][1]} + ${complexerapDynamic[active_val][2]}+ ${complexerapDynamic[active_val][0]}`) + complexerapDynamic[active_val][1]
       }
     } else {
-      if (active_val =="Orthogonal polynomial" || active_val =="B-spline" || active_val == "natural spline")
-      {
-      formula_addon = `${complexerapDynamic[active_val][0]}${objects[0] !== undefined ? objects[0] : ""}${complexerapDynamic[active_val][1]}`
+      if (active_val == "Orthogonal polynomial" || active_val == "B-spline" || active_val == "natural spline") {
+        formula_addon = `${complexerapDynamic[active_val][0]}${objects[0] !== undefined ? objects[0] : ""}${complexerapDynamic[active_val][1]}`
       }
-      else if(active_val =="Raw polynomial") {
-        complexerapDynamic[active_val][1] =", deg =" + polyDeg;
+      else if (active_val == "Raw polynomial") {
+        complexerapDynamic[active_val][1] = ", deg =" + polyDeg;
         formula_addon = `${complexerapDynamic[active_val][0]}${objects[0] !== undefined ? objects[0] : ""}${complexerapDynamic[active_val][1]}${complexerapDynamic[active_val][2]}`
         //`${complexerapDynamic[active_val][0]}` + objects.join(`${complexerapDynamic[active_val][1]} + ${complexerapDynamic[active_val][2]}+ ${complexerapDynamic[active_val][0]}`) + complexerapDynamic[active_val][1]
       }
@@ -850,15 +822,13 @@ var complexerapDynamic ={
       dialog.showErrorBox("Formula Error", "You need to select N or more variables when creating All N Way interactions")
     } else {
       formula_addon = combinations(objects, active_val).join(" + ")
-      lengthInserted =formula_addon.length
+      lengthInserted = formula_addon.length
       results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
     }
   }
-  if (onlyIncrement)
-  {
-  return results.formula_addon
-  } else
-  {
+  if (onlyIncrement) {
+    return results.formula_addon
+  } else {
     return results
   }
 
@@ -915,7 +885,7 @@ function tramsformFilter(filter_setting) {
     check.type.push('double')
   }
   if (filter_setting.includes('semFactor')) {
-        check.class.push('semFactor')   
+    check.class.push('semFactor')
   }
   if (filter_setting.includes('relation')) {
     check.class.push('relation')
@@ -1024,7 +994,7 @@ function focusInput(ev) {
   $(ev.target).addClass('focus')
 }
 
-function moveToDst (ev) {
+function moveToDst(ev) {
   ev.preventDefault();
   ev.stopPropagation();
   var objects = []
@@ -1038,14 +1008,15 @@ function moveToDst (ev) {
     })
     _to_formula(objects, dst_id)
   } else {
-        // the filter function prevents selected items from objects of class modelTermsDst from being moved
-        $(`#${modal_id} .list-group-item-action.active`).filter(function() {
-        return !$(this).hasClass('termsDst')}).each(function (index, item) {
-        objects.push(item.outerHTML)
-        ids.push(item.id)
-        action = $(`#${item.id.split("_")[0]}`).attr("act")
-      })
-      
+    // the filter function prevents selected items from objects of class modelTermsDst from being moved
+    $(`#${modal_id} .list-group-item-action.active`).filter(function () {
+      return !$(this).hasClass('termsDst')
+    }).each(function (index, item) {
+      objects.push(item.outerHTML)
+      ids.push(item.id)
+      action = $(`#${item.id.split("_")[0]}`).attr("act")
+    })
+
     _drop(objects, action, ids, dst_id)
   }
 }
@@ -1102,10 +1073,10 @@ module.exports.selectElement = (ev) => {
     el.setAttribute("active", "");
     el.classList.add("active");
 
-    
+
     //The if is added to make sure that the direction of the move button does not change on the semmodelterms control
-   // if ($(`#${parentId}`).attr("type") != "semModelTerms")
-      attachActionToMoveArrow(parentId);
+    // if ($(`#${parentId}`).attr("type") != "semModelTerms")
+    attachActionToMoveArrow(parentId);
   }
 }
 module.exports.selectListItem = (ev) => {
@@ -1210,8 +1181,7 @@ module.exports.drop = (ev, parentID = null) => {
   var elTarget = document.getElementById(parentID)
   var action = ev.dataTransfer.getData("action");
   var object_ids = ev.dataTransfer.getData("id").split(",");
-  if (document.getElementById(object_ids[0]))
-  {
+  if (document.getElementById(object_ids[0])) {
     //If I am dropping a variable from the aggregate control to the same aggregate control, I do nothing
     //There are 2 cases here, case 1, I drop an existing variable in the aggregate control to an empty place in the same control
     //Case 2, I drop an existing variable to an already exsting variable in that aggregate control
@@ -1232,7 +1202,7 @@ module.exports.drop = (ev, parentID = null) => {
   //I drop an item from the aggregate control to the source variable list over an existing variable, the 
   //the code comes to this function 2 times, the if loop just prevents the _drop from running twice
   //in the event I am moving from the destination aggregate control back to the source as the destination variable is removed
-  if (objects.length > 0 )
+  if (objects.length > 0)
     _drop(objects, action, object_ids, parentID)
 }
 
@@ -1275,7 +1245,7 @@ module.exports.cancelSingleClick = (ev) => {
   ev.preventDefault();
   ev.stopPropagation();
   clearTimeout(timer)
- 
+
 }
 
 module.exports.toFormulaWithTimer = (ev) => {
@@ -1283,32 +1253,28 @@ module.exports.toFormulaWithTimer = (ev) => {
     timer = setTimeout(() => {
       _to_compute(ev, $(ev.target).closest('.formula-builder').find("textarea").attr('id'))
     }, 200)
-  } 
+  }
 }
 
 module.exports.toFocusedInputWithTimer = (ev) => {
   if (ev.detail === 1) {
     timer = setTimeout(() => {
       //_to_compute(ev, $(ev.target).closest('.formula-builder').find("textarea").attr('id'))
-      if ($(ev.target).closest('div.tab-content').closest('.row.mb-1').next().find("div.col-10.focus")[0] ==undefined)
-        { 
-          dialog.showErrorBox("Error", "An input control associated with a if or then condition needs to be selected. Use your mouse to select a position in the if or then control and retry.")
-        }
-        else
-        {
-          _to_compute(ev, $(ev.target).closest('div.tab-content').closest('.row.mb-1').next().find("div.col-10.focus"))
-        }
+      if ($(ev.target).closest('div.tab-content').closest('.row.mb-1').next().find("div.col-10.focus")[0] == undefined) {
+        dialog.showErrorBox("Error", "An input control associated with a if or then condition needs to be selected. Use your mouse to select a position in the if or then control and retry.")
+      }
+      else {
+        _to_compute(ev, $(ev.target).closest('div.tab-content').closest('.row.mb-1').next().find("div.col-10.focus"))
+      }
     }, 200)
-  } 
+  }
 }
 
 module.exports.toFocusedInput = (ev) => {
-  if ($(ev.target).closest('div.tab-content').closest('.row.mb-1').next().find("div.col-10.focus")[0] ==undefined)
-  { 
+  if ($(ev.target).closest('div.tab-content').closest('.row.mb-1').next().find("div.col-10.focus")[0] == undefined) {
     dialog.showErrorBox("Error", "An input control associated with a if or then condition needs to be selected. Use your mouse to select a position in the if or then control and retry.")
   }
-  else
-  {
+  else {
     _to_compute(ev, $(ev.target).closest('div.tab-content').closest('.row.mb-1').next().find("div.col-10.focus"))
   }
 
@@ -1424,14 +1390,13 @@ function renderSelect(element_id, content) {
   $(`#${element_id}`).append(_opt);
 }
 
-function clearSelect(element_id)
-{
+function clearSelect(element_id) {
   let noOfentries = document.getElementById(element_id).length
   if (noOfentries > 0) {
-            for (i = 0; i < noOfentries; i++) {
-                document.getElementById(element_id).remove(0);
-            }
-        }
+    for (i = 0; i < noOfentries; i++) {
+      document.getElementById(element_id).remove(0);
+    }
+  }
 }
 
 module.exports.updateModalHandler = (element_id, content) => {
@@ -1442,10 +1407,10 @@ module.exports.updateModalHandler = (element_id, content) => {
       $(`#${element_id}`).trigger('change');
       break;
     case 'select':
-        renderSelect(element_id, content)
-        $(`#${element_id}`).trigger('change');
-        break;
-    
+      renderSelect(element_id, content)
+      $(`#${element_id}`).trigger('change');
+      break;
+
     case 'label':
       switch (typeof (content)) {
         case "boolean":
