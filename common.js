@@ -409,9 +409,6 @@ function transform(val, rule, id) {
         finalRetString = finalRetString + tempretval 
         return finalRetString
     }
-
-
-
     else if (type === "string") {
         retval = Sqrl.Render(value, { item: Sqrl.Render(item, { item: val }) });
     } else if (type === "boolean") {
