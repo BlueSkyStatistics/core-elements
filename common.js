@@ -133,19 +133,17 @@ function getTextVal(id) {
 
 function getSingleVal(id) {
     var elements = [];
-    let hasStructuralEqualConstraints =false
+    let hasStructuralEqualConstraints = false
     $(`#${id} a`).each(function (index, item) {
-         if (item.getAttribute("bs-row-class") =="structuralParameter")
-         {
-            hasStructuralEqualConstraints =true
-            elements.push({item: item.text,hasStructuralEqualConstraints: hasStructuralEqualConstraints });
-         } else
-         {
+        if (item.getAttribute("bs-row-class") == "structuralParameter") {
+            hasStructuralEqualConstraints = true
+            elements.push({ item: item.text, hasStructuralEqualConstraints: hasStructuralEqualConstraints });
+        } else {
             elements.push(item.text);
-         }
+        }
     });
     return elements
-    
+
 }
 
 function getTabVal(id) {
@@ -298,7 +296,8 @@ function transform(val, rule, id) {
             val[index] = Sqrl.Render(value, { item: Sqrl.Render(item, { item: element }) });
         })
         retval = val.join(separator);
-    } else if (type === 'object' && !Array.isArray(val) && rule != "equalityConstraints") {
+    } else if (type === 'object' && !Array.isArray(val) && rule == "NoPrefix|UsePlus") {
+        // else if (type === 'object' && !Array.isArray(val) && rule == "equalityConstraints") {
         //The code below handles latent variables and higher order factors
         value = `{{item | safe}}`;
         //Get the modal
@@ -322,7 +321,7 @@ function transform(val, rule, id) {
                 }
             })
             tempretval = res.join(separator);
-           // val[key] = tempretval
+            // val[key] = tempretval
             //Save the parameter count
             $(`#${modalDiv[0].id}`).attr('parameterCount', parameterCount)
             finalRetString = finalRetString + key + "=~" + tempretval + "\n"
@@ -331,11 +330,11 @@ function transform(val, rule, id) {
         //retval = JSON.stringify(val)
         //finalRetString = "'" + finalRetString + "'\n";
         return finalRetString
-    } else if (type === 'object' && !Array.isArray( ) && rule == "equalityConstraints") {
+    } else if (type === 'object' && !Array.isArray(val) && rule == "equalityConstraints") {
         res = []
-        tempretval =""
+        tempretval = ""
         separator = ""
-        let hasStructuralEqualConstraints =false
+        let hasStructuralEqualConstraints = false
         value = `{{item | safe}}`;
         //Get the modal
         modalDiv = $(`#${id}`).closest('[parameterCount]')
@@ -351,50 +350,48 @@ function transform(val, rule, id) {
             val[key].forEach(function (element, index) {
                 if (parameterizeFormulaChk) {
                     //res[index] = parameterString + "*" + Sqrl.Render(value, { item: Sqrl.Render(item, { item: element }) });
-                   /*  parameterCount = parseInt(parameterCount) + 1
+                    /*  parameterCount = parseInt(parameterCount) + 1
                     parameterString = "p" + parameterCount */
-                    if (typeof(element) == "object")
-                    {
-                        element = element ["item"]
+                    if (typeof (element) == "object") {
+                        element = element["item"]
                         hasStructuralEqualConstraints = true
                     }
                     if (element.includes("->") && hasStructuralEqualConstraints == false) {
                         firstElement = element.split("->")[0]
                         secondElement = element.split("->")[1]
-                        res[index] = firstElement + "=~ " + parameterString + " *" + secondElement +"\n"
+                        res[index] = firstElement + "=~ " + parameterString + " *" + secondElement + "\n"
                     }
                     if (element.includes("->") && hasStructuralEqualConstraints == true) {
                         firstElement = element.split("->")[0]
                         secondElement = element.split("->")[1]
-                        res[index] = secondElement + "~ " + parameterString + " *" + firstElement+"\n"
+                        res[index] = secondElement + "~ " + parameterString + " *" + firstElement + "\n"
                     }
                     if (element.includes("<->") && hasStructuralEqualConstraints == false) {
                         firstElement = element.split("<->")[0]
                         secondElement = element.split("<->")[1]
-                        res[index] = secondElement + "~~ " + parameterString + " *" +firstElement +"\n"
+                        res[index] = secondElement + "~~ " + parameterString + " *" + firstElement + "\n"
                     }
                 }
                 else {
-                    if (typeof(element) == "object")
-                    {
-                        element = element ["item"]
+                    if (typeof (element) == "object") {
+                        element = element["item"]
                         hasStructuralEqualConstraints = true
                     }
                     if (element.includes("->") && hasStructuralEqualConstraints == false) {
                         firstElement = element.split("->")[0]
                         secondElement = element.split("->")[1]
-                        res[index] = firstElement + "=~ " + secondElement +"\n"
+                        res[index] = firstElement + "=~ " + secondElement + "\n"
                     }
                     if (element.includes("->") && hasStructuralEqualConstraints == true) {
                         firstElement = element.split("->")[0]
                         secondElement = element.split("->")[1]
-                        res[index] = secondElement + "~ " + firstElement+"\n"
+                        res[index] = secondElement + "~ " + firstElement + "\n"
                     }
-                    
+
                     if (element.includes("<->") && hasStructuralEqualConstraints == false) {
                         firstElement = element.split("<->")[0]
                         secondElement = element.split("<->")[1]
-                        res[index] = secondElement + "~~ " +firstElement +"\n"
+                        res[index] = secondElement + "~~ " + firstElement + "\n"
                     }
                 }
             })
@@ -402,11 +399,97 @@ function transform(val, rule, id) {
             parameterCount = parseInt(parameterCount) + 1
             parameterString = "p" + parameterCount
         })
-        
+
         // val[key] = tempretval
         //Save the parameter count
         $(`#${modalDiv[0].id}`).attr('parameterCount', parameterCount)
-        finalRetString = finalRetString + tempretval 
+        finalRetString = finalRetString + tempretval
+        return finalRetString
+    } else if (type === 'object' && !Array.isArray(val) && rule == "mediation") {
+        res = []
+        let index = 0
+        mediationItems = []
+        let tempParameterCount = 0
+        tempretval = ""
+        separator = ""
+        //let hasStructuralEqualConstraints =false
+        value = `{{item | safe}}`;
+        //Get the modal
+        modalDiv = $(`#${id}`).closest('[parameterCount]')
+        //Get the setting on the checkbox to check whether syntax should be parameterized or not
+        parameterizeFormulaChkId = $(`#${modalDiv[0].id}`).find('[parameterizeFormula]')[0].id
+        parameterizeFormulaChk = $(`#${parameterizeFormulaChkId}`).prop('checked');
+        //Get the parameter count
+        parameterCount = $(`#${modalDiv[0].id}`).attr('parameterCount')
+        parameterString = "p" + parameterCount
+        finalRetString = ""
+        //Lets get all the mediation items
+        Object.keys(val).forEach(function (key, index) {
+            //  hasStructuralEqualConstraints = false
+            val[key].forEach(function (element, index) {
+
+                mediationItems.push(element)
+            })
+        })
+        if (mediationItems.length !=0)
+        {
+            //Lets get the 1 and 2nd items in the elements
+            let firstElement2nditem = mediationItems[0].split("->")[1]
+            let secondElement1stitem = mediationItems[1].split("->")[0]
+            let firstElement1stitem = mediationItems[0].split("->")[0]
+            let secondElement2nditem = mediationItems[1].split("->")[1]
+            if (firstElement2nditem == secondElement1stitem) {
+                //Case 1, the 2nd element of the first item is equal to the 1st element of the 2nd item
+                //A->B and B->C
+                //stop = false
+                //Direct effect
+                res[index] = secondElement2nditem + " ~ " + "direct" + " * " + firstElement1stitem + "\n"
+                index++
+                //Mediator
+                res[index] = firstElement2nditem + " ~ " + parameterString + " * " + firstElement1stitem + "\n"
+                index++
+                tempParameterCount = parameterString
+                parameterCount = parseInt(parameterCount) + 1
+                parameterString = "p" + parameterCount
+                res[index] = secondElement2nditem + " ~ " + parameterString + " * " + secondElement1stitem + "\n"
+                index++
+                //indirect effect
+                res[index] = "indirect  := " + tempParameterCount + " * " + parameterString + "\n"
+                index++
+                //Total effect
+                res[index] = "total : = direct + indirect\n"
+                index++
+
+            } else if (firstElement1stitem == secondElement2nditem) {
+                //Case 2, the 1st element of the first item is equal to the 2nd element of the 2nd item
+                //B->C
+                //A->B
+                //stop = false
+                //Direct effect
+                //a ~ direct * c
+                res[index] = firstElement2nditem + " ~ " + "direct" + " * " + secondElement1stitem + "\n"
+                index++
+                //#Mediator
+                res[index] = firstElement2nditem + " ~ " + parameterString + " * " + firstElement1stitem + "\n"
+                index++
+                tempParameterCount = parameterString
+                parameterCount = parseInt(parameterCount) + 1
+                parameterString = "p" + parameterCount
+                res[index] = secondElement2nditem + " ~ " + parameterString + " * " + secondElement1stitem + "\n"
+                index++
+                //indirect effect
+                res[index] = "indirect  := " + tempParameterCount + " * " + parameterString + "\n"
+                index++
+                //Total effect
+                res[index] = "total : = direct + indirect\n"
+                index++
+            }
+            tempretval = tempretval + res.join(separator);
+            parameterCount = parseInt(parameterCount) + 1
+            parameterString = "p" + parameterCount
+            $(`#${modalDiv[0].id}`).attr('parameterCount', parameterCount)
+        }
+        finalRetString = finalRetString + tempretval
         return finalRetString
     }
     else if (type === "string") {

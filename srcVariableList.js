@@ -16,7 +16,7 @@ class srcVariableList {
      bs-type="cols" ondrop="drop(event)" ondragover="allowDrop(event)">
      <div class="curtain" id="{{modal.id}}VarsCurtain" bs-type="curtain">
         <div class="fa fa-spinner fa-spin"></div>
-    </div>
+        </div>
 </div>
 {{if (options.ms.scroll)}}</div>{{/if}}`
 
@@ -24,6 +24,8 @@ class srcVariableList {
         this.modalID = modal.id;
         this.id = `${modal.id}Vars`
         this.action = config.hasOwnProperty("action") ? config.action : "copy"
+        if (config.hasOwnProperty("allowedDstCtrls"))
+            config.allowedDstCtrls = JSON.stringify(config.allowedDstCtrls)
         this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config});
     }
 

@@ -5,7 +5,7 @@ class semControl extends baseElement {
     id;
     htmlTemplate = `
     <h6>{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</h6>
-        <div class="ms-list2 list-group1" id = "{{modal.id}}_{{ms.no}}" count = {{ms.count}} extractable =true bs-type="sem" no="{{ms.no}}" extractionRule="{{ms.extraction}}"  suppCtrlIds ="{{ms.suppCtrl}}" ctrlsToDeleteFrom = "{{ms.ctrlsToDeleteFrom}}">
+        <div class="ms-list2 list-group1" id = "{{modal.id}}_{{ms.no}}" count = {{ms.count}} extractable =true bs-type="sem" no="{{ms.no}}" extractionRule="{{ms.extraction}}"  suppCtrlIds ="{{ms.suppCtrl}}" ctrlsToDeleteFrom = "{{ms.ctrlsToDeleteFrom}}" {{if (options.ms.allowedSrcCtrls != undefined) }} allowedSrcCtrls = "{{ms.allowedSrcCtrls}}"{{/if}} >
         <div class="row">
             <div class="col-1">
             </div>
@@ -26,6 +26,8 @@ class semControl extends baseElement {
             config.suppCtrl = JSON.stringify(config.suppCtrlIds)
         if (config.hasOwnProperty("ctrlsToDeleteFrom"))
             config.ctrlsToDeleteFrom = JSON.stringify(config.ctrlsToDeleteFrom)
+        if (config.hasOwnProperty("allowedSrcCtrls"))
+            config.allowedSrcCtrls = JSON.stringify(config.allowedSrcCtrls)  
         this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
     }
     clearContent() {
@@ -45,6 +47,12 @@ class semControl extends baseElement {
             textContents = $(`#${item.id}`).find('input').val()
             listGrp = $(`#${item.id}`).find('.list-group')
             numofvars = $(`#${listGrp[0].id}`).find('a').length
+            //You need to have atleast 2 variables for mediation
+            if (this.id =="sem_mediationDestCtrl_destCtrl_1" && numofvars < 2)
+            {
+                dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `You need to have 2 mediation relationships specified in the control with label "${outer_this.label}".` })
+                retval = false
+            }
             if (textContents == "") {
                 if (outer_this.label =="Latent variables")
                 {
@@ -62,9 +70,9 @@ class semControl extends baseElement {
                     dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `No latent traits have been specified in the "${outer_this.label}" control. Please add latent traits or delete the control.` })
                 }
                 retval = false
-            }
-           
+            }          
         })
+
 
      /*    if (this.type =="equalityConstraint") */
         return retval 

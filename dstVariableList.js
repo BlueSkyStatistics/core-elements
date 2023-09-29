@@ -31,6 +31,8 @@ class dstVariableList extends baseElement {
         if (config.required) { this.required = config.required }
         if (config.max_values) { this.max_values = config.max_values }
         if (config.items_count) { this.items_count = config.items_count }
+        if (config.hasOwnProperty("allowedSrcCtrls"))
+            config.allowedSrcCtrls = JSON.stringify(config.allowedSrcCtrls)
         this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config})
         
     }

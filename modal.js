@@ -148,7 +148,7 @@ class modal {
         code_vars ["BSkyThemes"] = themeRsyntax;
         $(`#${this.id}`).find((`[extractable=true]`)).each(function (index, item) {
 
-            if (item.getAttribute("no") == "sem" || item.getAttribute("no") == "sem2"|| item.getAttribute("no") == "sem3" ||item.getAttribute("no") == "modelTermsDst"||item.getAttribute("no") == "coVarDst")
+            if (item.getAttribute("no") == "sem" || item.getAttribute("no") == "sem2"|| item.getAttribute("no") == "sem3" ||item.getAttribute("no") == "modelTermsDst"||item.getAttribute("no") == "coVarDst"|| item.getAttribute("no") == "mediationDestCtrl")
             {
                 code_vars[item.getAttribute("no")] = common.getVal(item.getAttribute("id"))
             }

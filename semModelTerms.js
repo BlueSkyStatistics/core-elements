@@ -18,7 +18,7 @@ class semModelTerms {
 
     constructor(modal, config={}) {
         this.modalID = modal.id;
-        this.id = `${modal.id}${config.no}`
+        this.id = `${modal.id}_${config.no}`
         this.action = config.hasOwnProperty("action") ? config.action : "copy"
         this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config});
     }
@@ -35,6 +35,12 @@ class semModelTerms {
                 element.remove()  
         })
     }
+
+
+    
+
+
+
 }
 
 

@@ -23,9 +23,23 @@ function moveToSrc(ev) {
   var objects = []
   var ids = []
   var modal_id = $(`#${ev.currentTarget.id}`).parent().siblings()[0].children[0].getAttribute("modal_id")
+//We are only moving items that are selected in the destination variable control
+//associated with the move button
+//dst_id is the id of the destination
+  var dst_id = $(`#${ev.currentTarget.id}`).parent().siblings()[0].children[0].id
   // the filter function prevents selected items from modelTermsDst (structural parameters) from being moved
   //Every item in modeltermsdst has a class termsDst
-  $(`#${modal_id} .list-group-item-action.active`).filter(function () {
+ /*  $(`#${modal_id} .list-group-item-action.active`).filter(function () {
+    return !$(this).hasClass('termsDst')
+  }).each(function (index, item) {
+    if (item.getAttribute("original")) {
+      item.innerText = item.getAttribute("original")
+      item.removeAttribute("original")
+    }
+    objects.push(item.outerHTML)
+    ids.push(item.id)
+  }) */
+  $(`#${dst_id} .list-group-item-action.active`).filter(function () {
     return !$(this).hasClass('termsDst')
   }).each(function (index, item) {
     if (item.getAttribute("original")) {
@@ -35,7 +49,12 @@ function moveToSrc(ev) {
     objects.push(item.outerHTML)
     ids.push(item.id)
   })
-  _drop(objects, "move", ids, ids[0].split("_")[0])
+//There are no items to move, note we are only moving items that are selected in the destination variable control
+//associated with the move button, there may be no items selected, hence we don't call the drop
+ if (objects.length > 0)
+{
+    _drop(objects, "move", ids, ids[0].split("_")[0])
+} 
 }
 
 function _to_compute(ev, dst) {
@@ -106,19 +125,29 @@ function _drop(objects, action, object_ids, parentID) {
   let greatestOrderInParent = 0
   let position = 0
   let stop = false
-  //Getting all the iconTypes of the variables being dragged
-  if ($("#" + parentID).attr("modal_id") == "sem" && extractBeforeLastUnderscore(parentID) == 'sem_sem3_depVar') {
 
+  var el = undefined
+    try {
+      el = $(`#${parentID}`)
+    } catch {
+      el = $(document.getElementById(parentID))
+    }
+    if (!el.attr("bs-type")) {
+      el = el.parent()
+      parentID = el.attr("id")
+    }
+
+  //Getting all the iconTypes of the variables being dragged
+  if ($("#" + parentID).attr("modal_id") == "sem" && extractBeforeLastUnderscore(parentID) == 'sem_sem3_depVar') 
+  {
     //Making sure all the elements being dragged into a set are the same type
     // Check if there are at least two elements
     if (object_ids.length >= 2) {
-      // Get the attribute value of the first element
-      let firstElementValue = $("#" + object_ids[0]).attr("bs-row-class");
-
-      // Loop through the remaining elements and compare their attribute values
-      for (let i = 1; i < object_ids.length; i++) {
-        let currentValue = $("#" + object_ids[i]).attr("bs-row-class");
-
+    // Get the attribute value of the first element
+    let firstElementValue = $("#" + object_ids[0]).attr("bs-row-class");
+    // Loop through the remaining elements and compare their attribute values
+    for (let i = 1; i < object_ids.length; i++) {
+       let currentValue = $("#" + object_ids[i]).attr("bs-row-class");
         // If the current value is different from the first element's value, they are not all the same
         if (currentValue !== firstElementValue) {
           dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Incompatible types", message: `An equality constraint set must contain all factor loadings, covariance relationships or structural relationships. The elements you are moving have different types.` })
@@ -128,8 +157,6 @@ function _drop(objects, action, object_ids, parentID) {
       }
       if (stop == true) return
     }
-
-
     let elements = [];
     $(`#${parentID} a`).each(function (index, item) {
       //elements.push($("#" +item.id).attr("bs-row-class"));
@@ -145,18 +172,90 @@ function _drop(objects, action, object_ids, parentID) {
       })
     }
   }
-  if (stop == true) return
-  for (var i = 0; i < objects.length; i++) {
-    var el = undefined
-    try {
-      el = $(`#${parentID}`)
-    } catch {
-      el = $(document.getElementById(parentID))
-    }
-    if (!el.attr("bs-type")) {
-      el = el.parent()
-      parentID = el.attr("id")
-    }
+  if ($("#" +parentID).attr("modal_id") =="sem" && extractBeforeLastUnderscore(parentID) == 'sem_mediationDestCtrl_depVar')
+  { 
+    
+    //Lets get the item values from the mediation control
+    let elements=[];
+      $(`#${parentID} a`).each(function(index, item) {
+            //elements.push($("#" +item.id).attr("bs-row-class"));
+            elements.push(item.text)
+        });
+    
+    //If there are greater than 3 elements dragged show an error
+    if (object_ids.length > 2) 
+    { 
+    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Not supported", message: `We don't support more than 2 variables in a mediation set. Please contact support@blueskystatistics.com if you need this capability.` })
+            stop = true
+            return
+    } else if (object_ids.length ==2 && elements.length == 0  ) {
+    //If there are 2 elements already in the mediation control show an error  
+    //Case if I am dragging 2 items and there are no existing items
+      let firstElement2nditem = $("#"+ object_ids[0]).text().split("->")[1]
+      let secondElement1stitem = $("#"+ object_ids[1]).text().split("->")[0]
+      let firstElement1stitem = $("#"+ object_ids[0]).text().split("->")[0]
+      let secondElement2nditem = $("#"+ object_ids[1]).text().split("->")[1]		
+      if (firstElement2nditem == secondElement1stitem)
+      {
+        //Case 1, the 2nd element of the first item is equal to the 1st element of the 2nd item
+        //A->B and B->C
+        stop = false
+      } else if (firstElement1stitem == secondElement2nditem)
+      {
+        //Case 2, the 1st element of the first item is equal to the 2nd element of the 2nd item
+        //B->C
+        //A->B
+        stop = false
+      } else
+      {
+        stop = true
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `Mediation relationship variables must be in the form A->B and B->C ` })
+			  return
+      }
+	  } else  if (object_ids.length == 1 && elements.length == 1  )
+    {
+    //Case if I am dragging 1 item and there is an existing item
+      let firstElement2nditem = $("#"+ object_ids[0]).text().split("->")[1]
+      let secondElement1stitem = elements[0].split("->")[0]
+      let firstElement1stitem = $("#"+ object_ids[0]).text().split("->")[0]
+      let secondElement2nditem = elements[0].split("->")[1]
+      if (firstElement2nditem == secondElement1stitem)
+      {
+        //Case 1, the 2nd element of the first item is equal to the 1st element of the 2nd item
+        //A->B and B->C
+        stop = false
+        
+      } else if (firstElement1stitem == secondElement2nditem)
+      {
+        //Case 2, the 1st element of the first item is equal to the 2nd element of the 2nd item
+        //B->C
+        //A->B
+        stop = false
+      } else
+      {
+        stop = true
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `Mediation relationship variables must be in the form A->B and B->C or B->C and A->B` })
+        return
+      }
+	} else if (object_ids.length >= 1 && elements.length >= 2  )
+  {
+    //case when I am dragging one or more items and there are already 2 items    
+     stop = true
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `We don't support more than 2 variables in a mediation set. Please contact support@blueskystatistics.com if you need this capability.` })
+        return
+  } else  if (object_ids.length >= 2 &&  elements.length >= 1  )
+  {
+  //case when I am dragging 2 or more items and there is already 1 items
+ 
+    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Not supported", message: `We don't support more than 2 variables in a mediation set. Please contact support@blueskystatistics.com if you need this capability.` })
+          stop = true
+          return
+  }
+
+}
+    if (stop == true) return
+  for (var i =  0; i < objects.length; i++) {
+    
     var isWrapped = el.attr("is-wrapped");
     var object = objects[i];
     var object_id = object_ids[i];
@@ -1008,6 +1107,27 @@ function moveToDst(ev) {
     })
     _to_formula(objects, dst_id)
   } else {
+    //Get the source controls can I can drag from
+    let allowableDragCtrlsString =$(`#${dst_id}`).attr("allowedSrcCtrls")
+    let allowableDragCtrls = []
+    if (allowableDragCtrlsString != undefined)
+    {
+      //Get the allowable drag controls from the destination 
+      allowableDragCtrls = JSON.parse(allowableDragCtrlsString)
+    }
+    //Check if the source of the drag and drop is valid
+    if (allowableDragCtrls.length !=0)
+    {
+      allowableDragCtrls.forEach(function(element, index){
+      $(`#${element} .list-group-item-action.active`).filter(function () {
+        return !$(this).hasClass('termsDst')
+      }).each(function (index, item) {
+        objects.push(item.outerHTML)
+        ids.push(item.id)
+        action = $(`#${item.id.split("_")[0]}`).attr("act")
+      })
+    })
+    } else {
     // the filter function prevents selected items from objects of class modelTermsDst from being moved
     $(`#${modal_id} .list-group-item-action.active`).filter(function () {
       return !$(this).hasClass('termsDst')
@@ -1016,7 +1136,7 @@ function moveToDst(ev) {
       ids.push(item.id)
       action = $(`#${item.id.split("_")[0]}`).attr("act")
     })
-
+    }
     _drop(objects, action, ids, dst_id)
   }
 }
@@ -1174,8 +1294,39 @@ module.exports.dropWrapped = (ev) => {
 }
 module.exports.drop = (ev, parentID = null) => {
   ev.preventDefault();
+//The drop destination can be a listbox or an item in the listbox 
   if (parentID === null) {
     parentID = ev.target.id;
+  }
+  var el = undefined
+    try {
+      el = $(`#${parentID}`)
+    } catch {
+      el = $(document.getElementById(parentID))
+    }
+    if (!el.attr("bs-type")) {
+      //Address case when the target is an item in the listbox
+      el = el.parent()
+      parentID = el.attr("id")
+    }
+  //Get the source controls can I can drag from
+  let allowableDragCtrlsString =$(`#${parentID}`).attr("allowedSrcCtrls")
+  let allowableDragCtrls = []
+  if (allowableDragCtrlsString != undefined)
+  {
+    //Get the allowable drag controls from the destination 
+    allowableDragCtrls = JSON.parse(allowableDragCtrlsString)
+  }
+  let srcDragCtrl = ev.dataTransfer.getData("srcDragName")
+ //Check if the source of the drag and drop is valid
+  if (allowableDragCtrls.length !=0)
+  {
+    if ( allowableDragCtrls.indexOf(srcDragCtrl) == -1)
+    {
+        let srcDragCtrlLabel = $(`#${srcDragCtrl}`).siblings('h6').text()
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `The destination control does not allow variables to be dropped from the source control with label "${srcDragCtrlLabel}".` })
+        return
+    }
   }
   var objects = [];
   var elTarget = document.getElementById(parentID)
@@ -1210,6 +1361,7 @@ module.exports.dropToInput = (ev) => {
   ev.preventDefault();
   var parentID = ev.target.id;
   var object_ids = ev.dataTransfer.getData("id").split(",");
+  
   var objects = [];
   object_ids.forEach((item) => {
     objects.push(document.getElementById(item).textContent)
@@ -1217,7 +1369,7 @@ module.exports.dropToInput = (ev) => {
   if (filterInput($(`#${parentID}`).attr("bs-type"), "character")) {
     //I will be using this code for a new textarea control
     //let temp =$(`#${parentID}`).val();
-    //$(`#${parentID}`).val(temp+objects[0]);
+    //$(`#${parentID}`).val(temp+objects[0]);srcDragName
     $(`#${parentID}`).val(objects[0]);
   }
 }
@@ -1226,12 +1378,17 @@ module.exports.allowDrop = (ev) => {
 }
 module.exports.drag = (ev, action) => {
   var ids = []
+  //Save the uniqueid of the control you are dragging from
+  //This allows me to check whether the destination allows me to drip items from the source
+  let srcDragName =""
   $(`#${document.getElementById(ev.target.id).parentNode.id}`).find(".active").each((i, el) => {
     ids.push(el.id)
   })
   if (ids.indexOf(ev.target.id) === -1) {
     ids.push(ev.target.id)
   }
+  srcDragName = document.getElementById(ev.target.id).parentNode.id
+  ev.dataTransfer.setData("srcDragName", srcDragName);
   ev.dataTransfer.setData("action", action);
   ev.dataTransfer.setData("id", ids);
 }
