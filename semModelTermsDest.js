@@ -57,6 +57,9 @@ class semModelTermsDest extends baseElement {
         $(`#${this.id}`).children().each(function(index, element) {
             element.remove()
         })
+        //Removing the deletedCoVars attribute so that when a new sem dialog is launched the prir attributes don't get copied
+        if (this.id == "sem_coVarDst" && $("#" + "sem_coVarDst").attr('deletedCoVars') != undefined)
+               $(`#${this.id}`).removeAttr("deletedCoVars")
     }
 }
 

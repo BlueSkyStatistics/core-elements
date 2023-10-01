@@ -260,6 +260,16 @@ function transform(val, rule, id) {
                 finalRetString = finalRetString + myArray[1] + "~~" + myArray[0] + "\n"
             }
         })
+
+        let deletedCoVars = []
+        if ( $(`#${id}`).attr('deletedCoVars') != undefined)
+        {
+            deletedCoVars = JSON.parse($(`#${ctrl}`).attr('deletedCoVars'))
+            deletedCoVars.forEach(function (element, index) {
+                let myArray = element.split("<->");
+                finalRetString = finalRetString + myArray[1] + " " + "~~" + " " + 0 + "*" + myArray[0] + "\n"  
+            })
+        }
         //Save the parameter count
         $(`#${modalDiv[0].id}`).attr('parameterCount', parameterCount)
         return finalRetString

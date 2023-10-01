@@ -1318,7 +1318,7 @@ module.exports.drop = (ev, parentID = null) => {
     allowableDragCtrls = JSON.parse(allowableDragCtrlsString)
   }
   let srcDragCtrl = ev.dataTransfer.getData("srcDragName")
- //Check if the source of the drag and drop is valid
+  //Check if the source of the drag and drop is valid
   if (allowableDragCtrls.length !=0)
   {
     if ( allowableDragCtrls.indexOf(srcDragCtrl) == -1)
@@ -1333,10 +1333,10 @@ module.exports.drop = (ev, parentID = null) => {
   var action = ev.dataTransfer.getData("action");
   var object_ids = ev.dataTransfer.getData("id").split(",");
   if (document.getElementById(object_ids[0])) {
-    //If I am dropping a variable from the aggregate control to the same aggregate control, I do nothing
-    //There are 2 cases here, case 1, I drop an existing variable in the aggregate control to an empty place in the same control
-    //Case 2, I drop an existing variable to an already exsting variable in that aggregate control
-    if (((document.getElementById(object_ids[0]).parentNode.id == elTarget.parentNode.id) || (document.getElementById(object_ids[0]).parentNode.id == elTarget.id)) && elTarget.closest('div[bs-type="wrapcontrol"]') != null)
+  //If I am dropping a variable from the aggregate control to the same aggregate control, I do nothing
+  //There are 2 cases here, case 1, I drop an existing variable in the aggregate control to an empty place in the same control
+  //Case 2, I drop an existing variable to an already exsting variable in that aggregate control
+  if (((document.getElementById(object_ids[0]).parentNode.id == elTarget.parentNode.id) || (document.getElementById(object_ids[0]).parentNode.id == elTarget.id)) && elTarget.closest('div[bs-type="wrapcontrol"]') != null)
       return
   }
   object_ids.forEach((item) => {
