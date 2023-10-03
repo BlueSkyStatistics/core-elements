@@ -1140,7 +1140,23 @@ function moveToDst(ev) {
     _drop(objects, action, ids, dst_id)
   }
 }
+//selectModelTerms ensures at the class active gets added to selected items in the structural parameters and coVarsDst in production mode
+module.exports.selectModelTerms = (ev) => {
+  ev.preventDefault();
+  ev.stopPropagation();
+  var el = document.getElementById(ev.target.id)
+  var parentId = el.parentElement.id;
+  
+  $(`#${parentId} .list-group-item-action.active`).removeAttr("active");
+  $(`#${parentId} .list-group-item-action.active`).removeClass("active");
+ // $(`#${ev.target.id}`).addClass("active");
 
+  el.classList.add("active");
+  el.setAttribute("active", "");
+  
+
+
+}
 
 module.exports.selectElement = (ev) => {
   ev.preventDefault();

@@ -43,6 +43,7 @@ class srcVariableList {
                         {
                             // the filter function prevents selected items from modelTermsDst (structural parameters) from being moved
                             //Every item in modeltermsdst has a class termsDst
+                            //selectModelTerms ensures at the class active gets added to selected items in the structural parameters and coVarsDst in production mode
                             data.cols.forEach(element => {
                                 var item_name = element.Name[0];
                                 order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
@@ -53,6 +54,7 @@ class srcVariableList {
                                 bs-row-type="${element.Type[0]}" 
                                 bs-row-class="${element.ColClass[0]}" 
                                 bs-row-measure="${element.Measure[0]}" 
+                                onclick="selectModelTerms(event)"
                                 >${item_name}</a>`) 
                             });
                             $(`#${item_id}`).attr('order', order.join("|||"))  

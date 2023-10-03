@@ -266,8 +266,12 @@ function transform(val, rule, id) {
         {
             deletedCoVars = JSON.parse($(`#${ctrl}`).attr('deletedCoVars'))
             deletedCoVars.forEach(function (element, index) {
-                let myArray = element.split("<->");
-                finalRetString = finalRetString + myArray[1] + " " + "~~" + " " + 0 + "*" + myArray[0] + "\n"  
+                //For some reason an empty string gets added to the deleted covariances
+                if (element.length  != 0)
+                {
+                    let myArray = element.split("<->");
+                    finalRetString = finalRetString + myArray[1] + " " + "~~" + " " + 0 + "*" + myArray[0] + "\n"  
+                }
             })
         }
         //Save the parameter count

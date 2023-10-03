@@ -72,6 +72,7 @@ module.exports = {
     "toggleSelect": handlers.toggleSelect,
     "toggleSelectPoly": handlers.toggleSelectPoly,
     "selectElement": handlers.selectElement,
+    "selectModelTerms": handlers.selectModelTerms,
     "enablyStickyDivs": handlers.enablyStickyDivs,
     "disableStickyDivs": handlers.disableStickyDivs,
     "r_before_modal": handlers.r_before_modal,
