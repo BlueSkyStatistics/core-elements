@@ -14,7 +14,7 @@ class optionsMenu {
       </a>
       <div class="collapse" id="{{modal.id}}_{{ms.no}}">
         <div class="card card-body card-dark">
-         {{if (options.ms.layout =="two"|| options.ms.layout =="three" ||options.ms.layout =="four")}}
+         {{if (options.ms.layout =="two"|| options.ms.layout =="three" ||options.ms.layout =="four"|| options.ms.layout =="five" ||options.ms.layout =="six")}}
             {{if (options.ms.layout =="two")}}
               <div class="row">
                 <div class="col  col-4 destination ">
@@ -81,6 +81,68 @@ class optionsMenu {
                 </div>
               </div>
             {{/if}} 
+            {{if (options.ms.layout =="five")}}
+              <div class="row">
+                <div class="col  col-12 destination ">
+                  {{each(options.ms.top)}}
+                    {{ @this.content | safe }}
+                  {{/each}}
+                </div>
+              </div>
+              <div class="row">
+                <div class="col  col-4 destination ">
+                  {{each(options.ms.left)}}
+                    {{ @this.content | safe }}
+                  {{/each}}
+                </div>
+                <div class="col  col-8 destination ">
+                  {{each(options.ms.right)}}
+                    {{ @this.content | safe }}
+                  {{/each}}
+                </div>
+              </div>
+			        <div class="row">
+                <div class="col  col-12 destination ">
+                  {{each(options.ms.bottom)}}
+                    {{ @this.content | safe }}
+                  {{/each}}
+                </div>
+              </div>
+            {{/if}}
+            {{if (options.ms.layout =="six")}}
+            <div class="row">
+              <div class="col  col-12 destination ">
+                {{each(options.ms.top)}}
+                  {{ @this.content | safe }}
+                {{/each}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col  col-4 destination ">
+                {{each(options.ms.left)}}
+                  {{ @this.content | safe }}
+                {{/each}}
+              </div>
+              <div class="col  col-4 destination ">
+                {{each(options.ms.center)}}
+                  {{ @this.content | safe }}
+                {{/each}}
+              </div>
+              <div class="col  col-4 destination ">
+                {{each(options.ms.right)}}
+                  {{ @this.content | safe }}
+                {{/each}}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col  col-12 destination ">
+                {{each(options.ms.bottom)}}
+                  {{ @this.content | safe }}
+                {{/each}}
+              </div>
+            </div>
+          {{/if}}
+               
         {{#else}}
             <div>
               {{each(options.ms.content)}}
