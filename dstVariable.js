@@ -19,7 +19,7 @@ class dstVariable extends baseElement{
             </button>
         </div>
         <div class="col col-rr">    
-            <div class="list-group sg-list" id="{{modal.id}}_{{ms.no}}" modal_id="{{modal.id}}" no="{{ms.no}}" bs-type="single" ondrop="drop(event)" extractable=true extractionRule="{{ms.extraction}}" filter="{{ms.filter}}" ondragover="allowDrop(event)" {{if(options.ms.wrapped)}}  wrapped="{{ms.wrapped}}" {{/if}} {{if (options.ms.onselect_r) }}onselect_r={{ms.onselect_r | safe}} {{/if}}></div>
+            <div class="list-group sg-list" id="{{modal.id}}_{{ms.no}}" modal_id="{{modal.id}}" no="{{ms.no}}" bs-type="single" ondrop="drop(event)" extractable=true extractionRule="{{ms.extraction}}" filter="{{ms.filter}}" ondragover="allowDrop(event)" {{if(options.ms.wrapped)}}  wrapped="{{ms.wrapped}}" {{/if}} {{if (options.ms.onselect_r) }}onselect_r={{ms.onselect_r | safe}} {{/if}} {{if (options.ms.allowedSrcCtrls != undefined) }} allowedSrcCtrls = "{{ms.allowedSrcCtrls}}"{{/if}}></div>
         </div>   
     </div>` 
 
@@ -32,6 +32,8 @@ class dstVariable extends baseElement{
         } else {
             config.onselect_r =""
         }
+        if (config.hasOwnProperty("allowedSrcCtrls"))
+            config.allowedSrcCtrls = JSON.stringify(config.allowedSrcCtrls)
         this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config})
         if (config.required) {
             this.required = config.required

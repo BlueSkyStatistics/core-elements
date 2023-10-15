@@ -50,6 +50,31 @@ class semModelTermsDest extends baseElement {
   
     
     canExecute() {
+        let transModelTerm = ""
+        let duplicateRelationShips = []       
+        if (this.id == "sem_modelTermsDst")
+        {
+            let modelTerms = common.getMultiVal(this.id)
+            let coVarTerms = common.getMultiVal("sem_coVarDst")
+            if (modelTerms.length != 0 && coVarTerms.length != 0)
+            {                
+                modelTerms.forEach(function(element, index) {                   
+                    transModelTerm = element.replace("->", "<->")
+                    if (coVarTerms.indexOf(transModelTerm ) != -1)
+                    {
+                        duplicateRelationShips.push(transModelTerm)
+                    }
+                })
+            }
+        }
+        if (duplicateRelationShips.length > 0)
+        {
+            let newArray = duplicateRelationShips.map(element => element.replace("<->", " & "));
+            let newArrayToString = "[" + newArray.join(", ") +"]"
+            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Relationship error", message: `You have defined a relationship between variables ${newArrayToString} in the structural parameters and the covariances. You need to define the relationship once
+            ` })
+            return false
+        }
         return true
     }
 

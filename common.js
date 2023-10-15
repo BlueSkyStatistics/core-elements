@@ -238,6 +238,10 @@ function transform(val, rule, id) {
             //finalRetString = finalRetString + myArray[1] + "~" +  myArray[0] +"\n"
         })
         $(`#${modalDiv[0].id}`).attr('parameterCount', parameterCount)
+        if (finalRetString != "")
+        {
+            finalRetString ="#Structural paramters\n" + finalRetString
+        } 
         return finalRetString
     }
     if (rule == "coVariances") {
@@ -257,7 +261,7 @@ function transform(val, rule, id) {
                 parameterCount = parseInt(parameterCount) + 1
             }
             else {
-                finalRetString = finalRetString + myArray[1] + "~~" + myArray[0] + "\n"
+                finalRetString = finalRetString + myArray[1] + " ~~ " + myArray[0] + "\n"
             }
         })
 
@@ -276,6 +280,10 @@ function transform(val, rule, id) {
         }
         //Save the parameter count
         $(`#${modalDiv[0].id}`).attr('parameterCount', parameterCount)
+        if (finalRetString != "")
+        {
+            finalRetString ="#Covariances\n" + finalRetString
+        } 
         return finalRetString
     }
     //This supports the removal of spaces in a textbox
@@ -334,15 +342,23 @@ function transform(val, rule, id) {
                     res[index] = Sqrl.Render(value, { item: Sqrl.Render(item, { item: element }) });
                 }
             })
-            tempretval = res.join(separator);
+            tempretval = res.join(" "+separator+ " ");
             // val[key] = tempretval
             //Save the parameter count
             $(`#${modalDiv[0].id}`).attr('parameterCount', parameterCount)
-            finalRetString = finalRetString + key + "=~" + tempretval + "\n"
+
+            finalRetString =  finalRetString + key + " =~ " + tempretval + "\n"
         })
         //finalRetString = finalRetString.replace(/\n$/, '');
         //retval = JSON.stringify(val)
         //finalRetString = "'" + finalRetString + "'\n";
+        if (finalRetString != "")
+        {
+            if (id == "sem_sem")
+                finalRetString = "\n#Latent variables\n"+ finalRetString
+            else if (id =="sem_sem2")
+            finalRetString = "#Higher order factors\n"+ finalRetString
+        }
         return finalRetString
     } else if (type === 'object' && !Array.isArray(val) && rule == "equalityConstraints") {
         res = []
@@ -361,6 +377,7 @@ function transform(val, rule, id) {
         finalRetString = ""
         Object.keys(val).forEach(function (key, index) {
             hasStructuralEqualConstraints = false
+            res = []
             val[key].forEach(function (element, index) {
                 if (parameterizeFormulaChk) {
                     //res[index] = parameterString + "*" + Sqrl.Render(value, { item: Sqrl.Render(item, { item: element }) });
@@ -373,17 +390,17 @@ function transform(val, rule, id) {
                     if (element.includes("->") && hasStructuralEqualConstraints == false) {
                         firstElement = element.split("->")[0]
                         secondElement = element.split("->")[1]
-                        res[index] = firstElement + "=~ " + parameterString + " *" + secondElement + "\n"
+                        res[index] = firstElement + " =~ " + parameterString + " *" + secondElement + "\n"
                     }
                     if (element.includes("->") && hasStructuralEqualConstraints == true) {
                         firstElement = element.split("->")[0]
                         secondElement = element.split("->")[1]
-                        res[index] = secondElement + "~ " + parameterString + " *" + firstElement + "\n"
+                        res[index] = secondElement + " ~ " + parameterString + " *" + firstElement + "\n"
                     }
                     if (element.includes("<->") && hasStructuralEqualConstraints == false) {
                         firstElement = element.split("<->")[0]
                         secondElement = element.split("<->")[1]
-                        res[index] = secondElement + "~~ " + parameterString + " *" + firstElement + "\n"
+                        res[index] = secondElement + " ~~ " + parameterString + " *" + firstElement + "\n"
                     }
                 }
                 else {
@@ -394,18 +411,18 @@ function transform(val, rule, id) {
                     if (element.includes("->") && hasStructuralEqualConstraints == false) {
                         firstElement = element.split("->")[0]
                         secondElement = element.split("->")[1]
-                        res[index] = firstElement + "=~ " + secondElement + "\n"
+                        res[index] = firstElement + " =~ " + secondElement + "\n"
                     }
                     if (element.includes("->") && hasStructuralEqualConstraints == true) {
                         firstElement = element.split("->")[0]
                         secondElement = element.split("->")[1]
-                        res[index] = secondElement + "~ " + firstElement + "\n"
+                        res[index] = secondElement + " ~ " + firstElement + "\n"
                     }
 
                     if (element.includes("<->") && hasStructuralEqualConstraints == false) {
                         firstElement = element.split("<->")[0]
                         secondElement = element.split("<->")[1]
-                        res[index] = secondElement + "~~ " + firstElement + "\n"
+                        res[index] = secondElement + " ~~ " + firstElement + "\n"
                     }
                 }
             })
@@ -418,6 +435,8 @@ function transform(val, rule, id) {
         //Save the parameter count
         $(`#${modalDiv[0].id}`).attr('parameterCount', parameterCount)
         finalRetString = finalRetString + tempretval
+        if (finalRetString != "")
+            finalRetString = "#Equality constraints\n"+ finalRetString
         return finalRetString
     } else if (type === 'object' && !Array.isArray(val) && rule == "mediation") {
         res = []
@@ -504,6 +523,8 @@ function transform(val, rule, id) {
             $(`#${modalDiv[0].id}`).attr('parameterCount', parameterCount)
         }
         finalRetString = finalRetString + tempretval
+        if (finalRetString != "")
+            finalRetString = "#Mediation\n"+ finalRetString
         return finalRetString
     }
     else if (type === "string") {
