@@ -263,7 +263,7 @@ function stringWithFacetsForPlotOfMeans(Facetrow, Facetcolumn, Facetwrap) {
     }
     return tempFacets;
 }
-function addToFactorList(factor, levels, factorList) {
+function termsToFactorList(factor, levels, factorList) {
     let factorName = document.getElementById(factor).value;
     if (factorName == "") {
         ipcRenderer.invoke('errormessage', { title: "Error", message: `You must specify a non-empty string to use as a factor name` });
@@ -1556,7 +1556,7 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
     //removing the current selection
     $(`#${destId} .list-group-item-action.active`).removeClass("active");
     // Checking if the item is already added
-    if ($(`#${destId}`).find(`#${var1}_${getActiveDataset()}_${var2.replace(/ /g, "_")}`).length == 0)
+    if ($(`#${destId}`).find(`#${destId}_${var1}_${getActiveDataset()}_${var2.replace(/ /g, "_")}`).length == 0)
     {
         //firstTerm and secondTerm keep track of original variables so that they can be deleted when the latent variables are removed
         //the filter function prevents selected items from modelTermsDst (structural parameters) from being moved
@@ -1597,20 +1597,18 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
             if ( $(`#${destId}`).attr('deletedCoVars') != undefined)
             {
                 deletedCoVars = JSON.parse($(`#${destId}`).attr('deletedCoVars'))
-            } 
-            //If the item I am adding was previously deleted, I remove the deleted entry  
-            if ( deletedCoVars.indexOf(var3) != -1)
-            {
-                //deletedCoVars.push(itemsToDelete)
-                deletedCoVars = deletedCoVars.filter(item => item !== var3);
-                if (deletedCoVars.length > 0)
-                    $(`#${destId}`).attr('deletedCoVars', JSON.stringify(deletedCoVars))
-                else
-                    $(`#${destId}`).removeAttr('deletedCoVars')
+                //If the item I am adding was previously deleted, I remove the deleted entry  
+                if ( deletedCoVars.indexOf(var3) != -1)
+                {
+                    //deletedCoVars.push(itemsToDelete)
+                    deletedCoVars = deletedCoVars.filter(item => item !== var3);
+                    if (deletedCoVars.length > 0)
+                        $(`#${destId}`).attr('deletedCoVars', JSON.stringify(deletedCoVars))
+                    else
+                        $(`#${destId}`).removeAttr('deletedCoVars')
+                }
             }
         } 
-
-
         if (extractionRule == "modelTerms")
         {          
             //Populating the mediationSrcCtrl 

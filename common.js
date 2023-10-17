@@ -310,7 +310,7 @@ function transform(val, rule, id) {
         val = val.join(separator);
         value = `c({{item | safe}})`;
     } else {
-        // This is TextAsIs and NoPrefix
+        // This is TextAsIs and NoPrefix and an extraction rule that that is not specified, e.g. Boolean instead of boolean
         value = `{{item | safe}}`;
     }
     if (type === 'object' && Array.isArray(val)) {
@@ -332,6 +332,7 @@ function transform(val, rule, id) {
         parameterString = "p" + parameterCount
         finalRetString = ""
         Object.keys(val).forEach(function (key, index) {
+            res =[]
             val[key].forEach(function (element, index) {
                 if (parameterizeFormulaChk) {
                     res[index] = parameterString + "*" + Sqrl.Render(value, { item: Sqrl.Render(item, { item: element }) });
