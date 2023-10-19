@@ -62,6 +62,10 @@ class semControl extends baseElement {
                 }
                 retval = false
             }
+            if ( isFinite(textContents)) {
+                dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `You have entered a number in one of the names of the latent traits in the "${outer_this.label}" control. Please enter a valid name.` })
+                retval = false
+            }
             if (numofvars == 0) {
                 if (outer_this.label =="Latent variables")
                 {
@@ -72,9 +76,6 @@ class semControl extends baseElement {
                 retval = false
             }          
         })
-
-
-     /*    if (this.type =="equalityConstraint") */
         return retval 
     }
 }

@@ -549,6 +549,7 @@ function checkDuplicateNames(textBoxId, modalId)
     let latentCtrlId = "#" + modalId + "_" +"sem"
     let higherOrderFactorsId = "#" + modalId + "_" +"sem2"
     let latentInputCtrls = $(latentCtrlId).find("input")
+    let error = false
     latentInputCtrls.each(function() {
         if ( oriTextBoxId != this.id)
         {
@@ -556,7 +557,8 @@ function checkDuplicateNames(textBoxId, modalId)
             {
                 dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Duplicate name entered", message: `You have entered a latent variable name or higher order factor name that has aready been entered. All latent variable names and higher order factor names must be unique` })
                 $(`#${textBoxId}`).val("")
-                return false
+                error = true
+                return 
             }
         }
       });
@@ -568,11 +570,12 @@ function checkDuplicateNames(textBoxId, modalId)
             {
                 dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Duplicate name entered", message: `You have entered a latent variable name or higher order factor name that has aready been entered. All latent variable names and higher order factor names must be unique` })
                 $(`#${textBoxId}`).val("")
-                return false
+                error = true
+                return 
             }
         }
       });
-      return true
+      return error
 }
 
 
@@ -588,11 +591,14 @@ function actionOnCreateLatentVarHighorderVar(textBoxId, modalId, ctrlId)
 {
     let item_name = $(`#${textBoxId}`).val();
     let priorVal = $(`#${textBoxId}`).attr('priorValue')
+    if (item_name =="" && priorVal == undefined)
+        return
     //This is the case when I blanked out/back spaced an existing latent variable
     if (item_name =="" && priorVal != undefined) 
     {
         //Since there was a prior value for the latent variable, I need to remove it from all supporting controls and modeltermsdst and covarstermscst and mediationdest
         deletingLatentOrHigher( priorVal, textBoxId, modalId)
+        $(`#${textBoxId}`).removeAttr('priorValue')
         return
     }
     //The name of a latent variable or higher order factor should not match any of the variable names in the active dataset
@@ -601,11 +607,21 @@ function actionOnCreateLatentVarHighorderVar(textBoxId, modalId, ctrlId)
         dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Incorrect name specified", message: `A latent variable name or higher order factor name cannot match a name of a dataset variable.` })
         //I blank this out to force the user to enter a valid name
         $(`#${textBoxId}`).val("")
+        if (priorVal != undefined){
+            deletingLatentOrHigher( priorVal, textBoxId, modalId)
+            $(`#${textBoxId}`).removeAttr('priorValue')
+        }
         return
     }
     //We cannot have duplicates in the names of the latent variables or higher order factor names
-    if (!checkDuplicateNames(textBoxId, modalId, ctrlId))
+    if (checkDuplicateNames(textBoxId, modalId, ctrlId))
+    {
+        if (priorVal != undefined){
+            deletingLatentOrHigher( priorVal, textBoxId, modalId)
+            $(`#${textBoxId}`).removeAttr('priorValue')
+        }
         return 
+    }
     var dataset = getActiveDataset();
     let suppCtrl =null
     //The if below allows us to support separate support controls for the latent variables and the 2nd order/higher order factors
