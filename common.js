@@ -240,7 +240,7 @@ function transform(val, rule, id) {
         $(`#${modalDiv[0].id}`).attr('parameterCount', parameterCount)
         if (finalRetString != "")
         {
-            finalRetString ="#Structural paramters\n" + finalRetString
+            finalRetString ="#Structural parameters\n" + finalRetString
         } 
         return finalRetString
     }
