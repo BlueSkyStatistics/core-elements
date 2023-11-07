@@ -439,7 +439,7 @@ function transform(val, rule, id) {
         if (finalRetString != "")
             finalRetString = "#Equality constraints\n"+ finalRetString
         return finalRetString
-    } else if (type === 'object' && !Array.isArray(val) && rule == "mediation") {
+    } else if (type === 'object' && !Array.isArray(val) && (rule == "mediation" || rule =="mediationReverseDirectRel")) {
         res = []
         let index = 0
         mediationItems = []
@@ -477,7 +477,12 @@ function transform(val, rule, id) {
                 //A->B and B->C
                 //stop = false
                 //Direct effect
-                res[index] = secondElement2nditem + " ~ " + "direct" + " * " + firstElement1stitem + "\n"
+                if (rule =="mediation")
+                {
+                    res[index] = secondElement2nditem + " ~ " + "direct" + " * " + firstElement1stitem + "\n"
+                } else {
+                    res[index] = firstElement1stitem + " ~ " + "direct" + " * " +  secondElement2nditem + "\n"
+                }
                 index++
                 //Mediator
                 res[index] = firstElement2nditem + " ~ " + parameterString + " * " + firstElement1stitem + "\n"
@@ -493,7 +498,6 @@ function transform(val, rule, id) {
                 //Total effect
                 res[index] = "total : = direct + indirect\n"
                 index++
-
             } else if (firstElement1stitem == secondElement2nditem) {
                 //Case 2, the 1st element of the first item is equal to the 2nd element of the 2nd item
                 //B->C
@@ -501,7 +505,12 @@ function transform(val, rule, id) {
                 //stop = false
                 //Direct effect
                 //a ~ direct * c
+                if (rule =="mediation")
+                {
                 res[index] = firstElement2nditem + " ~ " + "direct" + " * " + secondElement1stitem + "\n"
+                } else {
+                    res[index] = secondElement1stitem + " ~ " + "direct" + " * " + firstElement2nditem + "\n"
+                }
                 index++
                 //#Mediator
                 res[index] = firstElement2nditem + " ~ " + parameterString + " * " + firstElement1stitem + "\n"

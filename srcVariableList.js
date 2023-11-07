@@ -22,7 +22,10 @@ class srcVariableList {
 
     constructor(modal, config={}) {
         this.modalID = modal.id;
-        this.id = `${modal.id}Vars`
+        if (config.no == undefined )
+            this.id = `${modal.id}Vars`
+        else
+            this.id = `${modal.id}${config.no}Vars`
         this.action = config.hasOwnProperty("action") ? config.action : "copy"
         if (config.hasOwnProperty("allowedDstCtrls"))
             config.allowedDstCtrls = JSON.stringify(config.allowedDstCtrls)

@@ -263,7 +263,7 @@ function stringWithFacetsForPlotOfMeans(Facetrow, Facetcolumn, Facetwrap) {
     }
     return tempFacets;
 }
-function termsToFactorList(factor, levels, factorList) {
+function addToFactorList(factor, levels, factorList) {
     let factorName = document.getElementById(factor).value;
     if (factorName == "") {
         ipcRenderer.invoke('errormessage', { title: "Error", message: `You must specify a non-empty string to use as a factor name` });
@@ -497,7 +497,7 @@ function createEndoExoVariables(modal_id, nos, filter, equalityConstraints, plac
                 <div class="col-2">
                 </div>
                 <div class="col-9">
-                    <input class ="w-100" id="{{modal.id}}_{{ms.no}}_label_{{ms.noEndoExoVariables}}" priorValue = "" placeholder ="{{ms.placeHolderText}}" type ="text" onchange="actionOnCreateLatentVarHighorderVar(textBoxId = &quot;{{modal.id}}_{{ms.no}}_label_{{ms.noEndoExoVariables}}&quot; ,modalId = &quot;{{modal.id}}&quot; , ctrlId = &quot;{{ms.no}}&quot;)" {{if(options.ms.type =="equalityConstraint")}}value ="set{{ms.noEndoExoVariables}}" disabled{{/if}} {{if(options.ms.type =="mediation")}}value ="set{{ms.noEndoExoVariables}}" disabled{{/if}}></input>
+                    <input class ="w-100" id="{{modal.id}}_{{ms.no}}_label_{{ms.noEndoExoVariables}}" priorValue = "" placeholder ="{{ms.placeHolderText}}" type ="text" onchange="actionOnCreateLatentVarHighorderVar(textBoxId = &quot;{{modal.id}}_{{ms.no}}_label_{{ms.noEndoExoVariables}}&quot; ,modalId = &quot;{{modal.id}}&quot; ,ctrlId = &quot;{{ms.no}}&quot;)" {{if(options.ms.type =="equalityConstraint")}}value ="set{{ms.noEndoExoVariables}}" disabled{{/if}} {{if(options.ms.type == "latentLoading")}}value ="latent{{ms.noEndoExoVariables}}"{{/if}}{{if(options.ms.type == "higherOrderFactor")}}value ="factor{{ms.noEndoExoVariables}}"{{/if}}{{if(options.ms.type =="mediation")}}value ="indirect relationship {{ms.noEndoExoVariables}}" disabled{{/if}} ></input>
                 </div>
                 <div class="col-1 col-1X">
                     <button class="btn btn-secondary btn-top-menu p-1" onclick="removeFromDestCtrl( ctrl =&quot;{{modal.id}}_{{ms.no}}_destCtrl_{{ms.noEndoExoVariables}}&quot; , textBoxId = &quot;{{modal.id}}_{{ms.no}}_label_{{ms.noEndoExoVariables}}&quot; ,modalId = &quot;{{modal.id}}&quot; )"  >
@@ -513,7 +513,13 @@ function createEndoExoVariables(modal_id, nos, filter, equalityConstraints, plac
                 </button>
             </div>
             <div class="col-9">    
-                <div class="list-group ms-list1" id="{{modal.id}}_{{ms.no}}_depVar_{{ms.noEndoExoVariables}}" modal_id="{{modal.id}}" no="{{ms.no}}_depVar_{{ms.noEndoExoVariables}}"  {{if(options.ms.wrapped)}}  wrapped="{{ms.wrapped}}" {{/if}} {{if(options.ms.equalityConstraints)}}equalityconstraints{{/if}} bs-type="list" ondrop="drop(event)" extractable=false extractionRule="NoPrefix|UseComma|Enclosed" filter="{{ms.filter}}" ondragover="allowDrop(event)" {{if(options.ms.wrapped)}}  wrapped="{{ms.wrapped}}" {{/if}} {{if (options.ms.allowedSrcCtrls != undefined) }}allowedSrcCtrls = "{{ms.allowedSrcCtrls}}"{{/if}}></div>
+                <div class="list-group ms-list1" id="{{modal.id}}_{{ms.no}}_depVar_{{ms.noEndoExoVariables}}" modal_id="{{modal.id}}" 
+                no="{{ms.no}}_depVar_{{ms.noEndoExoVariables}}"  {{if(options.ms.wrapped)}}  
+                wrapped="{{ms.wrapped}}" {{/if}} {{if(options.ms.equalityConstraints)}}equalityconstraints{{/if}} bs-type="list" 
+                ondrop="drop(event)" extractable=false extractionRule="NoPrefix|UseComma|Enclosed" filter="{{ms.filter}}" 
+                ondragover="allowDrop(event)" {{if(options.ms.wrapped)}}  wrapped="{{ms.wrapped}}" {{/if}} 
+                {{if (options.ms.allowedSrcCtrls != undefined) }}allowedSrcCtrls = "{{ms.allowedSrcCtrls}}"{{/if}}
+                relatedInputCtrl = "{{modal.id}}_{{ms.no}}_label_{{ms.noEndoExoVariables}}"></div>
             </div>
             <div class="col-1">
             </div>
@@ -532,6 +538,7 @@ function createEndoExoVariables(modal_id, nos, filter, equalityConstraints, plac
     let temp = modal.id + "_" + config.no + "_destCtrl" + "_" + config.noEndoExoVariables
     let eletemp = document.getElementById(temp);
     eletemp.scrollIntoView(false);
+    actionOnCreateLatentVarHighorderVar(textBoxId = modal.id +"_" + config.no + "_label_" + config.noEndoExoVariables , modalId = modal.id, ctrlId = config.no)  
 }
 
 
@@ -589,6 +596,9 @@ function checkDuplicateNames(textBoxId, modalId)
 //3. If the new value is not empty, we add the new value to all supporting controls
 function actionOnCreateLatentVarHighorderVar(textBoxId, modalId, ctrlId) 
 {
+    //We don't populate supporting controls or have to check anything with equality constraints
+    //The names of the equality constraints are not used, also the control is disabled
+    if (ctrlId == "sem3" || ctrlId == "mediationDestCtrl") return
     let item_name = $(`#${textBoxId}`).val();
     let priorVal = $(`#${textBoxId}`).attr('priorValue')
     if (item_name =="" && priorVal == undefined)
@@ -742,7 +752,7 @@ function autoPopulateCovar() {
         {
             moreThan2LatentVars = true
         }
-        if (objectKeys.length  > 1)
+        if (objectKeys.length  >= 1)
         {
             latent = true
         }
@@ -771,7 +781,7 @@ function autoPopulateCovar() {
         {
             moreThan2HigherOrderFactors = true
         }
-        if (objectKeys.length  > 0)
+        if (objectKeys.length  >= 1)
         {
             higherOrderFactors = true
         }
@@ -817,19 +827,30 @@ function autoPopulateCovar() {
                     }
                 }
             }
-            if (!isIndicator && allExoVars.indexOf(myArray[0]) ==-1)
+           // if (!isIndicator && allExoVars.indexOf(myArray[0]) ==-1)
+           //We have to handle cases of the following in the structural parameters
+           // A1->A2
+           //A2->A3
+           //A1->A2
+           //The covariances need to be empty and NOT A1<->A2
+           if (!isIndicator )
             {
-                allExoVars.push(myArray[0])
+                if (allExoVars.indexOf(myArray[0])==-1) 
+                    allExoVars.push(myArray[0])
+            }
                 let allColumnProps = fetchAllColumnAttributes()
-                allOutcomeVars.push(myArray[1])
+                if (allOutcomeVars.indexOf(myArray[1]) ==-1)
+                    allOutcomeVars.push(myArray[1])
                 if (allColumnProps[myArray[0]] != undefined)
                 {
-                    structuralObservedExoVars.push(myArray[0])
+                    if (structuralObservedExoVars.indexOf(myArray[0])==-1)
+                        structuralObservedExoVars.push(myArray[0])
                 } else
                 {
-                    structuralLatentExoVars.push(myArray[0])
+                    if (structuralLatentExoVars.indexOf(myArray[0])==-1)
+                        structuralLatentExoVars.push(myArray[0])
                 }
-            }
+            
         })
     //Addressing the case where some predictor variables can also be outcome
     //In this case, we remove them from allExovars
@@ -928,8 +949,7 @@ function autoPopulateCovar() {
             })
         }
         //Adding all latent variables that are not higher order factors that are not already part of allExoVars and allOutcomevars
-        for (const key in latentVars) {
-       
+        for (const key in latentVars) { 
             if (!allExoVars.includes(key) && !allOutcomeVars.includes(key) && !latentVarsInHighOrderFact.includes(key) )
             allExoVars.push(key)
         }    
@@ -1408,6 +1428,55 @@ function deleteFromSemModelCtrls(semCtrlName, item_name)
     }
 }
 
+//Function that was a derivative of deleteItemsFromSupportingCtrls that is called when dragging items from a latent or higher order control
+//back to the source
+//We remove items from modeltermsDst and semmediationSrcCtrl ONLY as we call  to remove items from sem3 (equality constrainsts), mediationDstCtrl
+function deleteItemsFromSupportingCtrlsDragDrop (varName)
+{
+    
+    //Removing deleted entries that match the items that the user manually deleted from  coVarsTermsDst
+    //NOTE: If you changed the name of a latent variable that you deleted from coVarsTermsDst 
+    //we remove that deleted item from deletedCoVars
+    let itemsToRemove =[]
+    let finalArray = []
+    
+    //Removing deleted entries that match the items that the user manually added from  coVarsTermsDst
+    //NOTE: If you changed the name of a latent variable that you manually added from coVarsTermsDst 
+    //we remove that deleted item from manAddedCovar
+    
+    let modelTermsDstId = "sem_modelTermsDst"
+    $('#' + modelTermsDstId + ' a').each(function () {
+        if ($(this).attr("firstTerm") == varName || $(this).attr("secondTerm") == varName) {
+            $(this).remove()
+
+        }
+    });
+    
+    let mediationSrcCtrlId = "semmediationSrcCtrl"
+    $('#' + mediationSrcCtrlId + ' a').each(function () {
+        if ($(this).attr("firstTerm") == varName || $(this).attr("secondTerm") == varName) {
+            $(this).remove()
+        }
+    });
+
+}
+
+
+function deleteFromSemModelCtrlsDragDrop(semCtrlName, textOfDraggedDropped, inputVal)
+{
+    if (semCtrlName =="sem3")
+    {
+        $('#' + "sem_sem3" + ' a').each(function () {
+            if ($(this).text()  == inputVal+ "->" + textOfDraggedDropped) {
+                $(this).remove()
+            //if ($(this).attr("firstTerm") == varName || $(this).attr("secondTerm") == varName) {
+            //      $(this).remove()
+            }
+        });
+    }
+}
+
+
 //function that deletes items from modelTermsDst, coVarDst, equalityConstraints1
 function deleteItemsFromSupportingCtrls (varName)
 {
@@ -1529,6 +1598,13 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
     //  suppCtrlDeleteIds =$(`#${destId}`).attr('suppCtrlDeleteIds')
     let var1 =$(`#${ctrl1Id} .list-group-item-action.active`).text()  
     let var2 =$(`#${ctrl2Id} .list-group-item-action.active`).text()
+
+
+
+   
+
+
+
     if (var1 =="" && var2 =="" )
     {
         headerText1 =$(`#${ctrl1Id}`).siblings().text()
@@ -1553,7 +1629,7 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
     }
     if (var2 =="" )
     {
-        headerText2 =$(`#${ctrl2Id}`).siblings()    .text()
+        headerText2 =$(`#${ctrl2Id}`).siblings().text()
         dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `You must make a selection in the control with label "${headerText2}" before clicking the move button.` })
         return
     }
@@ -1571,6 +1647,17 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
     }
     //removing the current selection
     $(`#${destId} .list-group-item-action.active`).removeClass("active");
+
+
+    //Checking if the reverse relationship exists, i.e. I am adding C->A but I already added A->C
+    //In the structural parameters, I cannot have 2 relationships with different directions between the same variables
+    if ($(`#${destId}`).find(`#${destId}_${var2}_${getActiveDataset()}_${var1.replace(/ /g, "_")}`).length > 0)
+    {
+        headerText2 =$(`#${ctrl2Id}`).siblings().text()
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `You already have a relationship between "${var1}" and "${var2}". You cannot have 2 relationships between the same variables.` })
+        return
+    }
+
     // Checking if the item is already added
     if ($(`#${destId}`).find(`#${destId}_${var1}_${getActiveDataset()}_${var2.replace(/ /g, "_")}`).length == 0)
     {
@@ -1660,7 +1747,7 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
     else
     {
         //Setting active class if the item is already added
-        $(`#${destId}`).find(`#${var1}_${getActiveDataset()}_${var2.replace(/ /g, "_")}`).addClass("active")
+        $(`#${destId}`).find(`#${destId}_${var1}_${getActiveDataset()}_${var2.replace(/ /g, "_")}`).addClass("active")
     }  
 }
 //When you delete items from modelTermsDst, they need to be removed from the source and destination mediation controls

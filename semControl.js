@@ -34,6 +34,7 @@ class semControl extends baseElement {
         $(`#${this.id}`).find('.list-group1').each(function (index, item) {
             $(`#${item.id}`).remove()
         })
+        $(`#${this.id}`).attr("count",0)
     }
     canExecute(refToBaseModal) {
         var outer_this = this;

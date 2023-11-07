@@ -89,7 +89,10 @@ module.exports.selectElementMergeDatasets = (ev) => {
 function arrangeFocus(inserted_object_id, parentID) {
   var el = document.getElementById(inserted_object_id)
   var modal_id = document.getElementById(parentID).getAttribute("modal_id");
-  el.scrollIntoView(false);
+  el.scrollIntoView({
+    behavior: 'smooth',  // You can use 'auto' or 'instant' as well
+    block: 'center',      // 'start', 'center', or 'end'
+  });
   $(`#${modal_id} .list-group-item-action.active`).removeAttr("active");
   $(`#${modal_id} .list-group-item-action.active`).removeClass("active");
   el.setAttribute("active", "");
@@ -119,7 +122,7 @@ function areAllElementsSame(arr) {
 //When dragging and dropping 
 //      From source to destination, the parentID is the destination
 function _drop(objects, action, object_ids, parentID) {
-  let index = 1
+  let index =   1
   let priorElementOrder = 0
   let finalOrder = 0
   let greatestOrderInParent = 0
@@ -136,6 +139,7 @@ function _drop(objects, action, object_ids, parentID) {
       el = el.parent()
       parentID = el.attr("id")
     }
+  
 
   //Getting all the iconTypes of the variables being dragged
   if ($("#" + parentID).attr("modal_id") == "sem" && extractBeforeLastUnderscore(parentID) == 'sem_sem3_depVar') 
@@ -253,12 +257,33 @@ function _drop(objects, action, object_ids, parentID) {
   }
 
 }
-    if (stop == true) return
+  if (stop == true) return
+  
+
+
   for (var i =  0; i < objects.length; i++) {
     
     var isWrapped = el.attr("is-wrapped");
     var object = objects[i];
     var object_id = object_ids[i];
+    let inputVal =""
+    let relatedInputCtrlId = null
+    // Lets get the entry of the texbox i.e. name of the latent variable or the higher order factor, this is because
+    //we need to remove this entry from the equality constraints
+    //Note we repopulate coVarsDSt and the source equality constraints, so that is not an issue
+
+    if ($("#" + object_id).closest("#" + "sem_sem").length > 0) {
+      relatedInputCtrlId = $( "#" +object_id).parent().attr("relatedInputCtrl")
+      inputVal = $( "#" +relatedInputCtrlId).val()
+    }
+
+    if ($("#" + object_id).closest("#" + "sem_sem2").length > 0) {
+      relatedInputCtrlId = $( "#" +object_id).parent().attr("relatedInputCtrl")
+      inputVal = $( "#" +relatedInputCtrlId).val()
+    }
+
+    
+
     var inserted_object_id = object_id;
     //Comes here when adding a variable to a destination variable control including aggregate control
     if (_filter(el.attr('filter'), object)) {
@@ -339,6 +364,31 @@ function _drop(objects, action, object_ids, parentID) {
           }
         }
         arrangeFocus(inserted_object_id, parentID);
+
+        let textOfDraggedDropped = document.getElementById(inserted_object_id).textContent;
+        if (extractBeforeLastUnderscore(parentID) == 'semVars')
+        {  
+          //I don't believe below is necessary
+          //deleteFromSemModelCtrls("sem2", textOfDraggedDropped)
+          deleteFromSemModelCtrlsDragDrop("sem3", textOfDraggedDropped, inputVal)
+          //This is incorrect
+         // deleteFromSemModelCtrls("mediationDestCtrl", textOfDraggedDropped)
+          //Function that was a derivative of deleteItemsFromSupportingCtrls that is called when dragging items from a latent or higher order control
+          //back to the source
+          //We remove items from modeltermsDst and semmediationSrcCtrl ONLY as we call deletefromsemmodelctrls to remove items from sem3 (equality constrainsts), mediationDstCtrl
+          //deleteItemsFromSupportingCtrlsDragDrop(textOfDraggedDropped)
+        }
+        if (extractBeforeLastUnderscore(parentID) == 'semsemSuppCtrl1')
+        {
+          
+          //YOU NEED TO DELETE FROM EQUALITY CONSTRAINTS BUT YOU MUST PASS HIGHER ORDER FACTOR NAME
+          deleteFromSemModelCtrlsDragDrop("sem3", textOfDraggedDropped, inputVal)
+          
+          //deleteFromSemModelCtrls("mediationDestCtrl", textOfDraggedDropped)
+          //I don't believe below is necessary as modeltermsDst contains latent variables and the higher order factor has been removed already
+          //Same logic for mediation src ctrl 
+          //deleteItemsFromSupportingCtrlsDragDrop(textOfDraggedDropped)
+        }
       }
     }
   }
@@ -1316,7 +1366,9 @@ module.exports.drop = (ev, parentID = null) => {
   }
   var el = undefined
     try {
-      el = $(`#${parentID}`)
+     //el = $(`#${parentID}`)
+     el = $(document.getElementById(parentID))
+     
     } catch {
       el = $(document.getElementById(parentID))
     }

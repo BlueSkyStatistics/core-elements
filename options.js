@@ -165,6 +165,7 @@ class optionsMenu {
     }
 
     clearContent() {
+      
     }
 }
 
