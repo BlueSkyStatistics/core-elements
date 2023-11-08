@@ -405,16 +405,7 @@ function _drop(objects, action, object_ids, parentID) {
   }
 }
 
-function extractBeforeLastUnderscore(inputString) {
-  const lastUnderscoreIndex = inputString.lastIndexOf('_');
 
-  if (lastUnderscoreIndex !== -1) {
-    const extractedPart = inputString.substring(0, lastUnderscoreIndex);
-    return extractedPart;
-  } else {
-    return inputString; // No underscore found, return the original string
-  }
-}
 
 
 

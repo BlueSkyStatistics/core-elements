@@ -1586,6 +1586,16 @@ function stringToRCharacterArray(independentVars) {
     return rCharacterArray
 }
 
+function extractBeforeLastUnderscore(inputString) {
+    const lastUnderscoreIndex = inputString.lastIndexOf('_');
+    if (lastUnderscoreIndex !== -1) {
+      const extractedPart = inputString.substring(0, lastUnderscoreIndex);
+      return extractedPart;
+    } else {
+      return inputString; // No underscore found, return the original string
+    }
+  }
+
 function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
 {
     //suppCtrlAddIds = JSON.parse(suppCtrlAddIds)
@@ -1598,13 +1608,6 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
     //  suppCtrlDeleteIds =$(`#${destId}`).attr('suppCtrlDeleteIds')
     let var1 =$(`#${ctrl1Id} .list-group-item-action.active`).text()  
     let var2 =$(`#${ctrl2Id} .list-group-item-action.active`).text()
-
-
-
-   
-
-
-
     if (var1 =="" && var2 =="" )
     {
         headerText1 =$(`#${ctrl1Id}`).siblings().text()
