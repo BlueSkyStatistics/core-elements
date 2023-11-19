@@ -1808,3 +1808,24 @@ function removeFromModelTermsDest( ctrl  , modalId )
     }
     populateEqualityConstraints()
 }
+
+function deepCopy(obj) {
+    if (obj === null || typeof obj !== 'object') {
+      return obj; // Return non-object types as is
+    }
+  
+    if (Array.isArray(obj)) {
+      // If it's an array, create a new array and deep copy each element
+      return obj.map(deepCopy);
+    }
+  
+    // If it's an object, create a new object and deep copy each property
+    const newObj = {};
+    for (let key in obj) {
+      if (obj.hasOwnProperty(key)) {
+        newObj[key] = deepCopy(obj[key]);
+      }
+    }
+  
+    return newObj;
+  }
