@@ -2,8 +2,25 @@
     "name": "@BlueSkyStatistics/elementslib",
     "productName": "BlueSky Statistics Elements Library",
     "description": "Elements Library",
-    "keywords": [],
+    "group": "core",
+    "subscriptions": ["public"],
     "main": "library.js",
+    "moduleMeta": {
+            "path": "{{locals}}/elementslib.asar",
+            "storage": "firebase",
+            "update": "auto",
+            "artifactType": "asar",
+            "extra": {
+                "sourceType": "release",
+                "remote": "BlueSkyStatistics/core-elements"
+            },
+            "removable": true
+    },
+    "minBSkyVersion": null,
+    "minAppVersion": null,
+    "requiredPackages": [],
+
+    "keywords": [],
     "version": "1.2.1",
     "author": "BlueSky Statistics",
     "scripts": {},
