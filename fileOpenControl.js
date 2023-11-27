@@ -26,8 +26,10 @@ class fileOpenControl extends baseElement{
                 <input class="w-100" type="text" bs-type="file" 
                     id="{{modal.id}}_{{ms.no}}" 
                     no="{{ms.no}}" extractable=true 
+                    {{if(options.ms.value)}} value = {{ms.value}}{{/if}}
                     extractionRule="{{ms.extraction}}" 
-                    disabled />
+                    disabled 
+                    />
             </div>         
         </div>
     </div>`
@@ -46,6 +48,7 @@ class fileOpenControl extends baseElement{
         }
         this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config})
         this.id = `${modal.id}_${config.no}`
+        this.value = config.value
     }
     
     canExecute(refToBaseModal) {
