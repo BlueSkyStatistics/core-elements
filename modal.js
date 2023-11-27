@@ -170,7 +170,7 @@ class modal {
         // $(`.modal.show .modal-dialog`).draggable("disable");
         $(`.modal.show [action='attach']`).hide()
         var increment = $(".nav.main-sub-menu").not(":hidden").parent().parent().height()
-        var activeModalSub = 53 + increment
+        var activeModalSub = 68 + increment
         $(`.modal.show .modal-dialog`).css({top: `${activeModalSub}px`, left: ''})
     }
 
