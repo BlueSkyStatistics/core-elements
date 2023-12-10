@@ -271,15 +271,17 @@ function _drop(objects, action, object_ids, parentID) {
     // Lets get the entry of the texbox i.e. name of the latent variable or the higher order factor, this is because
     //we need to remove this entry from the equality constraints
     //Note we repopulate coVarsDSt and the source equality constraints, so that is not an issue
+    if (!(object_id.indexOf(":") > -1))
+    {
+      if ($("#" + object_id).closest("#" + "sem_sem").length > 0) {
+        relatedInputCtrlId = $( "#" +object_id).parent().attr("relatedInputCtrl")
+        inputVal = $( "#" +relatedInputCtrlId).val()
+      }
 
-    if ($("#" + object_id).closest("#" + "sem_sem").length > 0) {
-      relatedInputCtrlId = $( "#" +object_id).parent().attr("relatedInputCtrl")
-      inputVal = $( "#" +relatedInputCtrlId).val()
-    }
-
-    if ($("#" + object_id).closest("#" + "sem_sem2").length > 0) {
-      relatedInputCtrlId = $( "#" +object_id).parent().attr("relatedInputCtrl")
-      inputVal = $( "#" +relatedInputCtrlId).val()
+      if ($("#" + object_id).closest("#" + "sem_sem2").length > 0) {
+        relatedInputCtrlId = $( "#" +object_id).parent().attr("relatedInputCtrl")
+        inputVal = $( "#" +relatedInputCtrlId).val()
+      }
     }
 
     
