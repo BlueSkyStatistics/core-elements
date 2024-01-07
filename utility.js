@@ -1654,7 +1654,7 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
 
     //Checking if the reverse relationship exists, i.e. I am adding C->A but I already added A->C
     //In the structural parameters, I cannot have 2 relationships with different directions between the same variables
-    if ($(`#${destId}`).find(`#${destId}_${var2}_${getActiveDataset()}_${var1.replace(/ /g, "_")}`).length > 0)
+    if ($(`#${destId}`).find(`#${destId}_${var2.replace(/\./g, "\\.")}_${getActiveDataset()}_${var1.replace(/ /g, "_").replace(/\./g, "\\.")}`).length > 0)
     {
         headerText2 =$(`#${ctrl2Id}`).siblings().text()
         dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `You already have a relationship between "${var1}" and "${var2}". You cannot have 2 relationships between the same variables.` })
@@ -1662,7 +1662,7 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
     }
 
     // Checking if the item is already added
-    if ($(`#${destId}`).find(`#${destId}_${var1}_${getActiveDataset()}_${var2.replace(/ /g, "_")}`).length == 0)
+    if ($(`#${destId}`).find(`#${destId}_${var1.replace(/\./g, "\\.")}_${getActiveDataset()}_${var2.replace(/ /g, "_").replace(/\./g, "\\.")}`).length == 0)
     {
         //firstTerm and secondTerm keep track of original variables so that they can be deleted when the latent variables are removed
         //the filter function prevents selected items from modelTermsDst (structural parameters) from being moved
@@ -1720,7 +1720,7 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
             //Populating the mediationSrcCtrl 
             //We populate this control with all the elements added to structural parameters
             suppCtrlAddIds.forEach(function(element){
-                if ($(`#sem${element}`).find(`#sem${element}_${getActiveDataset()}_${var1}${var2.replace(/ /g, "_")}`).length == 0)
+                if ($(`#sem${element}`).find(`#sem${element}_${getActiveDataset()}_${var1.replace(/\./g, "\\.")}${var2.replace(/ /g, "_").replace(/\./g, "\\.")}`).length == 0)
                 {
                     $(`#sem${element}`).append(`<a href="#"
                     id="sem${element}_${getActiveDataset()}_${var1}${var2.replace(/ /g, "_")}"
@@ -1750,7 +1750,7 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
     else
     {
         //Setting active class if the item is already added
-        $(`#${destId}`).find(`#${destId}_${var1}_${getActiveDataset()}_${var2.replace(/ /g, "_")}`).addClass("active")
+        $(`#${destId}`).find(`#${destId}_${var1.replace(/\./g, "\\.")}_${getActiveDataset()}_${var2.replace(/ /g, "_").replace(/\./g, "\\.")}`).addClass("active")
     }  
 }
 //When you delete items from modelTermsDst, they need to be removed from the source and destination mediation controls

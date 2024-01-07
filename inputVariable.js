@@ -6,6 +6,8 @@ class inputVariable extends baseElement {
     content;
     id;
     value = null;
+    enforceRobjectRules = undefined;
+    allowSpacesNew = undefined;
     required = false;
     type_expected = null;
     overwrite = null;
@@ -50,6 +52,13 @@ class inputVariable extends baseElement {
         if (config.allow_spaces ) {
             this.allow_spaces = config.allow_spaces;
         }
+        if (config.allowSpacesNew ) {
+            this.allowSpacesNew = config.allowSpacesNew;
+        }
+
+        if (config.enforceRobjectRules ) {
+            this.enforceRobjectRules = config.enforceRobjectRules;
+        }
         
         this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config})
         this.id = `${modal.id}_${config.no}`
@@ -57,6 +66,8 @@ class inputVariable extends baseElement {
     }
     
     canExecute(refToBaseModal) {
+        let result = null
+        let pattern = ""
         var outer_this = this;
         var value = this.getVal()
         switch (this.overwrite){
@@ -88,14 +99,41 @@ class inputVariable extends baseElement {
         if (this.type_expected === 'numeric' && isNaN(value)){
             dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Field with label: "${outer_this.label}" needs to be populated with a numeric value to proceed`})
             return false
-        } else if (this.type_expected === 'character' && ! isNaN(value)) {
+        } else if (this.type_expected === 'onlyCharacter' && ! isNaN(value)) {
             dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Field with label: "${outer_this.label}" needs to be populated with a character value to proceed`})
             return false
         }
-        if (!this.allow_spaces)
+        if (!this.allow_spaces && this.enforceRobjectRules == undefined && this.allowSpacesNew == undefined)
         {
             //let pattern =/[0-9][0-9a-zA-Z._\s]*/g
-            let pattern =/^[0-9]/g
+            pattern =/^[0-9]/g
+            result = value.match(pattern);
+            if (result != null) 
+            {
+                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `The input field with label: "${outer_this.label}" cannot start with a number. You cannot create variable, dataset or model names that start with a number.`})
+                return false
+            }
+            pattern = /\s+/g
+            result = value.match(pattern);
+            if (result != null) 
+            {
+                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `The input field with label: "${outer_this.label}" cannot contain spaces. You cannot create variable, dataset or model names that contain spaces.`})
+                return false
+            }
+           pattern = "^((([A-Za-z]|[.][._A-Za-z])[._A-Za-z0-9]*)|[.])$"
+           result = value.match(pattern);
+           if (result == null) 
+           {
+               dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `The input field with label: "${outer_this.label}" must contain only letters, numbers and the dot or underline characters. It must start with a letter or the dot not followed by a number.`})
+               return false
+           }
+           
+        }
+
+        if (this.enforceRobjectRules)
+        {
+            //let pattern =/[0-9][0-9a-zA-Z._\s]*/g
+            pattern =/^[0-9]/g
             let result = value.match(pattern);
             if (result != null) 
             {
@@ -117,6 +155,17 @@ class inputVariable extends baseElement {
                return false
            }
            
+        }
+
+        if (this.allowSpacesNew == false)
+        {
+            pattern = /\s+/g
+            result = value.match(pattern);
+            if (result != null) 
+            {
+                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `The input field with label: "${outer_this.label}" cannot contain spaces. You cannot create variable, dataset or model names that contain spaces.`})
+                return false
+            }            
         }
 
         return true

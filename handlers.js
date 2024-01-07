@@ -148,10 +148,12 @@ function _drop(objects, action, object_ids, parentID) {
     // Check if there are at least two elements
     if (object_ids.length >= 2) {
     // Get the attribute value of the first element
-    let firstElementValue = $("#" + object_ids[0]).attr("bs-row-class");
+    let firstElementValue = $("#" + object_ids[0].replace(/\./g, "\\.")).attr("bs-row-class");
     // Loop through the remaining elements and compare their attribute values
     for (let i = 1; i < object_ids.length; i++) {
-       let currentValue = $("#" + object_ids[i]).attr("bs-row-class");
+      // let currentValue = $("#" + object_ids[i]).attr("bs-row-class");
+      //let currentValue = document.getElementById(object_ids[i].replace(/\./g, "\\.")).attr("bs-row-class");
+      let currentValue = $("#" + object_ids[i].replace(/\./g, "\\.")).attr("bs-row-class");
         // If the current value is different from the first element's value, they are not all the same
         if (currentValue !== firstElementValue) {
           dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Incompatible types", message: `An equality constraint set must contain all factor loadings, covariance relationships or structural relationships. The elements you are moving have different types.` })
@@ -195,10 +197,14 @@ function _drop(objects, action, object_ids, parentID) {
     } else if (object_ids.length ==2 && elements.length == 0  ) {
     //If there are 2 elements already in the mediation control show an error  
     //Case if I am dragging 2 items and there are no existing items
-      let firstElement2nditem = $("#"+ object_ids[0]).text().split("->")[1]
-      let secondElement1stitem = $("#"+ object_ids[1]).text().split("->")[0]
-      let firstElement1stitem = $("#"+ object_ids[0]).text().split("->")[0]
-      let secondElement2nditem = $("#"+ object_ids[1]).text().split("->")[1]		
+     // let firstElement2nditem = $("#"+ object_ids[0]).text().split("->")[1]
+     let firstElement2nditem = document.getElementById(object_ids[0]).textContent.split("->")[1]
+      //let secondElement1stitem = $("#"+ object_ids[1]).text().split("->")[0]
+      let secondElement1stitem = document.getElementById(object_ids[1]).textContent.split("->")[0]
+      //let firstElement1stitem = $("#"+ object_ids[0]).text().split("->")[0]
+      let firstElement1stitem = document.getElementById(object_ids[0]).textContent.split("->")[0]
+      //let secondElement2nditem = $("#"+ object_ids[1]).text().split("->")[1]		
+      let secondElement2nditem = document.getElementById(object_ids[1]).textContent.split("->")[1]
       if (firstElement2nditem == secondElement1stitem)
       {
         //Case 1, the 2nd element of the first item is equal to the 1st element of the 2nd item
@@ -219,9 +225,11 @@ function _drop(objects, action, object_ids, parentID) {
 	  } else  if (object_ids.length == 1 && elements.length == 1  )
     {
     //Case if I am dragging 1 item and there is an existing item
-      let firstElement2nditem = $("#"+ object_ids[0]).text().split("->")[1]
+      //let firstElement2nditem = $("#"+ object_ids[0]).text().split("->")[1]
+      let firstElement2nditem = document.getElementById(object_ids[0]).textContent.split("->")[1]
       let secondElement1stitem = elements[0].split("->")[0]
-      let firstElement1stitem = $("#"+ object_ids[0]).text().split("->")[0]
+      //let firstElement1stitem = $("#"+ object_ids[0]).text().split("->")[0]
+      let firstElement1stitem = document.getElementById(object_ids[0]).textContent.split("->")[0]
       let secondElement2nditem = elements[0].split("->")[1]
       if (firstElement2nditem == secondElement1stitem)
       {
@@ -273,14 +281,20 @@ function _drop(objects, action, object_ids, parentID) {
     //Note we repopulate coVarsDSt and the source equality constraints, so that is not an issue
     if (!(object_id.indexOf(":") > -1))
     {
-      if ($("#" + object_id).closest("#" + "sem_sem").length > 0) {
-        relatedInputCtrlId = $( "#" +object_id).parent().attr("relatedInputCtrl")
+      
+      if (!(document.getElementById(object_id).closest("#" + "sem_sem") === null))
+      {
+      if ($("#" + object_id.replace(/\./g, "\\.")).closest("#" + "sem_sem").length > 0) {
+        relatedInputCtrlId = $( "#" +object_id.replace(/\./g, "\\.")).parent().attr("relatedInputCtrl")
         inputVal = $( "#" +relatedInputCtrlId).val()
       }
-
-      if ($("#" + object_id).closest("#" + "sem_sem2").length > 0) {
-        relatedInputCtrlId = $( "#" +object_id).parent().attr("relatedInputCtrl")
+      }
+      if (!(document.getElementById(object_id).closest("#" + "sem_sem2") === null))
+      {
+      if ($("#" + object_id.replace(/\./g, "\\.")).closest("#" + "sem_sem2").length > 0) {
+        relatedInputCtrlId = $( "#" +object_id.replace(/\./g, "\\.")).parent().attr("relatedInputCtrl")
         inputVal = $( "#" +relatedInputCtrlId).val()
+      }
       }
     }
 
