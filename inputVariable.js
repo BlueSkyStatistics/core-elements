@@ -52,11 +52,11 @@ class inputVariable extends baseElement {
         if (config.allow_spaces ) {
             this.allow_spaces = config.allow_spaces;
         }
-        if (config.allowSpacesNew ) {
+        if (config.allowSpacesNew != undefined) {
             this.allowSpacesNew = config.allowSpacesNew;
         }
 
-        if (config.enforceRobjectRules ) {
+        if (config.enforceRobjectRules != undefined) {
             this.enforceRobjectRules = config.enforceRobjectRules;
         }
         
@@ -102,8 +102,7 @@ class inputVariable extends baseElement {
         } else if (this.type_expected === 'onlyCharacter' && ! isNaN(value)) {
             dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Field with label: "${outer_this.label}" needs to be populated with a character value to proceed`})
             return false
-        }
-        if (!this.allow_spaces && this.enforceRobjectRules == undefined && this.allowSpacesNew == undefined)
+        } else if (!this.allow_spaces && this.enforceRobjectRules == undefined && this.allowSpacesNew == undefined)
         {
             //let pattern =/[0-9][0-9a-zA-Z._\s]*/g
             pattern =/^[0-9]/g
@@ -128,9 +127,7 @@ class inputVariable extends baseElement {
                return false
            }
            
-        }
-
-        if (this.enforceRobjectRules)
+        } else if (this.enforceRobjectRules)
         {
             //let pattern =/[0-9][0-9a-zA-Z._\s]*/g
             pattern =/^[0-9]/g
@@ -155,9 +152,7 @@ class inputVariable extends baseElement {
                return false
            }
            
-        }
-
-        if (this.allowSpacesNew == false)
+        } else if (this.allowSpacesNew == false)
         {
             pattern = /\s+/g
             result = value.match(pattern);

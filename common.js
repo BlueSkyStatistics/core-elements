@@ -13,6 +13,7 @@ calls_map = {
     "file": getTextVal,
     "numeric": getTextVal,
     "character": getTextVal,
+    "onlyCharacter": getTextVal,
     "slider": getTextVal,
     "combobox": getComboValue,
     "select": getSelectValue,
