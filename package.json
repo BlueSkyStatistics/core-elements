@@ -5,6 +5,7 @@
     "keywords": [],
     "main": "library.js",
     "version": "1.2.2",
+	"minBSkyVersion":"8.93",	
     "author": "BlueSky Statistics",
     "scripts": {},
     "dependencies": {
