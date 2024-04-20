@@ -1608,14 +1608,20 @@ module.exports.renderChild = (el) => {
 }
 module.exports.r_before_modal = (modal_id) => {
   var r_commands = JSON.parse($(`#${modal_id}_pre_r`).html())
-  if(modal_id == "reRunOutput"){
-    let temppath = store.get("usertemp")        
-    let bmdname = "rerun.Bmd"
+  if (modal_id == "reRunOutput") {
+    let temppath = store.get("usertemp")
+    let bmdname = "bsky_rerun.Bmd"
     let outputFile = path.normalize(path.join(temppath, bmdname)).replace(/\\/g, "/");
-    exportOutput(undefined, outputFile).then(()=>{ //generate Bmd beore showing the dialog
+    exportOutput(undefined, outputFile).then(() => { //generate Bmd beore showing the dialog
+      // //reRunOutputLabel
+      let eleLI = "#output_li_"+getActiveTab()
+      let outputTabName= $(`${eleLI} > a`).text()
+      $("#reRunOutputLabel").text("Re-Run Output: (for "+outputTabName+")")
+      //show dialog
       r_on_select(modal_id, r_commands)
       $(`#${modal_id}`).modal('show');
     });
+
   }
   else {
     r_on_select(modal_id, r_commands)
