@@ -42,6 +42,7 @@ var semSuppCtrl = require('./semSuppCtrl').element
 var semModelTerms = require('./semModelTerms').element
 var semModelTermsDest = require('./semModelTermsDest').element
 var equalityConstraints = require('./equalityConstraints').element
+var reRunDatasetList = require('./reRunDatasetList').element
 
 
 
@@ -137,6 +138,7 @@ module.exports = {
     "semSuppCtrl":semSuppCtrl,
     "semModelTerms":semModelTerms,
     "semModelTermsDest":semModelTermsDest,
-    "equalityConstraints":equalityConstraints
+    "equalityConstraints":equalityConstraints,
+    "reRunDatasetList":reRunDatasetList
     
 }
