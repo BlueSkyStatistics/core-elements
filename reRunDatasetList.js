@@ -31,7 +31,8 @@ class reRunDatasetList {
         let outputId =getActiveTabOutputId()
         $(`#${outputId} .outputGroup`).each((_, outGrp) => {
             outputDatasetList.push($(outGrp).attr("dataset"))
-             })      
+             })   
+        outputDatasetList = outputDatasetList.filter((item, index) => outputDatasetList.indexOf(item) === index);   
         var item_id = this.id;
         var order = []
         outputDatasetList.forEach(element => {
@@ -43,11 +44,13 @@ class reRunDatasetList {
             bs-row-type="dataset" 
             bs-row-class="dataset" 
             bs-row-measure="dataset" 
-            ondragstart="drag(event, '${_action}')"
-            ondrop="drop(event)"
-            onclick="selectElement(event)">${element}</a>`) 
+            
+            >${element}</a>`) 
             });
     }
+
+   // ondragstart="drag(event, '${_action}')"
+     //       ondrop="drop(event)"
     
     canExecute() {
         return true
