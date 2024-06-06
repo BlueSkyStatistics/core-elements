@@ -11,7 +11,7 @@ class srcDatasetList {
     order = []
     htmlTemplate = `<h6>{{if (options.ms.label)}}{{ms.label}}{{#else}}Source Datasets{{/if}}</h6>
 <div class="form-check list-group var-list" multiple 
-     id="{{modal.id}}Datasets"
+{{if (options.ms.no == undefined)}}id="{{modal.id}}Datasts"{{#else}}id="{{modal.id}}_{{ms.no}}"{{/if}}
      modal_id="{{modal.id}}"
      {{if (options.ms.action)}}act="{{ms.action}}"{{#else}}act="copy"{{/if}}  
      bs-type="dss" ondrop="drop(event)" ondragover="allowDrop(event)">
@@ -19,7 +19,14 @@ class srcDatasetList {
 
     constructor(modal, config={}) {
         this.modalID = modal.id;
-        this.id = `${modal.id}Datasets`
+
+        if (config.no == undefined )
+            this.id = `${modal.id}Datasets`
+        else
+            this.id = `${modal.id}_${config.no}`
+
+
+        //this.id = `${modal.id}Datasets`
         this.action = config.hasOwnProperty("action") ? config.action : "copy"
         this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config});
     }

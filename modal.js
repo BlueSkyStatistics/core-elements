@@ -19,9 +19,9 @@ class modal {
         </div>`,
 
         three: `<div class="row">
-        <div class="col {{if (options.content.sizeleft) }} col-{{content.sizeleft}} {{#else}} col-4 {{/if}}">{{each(options.content.left)}}{{ @this | safe }}{{/each}}</div>
-        <div class="col {{if (options.content.sizecenter) }} col-{{content.sizecenter}} {{#else}} col-6 {{/if}}">{{each(options.content.center)}}{{ @this | safe }}{{/each}}</div>
-        <div class="col {{if (options.content.sizeright) }} col-{{content.sizeright}} {{#else}} col-2 {{/if}}">{{each(options.content.right)}}{{ @this | safe }}{{/each}}</div>
+        <div class="col {{if (options.content.sizeleft) }} col-{{content.sizeleft}} {{#else}} col-3 {{/if}}">{{each(options.content.left)}}{{ @this | safe }}{{/each}}</div>
+        <div class="col {{if (options.content.sizecenter) }} col-{{content.sizecenter}} {{#else}} col-3 {{/if}}">{{each(options.content.center)}}{{ @this | safe }}{{/each}}</div>
+        <div class="col {{if (options.content.sizeright) }} col-{{content.sizeright}} {{#else}} col-6 {{/if}}">{{each(options.content.right)}}{{ @this | safe }}{{/each}}</div>
         </div>`
     }
 
