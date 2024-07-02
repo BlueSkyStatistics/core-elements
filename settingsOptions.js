@@ -42,11 +42,11 @@ class OutputOpt {
                   </div>
                   <div id="showInlineSyntaxdiv" class="form-check pb-3">
                     <input class="form-check-input" type="checkbox" id="showInlineSyntax" name="showInlineSyntax">
-                    <label class="form-check-label" for="showInlineSyntax">Show in-line syntax in the output</label>
+                    <label class="form-check-label" for="showInlineSyntax">Hide in-line syntax in the output</label>
                   </div>
                   <div id="showRSyntaxdiv" class="form-check pb-3">
                     <input class="form-check-input" type="checkbox" id="showRSyntax" name="showRSyntaxdiv">
-                    <label class="form-check-label" for="showRSyntaxdiv">Show R syntax in the output</label>
+                    <label class="form-check-label" for="showRSyntaxdiv">Hide 'R Editor' and R syntax in the output (requires app relaunch)</label>
                   </div>                  
                   <div id="uithemediv" class="pb-3">
                     <label class="form-check-label mr-2">UI Theme</label>
