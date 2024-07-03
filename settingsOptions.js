@@ -178,6 +178,10 @@ class MiscOpt {
           3: Check this setting and set a value of 0 to convert all character variables to factor.
         </label>                
       </div>   
+      <div id="hidePasteWarningDiv" class="form-check pb-3">
+        <input class="form-check-input" type="checkbox" id="hidePasteWarning" name="hidePasteWarning">
+        <label class="form-check-label" for="hidePasteWarning">Hide warning when pasting overflowing data</label>
+      </div>      
     `
     constructor(modal, config) {
         this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
