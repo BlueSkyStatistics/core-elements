@@ -198,40 +198,48 @@ class RLocaleOpt {
   id; 
   htmlTemplate = `
                 <div id="rlocalediv" class="pb-3">
-                <label class="form-check-label mr-2" for="rlocale">Set R locale :</label>
-                <input list="rlocalelist" name="rlocale" class="w-25 float-right" id="rlocale">
-                <datalist id="rlocalelist">
-                  <option value="Chinese (Simplified)">
-                  <option value="Turkish">
-                  <option value="French">
-                  <option value="Portuguese">
-                </datalist>                
+                  <label class="form-check-label mr-2" for="rlocale">Set R locale :</label>
+                  <input list="rlocalelist" name="rlocale" class="w-25 float-right" id="rlocale">
+                    <datalist id="rlocalelist">
+                    <option value="Chinese (Simplified)">
+                    <option value="Turkish">
+                    <option value="French">
+                    <option value="Portuguese">
+                  </datalist>                
                   <div id="rlocalekiddiv" class="pb-3">
-                  <p>
-                  <label class="form-check-label mr-2">1. If you want to set to the system default locale, manually delete any text in the field if it is not already empty.</label>
-                  <p>
-                  <label class="form-check-label mr-2">The following examples are illustration purposes only to explain what system default locale setting means  </label>
-                  <p>
-                  <label class="form-check-label mr-2">
-                  Example 1: if you purchased and configured a PC in the USA, your system defaut locale will likely be something like "English_United States".
-                  </label>
-                  <p>
-                  <label class="form-check-label mr-2">
-                  Example 2: if you purchased and configured a PC in China, your system default locale will likely be something like "Chinese (Simplified)".
-                  </label>
-                  <p>
-                  <label class="form-check-label mr-2">2. To pick a locale from the dropdown, first make the text field empty by manully deleting any text. Click on the text field to get the dropdown to appear with multiple choices. If you do not find a suitable locale choice in the dropdown, you can hand type a valid locale in the text field.</label>
-                  <p>
-                  <label class="form-check-label mr-2">3. Whenever you want to change the locale and select from the dropdown, you must first manually delete the current text entry to make the text field empty, and then you will see the dropdown to pick a value from.</label>
-                  <p>
-                  <label class="form-check-label mr-2">Note: If the graphs/plots are not displaying the legends correctly in the correct locales, you must also go to the Theme dialog (see toolbar above) and select a suitable font from the dropdown list. </label>
-                  <p>
-                  <label class="form-check-label mr-2">
-                  Example : if you set locale to "Chinese (Simplified)", you should also set the font to "Microsoft Yahei" or "SimSun" in the Theme dialog</label>
-                  <p>
-                  <label class="form-check-label mr-2">visit the support page on our website (www.blueskystatistics.com) for the related technote and further deatils</label>
+                    <p>
+                    <label class="form-check-label mr-2">1. If you want to set to the system default locale, manually delete any text in the field if it is not already empty.</label>
+                    <p>
+                    <label class="form-check-label mr-2">The following examples are illustration purposes only to explain what system default locale setting means  </label>
+                    <p>
+                    <label class="form-check-label mr-2">
+                    Example 1: if you purchased and configured a PC in the USA, your system defaut locale will likely be something like "English_United States".
+                    </label>
+                    <p>
+                    <label class="form-check-label mr-2">
+                    Example 2: if you purchased and configured a PC in China, your system default locale will likely be something like "Chinese (Simplified)".
+                    </label>
+                    <p>
+                    <label class="form-check-label mr-2">2. To pick a locale from the dropdown, first make the text field empty by manully deleting any text. Click on the text field to get the dropdown to appear with multiple choices. If you do not find a suitable locale choice in the dropdown, you can hand type a valid locale in the text field.</label>
+                    <p>
+                    <label class="form-check-label mr-2">3. Whenever you want to change the locale and select from the dropdown, you must first manually delete the current text entry to make the text field empty, and then you will see the dropdown to pick a value from.</label>
+                    <p>
+                    <label class="form-check-label mr-2">Note: If the graphs/plots are not displaying the legends correctly in the correct locales, you must also go to the Theme dialog (see toolbar above) and select a suitable font from the dropdown list. </label>
+                    <p>
+                    <label class="form-check-label mr-2">
+                    Example : if you set locale to "Chinese (Simplified)", you should also set the font to "Microsoft Yahei" or "SimSun" in the Theme dialog</label>
+                    <p>
+                    <label class="form-check-label mr-2">visit the support page on our website (www.blueskystatistics.com) for the related technote and further deatils</label>
                   </div>            
                 </div>
+                <div id="decimalmarkerdiv" class="pb-3"> 
+                  <label class="form-check-label mr-2" for="decimalMarker">Set decimal marker character :</label>
+                  <input name="decimalMarker" class="w-25 float-right" id="decimalMarker" type="text">
+                </div>
+                <div id="displaymarkerdiv" class="pb-3"> 
+                  <label class="form-check-label mr-2" for="displayMarker">Set display marker character :</label>
+                  <input name="displayMarker" class="w-25 float-right" id="displayMarker" type="text">
+                </div>                
   `
   constructor(modal, config) {
       this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
@@ -246,7 +254,7 @@ class DatabaseOpt {
     content;
     id;
     htmlTemplate = `
-		                  <div id="tnsadminOraclediv" class="pb-3">
+		              <div id="tnsadminOraclediv" class="pb-3">
                     <label class="form-check-label mr-2" for="tnsadminpath">Oracle TNS_ADMIN path (use forward slash in path)</label>
                     <input class="w-25 float-right" type="text" id="tnsadminpath" name="tnsadminpath">
                     <div class="form-check ml-3">
