@@ -205,6 +205,7 @@ class RLocaleOpt {
                     <option value="Turkish">
                     <option value="French">
                     <option value="Portuguese">
+                    <option value="German">
                   </datalist>                
                   <div id="rlocalekiddiv" class="pb-3">
                     <p>
