@@ -232,14 +232,21 @@ class RLocaleOpt {
                     <label class="form-check-label mr-2">visit the support page on our website (www.blueskystatistics.com) for the related technote and further deatils</label>
                   </div>            
                 </div>
-                <div id="decimalmarkerdiv" class="pb-3"> 
+                <div id="delimmarkerdiv" class="pb-3"> 
+                  <label class="form-check-label mr-2" for="delimMarker">Settings related to Copy/Paste operations on the datagrid:</label>
+                </div>  
+                <div id="decimalmarkerdiv" class="pb-3 ml-4"> 
                   <label class="form-check-label mr-2" for="decimalMarker">Set decimal marker character :</label>
                   <input name="decimalMarker" class="w-25 float-right" id="decimalMarker" type="text">
                 </div>
-                <div id="displaymarkerdiv" class="pb-3"> 
+                <div id="displaymarkerdiv" class="pb-3 ml-4"> 
                   <label class="form-check-label mr-2" for="displayMarker">Set display marker character :</label>
                   <input name="displayMarker" class="w-25 float-right" id="displayMarker" type="text">
-                </div>                
+                </div>   
+                 <div id="delimChardiv" class="pb-3 ml-4"> 
+                  <label class="form-check-label mr-2" for="delimChar">Set delim character e.g. \\t, \\n:</label>
+                  <input name="delimChar" class="w-25 float-right" id="delimChar" type="text">
+                </div>              
   `
   constructor(modal, config) {
       this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
