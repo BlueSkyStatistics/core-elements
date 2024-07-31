@@ -1668,6 +1668,7 @@ module.exports.updateModalHandler = (element_id, content) => {
           break;
         case "object":
           content = content.join(", ")
+          content[0] = content[0].replace(/\\n/g, '\n');
         default:
           content = content !== "" ? content : "OFF"
       }
