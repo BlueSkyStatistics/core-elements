@@ -44,7 +44,7 @@ class reRunDatasetList {
             bs-row-type="dataset" 
             bs-row-class="dataset" 
             bs-row-measure="dataset" 
-                
+            onclick="selectModelTerms(event)"   
             >${element}</a>`) 
             });
     }

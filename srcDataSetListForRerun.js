@@ -49,8 +49,7 @@ class srcDataSetListForRerun {
                         bs-row-type="dataset" 
                         bs-row-class="dataset" 
                         bs-row-measure="dataset" 
-                        ondragstart="drag(event, '${_action}')"
-                        ondrop="drop(event)"
+                        onclick="selectModelTerms(event)"
                         >${element}</a>`) 
                     });
                     $(`#${item_id}`).attr('order', order.join("|||"))
