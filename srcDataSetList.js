@@ -11,7 +11,7 @@ class srcDatasetList {
     order = []
     htmlTemplate = `<h6>{{if (options.ms.label)}}{{ms.label}}{{#else}}Source Datasets{{/if}}</h6>
 <div class="form-check list-group var-list" multiple 
-{{if (options.ms.no == undefined)}}id="{{modal.id}}Datasts"{{#else}}id="{{modal.id}}_{{ms.no}}"{{/if}}
+{{if (options.ms.no == undefined)}}id="{{modal.id}}Datasets"{{#else}}id="{{modal.id}}_{{ms.no}}"{{/if}}
      modal_id="{{modal.id}}"
      {{if (options.ms.action)}}act="{{ms.action}}"{{#else}}act="copy"{{/if}}  
      bs-type="dss" ondrop="drop(event)" ondragover="allowDrop(event)">
