@@ -146,7 +146,12 @@ function getFixedEffectsandCovariates(tvarbox2) {
     let results = {}
     let allColAttr = fetchAllColumnAttributes()
     let singleColProperties = []
-    let regexpression = /[*+-:^)()|/]|%in%/
+    //Added Aaron 09/16/2024
+    //This was previously /[*+-^(\)|%in%/ (Please verify with github)
+    //Ross reported an issue when you had a model with Index1 as a fixed factor, lsmeans did not display
+    //this was tested with "Index%%test", "Index%test""Index%in%test"
+    let regexpression = /[\*\+\-\^\(\)\|:]|%in%|%%|%/
+
     let functList = []
     tvarbox2 = tvarbox2.replace(/ /g, '')
     //Remove package names for example stats::poly(x, degree)
