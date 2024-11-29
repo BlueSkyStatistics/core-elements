@@ -1,7 +1,7 @@
 
 
 var Sqrl = require('squirrelly');
-
+let t = getT('menutoolbar')
 
 class srcDatasetList {
     content;
@@ -28,6 +28,7 @@ class srcDatasetList {
 
         //this.id = `${modal.id}Datasets`
         this.action = config.hasOwnProperty("action") ? config.action : "copy"
+        config.label = t('Source_Datasets')//, {ns: 'menutoolbar'})
         this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config});
     }
 

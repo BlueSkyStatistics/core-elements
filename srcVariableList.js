@@ -1,5 +1,7 @@
 
 var Sqrl = require('squirrelly');
+// const i18next = require("i18next");
+let t = getT('menutoolbar')
 
 class srcVariableList {
     content;
@@ -29,6 +31,7 @@ class srcVariableList {
         this.action = config.hasOwnProperty("action") ? config.action : "copy"
         if (config.hasOwnProperty("allowedDstCtrls"))
             config.allowedDstCtrls = JSON.stringify(config.allowedDstCtrls)
+        config.label = t('Source_variables')//, {ns: 'menutoolbar'})//, {ns: 'translation'}); //"bal bla Source variables"
         this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config});
     }
 
