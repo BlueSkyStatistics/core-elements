@@ -1,5 +1,6 @@
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
+let t = getT('menutoolbar')
 class wrapControl extends baseElement {
     content;
     id;
@@ -49,10 +50,10 @@ class wrapControl extends baseElement {
         <div class="col col-rr"> 
             <div class="form-check">
                 <input type="checkbox" bs-type="valuebox" class="form-check-input" id="{{modal.id}}_{{ms.no}}_checkbox" extractionRule="BooleanValue" no="{{ms.no}}_count" true-value="dplyr::n()" false-value="">
-                <label class="form-check-label" for="{{modal.id}}_{{ms.no}}_checkbox">Display counts in aggregated dataset</label>
+                <label class="form-check-label" for="{{modal.id}}_{{ms.no}}_checkbox">${t('wrapCtrllabel1')}</label>
             </div>
             <div class="form-group">
-            <label for="{{modal.id}}_{{ms.no}}_input" class="mr-2 small-label">Optionally enter names for counts and aggregated variables separated by , (comma)</label>
+            <label for="{{modal.id}}_{{ms.no}}_input" class="mr-2 small-label">${t('wrapCtrllabel2')}</label>
             <input class="w-100" type="text" bs-type="text" 
                 id="{{modal.id}}_{{ms.no}}_input" 
                 no="{{ms.no}}_input"

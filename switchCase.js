@@ -1,7 +1,7 @@
 
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
-
+let t = getT('menutoolbar')
 
 class switchCase extends baseElement {
     content;
@@ -15,18 +15,19 @@ class switchCase extends baseElement {
     htmlTemplate = `
     <div class="row mt-3">
         <div class="col destination">
-        <h6>Multiple Condition Builder:{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</h6>
+        <h6>${t('SCStr0')}:{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</h6>
             <div class="small-label">
-                    Click on a button and drag and drop variables to create an expression.<br> Clicking a selected button will toggle its state.<br> To insert at a designated position, drag and drop directly to that position.<br> Mouse over a button for help.
+            ${t('SCStr1')}<br>${t('SCStr2')}<br>${t('SCStr3')}<br>${t('SCStr4')}
+                    <br><br><br>
             </div>  
         </div>    
     </div>
     <div class="row">
         <div class="col-3">
-            <button class='btn btn-secondary h6 btn-submenu-text' onclick='addRowToSwitchCase("{{modal.id}}_{{ms.no}}")'><i class="fas fa-plus"></i>IF THEN</button>
+            <button class='btn btn-secondary h6 btn-submenu-text' onclick='addRowToSwitchCase("{{modal.id}}_{{ms.no}}")'><i class="fas fa-plus"></i>${t('SCifthenbtn')}</button>
         </div>
         <div class="col-3">
-            <button class='btn btn-secondary h6 btn-submenu-text' onclick='addElseToSwitchCase("{{modal.id}}_{{ms.no}}")'><i class="fas fa-plus"></i>ELSE</button>
+            <button class='btn btn-secondary h6 btn-submenu-text' onclick='addElseToSwitchCase("{{modal.id}}_{{ms.no}}")'><i class="fas fa-plus"></i>${t('SCelsebtn')}</button>
         </div>
         <div class="col-6">
             <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
@@ -45,7 +46,7 @@ class switchCase extends baseElement {
                                 style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab1" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab1" 
                                 aria-selected="true" role="tab">
-                                Arithmetic
+                                ${t('SCtabArithmetic')}
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -53,7 +54,7 @@ class switchCase extends baseElement {
                                 style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab2" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab2" 
                                 aria-selected="true" role="tab">
-                                Logical
+                                ${t('SCtabLogical')}
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -61,7 +62,7 @@ class switchCase extends baseElement {
                                 style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab3" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab3" 
                                 aria-selected="true" role="tab">
-                                Math
+                                ${t('SCtabMath')}
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -69,7 +70,7 @@ class switchCase extends baseElement {
                                 style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab4" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab4" 
                                 aria-selected="true" role="tab">
-                                String(1)
+                                ${t('SCtabString1')}
                                 </a>
                             </li>
 
@@ -79,7 +80,7 @@ class switchCase extends baseElement {
                                 style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab5" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab5" 
                                 aria-selected="true" role="tab">
-                                String(2)
+                                ${t('SCtabString2')}
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -87,7 +88,7 @@ class switchCase extends baseElement {
                                 style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab6" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab6" 
                                 aria-selected="true" role="tab">
-                                Conversion
+                                ${t('SCtabConversion')}
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -95,7 +96,7 @@ class switchCase extends baseElement {
                                 style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab7" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab7" 
                                 aria-selected="true" role="tab">
-                                Statistical
+                                ${t('SCtabStatistical')}
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -103,7 +104,7 @@ class switchCase extends baseElement {
                                 style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab8" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab8" 
                                 aria-selected="true" role="tab">
-                                Random Numbers
+                                ${t('SCtabRandomNumbers')}
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -111,7 +112,7 @@ class switchCase extends baseElement {
                                 style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab9" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab9" 
                                 aria-selected="true" role="tab">
-                                Date(1)
+                                ${t('SCtabDate1')}
                                 </a>
                             </li>
                                 <li class="nav-item">
@@ -119,7 +120,7 @@ class switchCase extends baseElement {
                                 style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab10" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab10" 
                                 aria-selected="true" role="tab">
-                                Date(2)
+                                ${t('SCtabDate2')}
                                 </a>
                                 </li>
                                 </li>
@@ -128,7 +129,7 @@ class switchCase extends baseElement {
                                 style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab11" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab11" 
                                 aria-selected="true" role="tab">
-                                Date(3)
+                                ${t('SCtabDate3')}
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -136,7 +137,7 @@ class switchCase extends baseElement {
                                 style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab12" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab12" 
                                 aria-selected="true" role="tab">
-                                Date(4)
+                                ${t('SCtabDate4')}
                                 </a>
                             </li>
                         </ul>
@@ -155,8 +156,7 @@ class switchCase extends baseElement {
                                 formula-btn w-100 m-0 activated" val="+" 
                                 onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click the + symbol then move the variables you want 
-                                to separate with +. To insert just + , double click it">
+                                title="${t('SCttip1')}">
                                 <i class="fas fa-plus"></i>
                             </button>
                         </div>
@@ -164,8 +164,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="-" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click the - symbol then move the variables you want 
-                                to separate with -. To insert just -, double click it">
+                                title="${t('SCttip2')}">
                                 <i class="fas fa-minus"></i>
                             </button>
                         </div>
@@ -173,8 +172,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="*" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click the * symbol then move the variables you want 
-                            to separate with *. To insert just *, double click it">
+                            title="${t('SCttip3')}">
                                 <i class="fas fa-asterisk"></i>
                             </button>
                         </div>
@@ -182,8 +180,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="/" onclick="toggleButton(event, true)"  ondblclick="toFocusedInput(event)"
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click the / symbol then move the variables you want to separate 
-                            with /. To insert just  /, double click it">
+                            title="${t('SCttip4')}">
                                 /
                             </button>
                         </div>
@@ -191,7 +188,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="^" onclick="toggleButton(event, true)"  ondblclick="toFocusedInput(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click ^ and move variables to exponentiate, to insert generic code double click">
+                                title="${t('SCttip5')}">
                                 ^
                             </button>
                         </div>
@@ -202,32 +199,32 @@ class switchCase extends baseElement {
                                 formula-btn w-100 m-0" val="sqrt" 
                                 onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click SQRT and move variables to calculate a square root, to insert generic code double click">
-                                sqrt
+                                title="${t('SCttip6')}">
+                                ${t('SCbtnlbl6')}
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="log" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click LOG and move variables to compute a natural logarithm, to insert generic code double click">
-                                log
+                                title="${t('SCttip7')}">
+                                ${t('SCbtnlbl7')}
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="log10" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click LOG10 and move variables to calculate a log base 10, to insert generic code double click">
-                                log10
+                            title="${t('SCttip8')}">
+                            ${t('SCbtnlbl8')}
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="log2" onclick="toggleButton(event, true)"  ondblclick="toFocusedInput(event)"
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click LOG2 and move variables to calculate a log base 2, to insert generic code double click">
-                                log2
+                            title="${t('SCttip9')}">
+                            ${t('SCbtnlbl9')}
                             </button>
                         </div>
                     </div>
@@ -237,24 +234,24 @@ class switchCase extends baseElement {
                                 formula-btn w-100 m-0" val="%%" 
                                 onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click MOD and move variables variables to divide and compute the reminder, to insert generic code double click">
-                                mod
+                                title="${t('SCttip10')}">
+                            ${t('SCbtnlbl10')}
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="abs" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click abs and move variables to compute an absolute value, to insert generic code double click">
-                                abs
+                                title="${t('SCttip11')}">
+                            ${t('SCbtnlbl11')}
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="exp" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click exp and move variables to compute an exponential, to insert generic code double click">
-                                exp
+                            title="${t('SCttip12')}">
+                            ${t('SCbtnlbl12')}
                             </button>
                         </div>
                     </div>
@@ -265,7 +262,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val=">" onclick="toFocusedInput(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click to insert the > symbol">
+                                title="${t('SCttip13')}">
                                 <b>&gt;</b>
                             </button>
                         </div>
@@ -273,7 +270,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="<" onclick="toFocusedInput(event)"  
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click to insert the < symbol">
+                                title="${t('SCttip14')}">
                                 <b>&lt;</b>
                             </button>
                         </div>
@@ -281,7 +278,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val=">=" onclick="toFocusedInput(event)"  
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click to insert the >= symbol">
+                                title="${t('SCttip15')}">
                                 <b>&gt;=</b>
                             </button>
                         </div>
@@ -289,7 +286,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="<=" onclick="toFocusedInput(event)"  
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click to insert the <= symbol">
+                                title="${t('SCttip16')}">
                                 <b>&lt;=</b>
                             </button>
                         </div>
@@ -297,7 +294,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="==" onclick="toFocusedInput(event)"  
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click to insert the == symbol (test of equality)">
+                                title="${t('SCttip17')}">
                                 <b>==</b>
                             </button>
                         </div>
@@ -305,7 +302,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="!=" onclick="toFocusedInput(event)"  
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click to insert the !- (not equal) symbol">
+                                title="${t('SCttip18')}">
                                 <b>!=</b>
                             </button>
                         </div>
@@ -315,7 +312,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="|" onclick="toFocusedInput(event)"  
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click to insert the | (logical or) symbol">
+                                title="${t('SCttip19')}">
                                 <b>|</b>
                             </button>
                         </div>
@@ -323,7 +320,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="&" onclick="toFocusedInput(event)"  
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click to insert the & (logical and) symbol">
+                                title="${t('SCttip20')}">
                                 <b>&amp;</b>
                             </button>
                         </div>
@@ -331,32 +328,32 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="%/%" onclick="toFocusedInput(event)"  
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click to insert the integer division (%/%) symbol">
-                                <b>%/%</b>
+                                title="${t('SCttip21')}">
+                                <b>${t('SCbtnlbl21')}</b>
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="isTRUE" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click isTRUE to select and move the variable to check for TRUE values. Returns TRUE/FALSE,to insert generic code double click">
-                                isTRUE
+                            title="${t('SCttip22')}">
+                                ${t('SCbtnlbl22')}
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="is.na" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click is.na to select and move the variable to check for NA values. Returns TRUE/FALSE, to insert generic code double click">
-                                is.na
+                            title="${t('SCttip23')}">
+                                ${t('SCbtnlbl23')}
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" val="%in%" 
                             onclick="toFocusedInput(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click %in% to insert it. %in% is used to check whether a variable contains values e.g. var1 %in% c(1,2)">
-                                %in%
+                                title="${t('SCttip24')}">
+                                ${t('SCbtnlbl24')}
                             </button>
                         </div>
                     </div>
@@ -367,80 +364,80 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="round" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click round and move variables to round, to insert generic code double click">
-                                <b>round</b>
+                                title="${t('SCttip25')}">
+                                <b>${t('SCbtnlbl25')}</b>
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="ceiling" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click ceiling and move variables to compute the ceiling for, to insert generic code double click">
-                                <b>ceiling</b>
+                                title="${t('SCttip26')}">
+                                <b>${t('SCbtnlbl26')}</b>
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="floor" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click floor and move variables to compute the floor for, to insert generic code double click">
-                                <b>floor</b>
+                                title="${t('SCttip27')}">
+                                <b>${t('SCbtnlbl27')}</b>
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="signif" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click signif and move variables to round to specified number of significant digits, to insert generic code double click">
-                                <b>signif</b>
+                                title="${t('SCttip28')}">
+                                <b>${t('SCbtnlbl28')}</b>
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="gamma" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click gamma and move variables to compute a gamma function, to insert generic code double click">
-                                <b>gamma</b>
+                                title="${t('SCttip29')}">
+                                <b>${t('SCbtnlbl29')}</b>
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="lgamma" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click lgamma and move variables to compute a lgamma function, to insert generic code double click">
-                                <b>lgamma</b>
+                                title="${t('SCttip30')}">
+                                <b>${t('SCbtnlbl30')}</b>
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="beta" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click beta and move variables to compute a beta function, to insert generic code double click">
-                                <b>beta</b>
+                                title="${t('SCttip31')}">
+                                <b>${t('SCbtnlbl31')}</b>
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="lbeta" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click lbeta and move variables to compute a lbeta function, to insert generic code double click">
-                                <b>lbeta</b>
+                                title="${t('SCttip32')}">
+                                <b>${t('SCbtnlbl32')}</b>
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="factorial" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click factorial and move variables to compute factorials, to insert generic code double click">
-                            <b>factorial</b>
+                            title="${t('SCttip33')}">
+                            <b>${t('SCbtnlbl33')}</b>
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="pigamma" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click pigamma and move variables to compute a pigamma function, to insert generic code double click">
-                            <b>pigamma</b>
+                            title="${t('SCttip34')}">
+                            <b>${t('SCbtnlbl34')}</b>
                             </button>
                         </div>
                     </div>
@@ -451,48 +448,48 @@ class switchCase extends baseElement {
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="toupper" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click toupper and move variables to convert to uppercase, to insert generic code double click">
-                                    <b>toupper</b>
+                                    title="${t('SCttip35')}">
+                                    <b>${t('SCbtnlbl35')}</b>
                                 </button>
                         </div>
                         <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="tolower" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click tolower and move variables to convert to lowercase, to insert generic code double click">
-                                    <b>tolower</b>
+                                    title="${t('SCttip36')}">
+                                    <b>${t('SCbtnlbl36')}</b>
                                 </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="Pad" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click Pad and move variables to Pad with a character, to insert generic code double click">
-                                <b>Pad</b>
+                                title="${t('SCttip37')}">
+                                <b>${t('SCbtnlbl37')}</b>
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="Trim" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click Trim and move variables to remove white space from the left, right or both ends, to insert generic code double click">
-                                <b>Trim</b>
+                                title="${t('SCttip38')}">
+                                <b>${t('SCbtnlbl38')}</b>
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="Length" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click Length and move variables to return the number of characters in the string, to insert generic code double click">
-                                <b>Length</b>
+                                title="${t('SCttip39')}">
+                                <b>${t('SCbtnlbl39')}</b>
                             </button>
                         </div>
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="Count(matches)" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click Count(matches) and move variables to count matches of a pattern/sub-string, to insert generic code double click">
-                                <b>Count(matches)</b>
+                                title="${t('SCttip40')}">
+                                <b>${t('SCbtnlbl40')}</b>
                             </button>
                         </div>
                     </div>
@@ -503,40 +500,40 @@ class switchCase extends baseElement {
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Extract Substring" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click Extract Substring and move variables to extract a sub-string (replace starting and ending position by integers), to insert generic code double click">
-                        <b>Extract Substring</b>
+                        title="${t('SCttip41')}">
+                        <b>${t('SCbtnlbl41')}</b>
                     </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Concatenate" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click Concatenate and move variables to Concatenate with an optional separator, to insert generic code double click">
-                        <b>Concatenate</b>
+                        title="${t('SCttip42')}">
+                        <b>${t('SCbtnlbl42')}</b>
                     </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Replace Pattern" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click Replace Pattern and move variables to replace a pattern, to insert generic code double click">
-                        <b>Replace Pattern</b>
+                        title="${t('SCttip43')}">
+                        <b>${t('SCbtnlbl43')}</b>
                     </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Replace Pattern(ALL)" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click Replace Pattern(ALL) and move variables to replace all patterns, to insert generic code double click">
-                        <b>Replace Pattern(ALL)</b>
+                        title="${t('SCttip44')}">
+                        <b>${t('SCbtnlbl44')}</b>
                     </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Extract a Number" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click Extract a Number and move variables to extract a number from, to insert generic code double click">
-                        <b>Extract a Number</b>
+                        title="${t('SCttip45')}">
+                        <b>${t('SCbtnlbl45')}r</b>
                     </button>
                 </div>
                 </div>
@@ -547,40 +544,40 @@ class switchCase extends baseElement {
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="as.numeric" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click ToNumeric and move variables to to convert to numeric, to insert generic code double click">
-                        <b>ToNumeric</b>
+                        title="${t('SCttip46')}">
+                        <b>${t('SCbtnlbl46')}</b>
                     </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="ToCharacter" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click ToCharacter and move variables to convert to a character, to insert generic code double click">
-                        <b>ToCharacter</b>
+                        title="${t('SCttip47')}">
+                        <b>${t('SCbtnlbl47')}</b>
                     </button>
                 </div>
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="ToFactor" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click ToFactor and move variables to convert to a factor, to insert generic code double click">
-                    <b>ToFactor</b>
+                    title="${t('SCttip48')}">
+                    <b>${t('SCbtnlbl48')}</b>
                 </button>
                 </div>
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="ToOrdered" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click ToOrdered and move variables to convert to an ordered factor, to insert generic code double click">
-                    <b>ToOrdered</b>
+                    title="${t('SCttip49')}">
+                    <b>${t('SCbtnlbl49')}</b>
                 </button>
                 </div>
                 <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="ToLogical" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click ToLogical and move variables to convert to a logical, to insert generic code double click">
-                    <b>ToLogical</b>
+                    title="${t('SCttip50')}">
+                    <b>${t('SCbtnlbl50')}</b>
                 </button>
             </div>
                 </div>
@@ -591,56 +588,56 @@ class switchCase extends baseElement {
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="max" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click MAX and move variables to compute the maximum value, to insert generic code double click">
-                    <b>MAX</b>
+                    title="${t('SCttip51')}">
+                    <b>${t('SCbtnlbl51')}</b>
                 </button>
             </div>
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="min" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click MIN and move variables to compute the minimum value, to insert generic code double click">
-                    <b>MIN</b>
+                    title="${t('SCttip52')}">
+                    <b>${t('SCbtnlbl52')}</b>
                 </button>
             </div>
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="mean" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click MEAN and move variables to compute the mean value, to insert generic code double click">
-                    <b>MEAN</b>
+                    title="${t('SCttip53')}">
+                    <b>${t('SCbtnlbl53')}</b>
                 </button>
             </div>
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="median" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click MEDIAN and move variables to compute the median value, to insert generic code double click">
-                    <b>MEDIAN</b>
+                    title="${t('SCttip54')}">
+                    <b>${t('SCbtnlbl54')}</b>
                 </button>
             </div>
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="sd" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click SD and move variables to compute the standard deviation, to insert generic code double click">
-                    <b>SD</b>
+                    title="${t('SCttip55')}">
+                    <b>${t('SCbtnlbl55')}</b>
                 </button>
             </div>
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="sum" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click SUM and move variables to compute the sum, to insert generic code double click">
-                    <b>SUM</b>
+                    title="${t('SCttip56')}">
+                    <b>${t('SCbtnlbl56')}</b>
                 </button>
             </div>
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="variance" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click VARIANCE and move variables to compute the variance, to insert generic code double click">
-                    <b>VARIANCE</b>
+                    title="${t('SCttip57')}">
+                    <b>${t('SCbtnlbl57')}</b>
                 </button>
             </div>
             </div>
@@ -651,24 +648,24 @@ class switchCase extends baseElement {
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="runif" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                title="Double Click RUNIF and random numbers will be generated from a uniform distribution with min and max">
-                <b>runif</b>
+                title="${t('SCttip58')}">
+                <b>${t('SCbtnlbl58')}</b>
             </button>
         </div>
         <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="sample" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                title="Click SAMPLE and move variables to generate random samples with/without replacement, to insert generic code double click">
-                <b>sample</b>
+                title="${t('SCttip59')}">
+                <b>${t('SCbtnlbl59')}</b>
             </button>
         </div>
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="rnorm" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Double click rnorm to generate variables from a normal distribution with a specified mean and standard deviation">
-                        <b>rnorm</b>
+                        title="${t('SCttip60')}">
+                        <b>${t('SCbtnlbl60')}</b>
                     </button>
             </div>
             </div>
@@ -679,48 +676,48 @@ class switchCase extends baseElement {
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Day of Week" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                title="Click Day of Week and move a date variable that you want to extract the day of the week(Monday..) from, to insert generic code double click">
-                <b>Day of Week</b>
+                title="${t('SCttip61')}">
+                <b>${t('SCbtnlbl61')}</b>
             </button>
         </div>
         <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Day of Month" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                title="Click Day of Month and move a date variable that you want to extract the day of the month(1-31) from, to insert generic code double click">
-                <b>Day of Month</b>
+                title="${t('SCttip62')}">
+                <b>${t('SCbtnlbl62')}</b>
             </button>
         </div>
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Day of Year" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click Day of Year and move a date variable that you want to extract the day of year(001-366) from, to insert generic code double click">
-                        <b>Day of Year</b>
+                        title="${t('SCttip63')}">
+                        <b>${t('SCbtnlbl63')}</b>
                     </button>
             </div>
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Week of Year" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click Week of Year and move a date variable that you want to extract the week of year(00-53) from, to insert generic code double click">
-                        <b>Week of Year</b>
+                        title="${t('SCttip64')}">
+                        <b>${t('SCbtnlbl64')}</b>
                     </button>
             </div>
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Month" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click Month and move a date variable that you want to extract the Month(January..) from, to insert generic code double click">
-                        <b>Month</b>
+                        title="${t('SCttip65')}">
+                        <b>${t('SCbtnlbl65')}</b>
                     </button>
             </div>
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Month(decimal)" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click Month(decimal) and move a date variable that you want to extract the Month(01-12) from, to insert generic code double click">
-                        <b>Month(decimal)</b>
+                        title="${t('SCttip66')}">
+                        <b>${t('SCbtnlbl66')}</b>
                     </button>
             </div>
             </div>
@@ -731,56 +728,56 @@ class switchCase extends baseElement {
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Quarters" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                title="Click Quarters and move a date variable that you want to extract the Quarters(Q1, Q2..) from, to insert generic code double click">
-                <b>Quarters</b>
+                title="${t('SCttip67')}">
+                <b>${t('SCbtnlbl67')}</b>
             </button>
         </div>
         <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Year(XXXX)" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                title="Click Year(XXXX) and move a date variable that you want to extract the Year(1980) from, to insert generic code double click">
-                <b>Year(XXXX)</b>
+                title="${t('SCttip68')}">
+                <b>${t('SCbtnlbl68')}</b>
             </button>
         </div>
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Year(XX)" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click Year(XX) and move a date variable that you want to extract the Year(80) from, to insert generic code double click">
-                        <b>Year(XX)</b>
+                        title="${t('SCttip69')}">
+                        <b>${t('SCbtnlbl69')}</b>
                     </button>
             </div>
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Hour(00-12)" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click Hour(00-12) and move a date variable that you want to extract the Hour(00) from, to insert generic code double click">
-                        <b>Hour(00-12)</b>
+                        title="${t('SCttip70')}">
+                        <b>${t('SCbtnlbl70')}</b>
                     </button>
             </div>
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Hour(00-23)" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click Hour(00-23) and move a date variable that you want to extract the Hour from, to insert generic code double click">
-                        <b>Hour(00-23)</b>
+                        title="${t('SCttip71')}">
+                        <b>${t('SCbtnlbl71')}</b>
                     </button>
             </div>
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Minutes" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click Minutes and move a date variable that you want to extract the minutes from, to insert generic code double click">
-                        <b>Minutes</b>
+                        title="${t('SCttip72')}">
+                        <b>${t('SCbtnlbl72')}</b>
                     </button>
             </div>
             <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Secs" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                title="Click Secs and move a date variable that you want to extract the seconds from, to insert generic code double click">
-                <b>Secs</b>
+                title="${t('SCttip73')}">
+                <b>${t('SCbtnlbl73')}</b>
             </button>
     </div>
             </div>
@@ -791,16 +788,16 @@ class switchCase extends baseElement {
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Date from String" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                title="Click Date from String and move a string variable that you want to convert to date, to insert generic code double click">
-                <b>Date from String</b>
+                title="${t('SCttip74')}">
+                <b>${t('SCbtnlbl74')}</b>
             </button>
         </div>
         <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Date Difference" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                title="Click Date Difference and move a date variable that you want to subtract from another date variable, to insert generic code double click">
-                <b>Date Difference</b>
+                title="${t('SCttip75')}">
+                <b>${t('SCbtnlbl75')}</b>
             </button>
         </div>
             </div>
@@ -811,16 +808,16 @@ class switchCase extends baseElement {
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Numeric to date" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                title="Click Numeric to date and move a numeric variable that you want to convert to date, to insert generic code double click">
-                <b>Numeric to date</b>
+                title="${t('SCttip76')}">
+                <b>${t('SCbtnlbl76')}</b>
             </button>
         </div>
         <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="String to date" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                title="Click String to date and move a string variable that you want to convert to date, to insert generic code double click">
-                <b>String to date</b>
+                title="${t('SCttip77')}">
+                <b>${t('SCbtnlbl77')}</b>
             </button>
         </div>
             </div>
@@ -835,13 +832,13 @@ class switchCase extends baseElement {
             <div class="col-11">
                 <div class="row">
                     <div class="col-2">
-                        IF
+                        ${t('SCIFlbl')}
                     </div>
                     <div class="col-10 cm focus" bs-type="switchif"></div>
                 </div>
                 <div class="row">
                     <div class="col-2">
-                        THEN
+                        ${t('SCTHENlbl')}
                     </div>
                     <div class="col-10 cm" bs-type="switchthen"></div>
                 </div>

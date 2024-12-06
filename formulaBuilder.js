@@ -1,5 +1,6 @@
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
+let t = getT('menutoolbar')
 
 class formulaControl extends baseElement {
     content;
@@ -10,9 +11,9 @@ class formulaControl extends baseElement {
         <div class="row">
             <div class="col col-xx"></div>
             <div class="col col-rr mb-2">
-            <h6>{{if(options.ms.label !=undefined)}}{{ms.label}}{{#else}}Formula Builder:{{/if}}{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</h6>
+            <h6>{{if(options.ms.label !=undefined)}}{{ms.label}}{{#else}}${t('FBStr0')}:{{/if}}{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</h6>
             <div class="small-label">
-                    Click on a button below and drag and drop variables to create an expression.<br> Clicking a selected button will toggle its state.<br> To insert at a position, place the cursor in that position and drag & drop/move variable(s).<br> Mouse over a button for help.<br> You cannot toggle the All N way button.
+                    ${t('FBStr1')}<br>${t('FBStr2')}<br>${t('FBStr3')}<br>${t('FBStr4')}<br>${t('FBStr5')}
             </div>
             </div>
         </div>
@@ -25,8 +26,7 @@ class formulaControl extends baseElement {
                     formula-btn w-100 m-0 {{if(options.ms.default=="plus" )}}activated{{/if}}" val="+" 
                     onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click the + button then move the variables you want 
-                    to separate with +. To insert just + , double click it">
+                    title="${t('FBttip1')}">
                     <i class="fas fa-plus"></i>
                 </button>
                 </div>
@@ -34,8 +34,7 @@ class formulaControl extends baseElement {
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="-" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click the - button then move the variables you want 
-                        to separate with -. To insert just -, double click it">
+                        title="${t('FBttip2')}">
                         <i class="fas fa-minus"></i>
                     </button>
                 </div>
@@ -43,8 +42,7 @@ class formulaControl extends baseElement {
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0{{if(options.ms.default=="asterix" )}}activated{{/if}}" 
                     val="*" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click the * button then move the variables you want 
-                    to separate with *. To insert just *, double click it">
+                    title="${t('FBttip3')}">
                         <i class="fas fa-asterisk"></i>
                     </button>
                 </div>
@@ -52,8 +50,7 @@ class formulaControl extends baseElement {
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="/" onclick="toggleButton(event, true)"  ondblclick="toFormula(event)"
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click the / button then move the variables you want to separate 
-                    with /. To insert just /, double click it">
+                    title="${t('FBttip4')}">
                         /
                     </button>
                 </div>
@@ -71,7 +68,7 @@ class formulaControl extends baseElement {
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="(" onclick="toFormula(event)"
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click the ( button to insert it">
+                        title="${t('FBttip5')}">
                         (
                     </button>
                 </div>
@@ -79,7 +76,7 @@ class formulaControl extends baseElement {
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" val=")" 
                         onclick="toFormula(event)"
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click the ) button to insert it">
+                        title="${t('FBttip6')}">
                         )
                     </button>
                 </div>
@@ -87,7 +84,7 @@ class formulaControl extends baseElement {
 					<button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
 						val="%in%" onclick="toFormula(event)"
 						data-toggle="tooltip" data-html="true" data-placement="top"   
-						title="Click on the %in% button to insert %in%">
+						title="${t('FBttip7')}">
 						%in%
 					</button>
                 </div>
@@ -95,7 +92,7 @@ class formulaControl extends baseElement {
 					<button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" val="|" 
 						onclick="toFormula(event)"
 						data-toggle="tooltip" data-html="true" data-placement="top"   
-						title="Click the | button to insert it">
+						title="${t('FBttip8')}">
 						|
 					</button>
                 </div>
@@ -103,9 +100,7 @@ class formulaControl extends baseElement {
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" val=":" 
                             onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click the : button then move the variables you 
-                        want to separate with :. To insert just : , 
-                        double click it">
+                        title="${t('FBttip9')}">
                         :   
                     </button>
 				</div>
@@ -120,25 +115,26 @@ class formulaControl extends baseElement {
 				<div class="col p-0" >
                     <select class="custom-select formula-select m-0" style= {  text-align-last:center;} onclick="toggleButton(event)" onchange="toggleButton(event)"
                         data-toggle="tooltip" data-html="true" data-placement="top" style:{ margin: 20px auto;}   
-                        title="Click the All N-way option and then move the variables to create N-way interactions. To deactivate click another button.">                        <option value="2">All 2 ways</option>
-                        <option value="3">All 3 ways</option>
-                        <option value="4">All 4 ways</option>
-                        <option value="5">All 5 ways</option>
-                        <option value="6">All 6 way</option>
-                        <option value="7">All 7 ways</option>
-                        <option value="8">All 8 ways</option>
-                        <option value="9">All 9 ways</option>
-                        <option value="10">All 10 ways</option>
+                        title="${t('FBttip10')}">                        
+                        <option value="2">${t('FBbtnlbl10a')}</option>
+                        <option value="3">${t('FBbtnlbl10b')}</option>
+                        <option value="4">${t('FBbtnlbl10c')}</option>
+                        <option value="5">${t('FBbtnlbl10d')}</option>
+                        <option value="6">${t('FBbtnlbl10e')}</option>
+                        <option value="7">${t('FBbtnlbl10f')}</option>
+                        <option value="8">${t('FBbtnlbl10g')}</option>
+                        <option value="9">${t('FBbtnlbl10h')}</option>
+                        <option value="10">${t('FBbtnlbl10i')}</option>
                     </select>
                 </div>
                 <div class="col p-0">
                 <div class="formula-btn pl-1 m-0" val="^" onclick="toggleSelectPoly(event,&quot;{{modal.id}}_{{ms.no}}_polyTerms&quot; )">
-                    Polynomial terms
+                    ${t('FBbtnlbl11')}
                     <input class="w-25 formula-select formula-options" type="number" id="{{modal.id}}_{{ms.no}}_polyTerms" 
                         bs-type="text" min="0" max="10000" step="1"  default="2" value="2" 
                         onclick="toggleButton(event, true)" onchange="toggleSelect(event)"
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Select a number, click the button and move the variables to add degree N polynomial terms">
+                        title="${t('FBttip11')}">
                 </div>
                 </div>   
             </div>
@@ -150,20 +146,20 @@ class formulaControl extends baseElement {
             <div class="row pr-15">
             <div class="col  p-0">
                 <div class="formula-btn pl-1 m-0" val="df for splines">
-                    df for splines
+                    ${t('FBbtnlbl12')}
                     <input class="w-25 formula-select formula-options" type="number" id="{{modal.id}}_{{ms.no}}_splinesDeg" 
                     bs-type="text" min="0" max="10000" step="1"  default="5" value="5" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Specify a degree of freedom for splines">
+                    title="${t('FBttip12')}">
                 </div>
             </div>
             <div class="col p-0">
                     <div class="formula-btn pl-1 m-0" val="Polynomial degree">
-                    Polynomial degree
+                    ${t('FBbtnlbl13')}
                     <input class="w-25 formula-select formula-options" type="number" id="{{modal.id}}_{{ms.no}}_polyDeg" 
                     bs-type="text" min="0" max="10000" step="1"  default="5" value="5" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Specify a polynomial degree">
+                    title="${t('FBttip13')}">
                     </div>
                 </div>     
             </div>
@@ -178,16 +174,16 @@ class formulaControl extends baseElement {
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="B-spline" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click B-spline then move one or more variables. To insert generic code, double click">
-                        <b>B-spline</b>
+                        title="${t('FBttip14')}">
+                        <b>${t('FBbtnlbl14')}</b>
                     </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" val="natural spline" 
                         onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click natural spline then move one or more variables. To insert generic code, double click">
-                        <b>Natural spline</b>
+                        title="${t('FBttip15')}">
+                        <b>${t('FBbtnlbl15')}</b>
                     </button>
                 </div>
             </div>
@@ -202,16 +198,16 @@ class formulaControl extends baseElement {
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Orthogonal polynomial" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click the orthogonal polynomial button then move one or more variables. To insert generic code, double click">
-                        <b>Orthogonal polynomial</b>
+                        title="${t('FBttip16')}">
+                        <b>${t('FBbtnlbl16')}</b>
                     </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" val="Raw polynomial" 
                     onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click raw polynomial button then move one or more variables. To insert generic code, double click">
-                        <b>Raw polynomial</b>
+                        title="${t('FBttip17')}">
+                        <b>${t('FBbtnlbl17')}</b>
                     </button>
                 </div>
                 

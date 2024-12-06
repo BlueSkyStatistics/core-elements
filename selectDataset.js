@@ -1,5 +1,6 @@
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
+let t = getT('menutoolbar')
 class selectDataset extends baseElement {
     content;
     id;
@@ -76,7 +77,7 @@ class selectDataset extends baseElement {
         var datasets = getAllDatasets();
         var noOfdatasets = document.getElementById(this.id).length
         document.getElementById(this.id.concat("label")).innerHTML
-            = "Select a dataset to join " + activedataset + " with";
+            = t('SelDSsrclbl5') + activedataset + t('SelDSsrclbl6');
         //Find and save the selected dataset from history or a prior run of the dialog
         if ($(`#${this.id}`).attr("selectedValues" ) != undefined)
         {
@@ -114,13 +115,13 @@ class selectDataset extends baseElement {
         if (prevSelected == "" || (prevSelected == activedataset)) {
             if (datasets[0] != "") prevSelected = datasets[0]
         }
-        document.getElementById(this.id.concat("src")).innerText = "Variables from the active (left) dataset " + activedataset;
+        document.getElementById(this.id.concat("src")).innerText = "Variables from the active (left) dataset "+ activedataset;
         document.getElementById(this.id.concat("tar")).innerText = "Variables from the selected (right) dataset " + prevSelected;
         //Populate the variable list with the currect dataset
         if (datasets.length > 0) {
-            populateVariablesOfDataset(this.id.concat("selVars"), this.id.concat("tar"), prevSelected, "selected (right)")
+            populateVariablesOfDataset(this.id.concat("selVars"), this.id.concat("tar"), prevSelected, t('SelDSsrclbl3'))
         }
-        populateVariablesOfDataset(this.id.concat("actVars"), this.id.concat("src"), activedataset, "active (left)")
+        populateVariablesOfDataset(this.id.concat("actVars"), this.id.concat("src"), activedataset, t('SelDSsrclbl2'))
     }
 }
 module.exports.element = selectDataset;

@@ -1,4 +1,5 @@
 const { getMultiVal } = require("./common");
+let t = getT('menutoolbar')
 
 function attachActionToMoveArrow(parentId) {
   var modal_id = document.getElementById(parentId).getAttribute("modal_id");
@@ -1318,13 +1319,13 @@ module.exports.addRowToSwitchCase = (el) => {
     <div class="col-11">
         <div class="row">
             <div class="col-2">
-                IF
+            ${t('SCIFlbl')}
             </div>
             <div class="col-10 cm" bs-type="switchif"></div>
         </div>
         <div class="row">
             <div class="col-2">
-                THEN
+            ${t('SCTHENlbl')}
             </div>
             <div class="col-10 cm" bs-type="switchthen"></div>
         </div>
@@ -1350,7 +1351,7 @@ module.exports.addElseToSwitchCase = (el) => {
       <div class="col-11">
           <div class="row">
               <div class="col-2">
-                  ELSE
+              ${t('SCELSElbl')}
               </div>
               <div class="col-10 cm" bs-type="switchelse"></div>
           </div>
@@ -1679,7 +1680,7 @@ module.exports.updateModalHandler = (element_id, content) => {
   }
 }
 function populateVariablesOfDataset(ctrlToPopulate, title, value, type) {
-  document.getElementById(title).innerText = "Variables from the " + type + " dataset: " + value;
+  document.getElementById(title).innerText = t('SelDSsrclbl1') + type + t('SelDSsrclbl4')+": " + value;
   $(`#${ctrlToPopulate}`).children().each(function (index, element) {
     element.remove()
   })

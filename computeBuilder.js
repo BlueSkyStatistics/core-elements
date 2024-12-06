@@ -1,6 +1,7 @@
 var Sqrl = require('squirrelly');
 const common = require("./common")
 var baseElement = require('./baseElement').baseElement;
+let t = getT('menutoolbar')
 
 class computeBuilder extends baseElement{
     content;
@@ -13,7 +14,7 @@ class computeBuilder extends baseElement{
             <div class="col col-rr mb-2">
             <h6>{{if(options.ms.label !="")}}{{ms.label}}{{#else}}Expression Builder:{{/if}}{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</h6>
             <div class="small-label">
-                    Click on a button below and drag and drop variables to create an expression.<br> Clicking a selected button will toggle its state.<br> To insert at a position, place the cursor in that position and drag & drop/move variable(s).<br> Mouse over a button for help.
+            ${t('CBStr1')}<br>${t('CBStr2')}<br>${t('CBStr3')}<br>${t('CBStr4')}
             </div>  
             </div>
         </div>
@@ -31,7 +32,7 @@ class computeBuilder extends baseElement{
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab1" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab1" 
                                     aria-selected="true" role="tab">
-                                    Arithmetic
+                                    ${t('CBtabArithmetic')}
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -39,7 +40,7 @@ class computeBuilder extends baseElement{
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab2" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab2" 
                                     aria-selected="true" role="tab">
-                                    Logical
+                                    ${t('CBtabLogical')}
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -47,7 +48,7 @@ class computeBuilder extends baseElement{
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab3" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab3" 
                                     aria-selected="true" role="tab">
-                                    Math
+                                    ${t('CBtabMath')}
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -55,7 +56,7 @@ class computeBuilder extends baseElement{
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab4" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab4" 
                                     aria-selected="true" role="tab">
-                                    String(1)
+                                    ${t('CBtabString1')}
                                     </a>
                                 </li>
 
@@ -65,7 +66,7 @@ class computeBuilder extends baseElement{
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab5" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab5" 
                                     aria-selected="true" role="tab">
-                                    String(2)
+                                    ${t('CBtabString2')}
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -73,7 +74,7 @@ class computeBuilder extends baseElement{
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab6" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab6" 
                                     aria-selected="true" role="tab">
-                                    Conversion
+                                    ${t('CBtabConversion')}
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -81,7 +82,7 @@ class computeBuilder extends baseElement{
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab7" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab7" 
                                     aria-selected="true" role="tab">
-                                    Statistical
+                                    ${t('CBtabStatistical')}
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -89,7 +90,7 @@ class computeBuilder extends baseElement{
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab8" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab8" 
                                     aria-selected="true" role="tab">
-                                    Random Numbers
+                                    ${t('CBtabRandomNumbers')}
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -97,7 +98,7 @@ class computeBuilder extends baseElement{
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab9" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab9" 
                                     aria-selected="true" role="tab">
-                                    Date(1)
+                                    ${t('CBtabDate1')}
                                     </a>
                                 </li>
                                     <li class="nav-item">
@@ -105,7 +106,7 @@ class computeBuilder extends baseElement{
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab10" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab10" 
                                     aria-selected="true" role="tab">
-                                    Date(2)
+                                    ${t('CBtabDate2')}
                                     </a>
                                  </li>
                                  </li>
@@ -114,7 +115,7 @@ class computeBuilder extends baseElement{
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab11" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab11" 
                                     aria-selected="true" role="tab">
-                                    Date(3)
+                                    ${t('CBtabDate3')}
                                     </a>
                                 </li>
                                 <li class="nav-item">
@@ -122,7 +123,7 @@ class computeBuilder extends baseElement{
                                     style="-webkit-app-region: no-drag;" data-toggle="tab" 
                                     href="#{{modal.id}}_{{ms.no}}_tab12" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab12" 
                                     aria-selected="true" role="tab">
-                                    Date(4)
+                                    ${t('CBtabDate4')}
                                     </a>
                                 </li>
                             </ul>
@@ -142,8 +143,7 @@ class computeBuilder extends baseElement{
                                     formula-btn w-100 m-0 activated" val="+" 
                                     onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click the + button then move the variables you want 
-                                    to separate with +. To insert just + , double click it">
+                                    title="${t('CBttip1')}">
                                     <i class="fas fa-plus"></i>
                                 </button>
                             </div>
@@ -151,8 +151,7 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="-" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click the - button then move the variables you want 
-                                    to separate with -. To insert just -, double click it">
+                                    title="${t('CBttip2')}">
                                     <i class="fas fa-minus"></i>
                                 </button>
                             </div>
@@ -160,8 +159,7 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="*" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click the * button then move the variables you want 
-                                to separate with *. To insert just *, double click it">
+                                title="${t('CBttip3')}">
                                     <i class="fas fa-asterisk"></i>
                                 </button>
                             </div>
@@ -169,8 +167,7 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="/" onclick="toggleButton(event, true)"  ondblclick="toFormula(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click the / button then move the variables you want to separate 
-                                with /. To insert just /, double click it">
+                                title="${t('CBttip4')}">
                                     /
                                 </button>
                             </div>
@@ -178,7 +175,7 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="^" onclick="toggleButton(event, true)"  ondblclick="toFormula(event)"
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click ^ and move variables to exponentiate, to insert generic code double click">
+                                    title="${t('CBttip5')}">
                                     ^
                                 </button>
                             </div>
@@ -190,32 +187,32 @@ class computeBuilder extends baseElement{
                                     formula-btn w-100 m-0" val="sqrt" 
                                     onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click SQRT and move variables to calculate a square root, to insert generic code double click">
-                                    sqrt
+                                    title="${t('CBttip6')}">
+                                    ${t('CBbtnlbl6')}
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="log" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click LOG and move variables to compute a natural logarithm, to insert generic code double click">
-                                    log
+                                    title="${t('CBttip7')}">
+                                    ${t('CBbtnlbl7')}
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="log10" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click LOG10 and move variables to calculate a log base 10, to insert generic code double click">
-                                    log10
+                                title="${t('CBttip8')}">
+                                    ${t('CBbtnlbl8')}
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="log2" onclick="toggleButton(event, true)"  ondblclick="toFormula(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click LOG2 and move variables to calculate a log base 2, to insert generic code double click">
-                                    log2
+                                title="${t('CBttip9')}">
+                                ${t('CBbtnlbl9')}
                                 </button>
                             </div>
                         </div>
@@ -225,24 +222,24 @@ class computeBuilder extends baseElement{
                                     formula-btn w-100 m-0" val="%%" 
                                     onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click MOD and move variables variables to divide and compute the reminder, to insert generic code double click">
-                                    mod
+                                    title="${t('CBttip10')}">
+                                    ${t('CBbtnlbl10')}
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="abs" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click abs and move variables to compute an absolute value, to insert generic code double click">
-                                    abs
+                                    title="${t('CBttip11')}">
+                                    ${t('CBbtnlbl11')}
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="exp" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click exp and move variables to compute an exponential, to insert generic code double click">
-                                    exp
+                                title="${t('CBttip12')}">
+                                    ${t('CBbtnlbl12')}
                                 </button>
                             </div>
                         </div>
@@ -253,7 +250,7 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val=">"    onclick="toFormula(event)"  
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click to insert the > symbol">
+                                    title="${t('CBttip13')}">
                                     <b>&gt;</b>
                                 </button>
                             </div>
@@ -261,7 +258,7 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="<" onclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click to insert the < symbol">
+                                    title="${t('CBttip14')}">
                                     <b>&lt;</b>
                                 </button>
                             </div>
@@ -269,7 +266,7 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val=">=" onclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click to insert the >= symbol">
+                                    title="${t('CBttip15')}">
                                     <b>&gt;=</b>
                                 </button>
                             </div>
@@ -277,7 +274,7 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="<=" onclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click to insert the <= symbol">
+                                    title="${t('CBttip16')}">
                                     <b>&lt;=</b>
                                 </button>
                             </div>
@@ -285,7 +282,7 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="==" onclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click to insert the == symbol (test of equality)">
+                                    title="${t('CBttip17')}">
                                     <b>==</b>
                                 </button>
                             </div>
@@ -293,7 +290,7 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="!=" onclick="toFormula(event)"
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click to insert the !- (not equal) symbol">
+                                    title="${t('CBttip18')}">
                                     <b>!=</b>
                                 </button>
                             </div>
@@ -303,7 +300,7 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="|" onclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click to insert the | (logical or) symbol">
+                                    title="${t('CBttip19')}">
                                     <b>|</b>
                                 </button>
                             </div>
@@ -311,7 +308,7 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="&" onclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click to insert the & (logical and) symbol">
+                                    title="${t('CBttip20')}">
                                     <b>&amp;</b>
                                 </button>
                             </div>
@@ -319,24 +316,24 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="%/%" onclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click to insert the integer division (%/%) symbol">
-                                    <b>%/%</b>
+                                    title="${t('CBttip21')}">
+                                    <b>${t('CBbtnlbl21')}</b>
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="isTRUE" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click isTRUE to select and move the variable to check for TRUE values. Returns TRUE/FALSE, to insert generic code double click">
-                                    isTRUE
+                                title="${t('CBttip22')}">
+                                    ${t('CBbtnlbl22')}
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="is.na" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click is.na to select and move the variable to check for NA values. Returns TRUE/FALSE, to insert generic code double click">
-                                    is.na
+                                title="${t('CBttip23')}">
+                                    ${t('CBbtnlbl23')}
                                 </button>
                             </div>
 
@@ -344,8 +341,8 @@ class computeBuilder extends baseElement{
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="%in%" onclick="toFormula(event)"
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click on the %in% button to insert %in%">
-                                %in%
+                                title="${t('CBttip24')}">
+                                ${t('CBbtnlbl24')}
                             </button>
                             </div>
 
@@ -358,80 +355,80 @@ class computeBuilder extends baseElement{
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="round" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click round and move variables to round, to insert generic code double click">
-                                    <b>round</b>
+                                    title="${t('CBttip25')}">
+                                    <b>${t('CBbtnlbl25')}</b>
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="ceiling" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click ceiling and move variables to compute the ceiling for, to insert generic code double click">
-                                    <b>ceiling</b>
+                                    title="${t('CBttip26')}">
+                                    <b>${t('CBbtnlbl26')}</b>
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="floor" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click floor and move variables to compute the floor for, to insert generic code double click">
-                                    <b>floor</b>
+                                    title="${t('CBttip27')}">
+                                    <b>${t('CBbtnlbl27')}</b>
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="signif" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click signif and move variables to round to specified number of significant digits, to insert generic code double click">
-                                    <b>signif</b>
+                                    title="${t('CBttip28')}">
+                                    <b>${t('CBbtnlbl28')}</b>
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="gamma" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click gamma and move variables to compute a gamma function, to insert generic code double click">
-                                    <b>gamma</b>
+                                    title="${t('CBttip29')}">
+                                    <b>${t('CBbtnlbl29')}</b>
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="lgamma" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click lgamma and move variables to compute a lgamma function, to insert generic code double click">
-                                    <b>lgamma</b>
+                                    title="${t('CBttip30')}">
+                                    <b>${t('CBbtnlbl30')}</b>
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="beta" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click beta and move variables to compute a beta function, to insert generic code double click">
-                                    <b>beta</b>
+                                    title="${t('CBttip31')}">
+                                    <b>${t('CBbtnlbl31')}</b>
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="lbeta" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click lbeta and move variables to compute a lbeta function, to insert generic code double click">
-                                    <b>lbeta</b>
+                                    title="${t('CBttip32')}">
+                                    <b>${t('CBbtnlbl32')}</b>
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="factorial" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click factorial and move variables to compute factorials, to insert generic code double click">
-                                <b>factorial</b>
+                                title="${t('CBttip33')}">
+                                <b>${t('CBbtnlbl33')}</b>
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="pigamma" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click pigamma and move variables to compute a pigamma function, to insert generic code double click">
-                                <b>pigamma</b>
+                                title="${t('CBttip34')}">
+                                <b>${t('CBbtnlbl34')}</b>
                                 </button>
                             </div>
                         </div>
@@ -442,48 +439,48 @@ class computeBuilder extends baseElement{
                                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                         val="toupper" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                                        title="Click toupper and move variables to convert to uppercase, to insert generic code double click">
-                                        <b>toupper</b>
+                                        title="${t('CBttip35')}">
+                                        <b>${t('CBbtnlbl35')}</b>
                                     </button>
                             </div>
                             <div class="col p-0">
                                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                         val="tolower" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                                        title="Click tolower and move variables to convert to lowercase, to insert generic code double click">
-                                        <b>tolower</b>
+                                        title="${t('CBttip36')}">
+                                        <b>${t('CBbtnlbl36')}</b>
                                     </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="Pad" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click Pad and move variables to Pad with a character, to insert generic code double click">
-                                    <b>Pad</b>
+                                    title="${t('CBttip37')}">
+                                    <b>${t('CBbtnlbl37')}</b>
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="Trim" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click Trim and move variables to remove white space from the left, right or both ends, to insert generic code double click">
-                                    <b>Trim</b>
+                                    title="${t('CBttip38')}">
+                                    <b>${t('CBbtnlbl38')}</b>
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="Length" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click Length and move variables to return the number of characters in the string, to insert generic code double click">
-                                    <b>Length</b>
+                                    title="${t('CBttip39')}">
+                                    <b>${t('CBbtnlbl39')}</b>
                                 </button>
                             </div>
                             <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="Count(matches)" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                                    title="Click Count(matches) and move variables to count matches of a pattern/sub-string, to insert generic code double click">
-                                    <b>Count(matches)</b>
+                                    title="${t('CBttip40')}">
+                                    <b>${t('CBbtnlbl40')}</b>
                                 </button>
                             </div>
                         </div>
@@ -494,40 +491,40 @@ class computeBuilder extends baseElement{
                         <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="Extract Substring" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click Extract Substring and move variables to extract a sub-string (replace starting and ending position by integers), to insert generic code double click">
-                            <b>Extract Substring</b>
+                            title="${t('CBttip41')}">
+                            <b>${t('CBbtnlbl41')}</b>
                         </button>
                     </div>
                     <div class="col p-0">
                         <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="Concatenate" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click Concatenate and move variables to Concatenate with an optional separator, to insert generic code double click">
-                            <b>Concatenate</b>
+                            title="${t('CBttip42')}">
+                            <b>${t('CBbtnlbl42')}</b>
                         </button>
                     </div>
                     <div class="col p-0">
                         <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="Replace Pattern" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click Replace Pattern and move variables to replace a pattern, to insert generic code double click">
-                            <b>Replace Pattern</b>
+                            title="${t('CBttip43')}">
+                            <b>${t('CBbtnlbl43')}</b>
                         </button>
                     </div>
                     <div class="col p-0">
                         <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="Replace Pattern(ALL)" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click Replace Pattern(ALL) and move variables to replace all patterns, to insert generic code double click">
-                            <b>Replace Pattern(ALL)</b>
+                            title="${t('CBttip44')}">
+                            <b>${t('CBbtnlbl44')}</b>
                         </button>
                     </div>
                     <div class="col p-0">
                         <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="Extract a Number" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click Extract a Number and move variables to extract a number from, to insert generic code double click">
-                            <b>Extract a Number</b>
+                            title="${t('CBttip45')}">
+                            <b>${t('CBbtnlbl45')}</b>
                         </button>
                     </div>
                     </div>
@@ -538,40 +535,40 @@ class computeBuilder extends baseElement{
                         <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="as.numeric" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click ToNumeric and move variables to to convert to numeric, to insert generic code double click">
-                            <b>ToNumeric</b>
+                            title="${t('CBttip46')}">
+                            <b>${t('CBbtnlbl46')}</b>
                         </button>
                     </div>
                     <div class="col p-0">
                         <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="ToCharacter" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click ToCharacter and move variables to convert to a character, to insert generic code double click">
-                            <b>ToCharacter</b>
+                            title="${t('CBttip47')}">
+                            <b>${t('CBbtnlbl47')}</b>
                         </button>
                     </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="ToFactor" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click ToFactor and move variables to convert to a factor, to insert generic code double click">
-                        <b>ToFactor</b>
+                        title="${t('CBttip48')}">
+                        <b>${t('CBbtnlbl48')}</b>
                     </button>
                  </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="ToOrdered" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click ToOrdered and move variables to convert to an ordered factor, to insert generic code double click">
-                        <b>ToOrdered</b>
+                        title="${t('CBttip49')}">
+                        <b>${t('CBbtnlbl49')}</b>
                     </button>
                  </div>
                  <div class="col p-0">
                  <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                      val="ToLogical" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                      data-toggle="tooltip" data-html="true" data-placement="top"   
-                     title="Click ToLogical and move variables to convert to a logical, to insert generic code double click">
-                     <b>ToLogical</b>
+                     title="${t('CBttip50')}">
+                     <b>${t('CBbtnlbl50')}</b>
                  </button>
               </div>
                     </div>
@@ -582,56 +579,56 @@ class computeBuilder extends baseElement{
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="max" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click MAX and move variables to compute the maximum value, to insert generic code double click">
-                        <b>MAX</b>
+                        title="${t('CBttip51')}">
+                        <b>${t('CBbtnlbl51')}</b>
                     </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="min" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click MIN and move variables to compute the minimum value, to insert generic code double click">
-                        <b>MIN</b>
+                        title="${t('CBttip52')}">
+                        <b>${t('CBbtnlbl52')}</b>
                     </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="mean" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click MEAN and move variables to compute the mean value, to insert generic code double click">
-                        <b>MEAN</b>
+                        title="${t('CBttip53')}">
+                        <b>${t('CBbtnlbl53')}</b>
                     </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="median" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click MEDIAN and move variables to compute the median value, to insert generic code double click">
-                        <b>MEDIAN</b>
+                        title="${t('CBttip54')}">
+                        <b>${t('CBbtnlbl54')}</b>
                     </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="sd" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click SD and move variables to compute the standard deviation, to insert generic code double click">
-                        <b>SD</b>
+                        title="${t('CBttip55')}">
+                        <b>${t('CBbtnlbl55')}</b>
                     </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="sum" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click SUM and move variables to compute the sum, to insert generic code double click">
-                        <b>SUM</b>
+                        title="${t('CBttip56')}">
+                        <b>${t('CBbtnlbl56')}</b>
                     </button>
                 </div>
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="variance" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click VARIANCE and move variables to compute the variance, to insert generic code double click">
-                        <b>VARIANCE</b>
+                        title="${t('CBttip57')}">
+                        <b>${t('CBbtnlbl57')}</b>
                     </button>
                 </div>
                 </div>
@@ -642,24 +639,24 @@ class computeBuilder extends baseElement{
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="runif" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Double Click RUNIF and random numbers will be generated from a uniform distribution with min and max.">
-                    <b>runif</b>
+                    title="${t('CBttip58')}">
+                    <b>${t('CBbtnlbl58')}</b>
                 </button>
             </div>
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="sample" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click SAMPLE and move variables to generate random samples with/without replacement, to insert generic code double click">
-                    <b>sample</b>
+                    title="${t('CBttip59')}">
+                    <b>${t('CBbtnlbl59')}</b>
                 </button>
             </div>
                 <div class="col p-0">
                         <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="rnorm" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Double click rnorm to generate variables from a normal distribution with a specified mean and standard deviation">
-                            <b>rnorm</b>
+                            title="${t('CBttip60')}">
+                            <b>${t('CBbtnlbl60')}</b>
                         </button>
                 </div>
                 </div>
@@ -670,24 +667,24 @@ class computeBuilder extends baseElement{
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="Day of Week" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click Day of Week and move a date variable that you want to extract the day of the week(Monday..) from, to insert generic code double click">
-                    <b>Day of Week</b>
+                    title="${t('CBttip61')}">
+                    <b>${t('CBbtnlbl61')}</b>
                 </button>
             </div>
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="Day of Month" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click Day of Month and move a date variable that you want to extract the day of the month(1-31) from, to insert generic code double click">
-                    <b>Day of Month</b>
+                    title="${t('CBttip62')}">
+                    <b>${t('CBbtnlbl62')}</b>
                 </button>
             </div> 
                 <div class="col p-0">
                         <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="Day of Year" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click Day of Year and move a date variable that you want to extract the day of year(001-366) from, to insert generic code double click">
-                            <b>Day of Year</b>
+                            title="${t('CBttip63')}">
+                            <b>${t('CBbtnlbl63')}</b>
                         </button>
                 </div>
                 </div>
@@ -697,24 +694,24 @@ class computeBuilder extends baseElement{
                         <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="Week of Year" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click Week of Year and move a date variable that you want to extract the week of year(00-53) from, to insert generic code double click">
-                            <b>Week of Year</b>
+                            title="${t('CBttip64')}">
+                            <b>${t('CBbtnlbl64')}</b>
                         </button>
                 </div>
                 <div class="col p-0">
                         <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="Month" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click Month and move a date variable that you want to extract the Month(January..) from, to insert generic code double click">
-                            <b>Month</b>
+                            title="${t('CBttip65')}">
+                            <b>${t('CBbtnlbl65')}</b>
                         </button>
                 </div>
                 <div class="col p-0">
                         <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="Month(decimal)" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click Month(decimal) and move a date variable that you want to extract the Month(01-12) from, to insert generic code double click">
-                            <b>Month(decimal)</b>
+                            title="${t('CBttip66')}">
+                            <b>${t('CBbtnlbl66')}</b>
                         </button>
                 </div>
                 </div>
@@ -725,16 +722,16 @@ class computeBuilder extends baseElement{
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="Quarters" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click Quarters and move a date variable that you want to extract the Quarters(Q1, Q2..) from, to insert generic code double click">
-                    <b>Quarters</b>
+                    title="${t('CBttip67')}">
+                    <b>${t('CBbtnlbl67')}</b>
                 </button>
                 </div>
                 <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="Year(XXXX)" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click Year(XXXX) and move a date variable that you want to extract the Year(1980) from, to insert generic code double click">
-                    <b>Year(XXXX)</b>
+                    title="${t('CBttip68')}">
+                    <b>${t('CBbtnlbl68')}</b>
                 </button>
                 </div>
                 
@@ -742,8 +739,8 @@ class computeBuilder extends baseElement{
                         <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="Year(XX)" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                             data-toggle="tooltip" data-html="true" data-placement="top"   
-                            title="Click Year(XX) and move a date variable that you want to extract the Year(80) from, to insert generic code double click">
-                            <b>Year(XX)</b>
+                            title="${t('CBttip69')}">
+                            <b>${t('CBbtnlbl69')}</b>
                         </button>
                 </div>
                 </div>
@@ -753,8 +750,8 @@ class computeBuilder extends baseElement{
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="Hour(00-12)" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click Hour(00-12) and move a date variable that you want to extract the Hour(00) from, to insert generic code double click">
-                                <b>Hour(00-12)</b>
+                                title="${t('CBttip70')}">
+                                <b>${t('CBbtnlbl70')}</b>
                             </button>
                     </div>
 
@@ -763,24 +760,24 @@ class computeBuilder extends baseElement{
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="Hour(00-23)" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click Hour(00-23) and move a date variable that you want to extract the Hour from, to insert generic code double click">
-                                <b>Hour(00-23)</b>
+                                title="${t('CBttip71')}">
+                                <b>${t('CBbtnlbl71')}</b>
                             </button>
                     </div>
                     <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="Minutes" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                                 data-toggle="tooltip" data-html="true" data-placement="top"   
-                                title="Click Minutes and move a date variable that you want to extract the minutes from, to insert generic code double click">
-                                <b>Minutes</b>
+                                title="${t('CBttip72')}">
+                                <b>${t('CBbtnlbl72')}</b>
                             </button>
                     </div>
                     <div class="col p-0">
                         <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Secs" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                         data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="Click Secs and move a date variable that you want to extract the seconds from, to insert generic code double click">
-                        <b>Secs</b>
+                        title="${t('CBttip73')}">
+                        <b>${t('CBbtnlbl73')}</b>
                         </button>
                     </div>
                 </div>
@@ -791,16 +788,16 @@ class computeBuilder extends baseElement{
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="Date from String" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click Date from String and move a string variable that you want to convert to date, to insert generic code double click">
-                    <b>Date from String</b>
+                    title="${t('CBttip74')}">
+                    <b>${t('CBbtnlbl74')}</b>
                 </button>
             </div>
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="Date Difference" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click Date Difference and move a date variable that you want to subtract from another date variable, to insert generic code double click">
-                    <b>Date Difference</b>
+                    title="${t('CBttip75')}">
+                    <b>${t('CBbtnlbl75')}</b>
                 </button>
             </div>
                 </div>
@@ -811,16 +808,16 @@ class computeBuilder extends baseElement{
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="Numeric to date" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click Numeric to date and move a numeric variable that you want to convert to date, to insert generic code double click">
-                    <b>Numeric to date</b>
+                    title="${t('CBttip76')}">
+                    <b>${t('CBbtnlbl76')}</b>
                 </button>
             </div>
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="String to date" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
                     data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="Click String to date and move a string variable that you want to convert to date, to insert generic code double click">
-                    <b>String to date</b>
+                    title="${t('CBttip77')}">
+                    <b>${t('CBbtnlbl77')}</b>
                 </button>
             </div>
                 </div>

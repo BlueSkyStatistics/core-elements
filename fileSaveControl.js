@@ -1,6 +1,6 @@
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
-
+let t = getT('menutoolbar')
 
 class fileSaveControl extends baseElement{
     content;
@@ -20,7 +20,7 @@ class fileSaveControl extends baseElement{
     </div>
     <div class="row">
         <div class="col-4">
-            <button type="button" class="btn formula-btn p-1 w-100" onclick="saveFileControlDialog('{{modal.id}}_{{ms.no}}', '{{if(options.ms.type)}}{{ms.type}}{{#else}}file{{/if}}')" >Specify or select a {{if(options.ms.type)}}{{ms.type}}{{#else}}file{{/if}}</button>  
+            <button type="button" class="btn formula-btn p-1 w-100" onclick="saveFileControlDialog('{{modal.id}}_{{ms.no}}', '{{if(options.ms.type)}}{{ms.type}}{{#else}}file{{/if}}')" >${t('fileSaveLbl')} {{if(options.ms.type)}}{{ms.type}}{{#else}}file{{/if}}</button>  
         </div> 
         <div class="col-8">
             <input class="w-100" type="text" bs-type="file" 

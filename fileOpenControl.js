@@ -1,6 +1,6 @@
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
-
+let t = getT('menutoolbar')
 
 class fileOpenControl extends baseElement{
     content;
@@ -20,7 +20,7 @@ class fileOpenControl extends baseElement{
         </div>
         <div class="row">
             <div class="col-4">
-                <button type="button" id="{{modal.id}}_{{ms.no}}_btn" class="btn formula-btn p-1 w-100" onclick="openFileControlDialog('{{modal.id}}_{{ms.no}}', '{{if(options.ms.type)}}{{ms.type}}{{#else}}file{{/if}}')" >Choose {{if(options.ms.type)}}{{ms.type}}{{#else}}file{{/if}}</button>  
+                <button type="button" id="{{modal.id}}_{{ms.no}}_btn" class="btn formula-btn p-1 w-100" onclick="openFileControlDialog('{{modal.id}}_{{ms.no}}', '{{if(options.ms.type)}}{{ms.type}}{{#else}}file{{/if}}')" >${t('fileOpenLbl')} {{if(options.ms.type)}}{{ms.type}}{{#else}}file{{/if}}</button>  
             </div> 
             <div class="col-8">
                 <input class="w-100" type="text" bs-type="file" 

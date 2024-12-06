@@ -1,5 +1,5 @@
 var Sqrl = require('squirrelly');
-
+let t = getT('menutoolbar')
 class optionsMenu {
     content;
     id;
@@ -9,7 +9,7 @@ class optionsMenu {
       <a class="btn btn-sm btn-secondary btn-block mb-0" 
         data-toggle="collapse" href="#{{modal.id}}_{{ms.no}}" 
         role="button" aria-expanded="false" aria-controls="{{modal.id}}_{{ms.no}}">
-      {{if(options.ms.name)}} {{ms.name}} {{#else}} Options {{/if}}
+      {{if(options.ms.name)}} {{ms.name}} {{#else}} ${t('OptVarDefaultLbl')} {{/if}}
         <div class="ripple-container"></div>
       </a>
       <div class="collapse" id="{{modal.id}}_{{ms.no}}">

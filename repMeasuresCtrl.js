@@ -1,12 +1,13 @@
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
+let t = getT('menutoolbar')
 
 class repMeasuresCTRL extends baseElement {
     content;
     id;
     htmlTemplate = `
     <a class="btn btn-sm btn-secondary btn-block mb-0" data-toggle="collapse" href="#{{modal.id}}_{{ms.no}}" role="button" aria-expanded="false" aria-controls="{{modal.id}}_{{ms.no}}">
-    Click to Display/Hide Configuration for within-subject factor and measure
+    ${t('RMstr0')}
     <div class="ripple-container"></div>
     </a>
     <div class="collapse show mb-3" id="{{modal.id}}_{{ms.no}}" bs-type="repMeasuresCTRL">
@@ -14,16 +15,16 @@ class repMeasuresCTRL extends baseElement {
             <div>
                 <div class="row" >
                 <div class ="ml-2">
-                NOTE:<br/><br/>
-1. The application needs to reshape the data when running a repeated measures ANOVA on a wide dataset<br/>
-2. We support multiple repeated measures for a single variable e.g. Blood Sugar measured at pretest, posttest and at a followup visit<br/>
-3. For the application to reshape the data, you need to specify a repeated factor name e.g. Blood Sugar and the number of levels. We will create a factor variable e.g. named Blood Sugar with levels created from the names of the variables containing the repeated measures e.g. the levels of the factor will be pretest, posttest and followup<br/>
-4. You need to specify a measure name e.g. Value. We will create a variable e.g. Value with all the Blood Sugar values corresponding to the pretest, posttest and followup for each subject.<br/>
-5. We support a single between-subject and within-subject factor variable.<br/>
-6. Future versions will support multiple measures as well as multiple between subject and within subject factor variables.<br/><br/>
+                ${t('RMstr0a')}:<br/><br/>
+${t('RMstr1')}<br/>
+${t('RMstr2')}<br/>
+${t('RMstr3')}<br/>
+${t('RMstr4')}<br/>
+${t('RMstr5')}<br/>
+${t('RMstr6')}<br/><br/>
                 </div>
                     <div class="col-12">
-                        <label  class="mt-2 mr-2 small-label">Within-Subject Factor Name</label>
+                        <label  class="mt-2 mr-2 small-label">${t('RMlbl1')}</label>
                     </div>
                 </div>
                 <div class="row ">
@@ -39,18 +40,18 @@ class repMeasuresCTRL extends baseElement {
                 </div>
                 <div class="row mt-2">
                     <div class="col-12">
-                        <label class="mt-2 mr-2 small-label">Number of levels</label>
+                        <label class="mt-2 mr-2 small-label">${t('RMlbl2')}</label>
                         <input class="w-25" type="number" bs-type="text" id="{{modal.id}}_{{ms.no}}_levels" no="{{ms.no}}_levels" extractable=true extractionRule="{{ms.extraction}}" min="2" max="9999" step="1" value="2" default="2" >
                     </div>
                 </div>
                 <div class="row" >
                     <div class="col-12">
-                        <button type="button" class="btn btn-outline-secondary btn-text" onclick="addToFactorList( factor = &quot;{{modal.id}}_{{ms.no}}_factor&quot;, levels = &quot;{{modal.id}}_{{ms.no}}_levels&quot;, factorList =&quot;{{modal.id}}_{{ms.no}}_factorList&quot; );">Add</button>
+                        <button type="button" class="btn btn-outline-secondary btn-text" onclick="addToFactorList( factor = &quot;{{modal.id}}_{{ms.no}}_factor&quot;, levels = &quot;{{modal.id}}_{{ms.no}}_levels&quot;, factorList =&quot;{{modal.id}}_{{ms.no}}_factorList&quot; );">${t('RMaddbtn')}</button>
                     </div>
                 </div>
                 <div class="row" >
                     <div class="col-6">
-                        <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label {{if(options.ms.style)}}{{ms.style}}{{/if}}">New Within-subject factor variable{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
+                        <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label {{if(options.ms.style)}}{{ms.style}}{{/if}}">${t('RMlbl3')}{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
                     </div>
                 </div>
                 <div class="row"  >
@@ -61,12 +62,12 @@ class repMeasuresCTRL extends baseElement {
                         </div>
                     </div>
                     <div class="col-3">
-                        <button type="button" class="btn btn-outline-secondary btn-text" onclick="removeFromList( factorList =&quot;{{modal.id}}_{{ms.no}}_factorList&quot; );">Delete</button>
+                        <button type="button" class="btn btn-outline-secondary btn-text" onclick="removeFromList( factorList =&quot;{{modal.id}}_{{ms.no}}_factorList&quot; );">${t('RMdelbtn')}</button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <label  class="mt-2 mr-2 small-label">Measure Name</label>
+                        <label  class="mt-2 mr-2 small-label">${t('RMlbl4')}</label>
                     </div>
                 </div>
                 <div class="row ">
@@ -82,12 +83,12 @@ class repMeasuresCTRL extends baseElement {
                 </div>
                 <div class="row mt-2">
                     <div class="col-12">
-                        <button type="button" class="btn btn-outline-secondary btn-text" onclick="addToMeasureList(measure=&quot;{{modal.id}}_{{ms.no}}_measure&quot;, measureList =&quot;{{modal.id}}_{{ms.no}}_measureList&quot;);">Add</button>
+                        <button type="button" class="btn btn-outline-secondary btn-text" onclick="addToMeasureList(measure=&quot;{{modal.id}}_{{ms.no}}_measure&quot;, measureList =&quot;{{modal.id}}_{{ms.no}}_measureList&quot;);">${t('RMaddbtn')}</button>
                     </div>
                 </div>
                 <div class="row" >
                     <div class="col-6">
-                        <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label {{if(options.ms.style)}}{{ms.style}}{{/if}}">New measure variable{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
+                        <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label {{if(options.ms.style)}}{{ms.style}}{{/if}}">${t('RMlbl5')}{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
                     </div>
                 </div>
                 <div class="row"  >
@@ -98,12 +99,12 @@ class repMeasuresCTRL extends baseElement {
                         </div>
                     </div>
                     <div class="col-3">
-                            <button type="button" class="btn btn-outline-secondary btn-text" onclick="removeFromList( factorList =&quot;{{modal.id}}_{{ms.no}}_measureList&quot; );">Delete</button>
+                            <button type="button" class="btn btn-outline-secondary btn-text" onclick="removeFromList( factorList =&quot;{{modal.id}}_{{ms.no}}_measureList&quot; );">${t('RMdelbtn')}</button>
                     </div>
                 </div>
                 <div class="row" >
                     <div class="col-12">
-                        <button type="button" id="{{modal.id}}_{{ms.no}}_createRepMeasures" class="btn btn-outline-secondary btn-text" onclick="createRepeatedMeasures( measureList =&quot;{{modal.id}}_{{ms.no}}_measureList&quot;, factorList =&quot;{{modal.id}}_{{ms.no}}_factorList&quot;, modelid = &quot;{{modal.id}}&quot;, no =&quot;{{ms.no}}&quot;);">Define</button>
+                        <button type="button" id="{{modal.id}}_{{ms.no}}_createRepMeasures" class="btn btn-outline-secondary btn-text" onclick="createRepeatedMeasures( measureList =&quot;{{modal.id}}_{{ms.no}}_measureList&quot;, factorList =&quot;{{modal.id}}_{{ms.no}}_factorList&quot;, modelid = &quot;{{modal.id}}&quot;, no =&quot;{{ms.no}}&quot;);">${t('RMdefinebtn')}</button>
                     </div>
                 </div>
             </div>
@@ -160,23 +161,23 @@ class repMeasuresCTRL extends baseElement {
             pointNum = pointNum * parseFloat(value.getAttribute("val"));
         })
         if (pointNum == 1) {
-            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Incorrect levels for factor", message: "You must specify a Factor name with more that one level." })
+            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('RMmsgboxTitle1'), message: t('RMmsgboxMsg1') })
             return false;
         }
         else if (factorlistItems.length > 1) {
-            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "More than 1 within-subject factor specified", message: "We currently support a single within-subject factor. We will support multiple within-subject factor variables in an upcoming release." })
+            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('RMmsgboxTitle2'), message: t('RMmsgboxMsg2') })
             return false;
         }
         else if (noOfMeasures > 1) {
-            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "More than 1 measure specified", message: "We currently support a single measure. We will support multiple measures in an upcoming release." })
+            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('RMmsgboxTitle3'), message: t('RMmsgboxMsg3') })
             return false;
         }
         else if (noOfMeasures == 0) {
-            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Measure variable not specified", message: "Name for the neasure variable is not specified. You need to specify a measure name and click add." })
+            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('RMmsgboxTitle4'), message: t('RMmsgboxMsg4') })
             return false;
         }
         else if (document.getElementById("repeatedMeasuresAnovaW_repMeasuresConfig_depVar_1") == undefined) {
-            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Within-subject factor variable is not specified", message: "You need to click the Define button after entering a repeated factor variable name and measure name." })
+            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('RMmsgboxTitle5'), message: t('RMmsgboxMsg5') })
             return false;
         }
         else {
