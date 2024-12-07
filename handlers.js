@@ -157,7 +157,7 @@ function _drop(objects, action, object_ids, parentID) {
       let currentValue = $("#" + object_ids[i].replace(/\./g, "\\.")).attr("bs-row-class");
         // If the current value is different from the first element's value, they are not all the same
         if (currentValue !== firstElementValue) {
-          dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Incompatible types", message: `An equality constraint set must contain all factor loadings, covariance relationships or structural relationships. The elements you are moving have different types.` })
+          dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle1'), message: `${t('handlerRulVoiMsg1')}` })
           stop = true
           return
         }
@@ -172,7 +172,7 @@ function _drop(objects, action, object_ids, parentID) {
     if (elements.length != 0) {
       object_ids.forEach(function (element, index) {
         if (document.getElementById(element).getAttribute("bs-row-class") != elements[0]) {
-          dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Incompatible types", message: `An equality constraint set must contain all factor loadings, covariance relationships or structural relationships. You cannot combine types in a single set.` })
+          dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle1'), message: `${t('handlerRulVoiMsg2')}` })
           stop = true
           return
         }
@@ -192,7 +192,7 @@ function _drop(objects, action, object_ids, parentID) {
     //If there are greater than 3 elements dragged show an error
     if (object_ids.length > 2) 
     { 
-    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Not supported", message: `We don't support more than 2 variables in a mediation set. Please contact support@blueskystatistics.com if you need this capability.` })
+    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle2'), message: `${t('handlerRulVoiMsg3')}` })
             stop = true
             return
     } else if (object_ids.length ==2 && elements.length == 0  ) {
@@ -220,7 +220,7 @@ function _drop(objects, action, object_ids, parentID) {
       } else
       {
         stop = true
-        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `Mediation relationship variables must be in the form A->B and B->C ` })
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('handlerRulVoiMsg4')} ` })
 			  return
       }
 	  } else  if (object_ids.length == 1 && elements.length == 1  )
@@ -247,20 +247,20 @@ function _drop(objects, action, object_ids, parentID) {
       } else
       {
         stop = true
-        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `Mediation relationship variables must be in the form A->B and B->C or B->C and A->B` })
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('handlerRulVoiMsg5')}` })
         return
       }
 	} else if (object_ids.length >= 1 && elements.length >= 2  )
   {
     //case when I am dragging one or more items and there are already 2 items    
      stop = true
-        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `We don't support more than 2 variables in a mediation set. Please contact support@blueskystatistics.com if you need this capability.` })
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('handlerRulVoiMsg3')}` })
         return
   } else  if (object_ids.length >= 2 &&  elements.length >= 1  )
   {
   //case when I am dragging 2 or more items and there is already 1 items
  
-    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Not supported", message: `We don't support more than 2 variables in a mediation set. Please contact support@blueskystatistics.com if you need this capability.` })
+    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle2'), message: `${t('handlerRulVoiMsg3')}` })
           stop = true
           return
   }
@@ -1058,10 +1058,10 @@ function tramsformFilter(filter_setting) {
 function filterInput(type_expected, value) {
   numeric_classes = ["numeric", "integer", "double"]
   if (type_expected === 'numeric' && numeric_classes.indexOf(value) == -1) {
-    ipcRenderer.invoke('errormessage', { title: "Not expected Type", message: `This field expect numeric, not a sting` });
+    ipcRenderer.invoke('errormessage', { title: t('errormessageIPCTitle1'), message: `${t('errormessageIPCmsg8')}` });
     return false
   } else if (type_expected === 'character' && numeric_classes.indexOf(value) != -1) {
-    ipcRenderer.invoke('errormessage', { title: "Not expected Type", message: `This field expect string, not a numeric` });
+    ipcRenderer.invoke('errormessage', { title: t('errormessageIPCTitle1'), message: `${t('errormessageIPCmsg9')}` });
     return false
   }
   return true
@@ -1075,7 +1075,7 @@ function _filter(filter_setting, object) {
     var _measure = element.attr('bs-row-measure')
     var contains = filtering_rules.measure.indexOf(_measure) > -1 && filtering_rules.class.indexOf(_class) > -1 && filtering_rules.type.indexOf(_type) > -1
     if (!contains) {
-      ipcRenderer.invoke('errormessage', { title: "Not expected Type", message: `The variable ${element.text()} cannot be moved, the destination does not allow variables of that type` });
+      ipcRenderer.invoke('errormessage', { title: t('errormessageIPCTitle1'), message: `${t('errormessageIPCmsg10')}${element.text()} ${t('errormessageIPCmsg11')}` });
     }
     return contains
   }
@@ -1400,7 +1400,7 @@ module.exports.drop = (ev, parentID = null) => {
     if ( allowableDragCtrls.indexOf(srcDragCtrl) == -1)
     {
         let srcDragCtrlLabel = $(`#${srcDragCtrl}`).siblings('h6').text()
-        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `The destination control does not allow variables to be dropped from the source control with label "${srcDragCtrlLabel}".` })
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('handlerRulVoiMsg6')} "${srcDragCtrlLabel}".` })
         return
     }
   }
@@ -1711,7 +1711,7 @@ function addToJoin(modal_id, listOfVariablesToJoinBy) {
   var joinString = []
   var pasteString = []
   if ($(`#${modal_id} .list-group-item-action.active`).length != 2) {
-    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Join variables incorrectly specified", message: "You need to select a single variable from both the active dataset and the target dataset to join by " })
+    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle4'), message: t('handlerRulVoiMsg7') })
     return false;
   }
   else {

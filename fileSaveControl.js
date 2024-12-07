@@ -46,7 +46,7 @@ class fileSaveControl extends baseElement{
         var outer_this = this;
         var value = this.getVal()
         if (this.required && (value === "" || value == undefined)){
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `You need to select a file using the button with label: "${outer_this.label}" to proceed`})
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('fileSavRulVoiMsg1')}: "${outer_this.label}" ${t('fileSavRulVoiMsg2')}`})
             return false
         } else if ( ! this.required && (value === "" || value == undefined)){
             return true

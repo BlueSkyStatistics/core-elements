@@ -80,7 +80,7 @@ class wrapControl extends baseElement {
             if ($(`#${this.id}_input`).val().split(",")[0] != "") {
                 var expected = $(`#${this.id}`).children().length + $(`#${this.id}_checkbox:checked`).length;
                 if ($(`#${this.id}_input`).val().split(",").length < expected) {
-                    dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Wrap control rule violation", message: `Wrap control with label: "${this.label}" got an unexpected number of variables (expected: ${expected})`})                
+                    dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('wrapCtrlRulVoiTitle'), message: `${t('wrapCtrlRulVoiMsg1')}: "${this.label}" ${t('wrapCtrlRulVoiMsg2')}: ${expected})`})                
                     return false
                 }
             }
@@ -95,7 +95,7 @@ class wrapControl extends baseElement {
                 }
             }
         }
-        dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Wrap control rule violation", message: `Wrap control with label: "${this.label}"Need to be populated in order to proceed`})                
+        dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('wrapCtrlRulVoiTitle'), message: `${t('wrapCtrlRulVoiMsg1')}: "${this.label}"${t('wrapCtrlRulVoiMsg1')}`})                
         return false
     }
 

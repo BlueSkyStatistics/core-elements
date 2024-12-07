@@ -862,7 +862,7 @@ class computeBuilder extends baseElement{
         var outer_this = this;
         var value = this.getVal()
         if (this.required &&  ( value == "" || value == undefined)){
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input rule violation", message: `The control with label: "${outer_this.label}" needs to be populated to proceed`})     
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('CBuilderRulVoiTitle'), message: `${t('CBuilderRulVoiMsg1')}: "${outer_this.label}" ${t('CBuilderRulVoiMsg2')}`})     
                 return false
         }
         else

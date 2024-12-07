@@ -1,6 +1,7 @@
 
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
+let t = getT('menutoolbar')
 
 class semModelTermsDest extends baseElement {
     content;
@@ -71,8 +72,7 @@ class semModelTermsDest extends baseElement {
         {
             let newArray = duplicateRelationShips.map(element => element.replace("<->", " & "));
             let newArrayToString = "[" + newArray.join(", ") +"]"
-            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Relationship error", message: `You have defined a relationship between variables ${newArrayToString} in the structural parameters and the covariances. You need to define the relationship once
-            ` })
+            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('semModTermRulVoiTitle'), message: `${t('semModTermRulVoiMsg1')} ${newArrayToString} ${t('semModTermRulVoiMsg2')}` })
             return false
         }
         return true

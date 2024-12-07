@@ -2,6 +2,7 @@
 
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
+let t = getT('menutoolbar')
 
 class comboBoxWithChildren extends baseElement {
     content;
@@ -59,7 +60,7 @@ class comboBoxWithChildren extends baseElement {
         } else if ( !this.required ) {
             return true
         }
-        dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Combobox rule violation", message: `A selection needs to be made in the Combobox with label: "${this.label}"`})                
+        dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('comboboxWchildRulVoiTitle'), message: `${t('comboboxWchildRulVoiMsg1')}: "${this.label}"`})                
         return false
     }
 

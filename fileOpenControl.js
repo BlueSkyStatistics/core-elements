@@ -55,10 +55,10 @@ class fileOpenControl extends baseElement{
         var outer_this = this;
         var value = this.getVal()
         if (this.required && (value === "" || value == undefined) && this.type =="file"){
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Please select a file from the browse button with label: "${outer_this.label}" and re-execute`})
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('fileOpnRulVoiMsg1')}: "${outer_this.label}" ${t('fileOpnRulVoiMsg2')}`})
             return false
         } else if (this.required && (value === "" || value == undefined) && this.type =="folder"){
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Please select a folder from the browse button with label: "${outer_this.label}" and re-execute`})
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('fileOpnRulVoiMsg3')}: "${outer_this.label}" ${t('fileOpnRulVoiMsg2')}`})
             return false
         } else if ( ! this.required && (value === "" || value == undefined)){
             return true
@@ -66,7 +66,7 @@ class fileOpenControl extends baseElement{
         try {
             fs.statSync(value)
         } catch (ex) {
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "File input field rule violation", message: `The browse button with label: "${outer_this.label}" contains path that doesn't exist`})
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('fileOpnRulVoiTitle'), message: `${t('fileOpnRulVoiMsg4')}: "${outer_this.label}" ${t('fileOpnRulVoiMsg5')}`})
             return false
         }
         return true

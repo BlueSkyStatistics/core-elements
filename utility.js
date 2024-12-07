@@ -271,7 +271,7 @@ function stringWithFacetsForPlotOfMeans(Facetrow, Facetcolumn, Facetwrap) {
 function addToFactorList(factor, levels, factorList) {
     let factorName = document.getElementById(factor).value;
     if (factorName == "") {
-        ipcRenderer.invoke('errormessage', { title: "Error", message: `You must specify a non-empty string to use as a factor name` });
+        ipcRenderer.invoke('errormessage', { title: t('handlerRulVoiTitle3'), message: `${t('errormessageIPCmsg1')}` });
     }
     else {
         let levelValue = document.getElementById(levels).value;
@@ -296,7 +296,7 @@ function removeFromList(listID) {
     let liList = document.getElementById(listID).getElementsByTagName('ul')[0].getElementsByClassName('active');
     let ul = document.getElementById(listID).getElementsByTagName('ul')[0];
     if (liList.length == 0) {
-        ipcRenderer.invoke('errormessage', { title: "Error", message: `You must select an entry to delete before clicking the delete button` });
+        ipcRenderer.invoke('errormessage', { title: t('handlerRulVoiTitle3'), message: `${t('errormessageIPCmsg2')}` });
     }
     else {
         liList.forEach(function (value) {
@@ -308,7 +308,7 @@ function removeFromList(listID) {
 function addToMeasureList(measure, measureList) {
     let measureName = document.getElementById(measure).value;
     if (measureName == "") {
-        ipcRenderer.invoke('errormessage', { title: "Error", message: `You must specify a non-empty string to use as a measure name` });
+        ipcRenderer.invoke('errormessage', { title: t('handlerRulVoiTitle3'), message: `${t('errormessageIPCmsg3')}` });
     }
     else {
         let ul = document.getElementById(measureList).getElementsByTagName('ul');
@@ -344,22 +344,22 @@ function createRepeatedMeasures(measureList, factorList, modal_id, nos) {
         pointNum = pointNum * parseFloat(value.getAttribute("val"));
     })
     if (pointNum == 1) {
-        ipcRenderer.invoke('errormessage', { title: "Error", message: `You must specify a Factor name with more that one level.` });
+        ipcRenderer.invoke('errormessage', { title: t('handlerRulVoiTitle3'), message: `${t('errormessageIPCmsg4')}` });
 
     }
     else if (factorlistItems.length > 1) {
-        ipcRenderer.invoke('errormessage', { title: "Error", message: `We currently support a single within-subject factor. We will support multiple within-subject factor variables in an upcoming release.` });
+        ipcRenderer.invoke('errormessage', { title: t('handlerRulVoiTitle3'), message: `${t('errormessageIPCmsg5')}` });
 
     }
     else if (noOfMeasures > 1) {
-        ipcRenderer.invoke('errormessage', { title: "Error", message: `We currently support a single measure. We will support multiple measures in an upcoming release.` });
+        ipcRenderer.invoke('errormessage', { title: t('handlerRulVoiTitle3'), message: `${t('errormessageIPCmsg6')}` });
     }
     else if (noOfMeasures == 0) {
         //ipcRenderer.invoke('errormessage', { title: "Error", message: `You need to specify a measure.` });
-        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Measure variable not specified", message: "Name for the measure variable is not specified. You need to specify a measure name and click add." })
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('utilityRulVoiTitle1'), message: t('utilityRulVoiMsg1') })
     }
     else if (document.getElementById("repeatedMeasuresAnovaW_repMeasuresConfig_depVar_1")) {
-        ipcRenderer.invoke('errormessage', { title: "Error", message: `There is already a destination variable to capture the measures of the within-subject factor` });
+        ipcRenderer.invoke('errormessage', { title: t('handlerRulVoiTitle3'), message: `${t('errormessageIPCmsg7')}` });
     }
     else {
         let measureListCtrl = document.getElementById(measureList);
@@ -451,7 +451,7 @@ function createEndoExoVariables(modal_id, nos, filter, equalityConstraints, plac
     {
         if ($("#" +"sem_mediationDestCtrl").find(".list-group1").length >= 1)
         {
-            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `We don't support more than 1 mediation set. Please contact support@blueskystatistics.com if you need this capability.` })
+            dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('utilityRulVoiMsg2')}` })
             return
         }
     }
@@ -567,7 +567,7 @@ function checkDuplicateNames(textBoxId, modalId)
         {
             if ( valEntered == $(this).val())
             {
-                dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Duplicate name entered", message: `You have entered a latent variable name or higher order factor name that has aready been entered. All latent variable names and higher order factor names must be unique` })
+                dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('utilityRulVoiTitle2'), message: `${t('utilityRulVoiMsg3')}` })
                 $(`#${textBoxId}`).val("")
                 error = true
                 return 
@@ -580,7 +580,7 @@ function checkDuplicateNames(textBoxId, modalId)
         {
             if ( valEntered == $(this).val())
             {
-                dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Duplicate name entered", message: `You have entered a latent variable name or higher order factor name that has aready been entered. All latent variable names and higher order factor names must be unique` })
+                dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('utilityRulVoiTitle2'), message: `${t('utilityRulVoiMsg3')}` })
                 $(`#${textBoxId}`).val("")
                 error = true
                 return 
@@ -619,7 +619,7 @@ function actionOnCreateLatentVarHighorderVar(textBoxId, modalId, ctrlId)
     //The name of a latent variable or higher order factor should not match any of the variable names in the active dataset
     if (!checkNames(textBoxId))
     {
-        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Incorrect name specified", message: `A latent variable name or higher order factor name cannot match a name of a dataset variable.` })
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('utilityRulVoiTitle3'), message: `${t('utilityRulVoiMsg4')}` })
         //I blank this out to force the user to enter a valid name
         $(`#${textBoxId}`).val("")
         if (priorVal != undefined){
@@ -1617,14 +1617,14 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
     {
         headerText1 =$(`#${ctrl1Id}`).siblings().text()
         headerText2 =$(`#${ctrl2Id}`).siblings().text()
-        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `You must make a selection in the control with labels "${headerText1}" and "${headerText2}" before clicking the move button.` })
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('utilityRulVoiMsg5')} "${headerText1}" ${t('utilityRulVoiMsg6')} "${headerText2}" ${t('utilityRulVoiMsg7')}` })
         return
     }
     if (var1 == var2)
     {
         headerText1 =$(`#${ctrl1Id}`).siblings().text()
         headerText2 =$(`#${ctrl2Id}`).siblings().text()
-        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `You cannot select the same variable in the control with label "${headerText1}" and "${headerText2}" . Please make different selections.` })
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('utilityRulVoiMsg8')} "${headerText1}" ${t('utilityRulVoiMsg6')} "${headerText2}" . ${t('utilityRulVoiMsg9')}` })
         return
     }
 
@@ -1632,13 +1632,13 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
     if (var1 =="" )
     {
         headerText1 =$(`#${ctrl1Id}`).siblings().text()
-        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `You must make a selection in the control with label "${headerText1}" before clicking the move button.` })
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('utilityRulVoiMsg5')} "${headerText1}" ${t('utilityRulVoiMsg10')}` })
         return
     }
     if (var2 =="" )
     {
         headerText2 =$(`#${ctrl2Id}`).siblings().text()
-        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `You must make a selection in the control with label "${headerText2}" before clicking the move button.` })
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('utilityRulVoiMsg5')} "${headerText2}" ${t('utilityRulVoiMsg1')}` })
         return
     }
     let var3 = ""
@@ -1662,7 +1662,7 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
     if ($(`#${destId}`).find(`#${destId}_${var2.replace(/\./g, "\\.")}_${getActiveDataset()}_${var1.replace(/ /g, "_").replace(/\./g, "\\.")}`).length > 0)
     {
         headerText2 =$(`#${ctrl2Id}`).siblings().text()
-        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Error", message: `You already have a relationship between "${var1}" and "${var2}". You cannot have 2 relationships between the same variables.` })
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('utilityRulVoiMsg11')} "${var1}" ${t('utilityRulVoiMsg6')} "${var2}". ${t('utilityRulVoiMsg12')}` })
         return
     }
 

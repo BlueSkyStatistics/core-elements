@@ -1,5 +1,7 @@
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
+let t = getT('menutoolbar')
+
 class semControl extends baseElement {
     content;
     id;
@@ -52,34 +54,34 @@ class semControl extends baseElement {
             //You need to have atleast 2 variables for mediation
             if (this.id =="sem_mediationDestCtrl_destCtrl_1" && numofvars < 2)
             {
-                dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `You need to have 2 mediation relationships specified in the control with label "${outer_this.label}".` })
+                dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('semCtrlRulVoiMsg1')} "${outer_this.label}".` })
                 retval = false
             }
             if (extractBeforeLastUnderscore(this.id) == 'sem_sem3_destCtrl' && numofvars < 2)
             {
-                dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `An equality constraint set in the control with label "${outer_this.label}" has fewer that 2 variables.` })
+                dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('semCtrlRulVoiMsg2')} "${outer_this.label}" ${t('semCtrlRulVoiMsg3')}` })
                 retval = false
             }
             if (textContents == "") 
             {
                 if (outer_this.label =="Latent variables")
                 {
-                    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `One of the names of the latent traits in the "${outer_this.label}" control are not populated.` })
+                    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('semCtrlRulVoiMsg4')} "${outer_this.label}" ${t('semCtrlRulVoiMsg5')}` })
                 } else {
-                    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `One of the names of the higher order factors in the "${outer_this.label}" control are not populated.` })
+                    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('semCtrlRulVoiMsg6')} "${outer_this.label}" ${t('semCtrlRulVoiMsg7')}` })
                 }
                 retval = false
             }
             if ( isFinite(textContents)) {
-                dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `You have entered a number in one of the names of the latent traits in the "${outer_this.label}" control. Please enter a valid name.` })
+                dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('semCtrlRulVoiMsg8')} "${outer_this.label}" ${t('semCtrlRulVoiMsg9')}` })
                 retval = false
             }
             if (numofvars == 0) {
                 if (outer_this.label =="Latent variables")
                 {
-                    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Variables that make up the latent trait have not been specified in the "${outer_this.label}" control. Please add variables or delete the control.` })
+                    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('semCtrlRulVoiMsg10')} "${outer_this.label}" ${t('semCtrlRulVoiMsg11')}` })
                 } else {
-                    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Input field rule violation", message: `No latent traits have been specified in the "${outer_this.label}" control. Please add latent traits or delete the control.` })
+                    dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('semCtrlRulVoiMsg12')} "${outer_this.label}" ${t('semCtrlRulVoiMsg1')}` })
                 }
                 retval = false
             }          
