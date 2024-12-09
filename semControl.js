@@ -12,7 +12,7 @@ class semControl extends baseElement {
                 <div class="col-1">
                 </div>
                 <div class="col-11" id ="{{modal.id}}_{{ms.no}}_insertionPt">
-                        <button type="button" id ="{{modal.id}}_{{ms.no}}_btn" class="btn formula-btn p-1 w-25" onclick="createEndoExoVariables( modelid = &quot;{{modal.id}}&quot;, no = &quot;{{ms.no}}&quot;, filter = &quot;{{ms.filter}}&quot;{{if(options.ms.equalityConstraints)}}, equalityConstraints = true{{#else}}, equalityConstraints = false{{/if}}, placeHolderText = &quot;{{ms.placeHolderText}}&quot;, type = &quot;{{ms.type}}&quot;)", >+ Add</button>
+                        <button type="button" id ="{{modal.id}}_{{ms.no}}_btn" class="btn formula-btn p-1 w-25" onclick="createEndoExoVariables( modelid = &quot;{{modal.id}}&quot;, no = &quot;{{ms.no}}&quot;, filter = &quot;{{ms.filter}}&quot;{{if(options.ms.equalityConstraints)}}, equalityConstraints = true{{#else}}, equalityConstraints = false{{/if}}, placeHolderText = &quot;{{ms.placeHolderText}}&quot;, type = &quot;{{ms.type}}&quot;)", >+ ${t('semCtrlAddBtn')}</button>
                 </div>
             </div>    
         </div>  
