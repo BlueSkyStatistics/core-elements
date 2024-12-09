@@ -1762,7 +1762,7 @@ function removeFromJoin(listOfVariablesToJoinBy) {
   let liList = document.getElementById(listOfVariablesToJoinBy).getElementsByTagName('ul')[0].getElementsByClassName('active');
   let ul = document.getElementById(listOfVariablesToJoinBy).getElementsByTagName('ul')[0];
   if (liList.length == 0) {
-    ipcRenderer.invoke('errormessage', { title: "Error", message: `You must select an entry to delete before clicking the delete button` });
+    ipcRenderer.invoke('errormessage', { title: t('handlerRulVoiTitle3'), message: `${t('errormessageIPCmsg12')}` });
   }
   else {
     let count = liList.length
