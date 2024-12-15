@@ -46,7 +46,7 @@ class dstVariable extends baseElement{
         if ((this.required && $(`#${this.id}`).children().length === 1) || ! this.required) {
             return true
         }
-        dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Destination variable list rule violation", message: `Destination variable list with label: "${this.label}" needs to be populated to proceed`})                
+        dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('dstVarRuleViolationMsgTitle'), message: `${t('dstVarRuleViolationMsg1')}: "${this.label}" ${t('dstVarRuleViolationMsg2')}`})                
         return false
     }
 

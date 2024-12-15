@@ -2,6 +2,7 @@
 
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
+let t = getT('menutoolbar')
 
 class radioButton extends baseElement{
     content;
@@ -66,7 +67,7 @@ class radioButton extends baseElement{
                     if ($(`${element}`).attr("type") === 'text') {
                         if ($(`${element}`).val() === '' || $(`${element}`).val() === undefined) {
                             res = false;
-                            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Rediobutton rule violation", message: `Radiobutton with label: "${outer_this.label}" requires another control to be populated to proceed`})
+                            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('radioRulVoiTitle1'), message: `${t('radioRulVoiMsg1')}: "${outer_this.label}" ${t('radioRulVoiMsg2')}`})
                             throw BreakException;
                         }
                     }

@@ -879,26 +879,26 @@ class switchCase extends baseElement {
         for (var i = 0 ; i < if_elements.length; i ++) {
             if (if_elements[i].CodeMirror.getValue() == "" || if_elements[i].CodeMirror == undefined )
             {
-                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input rule violation", message: `An if condition within the control with label: "${outer_this.label}" needs to be populated to proceed`})
+                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('SCruleVoilationMsgTitle1'), message: `${t('SCruleVoilationMsg1')}: "${outer_this.label}" ${t('dstVarRuleViolationMsg2')}`})
                 return false
             }
         }
         for (var i = 0 ; i < then_elements.length; i ++) {
             if (then_elements[i].CodeMirror.getValue() == "" || then_elements[i].CodeMirror == undefined )
             {
-                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input rule violation", message: `A then condition within the control with label: "${outer_this.label}" needs to be populated to proceed`})     
+                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('SCruleVoilationMsgTitle1'), message: `${t('SCruleVoilationMsg2')}: "${outer_this.label}" ${t('dstVarRuleViolationMsg2')}`})     
                 return false
             }
         }
         for (var i = 0 ; i < else_elements.length; i ++) {
             if (else_elements[i].CodeMirror.getValue() == "" || else_elements[i].CodeMirror == undefined ) 
             {
-                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input rule violation", message: `An else condition within the control with label: "${outer_this.label}" needs to be populated to proceed`})     
+                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('SCruleVoilationMsgTitle1'), message: `${t('SCruleVoilationMsg3')}: "${outer_this.label}" ${t('dstVarRuleViolationMsg2')}`})     
                 return false
             }
         }
         if (this.required && (value === "" || value == undefined)){
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Conditional input rule violation", message: `Conditional input with label: "${outer_this.label}" needs to be populated to proceed`})
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('SCruleVoilationMsgTitle2'), message: `${t('SCruleVoilationMsg4')}: "${outer_this.label}" ${t('dstVarRuleViolationMsg2')}`})
             return false
         } else if ( ! this.required && (value === "" || value == undefined)){
             return true

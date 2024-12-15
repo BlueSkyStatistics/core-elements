@@ -1,6 +1,6 @@
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
-
+let t = getT('menutoolbar')
 
 class inputVariable extends baseElement {
     content;
@@ -73,7 +73,7 @@ class inputVariable extends baseElement {
         switch (this.overwrite){
             case "variable":
                if (getActiveVariables().indexOf(value) > -1){
-                var ret = dialog.showMessageBoxSync({type: "question", buttons: ["Ok", "Cancel"], title: "Overwrite Alert", message: `The value specified in the field with label: "${outer_this.label}" will overwrite the existing variable: ${value}`})
+                var ret = dialog.showMessageBoxSync({type: "question", buttons: ["Ok", "Cancel"], title: t('advTxtBxRulViolationMSgTitle1'), message: `${t('advTxtBxRulViolationMSg1')}: "${outer_this.label}" ${t('advTxtBxRulViolationMSg2')}: ${value}`})
                 if (ret === 0){
                     break
                 } else {
@@ -82,7 +82,7 @@ class inputVariable extends baseElement {
                }
             case "dataset":
                if ( getAllDatasets().indexOf(value) > -1 ){
-                var ret = dialog.showMessageBoxSync({type: "question", buttons: ["Ok", "Cancel"], title: "Overwrite Alert", message: `The value specified in the field with label: "${outer_this.label}" will overwrite the dataset: ${value}`})
+                var ret = dialog.showMessageBoxSync({type: "question", buttons: ["Ok", "Cancel"], title: t('advTxtBxRulViolationMSgTitle1'), message: `${t('advTxtBxRulViolationMSg3')}: "${outer_this.label}" ${t('advTxtBxRulViolationMSg4')}: ${value}`})
                 if (ret === 0){
                     break
                 } else {
@@ -91,16 +91,16 @@ class inputVariable extends baseElement {
             }
         }
         if (this.required && (value === "" || value == undefined)){
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Field with label: "${outer_this.label}" needs to be populated to proceed`})
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('advTxtBxRulViolationMSg5')}: "${outer_this.label}" ${t('advTxtBxRulViolationMSg6')}`})
             return false
         } else if ( ! this.required && (value === "" || value == undefined)){
             return true
         }
         if (this.type_expected === 'numeric' && isNaN(value)){
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Field with label: "${outer_this.label}" needs to be populated with a numeric value to proceed`})
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('advTxtBxRulViolationMSg5')}: "${outer_this.label}" ${t('advTxtBxRulViolationMSg7')}`})
             return false
         } else if (this.type_expected === 'onlyCharacter' && ! isNaN(value)) {
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Field with label: "${outer_this.label}" needs to be populated with a character value to proceed`})
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('advTxtBxRulViolationMSg5')}: "${outer_this.label}" ${t('advTxtBxRulViolationMSg8')}`})
             return false
         } else if (!this.allow_spaces && this.enforceRobjectRules == undefined && this.allowSpacesNew == undefined)
         {
@@ -109,21 +109,21 @@ class inputVariable extends baseElement {
             result = value.match(pattern);
             if (result != null) 
             {
-                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `The input field with label: "${outer_this.label}" cannot start with a number. You cannot create variable, dataset or model names that start with a number.`})
+                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('advTxtBxRulViolationMSg9')}: "${outer_this.label}" ${t('advTxtBxRulViolationMSg10')}`})
                 return false
             }
             pattern = /\s+/g
             result = value.match(pattern);
             if (result != null) 
             {
-                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `The input field with label: "${outer_this.label}" cannot contain spaces. You cannot create variable, dataset or model names that contain spaces.`})
+                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('advTxtBxRulViolationMSg9')}: "${outer_this.label}" ${t('advTxtBxRulViolationMSg11')}`})
                 return false
             }
            pattern = "^((([A-Za-z]|[.][._A-Za-z])[._A-Za-z0-9]*)|[.])$"
            result = value.match(pattern);
            if (result == null) 
            {
-               dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `The input field with label: "${outer_this.label}" must contain only letters, numbers and the dot or underline characters. It must start with a letter or the dot not followed by a number.`})
+               dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('advTxtBxRulViolationMSg9')}: "${outer_this.label}" ${t('advTxtBxRulViolationMSg12')}`})
                return false
            }
            
@@ -134,21 +134,21 @@ class inputVariable extends baseElement {
             let result = value.match(pattern);
             if (result != null) 
             {
-                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `The input field with label: "${outer_this.label}" cannot start with a number. You cannot create variable, dataset or model names that start with a number.`})
+                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('advTxtBxRulViolationMSg9')}: "${outer_this.label}" ${t('advTxtBxRulViolationMS10')}`})
                 return false
             }
             pattern = /\s+/g
             result = value.match(pattern);
             if (result != null) 
             {
-                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `The input field with label: "${outer_this.label}" cannot contain spaces. You cannot create variable, dataset or model names that contain spaces.`})
+                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('advTxtBxRulViolationMSg9')}: "${outer_this.label}" ${t('advTxtBxRulViolationMS11')}`})
                 return false
             }
            pattern = "^((([A-Za-z]|[.][._A-Za-z])[._A-Za-z0-9]*)|[.])$"
            result = value.match(pattern);
            if (result == null) 
            {
-               dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `The input field with label: "${outer_this.label}" must contain only letters, numbers and the dot or underline characters. It must start with a letter or the dot not followed by a number.`})
+               dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('advTxtBxRulViolationMSg9')}: "${outer_this.label}" ${t('advTxtBxRulViolationMS12')}`})
                return false
            }
            
@@ -158,7 +158,7 @@ class inputVariable extends baseElement {
             result = value.match(pattern);
             if (result != null) 
             {
-                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `The input field with label: "${outer_this.label}" cannot contain spaces. You cannot create variable, dataset or model names that contain spaces.`})
+                dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('advTxtBxRulViolationMSg9')}: "${outer_this.label}" ${t('advTxtBxRulViolationMS11')}`})
                 return false
             }            
         }

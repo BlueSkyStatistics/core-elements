@@ -2,6 +2,7 @@
 
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
+let t = getT('menutoolbar')
 
 class inputSpinner extends baseElement {
     content;
@@ -39,20 +40,20 @@ class inputSpinner extends baseElement {
     canExecute(refToBaseModal) {
         var value = this.getVal()
         if (value > this.max || value < this.min) {
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Field with label: "${this.label}" is out of bounds (${this.min} - ${this.max})`})
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('advTxtBxRulViolationMSg5')}: "${this.label}" ${t('inSpinerRulVoiMsg1')} (${this.min} - ${this.max})`})
             return false
         }
         if (this.required && (value === "" || value == undefined)){
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Field with label: "${this.label}" require value to be entered`})
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('advTxtBxRulViolationMSg5')}: "${this.label}" ${t('inSpinerRulVoiMsg2')}`})
             return false
         } else if ( ! this.required && (value === "" || value == undefined)){
             return true
         }
         if (this.type_expected === 'numeric' && isNaN(value)){
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Field with label: "${this.label}" require numeric value to be entered`})
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('advTxtBxRulViolationMSg5')}: "${this.label}" ${t('inSpinerRulVoiMsg3')}`})
             return false
         } else if (this.type_expected === 'character' && ! isNaN(value)) {
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input field rule violation", message: `Field with label: "${this.label}" require character value to be entered`})
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('advTxtBxRulViolationMSgTitle2'), message: `${t('advTxtBxRulViolationMSg5')}: "${this.label}" ${t('inSpinerRulVoiMsg4')}`})
             return false
         }
         return true

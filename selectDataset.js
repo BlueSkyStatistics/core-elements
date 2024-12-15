@@ -66,7 +66,7 @@ class selectDataset extends baseElement {
         } else if (!this.required) {
             return true
         }
-        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Select control rule violation", message: `You need to make a selection in the Select control with label: "${this.label}"` })
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('mergejoinRulVoiTitle1'), message: `${t('selectRulVoiMsg1')}: "${this.label}"` })
         return false
     }
     fillContent() {

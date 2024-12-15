@@ -255,7 +255,7 @@ class formulaControl extends baseElement {
         var outer_this = this;
         var value = this.getVal()
         if (this.required &&  (value == "" || value == undefined)){
-            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Input rule violation", message: `The control with label: Formula Builder needs to be populated to proceed`})     
+            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('CBuilderRulVoiTitle'), message: `${t('FBRulVoiMsg')}`})     
                 return false
         }
         else

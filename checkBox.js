@@ -2,6 +2,7 @@
 
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
+let t = getT('menutoolbar')
 
 class checkBox extends baseElement{
     content;
@@ -65,7 +66,7 @@ class checkBox extends baseElement{
                     if ($(`${element}`).attr("type") === 'text') {
                         if ($(`${element}`).val() === '' || $(`${element}`).val() === undefined) {
                             res = false;
-                            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Checkbox rule violation", message: `Checkbox with label: "${outer_this.label}" requires another control to be populated to proceed`})
+                            dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('chkboxRulVoiMsgTitle'), message: `${t('chkboxRulVoiMsg1')}: "${outer_this.label}" ${t('chkboxRulVoiMsg2')}`})
                             throw BreakException;
                         }
                     }

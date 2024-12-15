@@ -53,7 +53,7 @@ class mergeJoin extends baseElement{
         } else if (!this.required) {
             return true
         }
-        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: "Select control rule violation", message: `You need to make a selection in the Join mapping control with label: "${this.label}"` })
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('mergejoinRulVoiTitle1'), message: `${t('mergejoinRulVoiMsg1')}: "${this.label}"` })
         return false
     }
 }

@@ -1,6 +1,7 @@
 
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
+let t = getT('menutoolbar')
 
 class dstVariableList extends baseElement {
     content;
@@ -38,6 +39,7 @@ class dstVariableList extends baseElement {
     }
     
     canExecute(refToBaseModal) {
+        // let t = getT('menutoolbar')
         if (! this.required && $(`#${this.id}`).children().length === 0) {
             return true
         }
@@ -46,12 +48,12 @@ class dstVariableList extends baseElement {
                 if ((this.items_count > -1 && $(`#${this.id}`).children().length == this.items_count) || this.items_count === -1) {
                     return true
                 } else {
-                    dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Destination variable list rule violation", message: `A destination variable list with label: "${this.label}" needs to contain ${this.items_count} variables`})      
+                    dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('dstVarRuleViolationMsgTitle'), message: `${t('dstVarRuleViolationMsg1')}: "${this.label}" ${t('dstVarRuleViolationMsg3')} ${this.items_count} ${t('dstVarRuleViolationMsg4')}`})      
                     return false
                 }
             }
         }
-        dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: "Destination variable list rule violation", message: `A destination variable list with label: "${this.label}" needs to be populated to proceed`})                
+        dialog.showMessageBoxSync({type: "error", buttons: ["OK"], title: t('dstVarRuleViolationMsgTitle'), message: `${t('dstVarRuleViolationMsg1')}: "${this.label}" ${t('dstVarRuleViolationMsg2')}`})                
         return false
     }
 
