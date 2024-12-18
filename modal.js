@@ -41,6 +41,10 @@ class modal {
                         data-toggle="tooltip" title="Close dialog">
                             <i class="fas fa-times"></i>
                         </button>
+                        <button type="button" action="help" class="close mr-1 enable-tooltip" id="{{modal.id}}HelpWin"
+                        data-toggle="tooltip" title="Open Help in a Window">
+                            <i class="icon-expand mr-1"></i>
+                        </button>                           
                         <button type="button" action="help" class="close mr-1 enable-tooltip" id="{{modal.id}}Help"
                         data-toggle="tooltip" title="Help on dialog">
                             <i class="fas fa-question"></i>
