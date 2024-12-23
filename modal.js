@@ -1,6 +1,11 @@
 var Sqrl = require('squirrelly');
 const common = require("./common")
+let showExtrnalHelpicon = store.get("showExtrnalHelpicon", false)
 
+let hideclass = "d-none"
+if(showExtrnalHelpicon){
+    hideclass=""
+}
 class modal {
     htmlPieces = {
         one: `<div class="row"><div class="col col-12">{{each(options.content.items)}}{{ @this | safe }}{{/each}}</div>`,
@@ -41,7 +46,7 @@ class modal {
                         data-toggle="tooltip" title="Close dialog">
                             <i class="fas fa-times"></i>
                         </button>
-                        <button type="button" action="help" class="close mr-1 enable-tooltip" id="{{modal.id}}HelpWin"
+                        <button type="button" action="help" class="close ${hideclass} mr-1 enable-tooltip" id="{{modal.id}}HelpWin"
                         data-toggle="tooltip" title="Open Help in a Window">
                             <i class="icon-expand mr-1"></i>
                         </button>                           
