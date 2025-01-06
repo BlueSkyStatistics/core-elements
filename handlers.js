@@ -118,11 +118,43 @@ function areAllElementsSame(arr) {
   return true; // If no different elements found, return true
 }
 
-
+function extractWidthInPixels(input) {
+  // Use a regular expression to match the numeric portion
+  const match = input.match(/(\d+)px/);
+  // If a match is found, return the numeric part as a number
+  return match ? parseInt(match[1], 10) : null;
+}
 
 //When dragging and dropping 
 //      From source to destination, the parentID is the destination
 function _drop(objects, action, object_ids, parentID) {
+
+  let maxVarWidth =0
+  let oriVarWidth =0
+	let parent_element = document.getElementById(parentID);
+  //Determines whether a source or destination variable that we are moving variables to
+  //has a maxVarWidth
+  //The property above is set when the size of the contained variables exceed the variable control size
+  let widthPropertySet = false
+  //Stores the size of the variable control, this will change from machine to machine
+  oriVarWidth = parent_element.clientWidth
+  if (parent_element.hasAttribute('maxVarWidth'))
+  {   
+    //Every new variable being dragged needs to be set with this width
+    widthPropertySet =true
+    maxVarWidth = extractWidthInPixels(parent_element.getAttribute("maxVarWidth"));
+
+  } else {
+    maxVarWidth = parent_element.clientWidth
+  }
+  /* 
+	let maxVarWidthToSet = parent_element.getAttribute("maxVarWidth");
+  maxVarWidthToSet = parent_element.clientWidth;
+  maxVarWidthToSet =maxVarWidthToSet -20
+  maxVarWidth = parent_element.clientWidth; */
+	let textWidth =0
+	let inserted_variable_name =""  
+	let flagMaxWidthChange = false
   let index =   1
   let priorElementOrder = 0
   let finalOrder = 0
@@ -267,22 +299,19 @@ function _drop(objects, action, object_ids, parentID) {
 
 }
   if (stop == true) return
-  
-
-
   for (var i =  0; i < objects.length; i++) {
-    
-    var isWrapped = el.attr("is-wrapped");
+    var isWrapped = el. attr("is-wrapped");
     var object = objects[i];
     var object_id = object_ids[i];
     let inputVal =""
     let relatedInputCtrlId = null
+    inserted_variable_name = document.getElementById(`${object_id}`).text
+
     // Lets get the entry of the texbox i.e. name of the latent variable or the higher order factor, this is because
     //we need to remove this entry from the equality constraints
     //Note we repopulate coVarsDSt and the source equality constraints, so that is not an issue
     if (!(object_id.indexOf(":") > -1))
-    {
-      
+    {      
       if (!(document.getElementById(object_id).closest("#" + "sem_sem") === null))
       {
       if ($("#" + object_id.replace(/\./g, "\\.")).closest("#" + "sem_sem").length > 0) {
@@ -298,9 +327,6 @@ function _drop(objects, action, object_ids, parentID) {
       }
       }
     }
-
-    
-
     var inserted_object_id = object_id;
     //Comes here when adding a variable to a destination variable control including aggregate control
     if (_filter(el.attr('filter'), object)) {
@@ -323,7 +349,7 @@ function _drop(objects, action, object_ids, parentID) {
           }
         } else if (object_id.indexOf(":") === -1) {
           var id_addon = parentID;
-          //Comes here when adding a variable to a destination variable control including aggregate control, 
+          //Comes here when adding a variable to a destination variable control within an aggregate control, 
           //but does NOT come here when moving back from destination to source
           let func = $(`#${parentID}_select option:selected`).html()
           //is_addon stores the destination variable name control
@@ -342,19 +368,73 @@ function _drop(objects, action, object_ids, parentID) {
         if (!document.getElementById(inserted_object_id)) {
           if (!document.getElementById(parentID).getAttribute("order")) {
             if ($(`#${parentID}`).attr("bs-type") == 'single') {
+              if (widthPropertySet)
+                {
+                  // Step 1: Convert the string to an HTML element
+                  tempDiv = document.createElement('div'); // Create a temporary container
+                  tempDiv.innerHTML = object; // Set the string as innerHTML
+                  anchorElement = tempDiv.firstElementChild; // Extract the anchor element
+                  // Step 2: Set the `min-width` style property
+                  anchorElement.style.minWidth = maxVarWidth.toString()+"px";
+                  // Step 3: Convert the modified element back to a string
+                  object = tempDiv.innerHTML;
+                }
               document.getElementById(parentID).innerHTML = object;
+              const tempSpan = document.querySelector('#BSkyTempSpanCalVarWidth.hidden-span');
+                tempSpan.textContent = inserted_variable_name 
+                textWidth = tempSpan.offsetWidth; // Measure the rendered text width
+                if (textWidth > maxVarWidth) {
+                  maxVarWidth = textWidth;
+                  flagMaxWidthChange = true
+                }
             } else {
               //Executes this when adding
               /*  if ($("#" +parentID).attr("modal_id") =="sem" && $("#" +parentID).attr("equalityConstraint"))
               {
                 object
               } */
+
+                //Aaron 01/01
+                const tempSpan = document.querySelector('#BSkyTempSpanCalVarWidth.hidden-span');
+                tempSpan.textContent = inserted_variable_name 
+                textWidth = tempSpan.offsetWidth; // Measure the rendered text width
+                if (textWidth > maxVarWidth) {
+                  maxVarWidth = textWidth;
+                  flagMaxWidthChange = true
+                } 
+              //Since the width property on the destination variable control is set
+              //I need to set the size of each element being moved to that width
+              //Else variables withing the control will have different widths, making the display look wierd
+              if (widthPropertySet)
+              {
+                // Step 1: Convert the string to an HTML element
+                tempDiv = document.createElement('div'); // Create a temporary container
+                tempDiv.innerHTML = object; // Set the string as innerHTML
+                anchorElement = tempDiv.firstElementChild; // Extract the anchor element
+                // Step 2: Set the `min-width` style property
+                anchorElement.style.minWidth = maxVarWidth.toString()+"px";
+                // Step 3: Convert the modified element back to a string
+                object = tempDiv.innerHTML;
+              }
+             
               document.getElementById(parentID).innerHTML += object;
+             
             }
           } else {
             var parentElement = document.getElementById(parentID)
             var order = document.getElementById(parentID).getAttribute("order").split("|||").indexOf(inserted_object_id)
             var template = document.createElement('template');
+            if (widthPropertySet)
+              {
+                // Step 1: Convert the string to an HTML element
+                const tempDiv = document.createElement('div'); // Create a temporary container
+                tempDiv.innerHTML = object; // Set the string as innerHTML
+                const anchorElement = tempDiv.firstElementChild; // Extract the anchor element
+                // Step 2: Set the `min-width` style property
+                anchorElement.style.minWidth = maxVarWidth.toString()+"px";
+                // Step 3: Convert the modified element back to a string
+                object = tempDiv.innerHTML;
+              }
             template.innerHTML = object;
             greatestOrderInParent = findGreatestOrder(parentID)
 
@@ -409,6 +489,25 @@ function _drop(objects, action, object_ids, parentID) {
       }
     }
   }
+
+  //We are moving a variable that has a width that is greater that the control
+  //and the existing variables
+  //We need to set all variables width to this new width
+   if (flagMaxWidthChange )
+   {
+      let anchors = parent_element.querySelectorAll('a'); 
+      // Set the min-width style for each anchor tag
+      anchors.forEach(anchor => {
+          anchor.style.minWidth = maxVarWidth.toString() + "px";
+      });
+      parent_element.setAttribute("maxVarWidth",maxVarWidth.toString() + "px" );
+      //The lines below are necessary to ensure correct layout of the destion variable list
+      //Else the destination variable list messes up
+      parent_element.style.maxWidth =oriVarWidth.toString() + "px";
+      parent_element.style.minWidth =oriVarWidth.toString() + "px";
+  
+    } 
+
   //we don't populate covariances AND EQUALITY CONSTRAINTS when dragging and dropping to source and dest EQUALITY CONSTRAINTS
   //Also when latent controls are being deleted as we have already deleted the entries and we don't want them automatically populated
   //before the control is completely deleted
@@ -420,6 +519,7 @@ function _drop(objects, action, object_ids, parentID) {
     }
     populateEqualityConstraints()
   }
+  parent_element.scrollLeft = 0;
 }
 
 
@@ -1176,11 +1276,21 @@ function moveToDst(ev) {
     //Check if the source of the drag and drop is valid
     if (allowableDragCtrls.length !=0)
     {
+      let copiedElement = undefined
       allowableDragCtrls.forEach(function(element, index){
       $(`#${element} .list-group-item-action.active`).filter(function () {
         return !$(this).hasClass('termsDst')
       }).each(function (index, item) {
-        objects.push(item.outerHTML)
+
+        copiedElement = item.cloneNode(true);
+
+        // Remove the 'min-width' style from the copied element
+        //copiedElement.style.minWidth = '';
+        copiedElement.style.removeProperty('min-width');
+      //objects.push(document.getElementById(item).outerHTML)
+      objects.push(copiedElement.outerHTML)
+
+        //objects.push(item.outerHTML)
         ids.push(item.id)
         action = $(`#${item.id.split("_")[0]}`).attr("act")
       })
@@ -1190,7 +1300,14 @@ function moveToDst(ev) {
     $(`#${modal_id} .list-group-item-action.active`).filter(function () {
       return !$(this).hasClass('termsDst')
     }).each(function (index, item) {
-      objects.push(item.outerHTML)
+
+      copiedElement = item.cloneNode(true);
+      // Remove the 'min-width' style from the copied element
+      //copiedElement.style.minWidth = '';
+      copiedElement.style.removeProperty('min-width');
+      //objects.push(document.getElementById(item).outerHTML)
+      objects.push(copiedElement.outerHTML)
+      //objects.push(item.outerHTML)
       ids.push(item.id)
       action = $(`#${item.id.split("_")[0]}`).attr("act")
     })
@@ -1211,10 +1328,27 @@ module.exports.selectModelTerms = (ev) => {
 
   el.classList.add("active");
   el.setAttribute("active", "");
-  
-
 
 }
+
+function isTextTruncated(element) {
+  return element.scrollWidth > element.clientWidth;
+}
+
+module.exports.displayTooltipIfTruncated = (ev) => {
+  ev.preventDefault();
+  ev.stopPropagation(); 
+  var anchor = document.getElementById(ev.target.id)
+  
+  if (isTextTruncated(anchor)) {
+    anchor.setAttribute("title", "The rain in spain");
+  } else {
+    anchor.removeAttribute("title");
+  }
+  
+  }
+
+
 
 module.exports.selectElement = (ev) => {
   ev.preventDefault();
@@ -1415,6 +1549,9 @@ module.exports.drop = (ev, parentID = null) => {
   if (((document.getElementById(object_ids[0]).parentNode.id == elTarget.parentNode.id) || (document.getElementById(object_ids[0]).parentNode.id == elTarget.id)) && elTarget.closest('div[bs-type="wrapcontrol"]') != null)
       return
   }
+  let originalElement=""
+  let copiedElement=""
+
   object_ids.forEach((item) => {
     if (document.getElementById(item)) {
       if (document.getElementById(item).getAttribute("original")) {
@@ -1422,7 +1559,14 @@ module.exports.drop = (ev, parentID = null) => {
         document.getElementById(item).removeAttribute("original")
         document.getElementById(item).removeAttribute("aggregation")
       }
-      objects.push(document.getElementById(item).outerHTML)
+      originalElement =document.getElementById(item)
+      copiedElement = originalElement.cloneNode(true);
+
+        // Remove the 'min-width' style from the copied element
+        //copiedElement.style.minWidth = '';
+        copiedElement.style.removeProperty('min-width');
+      //objects.push(document.getElementById(item).outerHTML)
+      objects.push(copiedElement.outerHTML)
     }
   })
   //I noticed that whenever I dropped an item from an aggregate control to the same aggregate control over an existing variable OR

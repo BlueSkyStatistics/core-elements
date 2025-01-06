@@ -25,7 +25,7 @@ class semModelTermsDest extends baseElement {
             </button>
         </div>
         <div class="col col-9">    
-            <div class="list-group ms-list" id="{{modal.id}}_{{ms.no}}" modal_id="{{modal.id}}" no="{{ms.no}}"  {{if(options.ms.wrapped)}}  wrapped="{{ms.wrapped}}" {{/if}} bs-type="list" ondrop="drop(event)" extractable=true extractionRule="{{ms.extraction}}" filter="{{ms.filter}}" ondragover="allowDrop(event)" {{if(options.ms.wrapped)}}  wrapped="{{ms.wrapped}}" {{/if}} {{if(options.ms.suppCtrlAddIds != undefined)}} suppCtrlAddIds = {{ms.suppCtrlAddIds}}{{/if}}{{if(options.ms.suppCtrlDeleteIds != undefined)}} suppCtrlDeleteIds = {{ms.suppCtrlDeleteIds}}{{/if}}></div>
+            <div class="list-group ms-list" id="{{modal.id}}_{{ms.no}}" modal_id="{{modal.id}}" no="{{ms.no}}"  {{if(options.ms.wrapped)}}  wrapped="{{ms.wrapped}}" {{/if}} bs-type="list" ondrop="drop(event)" extractable=true extractionRule="{{ms.extraction}}" filter="{{ms.filter}}" ondragover="allowDrop(event)" {{if(options.ms.wrapped)}}  wrapped="{{ms.wrapped}}" {{/if}} {{if(options.ms.suppCtrlAddIds != undefined)}} suppCtrlAddIds = {{ms.suppCtrlAddIds}}{{/if}}{{if(options.ms.suppCtrlDeleteIds != undefined)}} suppCtrlDeleteIds = {{ms.suppCtrlDeleteIds}}{{/if}}{{if(options.ms.mapSameDataset)}}mapSameDataset =true{{/if}}> </div>
         </div>
         <div class="col-1 col-1X">
             <button class="btn btn-secondary btn-top-menu p-1" onclick="removeFromModelTermsDest( ctrl =&quot;{{modal.id}}_{{ms.no}}&quot; , modalId = &quot;{{modal.id}}&quot;)">
@@ -40,6 +40,7 @@ class semModelTermsDest extends baseElement {
         super(modal, config)
         this.modalID = modal.id;
         this.id = `${modal.id}_${config.no}`
+            this.mapSameDataset = config.mapSameDataset
         this.action = config.hasOwnProperty("action") ? config.action : "copy"
         if (config.hasOwnProperty("suppCtrlAddIds"))
             config.suppCtrlAddIds = JSON.stringify(config.suppCtrlAddIds)
