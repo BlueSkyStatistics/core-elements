@@ -51,6 +51,13 @@ class dstVariable extends baseElement{
     }
 
     clearContent() {
+        if ($(`#${this.id}`).attr("maxVarWidth") !== undefined) {
+            $(`#${this.id}`).removeAttr("maxVarWidth");
+        }
+        $(`#${this.id}`).css({
+            maxWidth: "",
+            minWidth: ""
+        });
         $(`#${this.id}`).children().each(function(index, element) {
             element.remove()
         })
