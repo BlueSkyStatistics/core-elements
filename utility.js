@@ -1628,7 +1628,7 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
         dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('utilityRulVoiMsg5')} "${headerText1}" ${t('utilityRulVoiMsg6')} "${headerText2}" ${t('utilityRulVoiMsg7')}` })
         return
     }
-    if (var1 == var2)
+    if (var1 == var2 && $(`#${destId}`).attr("mapSameDataset")!="true")
     {
         headerText1 =$(`#${ctrl1Id}`).siblings().text()
         headerText2 =$(`#${ctrl2Id}`).siblings().text()

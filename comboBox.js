@@ -7,13 +7,14 @@ let t = getT('menutoolbar')
 class comboBox extends baseElement{
     content;
     id;
+    dynamicallyPopulated = false;
     required = false;
     defaults;
     label = null
     htmlTemplate = `<div>
         <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label {{if(options.ms.style)}}{{ms.style}}{{/if}}">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
         <div class="list-group ms-list {{if(options.ms.style)}}{{ms.style}}{{/if}}">
-            <select class="list-group borderless" bs-type="combobox" {{ if (options.ms.multiple) }} multiple {{/if}} id="{{modal.id}}_{{ms.no}}" no="{{ms.no}}" extractable=true default="{{ms.default}}" extractionRule="{{ms.extraction}}">
+            <select class="list-group borderless" bs-type="combobox" {{ if (options.ms.multiple) }} multiple {{/if}} {{ if (options.ms.dynamicallyPopulated) }} dynamicallyPopulated=true {{/if}} id="{{modal.id}}_{{ms.no}}" no="{{ms.no}}" extractable=true default="{{ms.default}}" extractionRule="{{ms.extraction}}">
                 {{ each(options.ms.options) }}
                 <option {{ if (options.ms.hasOwnProperty("default") && options.ms.default.split("|").includes(@this))}}selected="selected"{{/if}}>{{@this}}</option> 
                 {{/each}}
@@ -25,6 +26,10 @@ class comboBox extends baseElement{
     constructor(modal, config) {
         super(modal, config)
         this.label = config.label
+        if (config.dynamicallyPopulated) {
+            this.dynamicallyPopulated =config.dynamicallyPopulated
+        }
+        
         if (config.required) {
             this.required = config.required
         }
@@ -35,6 +40,18 @@ class comboBox extends baseElement{
 
     clearContent() {
         var outer_this = this;
+        if (this.dynamicallyPopulated)
+        {
+           // $(`#${this.id}`).empty()
+           //clearComboChild(this.id)
+           $(`#${this.id}`).children().each(function (index, element) {
+            element.remove()
+          })
+          if ($(`#${this.id}`).siblings('.list-group').length != 0) {
+            $(`#${this.id}`).siblings('.list-group').remove()
+          }
+        }
+        else    {
         $(`#${this.id}`).find('option').each(function(index, item){
             if (outer_this.defaults.includes(item.value)){
                 $(`#${outer_this.id}`).siblings("ul").find("a")[index].classList.add("active") ;
@@ -46,7 +63,7 @@ class comboBox extends baseElement{
                 }
             }
         })
-        
+        }
     }
 
     canExecute(refToBaseModal) {

@@ -21,7 +21,7 @@ class dstVariableList extends baseElement {
     </button>
 </div>
 <div class="col col-rr">    
-    <div class="list-group ms-list" id="{{modal.id}}_{{ms.no}}" modal_id="{{modal.id}}" no="{{ms.no}}"  {{if(options.ms.wrapped)}}  wrapped="{{ms.wrapped}}" {{/if}} bs-type="list" ondrop="drop(event)" extractable=true extractionRule="{{ms.extraction}}" filter="{{ms.filter}}" ondragover="allowDrop(event)" {{if(options.ms.wrapped)}}  wrapped="{{ms.wrapped}}" {{/if}} {{if (options.ms.allowedSrcCtrls != undefined) }} allowedSrcCtrls = "{{ms.allowedSrcCtrls}}"{{/if}}></div>
+    <div class="list-group scrollable-container ms-list" id="{{modal.id}}_{{ms.no}}"  modal_id="{{modal.id}}" no="{{ms.no}}"  {{if(options.ms.wrapped)}}  wrapped="{{ms.wrapped}}" {{/if}} bs-type="list" ondrop="drop(event)" extractable=true extractionRule="{{ms.extraction}}" filter="{{ms.filter}}" ondragover="allowDrop(event)" {{if(options.ms.wrapped)}}  wrapped="{{ms.wrapped}}" {{/if}} {{if (options.ms.allowedSrcCtrls != undefined) }} allowedSrcCtrls = "{{ms.allowedSrcCtrls}}"{{/if}}></div>
 </div>
 </div>`
 
@@ -58,6 +58,13 @@ class dstVariableList extends baseElement {
     }
 
     clearContent() {
+        if ($(`#${this.id}`).attr("maxVarWidth") !== undefined) {
+            $(`#${this.id}`).removeAttr("maxVarWidth");
+        }
+        $(`#${this.id}`).css({
+            maxWidth: "",
+            minWidth: ""
+        });
         $(`#${this.id}`).children().each(function(index, element) {
             element.remove()
         })

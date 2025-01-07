@@ -11,7 +11,7 @@ class srcVariableList {
     order = []
     htmlTemplate = `{{if (options.ms.scroll)}}<div class="sticky-left">{{/if}}
 <h6>{{if (options.ms.label)}}{{ms.label}}{{#else}}Source variables{{/if}}</h6>
-<div class="form-check list-group {{if (options.ms.semMain)}}var-listSem{{#else}}var-list{{/if}}" multiple 
+<div class="form-check list-group scrollable-container {{if (options.ms.semMain)}}var-listSem{{#else}}var-list{{/if}}" multiple 
      {{if (options.ms.no == undefined)}}id="{{modal.id}}Vars"{{#else}}id="{{modal.id}}{{ms.no}}Vars"{{/if}}
      modal_id="{{modal.id}}"
      {{if (options.ms.action)}}act="{{ms.action}}"{{#else}}act="copy"{{/if}}  
@@ -20,6 +20,7 @@ class srcVariableList {
         <div class="fa fa-spinner fa-spin"></div>
         </div>
     </div>
+
 {{if (options.ms.scroll)}}</div>{{/if}}`
 
     constructor(modal, config={}) {
@@ -36,13 +37,38 @@ class srcVariableList {
     }
 
     fillContent() {
+    //The code below calculates the width of all the variables in a dataset
+    //This is necessary so that the horizontal scroll bar is displayed
+    //so that a user can see the variable names if they don't fit the width of the 
+    //fixed source variable lists
+    //We create a span to measure the width of each dataset variable
+    //Setting the minwidth so that the horizontal scroll bar displays
+    //If minwidth is not set the variable name is not visible as it is truncated
+    const tempSpan = document.querySelector('#BSkyTempSpanCalVarWidth.hidden-span');
+    let textWidth =0
+    
+    let srcVarElement = document.getElementById(this.id);
+    let maxWidth =srcVarElement.clientWidth
+    let flagMaxWidthChange = false
+    var item_name =""  
+    var dataset = getActiveDataset();
+    var data = store.get(dataset); 
+    data.cols.forEach(element =>    {
+        item_name = element.Name[0];
+        tempSpan.textContent = item_name
+        textWidth = tempSpan.offsetWidth; // Measure the rendered text width
+        if (textWidth > maxWidth) {
+            maxWidth = textWidth;
+            flagMaxWidthChange = true
+        }
+        
+    })
+
         var _action = this.action
         if ($(`#${this.modalID}`).find("[bs-type=cols]").length !== 0) {
             $(`#${this.modalID}`).find("[bs-type=cols]").each(
                 function(index, element) {
-                    var dataset = getActiveDataset();
                     var item_id = element.id
-                    var data = store.get(dataset);
                     if (data !== undefined) 
                     {
                         var order = []      
@@ -72,32 +98,61 @@ class srcVariableList {
                             //first source variable list  populates all objects with cols
                             if ($("#"+item_id).find(".a").length ==0)
                             {
+                                //Setting the minwidth so that the horizontal scroll bar displays
+                                //If minwidth is not set the variable name is not visible as it is truncated
+                                if ( flagMaxWidthChange)
+                                {
                                     data.cols.forEach(element =>    {
-                                    var item_name = element.Name[0];
-                                    order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
-                                    $(`#${item_id}`).append(`<a href="#" 
-                                    id="${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}"
-                                    class="list-group-item list-group-item-sm list-group-item-action measure-${element.Measure[0]} class-${element.ColClass[0]}" 
-                                    draggable="true" 
-                                    bs-row-type="${element.Type[0]}" 
-                                    bs-row-class="${element.ColClass[0]}" 
-                                    bs-row-measure="${element.Measure[0]}" 
-                                    ondragstart="drag(event, '${_action}')"
-                                    ondrop="drop(event)"
-                                    onclick="selectElement(event)">${item_name}</a>`) 
-                                });
+                                        item_name = element.Name[0];
+                                        order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
+                                        $(`#${item_id}`).append(`<a href="#" 
+                                        id="${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}"
+                                        class="list-group-item list-group-item-sm list-group-item-action measure-${element.Measure[0]} class-${element.ColClass[0]}" 
+                                        draggable="true" 
+                                        bs-row-type="${element.Type[0]}" 
+                                        bs-row-class="${element.ColClass[0]}" 
+                                        bs-row-measure="${element.Measure[0]}" 
+                                        style="min-width: ${maxWidth}px"; 
+                                        ondragstart="drag(event, '${_action}')"
+                                        ondrop="drop(event)"
+                                        onclick="selectElement(event)">${item_name}</a>`) 
+                                    })
+                                    $('#' + item_id).attr('maxVarWidth', maxWidth.toString()+"px" );
+                                } else 
+                                {
+                                    data.cols.forEach(element =>    {
+                                        item_name = element.Name[0];
+                                        order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
+                                        $(`#${item_id}`).append(`<a href="#" 
+                                        id="${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}"
+                                        class="list-group-item list-group-item-sm list-group-item-action measure-${element.Measure[0]} class-${element.ColClass[0]}" 
+                                        draggable="true" 
+                                        bs-row-type="${element.Type[0]}" 
+                                        bs-row-class="${element.ColClass[0]}" 
+                                        bs-row-measure="${element.Measure[0]}"                
+                                        ondragstart="drag(event, '${_action}')"
+                                        ondrop="drop(event)"
+                                        onclick="selectElement(event)">${item_name}</a>`) 
+                                    })
+                                }                  
                                 $(`#${item_id}`).attr('order', order.join("|||"))
-                                $(`#${this.id}Curtain`).hide()
+                                $(`#${item_id}Curtain`).hide()
+                                
                             }
                         }
                     } 
-                 else {
+                    else {
                         throw (`${dataset} is empty`)
                     }
+
+                   // scrollContainer.scrollLeft = 0;
                 }
             )
         }
     }
+
+
+
     
     canExecute() {
         return true
