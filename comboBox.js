@@ -26,10 +26,10 @@ class comboBox extends baseElement{
     constructor(modal, config) {
         super(modal, config)
         this.label = config.label
-        if (config.dynamicallyPopulated) {
-            this.dynamicallyPopulated =config.dynamicallyPopulated
-        }
-        
+        // if (config.dynamicallyPopulated) {
+        //     this.dynamicallyPopulated =config.dynamicallyPopulated
+        // }
+        this.dynamicallyPopulated = false
         if (config.required) {
             this.required = config.required
         }
