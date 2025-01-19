@@ -1646,7 +1646,7 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
     if (var2 =="" )
     {
         headerText2 =$(`#${ctrl2Id}`).siblings().text()
-        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('utilityRulVoiMsg5')} "${headerText2}" ${t('utilityRulVoiMsg1')}` })
+        dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('utilityRulVoiMsg5')} "${headerText2}" ${t('utilityRulVoiMsg10')}` })
         return
     }
     let var3 = ""
