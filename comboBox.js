@@ -40,8 +40,11 @@ class comboBox extends baseElement{
 
     clearContent() {
         var outer_this = this;
-        if (this.dynamicallyPopulated)
+        // console.log(`#${this.id} - Dynamic populated:`,this.dynamicallyPopulated)
+        if ($(`#${this.id}`).attr('dynamicallyPopulated') || this.dynamicallyPopulated)
         {
+            $(`#${this.id}`).attr("dynamicallyPopulated", "true")
+            this.dynamicallyPopulated = true
            // $(`#${this.id}`).empty()
            //clearComboChild(this.id)
            $(`#${this.id}`).children().each(function (index, element) {
@@ -54,7 +57,7 @@ class comboBox extends baseElement{
         else    {
         $(`#${this.id}`).find('option').each(function(index, item){
             if (outer_this.defaults.includes(item.value)){
-                $(`#${outer_this.id}`).siblings("ul").find("a")[index].classList.add("active") ;
+                $(`#${outer_this.id}`)?.siblings("ul")?.find("a")[index]?.classList.add("active") ;
                 item.setAttribute("selected", "selected")
             } else {
                 item.removeAttribute('selected');
