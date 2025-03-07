@@ -7,6 +7,7 @@
 
 
 var Sqrl = require('squirrelly');
+const {getT} = require("../../../../localization");
 var baseElement = require('./baseElement').baseElement;
 let t = getT('menutoolbar')
 
