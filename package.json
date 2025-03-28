@@ -1,12 +1,12 @@
 {
     "name": "@BlueSkyStatistics/elementslib",
-    "productName": "BlueSky Statistics Elements Library",
+    "productName": "BioStat Prime Elements Library",
     "description": "Elements Library",
     "keywords": [],
     "main": "library.js",
     "version": "1.2.4",
 	"minBSkyVersion":"8.93",	
-    "author": "BlueSky Statistics",
+    "author": "BioStat Prime",
     "scripts": {},
     "dependencies": {
         "squirrelly": "7.9.2"
