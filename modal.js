@@ -60,11 +60,11 @@ class modal {
                         data-toggle="tooltip" title="Help on dialog">
                             <i class="fas fa-question"></i>
                         </button>
-                        <button type="button" action="syntax" class="close mr-1 enable-tooltip" id="{{modal.id}}Syntax"
+                        <button type="button" action="syntax" class="close mr-1 enable-tooltip viewmodestyle" id="{{modal.id}}Syntax"
                         data-toggle="tooltip" title="Show R Syntax">
                             <i class="fas fa-code"></i>
                         </button>
-                        <button type="button" action="submit" class="close btn-tooltip mr-0 enable-tooltip" id="{{modal.id}}Submit"
+                        <button type="button" action="submit" class="close btn-tooltip mr-0 enable-tooltip viewmodestyle" id="{{modal.id}}Submit"
                         data-toggle="tooltip" title="Execute dialog">
                             <i class="fas fa-play"></i>
                         </button>
