@@ -1,4 +1,4 @@
-var Sqrl = require('squirrelly');
+    var Sqrl = require('squirrelly');
 
 class reRunDatasetList {
     content;
@@ -30,8 +30,18 @@ class reRunDatasetList {
         let outputDatasetList =[]
         let outputId =getActiveTabOutputId()
         $(`#${outputId} .outputGroup`).each((_, outGrp) => {
-            outputDatasetList.push($(outGrp).attr("dataset"))
-             })   
+            if ($(outGrp).is('[type]'))
+            {
+                if ($(outGrp).attr("type") != "openDatasetCommand")
+                {
+                    outputDatasetList.push($(outGrp).attr("dataset"))
+                }
+            } else {
+                outputDatasetList.push($(outGrp).attr("dataset"))
+            }
+        
+        
+        })   
         outputDatasetList = outputDatasetList.filter((item, index) => outputDatasetList.indexOf(item) === index);   
         var item_id = this.id;
         var order = []
