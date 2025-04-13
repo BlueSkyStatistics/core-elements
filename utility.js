@@ -4,6 +4,8 @@
   * allowed without the prior written permission from BlueSky Statistics, LLC.
  */
 
+const {getT: utilityGetT} = require("./localization.js");
+
 function removenewline(str) {
     //new line followed my one or more tabs
     let pattern = /\n\t+/g
@@ -275,7 +277,7 @@ function stringWithFacetsForPlotOfMeans(Facetrow, Facetcolumn, Facetwrap) {
     return tempFacets;
 }
 function addToFactorList(factor, levels, factorList) {
-    let t = getT('menutoolbar')
+    let t = utilityGetT('menutoolbar')
     let factorName = document.getElementById(factor).value;
     if (factorName == "") {
         ipcRenderer.invoke('errormessage', { title: t('handlerRulVoiTitle3'), message: `${t('errormessageIPCmsg1')}` });
@@ -300,7 +302,7 @@ function addToFactorList(factor, levels, factorList) {
 }
 
 function removeFromList(listID) {
-    let t = getT('menutoolbar')
+    let t = utilityGetT('menutoolbar')
     let liList = document.getElementById(listID).getElementsByTagName('ul')[0].getElementsByClassName('active');
     let ul = document.getElementById(listID).getElementsByTagName('ul')[0];
     if (liList.length == 0) {
@@ -314,7 +316,7 @@ function removeFromList(listID) {
 }
 
 function addToMeasureList(measure, measureList) {
-    let t = getT('menutoolbar')
+    let t = utilityGetT('menutoolbar')
     let measureName = document.getElementById(measure).value;
     if (measureName == "") {
         ipcRenderer.invoke('errormessage', { title: t('handlerRulVoiTitle3'), message: `${t('errormessageIPCmsg3')}` });
@@ -345,7 +347,7 @@ function getFromMeasureList(id) {
 }
 
 function createRepeatedMeasures(measureList, factorList, modal_id, nos) {
-    let t = getT('menutoolbar')
+    let t = utilityGetT('menutoolbar')
     let pointNum = 1
     let factorListCtrl = document.getElementById(factorList);
     let factorlistItems = factorListCtrl.getElementsByClassName("list-group-item")
@@ -456,7 +458,7 @@ function hasWritePermission(fpath) {
 //type =mediation is used for mediation 
 //equalityConstraints =true creates a property called equality constrainst that is used to create the correct syntax for equality constrains in common.js
 function createEndoExoVariables(modal_id, nos, filter, equalityConstraints, placeHolderText, type ) {
-    let t = getT('menutoolbar')
+    let t = utilityGetT('menutoolbar')
     //Moderation destination controls only support a single set
     if (modal_id =="sem" && nos =="mediationDestCtrl")
     {
@@ -567,7 +569,7 @@ function checkNames (textBoxId)
 
 function checkDuplicateNames(textBoxId, modalId)
 {
-    let t = getT('menutoolbar')
+    let t = utilityGetT('menutoolbar')
     let oriTextBoxId = textBoxId
     let valEntered =$(`#${textBoxId}`).val()
     let latentCtrlId = "#" + modalId + "_" +"sem"
@@ -613,7 +615,7 @@ function checkDuplicateNames(textBoxId, modalId)
 //3. If the new value is not empty, we add the new value to all supporting controls
 function actionOnCreateLatentVarHighorderVar(textBoxId, modalId, ctrlId) 
 {
-    let t = getT('menutoolbar')
+    let t = utilityGetT('menutoolbar')
     //We don't populate supporting controls or have to check anything with equality constraints
     //The names of the equality constraints are not used, also the control is disabled
     if (ctrlId == "sem3" || ctrlId == "mediationDestCtrl") return
@@ -1616,7 +1618,7 @@ function extractBeforeLastUnderscore(inputString) {
 
 function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
 {
-    let t = getT('menutoolbar')
+    let t = utilityGetT('menutoolbar')
     //suppCtrlAddIds = JSON.parse(suppCtrlAddIds)
     //ctrlsToDeleteFrom = JSON.parse($(`#${item[0].id}`).attr('ctrlsToDeleteFrom'))
     let headerText1 =""
