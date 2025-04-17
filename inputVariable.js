@@ -1,3 +1,9 @@
+/**
+  * This file is protected by copyright (c) 2023-2025 by BlueSky Statistics, LLC.
+  * All rights reserved. The copy, modification, or distribution of this file is not
+  * allowed without the prior written permission from BlueSky Statistics, LLC.
+ */
+
 var Sqrl = require('squirrelly');
 var baseElement = require('./baseElement').baseElement;
 let t = getT('menutoolbar')
@@ -70,9 +76,13 @@ class inputVariable extends baseElement {
         let pattern = ""
         var outer_this = this;
         var value = this.getVal()
+        var dataset = getActiveDataset();
+        var data = store.get(dataset); 
+        const columnNames = data.cols.map(col => col.Name[0]);
+        console.log()
         switch (this.overwrite){
             case "variable":
-               if (getActiveVariables().indexOf(value) > -1){
+               if (columnNames.indexOf(value) > -1){
                 var ret = dialog.showMessageBoxSync({type: "question", buttons: ["Ok", "Cancel"], title: t('advTxtBxRulViolationMSgTitle1'), message: `${t('advTxtBxRulViolationMSg1')}: "${outer_this.label}" ${t('advTxtBxRulViolationMSg2')}: ${value}`})
                 if (ret === 0){
                     break
