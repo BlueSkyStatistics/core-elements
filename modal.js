@@ -7,10 +7,16 @@
 var Sqrl = require('squirrelly');
 const common = require("./common")
 let showExtrnalHelpicon = store.get("showExtrnalHelpicon", false)
+let showoldHelpicon = store.get("showOldDialogHelpicon", true)
 
 let hideclass = "d-none"
 if(showExtrnalHelpicon){
     hideclass=""
+}
+
+let hideclassOldHelp = "d-none"
+if(showoldHelpicon){
+    hideclassOldHelp=""
 }
 class modal {
     htmlPieces = {
@@ -56,7 +62,7 @@ class modal {
                         data-toggle="tooltip" title="Open Help in a Window">
                             <i class="icon-expand mr-1"></i>
                         </button>                           
-                        <button type="button" action="help" class="close mr-1 enable-tooltip" id="{{modal.id}}Help"
+                        <button type="button" action="help" class="close ${hideclassOldHelp} mr-1 enable-tooltip" id="{{modal.id}}Help"
                         data-toggle="tooltip" title="Help on dialog">
                             <i class="fas fa-question"></i>
                         </button>
