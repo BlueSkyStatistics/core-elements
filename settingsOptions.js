@@ -236,7 +236,7 @@ class RLocaleOpt {
                     <label class="form-check-label mr-2">
                     Example : if you set locale to "Chinese (Simplified)", you should also set the font to "Microsoft Yahei" or "SimSun" in the Theme dialog</label>
                     <p>
-                    <label class="form-check-label mr-2">visit the support page on our website (www.blueskystatistics.com) for the related technote and further deatils</label>
+                    <label class="form-check-label mr-2">visit the support page on our website (www.biostatprime.com) for the related technote and further deatils</label>
                   </div>            
                 </div>
                 <div id="delimmarkerdiv" class="pb-3"> 

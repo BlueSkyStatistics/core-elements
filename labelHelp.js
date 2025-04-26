@@ -17,9 +17,9 @@ class labelHelp {
 <ul><li><a href="https://youtu.be/KH2FWSo3IU4">Whats new in BioStat Prime Beta 2</a></li><li> <a href="https://youtu.be/jpP9ilu0GBc">Improvements to the R code editor in BioStat Prime Beta 2</a></li><li> <a href="https://youtu.be/ypLXqmFp3jY">Reshape / Restructure-Long to Wide</a></li><li><a href="https://youtu.be/5P8g9c5y_U4">Restructure/Reshape data to longer format</a></li></ul>
 <h8>Can't find a dialog..</h8>
 <p>Click&nbsp;<a href="https://www.blueskystatistics.com/Articles.asp?ID=318"> list of all dialogs</a> to search a complete list of all dialogs in BioStat Prime<p><p>
-<h8>Technical Support and Feedback</h8><br/>For technical support, please email <a href="mailto:support@blueskystatistics.com">support@blueskystatistics.com</a><p>
+<h8>Technical Support and Feedback</h8><br/>For technical support, please email <a href="mailto:support@biostatprime.com">support@biostatprime.com</a><p>
 <h8>Additional Details</h8></br>
-For more details visit <a href="https://www.blueskystatistics.com/">BioStat Prime</a>
+For more details visit <a href="https://www.biostatprime.com/">BioStat Prime</a>
     `
     constructor(modal, config) {
         this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
