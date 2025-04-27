@@ -5,7 +5,7 @@
  */
 
 var Sqrl = require('squirrelly');
-const {getT} = require("../../../../localization");
+const {getT} = global.requireFromRoot("localization");
 let t = getT('menutoolbar')
 class optionsMenu {
     content;
