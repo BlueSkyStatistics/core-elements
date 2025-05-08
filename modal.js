@@ -6,8 +6,8 @@
 
 var Sqrl = require('squirrelly');
 const common = require("./common")
-let showExtrnalHelpicon = store.get("showExtrnalHelpicon", false)
-let showoldHelpicon = store.get("showOldDialogHelpicon", true)
+let showExtrnalHelpicon = store.get("showExtrnalHelpicon", true)
+let showoldHelpicon = store.get("showOldDialogHelpicon", false)
 
 let hideclass = "d-none"
 if(showExtrnalHelpicon){
