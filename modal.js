@@ -8,6 +8,7 @@ var Sqrl = require('squirrelly');
 const common = require("./common")
 let showExtrnalHelpicon = store.get("showExtrnalHelpicon", true)
 let showoldHelpicon = store.get("showOldDialogHelpicon", false)
+let showSyntaxicon = configStore.get("noR")
 
 let hideclass = "d-none"
 if(showExtrnalHelpicon){
@@ -17,6 +18,11 @@ if(showExtrnalHelpicon){
 let hideclassOldHelp = "d-none"
 if(showoldHelpicon){
     hideclassOldHelp=""
+}
+
+let hideclassSyntax= ""
+if(showSyntaxicon){
+    hideclassSyntax="d-none"
 }
 class modal {
     htmlPieces = {
@@ -66,7 +72,7 @@ class modal {
                         data-toggle="tooltip" title="Help on dialog">
                             <i class="fas fa-question"></i>
                         </button>
-                        <button type="button" action="syntax" class="close mr-1 enable-tooltip viewmodestyle" id="{{modal.id}}Syntax"
+                        <button type="button" action="syntax" class="close ${hideclassSyntax} mr-1 enable-tooltip viewmodestyle" id="{{modal.id}}Syntax"
                         data-toggle="tooltip" title="Show R Syntax">
                             <i class="fas fa-code"></i>
                         </button>
