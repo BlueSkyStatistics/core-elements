@@ -4,7 +4,7 @@
     "description": "Elements Library",
     "keywords": [],
     "main": "library.js",
-    "version": "1.2.4",
+    "version": "1.2.5",
 	"minBSkyVersion":"8.93",	
     "author": "BioStat Prime",
     "scripts": {},
