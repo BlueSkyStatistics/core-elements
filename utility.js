@@ -4,7 +4,7 @@
   * allowed without the prior written permission from BlueSky Statistics, LLC.
  */
 
-const {getT: utilityGetT} = require("./localization.js");
+const {getT: utilityGetT} = requireFromRoot("localization.js");
 
 function removenewline(str) {
     //new line followed my one or more tabs
@@ -1850,3 +1850,42 @@ function deepCopy(obj) {
   
     return newObj;
   }
+
+module.exports = {
+    extractBeforeLastUnderscore,
+    removenewline,
+    getVariablesInMixedModel,
+    getNoOFFactorVariablesInFixedEffectsRandomEffects,
+    listOfAll2WayInteractions,
+    listOfAllNWayInteractions,
+    getFixedEffectsandCovariates,
+    checkSingleDepVar,
+    createfacets,
+    stringWithFacetsForPlotOfMeans,
+    addToFactorList,
+    removeFromList,
+    addToMeasureList,
+    getFromMeasureList,
+    createRepeatedMeasures,
+    hasWritePermission,
+    createEndoExoVariables,
+    checkNames,
+    checkDuplicateNames,
+    actionOnCreateLatentVarHighorderVar,
+    autoPopulateCovar,
+    populateEqualityConstraints,
+    checkIfInASet,
+    populateEqualityConstraint,
+    autoPopCovarTerm,
+    deletingLatentOrHigher,
+    removeFromDestCtrl,
+    deleteFromSemModelCtrls,
+    deleteItemsFromSupportingCtrlsDragDrop,
+    deleteFromSemModelCtrlsDragDrop,
+    deleteItemsFromSupportingCtrls,
+    removeElementsFromArray,
+    stringToRCharacterArray,
+    addToModelTermsDest,
+    removeFromModelTermsDest,
+    deepCopy
+};

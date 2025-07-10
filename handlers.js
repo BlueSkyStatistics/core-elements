@@ -4,8 +4,9 @@
   * allowed without the prior written permission from BlueSky Statistics, LLC.
  */
 
-const { getMultiVal } = require("./common");
 const {getT} = global.requireFromRoot("localization");
+const Sqrl = require('squirrelly')
+const {extractBeforeLastUnderscore, deleteFromSemModelCtrlsDragDrop} = require("./utility");
 let t = getT('menutoolbar')
 
 function attachActionToMoveArrow(parentId) {

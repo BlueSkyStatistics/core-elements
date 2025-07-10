@@ -147,7 +147,7 @@ class modal {
 
     extractData() {
         var code_vars = {}
-        code_vars ["BSkyThemes"] = themeRsyntax;
+        code_vars ["BSkyThemes"] = global.themeRsyntax;
         $(`#${this.id}`).find((`[extractable=true]`)).each(function (index, item) {
             code_vars[item.getAttribute("no")] = common.transform(common.getVal(item.getAttribute("id")), item.getAttribute("extractionRule"),item.getAttribute("id") )
             if (code_vars[item.getAttribute("no")] && item.hasAttribute("wrapped")) {
@@ -160,7 +160,7 @@ class modal {
 
     extractSemData() {
         var code_vars = {}
-        code_vars ["BSkyThemes"] = themeRsyntax;
+        code_vars ["BSkyThemes"] = global.themeRsyntax;
         $(`#${this.id}`).find((`[extractable=true]`)).each(function (index, item) {
 
             if (item.getAttribute("no") == "sem" || item.getAttribute("no") == "sem2"|| item.getAttribute("no") == "sem3" ||item.getAttribute("no") == "modelTermsDst"||item.getAttribute("no") == "coVarDst"|| item.getAttribute("no") == "mediationDestCtrl")
