@@ -318,6 +318,108 @@ class SaveAppSettings {
     clearContent() { }
 }
 
+class LLMOpt {
+    content;
+    id;
+    htmlTemplate = `
+      <div id="llmSettingsDiv" class="pb-3">
+        <h5>LLM API Settings</h5>
+        <div class="form-group pb-2">
+          <label for="llmProviderType">Provider Type
+            <span title="Choose your LLM provider. For Azure, ensure your endpoint and deployment name are correct." style="cursor: help; color: #007bff;">&#9432;</span>
+          </label>
+          <select class="form-select w-50" id="llmProviderType">
+            <option value="openai">OpenAI</option>
+            <option value="azure">Azure OpenAI</option>
+            <option value="custom">Custom</option>
+          </select>
+        </div>
+        <div class="form-group pb-2">
+          <label for="llmApiUrl">API URL
+            <span title="The full endpoint for chat completions. For OpenAI: https://api.openai.com/v1/chat/completions. For Azure: your deployment endpoint." style="cursor: help; color: #007bff;">&#9432;</span>
+          </label>
+          <input type="text" class="form-control w-75" id="llmApiUrl" placeholder="https://api.openai.com/v1/chat/completions" required>
+        </div>
+        <div class="form-group pb-2">
+          <label for="llmModel">Model Name
+            <span title="For OpenAI: gpt-3.5-turbo, gpt-4, etc. For Azure: your deployment name." style="cursor: help; color: #007bff;">&#9432;</span>
+          </label>
+          <input type="text" class="form-control w-50" id="llmModel" placeholder="gpt-3.5-turbo" required>
+        </div>
+        <div class="form-group pb-2">
+          <label for="llmApiKey">API Key / Token
+            <span title="Your secret API key. For OpenAI, starts with sk-. For Azure, use your Azure API key." style="cursor: help; color: #007bff;">&#9432;</span>
+          </label>
+          <input type="password" class="form-control w-50" id="llmApiKey" placeholder="sk-..." required>
+        </div>
+        <div class="form-text text-muted">Your API key is stored locally and only used for LLM requests.</div>
+        <div id="llmSettingsWarning" class="alert alert-warning mt-2" style="display:none;"></div>
+        <button id="llmSettingsSaveBtn" class="btn btn-primary mt-3">Save LLM Settings</button>
+        <div id="llmSettingsSavedMsg" class="text-success mt-2" style="display:none;">LLM settings saved!</div>
+      </div>
+    `;
+    constructor(modal, config) {
+        this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config });
+        // Attach event handler after DOM insertion
+        setTimeout(() => {
+            // Pre-fill fields with current values from Electron Store
+            if (window.require) {
+                const Store = window.require('electron-store');
+                const sessionStore = new Store({name: 'constants'});
+                const store = new Store({name: `appconfig.v${sessionStore.get('version')}`});
+                const provider = store.get('llmProviderType', 'openai');
+                const url = store.get('llmApiUrl', 'https://api.openai.com/v1/chat/completions');
+                const model = store.get('llmModel', 'gpt-3.5-turbo');
+                const key = store.get('llmApiKey', '');
+                const providerEl = document.getElementById('llmProviderType');
+                const urlEl = document.getElementById('llmApiUrl');
+                const modelEl = document.getElementById('llmModel');
+                const keyEl = document.getElementById('llmApiKey');
+                if (providerEl) providerEl.value = provider;
+                if (urlEl) urlEl.value = url;
+                if (modelEl) modelEl.value = model;
+                if (keyEl) keyEl.value = key;
+            }
+            const saveBtn = document.getElementById('llmSettingsSaveBtn');
+            const warningDiv = document.getElementById('llmSettingsWarning');
+            const savedMsg = document.getElementById('llmSettingsSavedMsg');
+            if (saveBtn) {
+                saveBtn.onclick = function() {
+                    warningDiv.style.display = 'none';
+                    savedMsg.style.display = 'none';
+                    const url = document.getElementById('llmApiUrl').value.trim();
+                    const model = document.getElementById('llmModel').value.trim();
+                    const key = document.getElementById('llmApiKey').value.trim();
+                    if (!url || !model || !key) {
+                        warningDiv.textContent = 'Please fill in all required LLM settings fields.';
+                        warningDiv.style.display = '';
+                        return;
+                    }
+                    // Save to Electron Store
+                    if (window.require) {
+                        const Store = window.require('electron-store');
+                        const sessionStore = new Store({name: 'constants'});
+                        const store = new Store({name: `appconfig.v${sessionStore.get('version')}`});
+                        store.set('llmProviderType', document.getElementById('llmProviderType').value);
+                        store.set('llmApiUrl', url);
+                        store.set('llmModel', model);
+                        store.set('llmApiKey', key);
+                        savedMsg.style.display = '';
+                        setTimeout(()=>{ savedMsg.style.display = 'none'; }, 2000);
+                    } else {
+                        warningDiv.textContent = 'Settings could not be saved (Electron context required).';
+                        warningDiv.style.display = '';
+                    }
+                };
+            }
+        }, 0);
+    }
+    canExecute() {
+        return true;
+    }
+    clearContent() { }
+}
+
 
 module.exports.OutputOpt = OutputOpt;
 module.exports.OutputTblOpt = OutputTblOpt;
@@ -325,3 +427,4 @@ module.exports.MiscOpt = MiscOpt;
 module.exports.RLocaleOpt = RLocaleOpt;
 module.exports.DatabaseOpt = DatabaseOpt;
 module.exports.SaveAppSettings = SaveAppSettings;
+module.exports.LLMOpt = LLMOpt;
