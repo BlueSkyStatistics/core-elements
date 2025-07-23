@@ -82,6 +82,7 @@ module.exports = {
     "populateVariablesOfDataset":handlers.populateVariablesOfDataset,
     "addToJoin":handlers.addToJoin,
     "updateModalHandler": handlers.updateModalHandler,
+    "rconsole_autocompleteHandler":handlers.rconsole_autocompleteHandler,
     "renderChild": handlers.renderChild,
     "renderDependants": handlers.renderDependants,
     "toFocusedInput": handlers.toFocusedInput,
