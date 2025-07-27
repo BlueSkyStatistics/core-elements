@@ -899,7 +899,7 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
 
   }
 
-  var differenceInsert = { 'Date Difference': ['as.double(difftime(time1= ', ', time2 =', ', units=c("days")))'] }
+  var differenceInsert = { 'Date Difference': ['as.double(difftime(time1= ', ', time2 =', ', units="days"))'] }
   var complexerapstr = {
     'toupper': [`toupper(x=`, `)`],
     'tolower': [`tolower(x=`, `)`],
@@ -1798,6 +1798,25 @@ function clearSelect(element_id) {
       document.getElementById(element_id).remove(0);
     }
   }
+}
+
+
+
+module.exports.rconsole_autocompleteHandler = (element_id, content) => {
+  //const keys = content[0];
+  //const values = content[1];
+  
+  //Object.fromEntries(keys.map((k, i) => [k, values[i]]));
+  //cachedFunctions =Object.values(content[0]).map(arr => arr[0]);
+  //cachedFunctions =Object.entries(content[0]).map(([key, value]) => [key, value.signature]);
+  cachedFunctions = Object.values(content[0]).map(item => item.signature);
+
+  //Code below works
+  const signatureArray = Object.values(content[0]).map(item => item.signature);
+  functionSignatures =  Object.fromEntries(
+  Object.entries(content[0]).map(([key, value]) => [key, value.signature]));
+  functionPackageDetails =content[0]
+   
 }
 
 module.exports.updateModalHandler = (element_id, content) => {
