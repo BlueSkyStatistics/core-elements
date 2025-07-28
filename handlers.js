@@ -5,6 +5,7 @@
  */
 
 const { getMultiVal } = require("./common");
+//const {getT} = global.requireFromRoot("localization");
 let t = getT('menutoolbar')
 
 function attachActionToMoveArrow(parentId) {
@@ -698,6 +699,14 @@ function toggleFormulaButtonOff(el) {
     $(`#${modal_id}`).find(".formula-btn.activated, .formula-select.activated").removeClass("activated")
   }
 }
+
+function isSameControl(el) {
+  if (el.classList.contains("activated") || el.parentElement.classList.contains("activated")) {
+    return true
+  }
+  return false
+}
+
 function toggleButton(ev, toglable = false) {
   ev.preventDefault();
   ev.stopPropagation();
@@ -1820,34 +1829,43 @@ module.exports.rconsole_autocompleteHandler = (element_id, content) => {
 }
 
 module.exports.updateModalHandler = (element_id, content) => {
-  var el_type = $(`#${element_id}`).attr('bs-type')
+  const $el = $(`#${element_id}`)
+  const el_type = $el.attr('bs-type');
+
+  if (content === null || content === undefined) {
+    content = '';
+  }
+
   switch (el_type) {
     case 'combobox':
-      renderCombo(element_id, content)
-      $(`#${element_id}`).trigger('change');
+      renderCombo(element_id, content);
+      $el.trigger('change');
       break;
     case 'select':
-      renderSelect(element_id, content)
-      $(`#${element_id}`).trigger('change');
+      renderSelect(element_id, content);
+      $el.trigger('change');
       break;
-
     case 'label':
-      switch (typeof (content)) {
-        case "boolean":
-          conent = content.toString().toUpperCase()
-          break;
-        case "object":
-          content = content.join(", ")
-          content[0] = content[0].replace(/\\n/g, '\n');
-        default:
-          content = content !== "" ? content : "OFF"
+      if (typeof content === 'boolean') {
+        content = content.toString().toUpperCase();
+      } else if (Array.isArray(content)) {
+        content = content.join(", ");
+        if (content.length > 0) {
+          content = content.replace(/\\n/g, '\n');
+        }
+      } else {
+        content = content !== "" ? content : "OFF";
       }
-      $(`#${element_id}`).text(content)
+      $el.text(content);
       break;
     default:
-      ipcRenderer.invoke("log", { message: `No such handler ${el_type} from ${element_id}`, source: "ModalHandler", event: "error" })
+      ipcRenderer.send("log", {
+        message: `No such handler ${el_type} from ${element_id}`,
+        source: "ModalHandler",
+        event: "error"
+      });
   }
-}
+};
 function populateVariablesOfDataset(ctrlToPopulate, title, value, type) {
   document.getElementById(title).innerText = t('SelDSsrclbl1') + type + t('SelDSsrclbl4')+": " + value;
   $(`#${ctrlToPopulate}`).children().each(function (index, element) {

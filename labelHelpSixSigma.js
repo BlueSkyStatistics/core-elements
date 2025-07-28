@@ -6,6 +6,7 @@
 
 var Sqrl = require('squirrelly');
 const common = require("./common")
+//const {getT} = global.requireFromRoot("localization");
 let t = getT('menutoolbar')
 class labelHelpSixSigma {
     content;
