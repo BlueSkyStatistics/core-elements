@@ -354,64 +354,28 @@ class LLMOpt {
         </div>
         <div class="form-text text-muted">Your API key is stored locally and only used for LLM requests.</div>
         <div id="llmSettingsWarning" class="alert alert-warning mt-2" style="display:none;"></div>
-        <button id="llmSettingsSaveBtn" class="btn btn-primary mt-3">Save LLM Settings</button>
+        <button id="llmSettingsSaveBtn" class="btn btn-primary mt-3" onclick="saveLlmSettings()">Save LLM Settings</button>
         <div id="llmSettingsSavedMsg" class="text-success mt-2" style="display:none;">LLM settings saved!</div>
       </div>
     `;
     constructor(modal, config) {
         this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config });
+        const {store} = global
         // Attach event handler after DOM insertion
         setTimeout(() => {
             // Pre-fill fields with current values from Electron Store
-            if (window.require) {
-                const Store = window.require('electron-store').default;
-                const sessionStore = new Store({name: 'constants'});
-                const store = new Store({name: `appconfig.v${sessionStore.get('version')}`});
-                const provider = store.get('llmProviderType', 'openai');
-                const url = store.get('llmApiUrl', 'https://api.openai.com/v1/chat/completions');
-                const model = store.get('llmModel', 'gpt-3.5-turbo');
-                const key = store.get('llmApiKey', '');
-                const providerEl = document.getElementById('llmProviderType');
-                const urlEl = document.getElementById('llmApiUrl');
-                const modelEl = document.getElementById('llmModel');
-                const keyEl = document.getElementById('llmApiKey');
-                if (providerEl) providerEl.value = provider;
-                if (urlEl) urlEl.value = url;
-                if (modelEl) modelEl.value = model;
-                if (keyEl) keyEl.value = key;
-            }
-            const saveBtn = document.getElementById('llmSettingsSaveBtn');
-            const warningDiv = document.getElementById('llmSettingsWarning');
-            const savedMsg = document.getElementById('llmSettingsSavedMsg');
-            if (saveBtn) {
-                saveBtn.onclick = function() {
-                    warningDiv.style.display = 'none';
-                    savedMsg.style.display = 'none';
-                    const url = document.getElementById('llmApiUrl').value.trim();
-                    const model = document.getElementById('llmModel').value.trim();
-                    const key = document.getElementById('llmApiKey').value.trim();
-                    if (!url || !model || !key) {
-                        warningDiv.textContent = 'Please fill in all required LLM settings fields.';
-                        warningDiv.style.display = '';
-                        return;
-                    }
-                    // Save to Electron Store
-                    if (window.require) {
-                        const Store = window.require('electron-store');
-                        const sessionStore = new Store({name: 'constants'});
-                        const store = new Store({name: `appconfig.v${sessionStore.get('version')}`});
-                        store.set('llmProviderType', document.getElementById('llmProviderType').value);
-                        store.set('llmApiUrl', url);
-                        store.set('llmModel', model);
-                        store.set('llmApiKey', key);
-                        savedMsg.style.display = '';
-                        setTimeout(()=>{ savedMsg.style.display = 'none'; }, 2000);
-                    } else {
-                        warningDiv.textContent = 'Settings could not be saved (Electron context required).';
-                        warningDiv.style.display = '';
-                    }
-                };
-            }
+            const provider = store.get('llmProviderType', 'openai');
+            const url = store.get('llmApiUrl', 'https://api.openai.com/v1/chat/completions');
+            const model = store.get('llmModel', 'gpt-3.5-turbo');
+            const key = store.get('llmApiKey', '');
+            const providerEl = document.getElementById('llmProviderType');
+            const urlEl = document.getElementById('llmApiUrl');
+            const modelEl = document.getElementById('llmModel');
+            const keyEl = document.getElementById('llmApiKey');
+            if (providerEl) providerEl.value = provider;
+            if (urlEl) urlEl.value = url;
+            if (modelEl) modelEl.value = model;
+            if (keyEl) keyEl.value = key;
         }, 0);
     }
     canExecute() {
@@ -420,6 +384,28 @@ class LLMOpt {
     clearContent() { }
 }
 
+
+global.saveLlmSettings = function() {
+    const warningDiv = document.getElementById('llmSettingsWarning');
+    const savedMsg = document.getElementById('llmSettingsSavedMsg');
+    warningDiv.style.display = 'none';
+    savedMsg.style.display = 'none';
+    const url = document.getElementById('llmApiUrl').value.trim();
+    const model = document.getElementById('llmModel').value.trim();
+    const key = document.getElementById('llmApiKey').value.trim();
+    if (!url || !model || !key) {
+        warningDiv.textContent = 'Please fill in all required LLM settings fields.';
+        warningDiv.style.display = '';
+        return;
+    }
+
+    store.set('llmProviderType', document.getElementById('llmProviderType').value);
+    store.set('llmApiUrl', url);
+    store.set('llmModel', model);
+    store.set('llmApiKey', key);
+    savedMsg.style.display = '';
+    setTimeout(()=>{ savedMsg.style.display = 'none'; }, 2000);
+}
 
 module.exports.OutputOpt = OutputOpt;
 module.exports.OutputTblOpt = OutputTblOpt;
