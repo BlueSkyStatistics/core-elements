@@ -6,7 +6,7 @@
 
 
 
-var Sqrl = require('squirrelly');
+const Sqrl = require('squirrelly');
 const {getT} = global.requireFromRoot("localization");
 let t = getT('menutoolbar')
 

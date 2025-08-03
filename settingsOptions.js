@@ -364,7 +364,7 @@ class LLMOpt {
         setTimeout(() => {
             // Pre-fill fields with current values from Electron Store
             if (window.require) {
-                const Store = window.require('electron-store');
+                const Store = window.require('electron-store').default;
                 const sessionStore = new Store({name: 'constants'});
                 const store = new Store({name: `appconfig.v${sessionStore.get('version')}`});
                 const provider = store.get('llmProviderType', 'openai');
