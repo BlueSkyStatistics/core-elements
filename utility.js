@@ -1887,5 +1887,6 @@ module.exports = {
     stringToRCharacterArray,
     addToModelTermsDest,
     removeFromModelTermsDest,
-    deepCopy
+    deepCopy,
+    fetchAllColumnAttributes
 };
