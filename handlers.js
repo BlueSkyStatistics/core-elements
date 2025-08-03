@@ -139,7 +139,7 @@ function _drop(objects, action, object_ids, parentID) {
 
   let maxVarWidth =0
   let oriVarWidth =0
-	let parent_element = document.getElementById(parentID);
+  let parent_element = document.getElementById(parentID);
   //Determines whether a source or destination variable that we are moving variables to
   //has a maxVarWidth
   //The property above is set when the size of the contained variables exceed the variable control size
@@ -156,13 +156,13 @@ function _drop(objects, action, object_ids, parentID) {
     maxVarWidth = parent_element.clientWidth
   }
   /* 
-	let maxVarWidthToSet = parent_element.getAttribute("maxVarWidth");
+  let maxVarWidthToSet = parent_element.getAttribute("maxVarWidth");
   maxVarWidthToSet = parent_element.clientWidth;
   maxVarWidthToSet =maxVarWidthToSet -20
   maxVarWidth = parent_element.clientWidth; */
-	let textWidth =0
-	let inserted_variable_name =""  
-	let flagMaxWidthChange = false
+  let textWidth =0
+  let inserted_variable_name =""  
+  let flagMaxWidthChange = false
   let index =   1
   let priorElementOrder = 0
   let finalOrder = 0
@@ -261,9 +261,9 @@ function _drop(objects, action, object_ids, parentID) {
       {
         stop = true
         dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('handlerRulVoiMsg4')} ` })
-			  return
+        return
       }
-	  } else  if (object_ids.length == 1 && elements.length == 1  )
+    } else  if (object_ids.length == 1 && elements.length == 1  )
     {
     //Case if I am dragging 1 item and there is an existing item
       //let firstElement2nditem = $("#"+ object_ids[0]).text().split("->")[1]
@@ -290,7 +290,7 @@ function _drop(objects, action, object_ids, parentID) {
         dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('handlerRulVoiMsg5')}` })
         return
       }
-	} else if (object_ids.length >= 1 && elements.length >= 2  )
+  } else if (object_ids.length >= 1 && elements.length >= 2  )
   {
     //case when I am dragging one or more items and there are already 2 items    
      stop = true

@@ -8,11 +8,9 @@
 	"minBSkyVersion":"8.93",	
     "author": "BlueSky Statistics",
     "scripts": {},
-    "dependencies": {
-        "squirrelly": "7.9.2"
-    },
+    "dependencies": {},
     "devDependencies": {
-        "asar": "^3.1.0"
+        "asar": "^3.2.0"
     },
     "repository": {
         "type": "git",

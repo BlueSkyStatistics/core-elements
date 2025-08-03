@@ -4,9 +4,9 @@
   * allowed without the prior written permission from BlueSky Statistics, LLC.
  */
 
-var Sqrl = require('squirrelly');
+const Sqrl = require('squirrelly');
 const {getT} = global.requireFromRoot("localization");
-var baseElement = require('./baseElement').baseElement;
+const baseElement = require('./baseElement').baseElement;
 let t = getT('menutoolbar')
 class selectDataset extends baseElement {
     content;
