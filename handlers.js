@@ -1819,6 +1819,26 @@ module.exports.rconsole_autocompleteHandler = (element_id, content) => {
    
 }
 
+module.exports.rconsole_autocompleteHandler = (element_id, content) => {
+  //const keys = content[0];
+  //const values = content[1];
+  
+  //Object.fromEntries(keys.map((k, i) => [k, values[i]]));
+  //cachedFunctions =Object.values(content[0]).map(arr => arr[0]);
+  //cachedFunctions =Object.entries(content[0]).map(([key, value]) => [key, value.signature]);
+  //cachedFunctions = Object.values(content[0]).map(item => item.signature);
+
+  //Code below works
+  //const signatureArray = Object.values(content[0]).map(item => item.signature);
+  //functionSignatures =  Object.fromEntries(
+  //Object.entries(content[0]).map(([key, value]) => [key, value.signature]));
+  loadedPackages =content[0]
+   
+}
+
+
+
+
 module.exports.updateModalHandler = (element_id, content) => {
   var el_type = $(`#${element_id}`).attr('bs-type')
   switch (el_type) {
