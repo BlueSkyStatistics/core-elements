@@ -4,6 +4,7 @@
   * allowed without the prior written permission from BlueSky Statistics, LLC.
  */
 
+const { getMultiVal } = require("./common");
 const {getT} = global.requireFromRoot("localization");
 const Sqrl = require('squirrelly')
 const {extractBeforeLastUnderscore, deleteFromSemModelCtrlsDragDrop} = require("./utility");
@@ -139,7 +140,7 @@ function _drop(objects, action, object_ids, parentID) {
 
   let maxVarWidth =0
   let oriVarWidth =0
-  let parent_element = document.getElementById(parentID);
+	let parent_element = document.getElementById(parentID);
   //Determines whether a source or destination variable that we are moving variables to
   //has a maxVarWidth
   //The property above is set when the size of the contained variables exceed the variable control size
@@ -156,13 +157,13 @@ function _drop(objects, action, object_ids, parentID) {
     maxVarWidth = parent_element.clientWidth
   }
   /* 
-  let maxVarWidthToSet = parent_element.getAttribute("maxVarWidth");
+	let maxVarWidthToSet = parent_element.getAttribute("maxVarWidth");
   maxVarWidthToSet = parent_element.clientWidth;
   maxVarWidthToSet =maxVarWidthToSet -20
   maxVarWidth = parent_element.clientWidth; */
-  let textWidth =0
-  let inserted_variable_name =""  
-  let flagMaxWidthChange = false
+	let textWidth =0
+	let inserted_variable_name =""  
+	let flagMaxWidthChange = false
   let index =   1
   let priorElementOrder = 0
   let finalOrder = 0
@@ -261,9 +262,9 @@ function _drop(objects, action, object_ids, parentID) {
       {
         stop = true
         dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('handlerRulVoiMsg4')} ` })
-        return
+			  return
       }
-    } else  if (object_ids.length == 1 && elements.length == 1  )
+	  } else  if (object_ids.length == 1 && elements.length == 1  )
     {
     //Case if I am dragging 1 item and there is an existing item
       //let firstElement2nditem = $("#"+ object_ids[0]).text().split("->")[1]
@@ -290,7 +291,7 @@ function _drop(objects, action, object_ids, parentID) {
         dialog.showMessageBoxSync({ type: "error", buttons: ["OK"], title: t('handlerRulVoiTitle3'), message: `${t('handlerRulVoiMsg5')}` })
         return
       }
-  } else if (object_ids.length >= 1 && elements.length >= 2  )
+	} else if (object_ids.length >= 1 && elements.length >= 2  )
   {
     //case when I am dragging one or more items and there are already 2 items    
      stop = true
@@ -909,7 +910,7 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
 
   }
 
-  var differenceInsert = { 'Date Difference': ['as.double(difftime(time1= ', ', time2 =', ', units=c("days")))'] }
+  var differenceInsert = { 'Date Difference': ['as.double(difftime(time1= ', ', time2 =', ', units="days"))'] }
   var complexerapstr = {
     'toupper': [`toupper(x=`, `)`],
     'tolower': [`tolower(x=`, `)`],
@@ -1808,6 +1809,25 @@ function clearSelect(element_id) {
       document.getElementById(element_id).remove(0);
     }
   }
+}
+
+
+
+module.exports.rconsole_autocompleteHandler = (element_id, content) => {
+  //const keys = content[0];
+  //const values = content[1];
+  
+  //Object.fromEntries(keys.map((k, i) => [k, values[i]]));
+  //cachedFunctions =Object.values(content[0]).map(arr => arr[0]);
+  //cachedFunctions =Object.entries(content[0]).map(([key, value]) => [key, value.signature]);
+  cachedFunctions = Object.values(content[0]).map(item => item.signature);
+
+  //Code below works
+  const signatureArray = Object.values(content[0]).map(item => item.signature);
+  functionSignatures =  Object.fromEntries(
+  Object.entries(content[0]).map(([key, value]) => [key, value.signature]));
+  functionPackageDetails =content[0]
+   
 }
 
 module.exports.updateModalHandler = (element_id, content) => {

@@ -7,10 +7,22 @@
 var Sqrl = require('squirrelly');
 const common = require("./common")
 let showExtrnalHelpicon = store.get("showExtrnalHelpicon", false)
+let showoldHelpicon = store.get("showOldDialogHelpicon", true)
+let showSyntaxicon = configStore.get("noR")   
 
 let hideclass = "d-none"
 if(showExtrnalHelpicon){
     hideclass=""
+}
+
+let hideclassOldHelp = "d-none"
+if(showoldHelpicon){
+    hideclassOldHelp=""
+}
+
+let hideclassSyntax= ""
+if(showSyntaxicon){
+    hideclassSyntax="d-none"
 }
 class modal {
     htmlPieces = {
@@ -56,11 +68,11 @@ class modal {
                         data-toggle="tooltip" title="Open Help in a Window">
                             <i class="icon-expand mr-1"></i>
                         </button>                           
-                        <button type="button" action="help" class="close mr-1 enable-tooltip" id="{{modal.id}}Help"
+                        <button type="button" action="help" class="close ${hideclassOldHelp}  mr-1 enable-tooltip" id="{{modal.id}}Help"
                         data-toggle="tooltip" title="Help on dialog">
                             <i class="fas fa-question"></i>
                         </button>
-                        <button type="button" action="syntax" class="close mr-1 enable-tooltip viewmodestyle" id="{{modal.id}}Syntax"
+                        <button type="button" action="syntax" class="close ${hideclassSyntax}  mr-1 enable-tooltip viewmodestyle" id="{{modal.id}}Syntax"
                         data-toggle="tooltip" title="Show R Syntax">
                             <i class="fas fa-code"></i>
                         </button>
@@ -147,7 +159,7 @@ class modal {
 
     extractData() {
         var code_vars = {}
-        code_vars ["BSkyThemes"] = global.themeRsyntax;
+        code_vars ["BSkyThemes"] = themeRsyntax;
         $(`#${this.id}`).find((`[extractable=true]`)).each(function (index, item) {
             code_vars[item.getAttribute("no")] = common.transform(common.getVal(item.getAttribute("id")), item.getAttribute("extractionRule"),item.getAttribute("id") )
             if (code_vars[item.getAttribute("no")] && item.hasAttribute("wrapped")) {
@@ -160,7 +172,7 @@ class modal {
 
     extractSemData() {
         var code_vars = {}
-        code_vars ["BSkyThemes"] = global.themeRsyntax;
+        code_vars ["BSkyThemes"] = themeRsyntax;
         $(`#${this.id}`).find((`[extractable=true]`)).each(function (index, item) {
 
             if (item.getAttribute("no") == "sem" || item.getAttribute("no") == "sem2"|| item.getAttribute("no") == "sem3" ||item.getAttribute("no") == "modelTermsDst"||item.getAttribute("no") == "coVarDst"|| item.getAttribute("no") == "mediationDestCtrl")

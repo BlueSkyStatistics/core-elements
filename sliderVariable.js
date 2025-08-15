@@ -4,8 +4,8 @@
   * allowed without the prior written permission from BlueSky Statistics, LLC.
  */
 
-const Sqrl = require('squirrelly');
-const baseElement = require('./baseElement').baseElement;
+var Sqrl = require('squirrelly');
+var baseElement = require('./baseElement').baseElement;
 
 class Slider extends baseElement{
     content;
