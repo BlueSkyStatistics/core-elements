@@ -31,7 +31,7 @@ class advancedTextBox extends baseElement {
          <div class="row bg-gray m-1 p-2" el_index=0> 
             <div class="col-12">
                 <div class="row">
-                   <div class="col-10 cm focus" bs-type="advancedTextBox"></div>
+                   <div class="col-12 cm focus codemirror-container" bs-type="advancedTextBox"></div>
                 </div>
             </div>
         </div>
