@@ -169,14 +169,13 @@ class formulaControl extends baseElement {
                 </div>
             </div>
             <div class="col p-0">
-                    <div class="formula-btn pl-1 m-0" val="Polynomial degree">
-                    ${t('FBbtnlbl13')}
-                    <input class="w-25 formula-select formula-options" type="number" id="{{modal.id}}_{{ms.no}}_polyDeg" 
-                    bs-type="text" min="0" max="10000" step="1"  default="5" value="5" 
-                    data-toggle="tooltip" data-html="true" data-placement="top"   
-                    title="${t('FBttip13')}">
-                    </div>
-                </div>     
+                    <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" val="natural spline" 
+                        onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
+                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        title="${t('FBttip15')}">
+                        <b>${t('FBbtnlbl15')}</b>
+                    </button>
+                </div>
             </div>
         </div>
 </div>
@@ -193,14 +192,15 @@ class formulaControl extends baseElement {
                         <b>${t('FBbtnlbl14')}</b>
                     </button>
                 </div>
-                <div class="col p-0">
-                    <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" val="natural spline" 
-                        onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
-                        title="${t('FBttip15')}">
-                        <b>${t('FBbtnlbl15')}</b>
-                    </button>
-                </div>
+               <div class="col p-0">
+                    <div class="formula-btn pl-1 m-0" val="Polynomial degree">
+                    ${t('FBbtnlbl13')}
+                    <input class="w-25 formula-select formula-options" type="number" id="{{modal.id}}_{{ms.no}}_polyDeg" 
+                    bs-type="text" min="0" max="10000" step="1"  default="5" value="5" 
+                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    title="${t('FBttip13')}">
+                    </div>
+                </div>   
             </div>
     </div>
 </div>
