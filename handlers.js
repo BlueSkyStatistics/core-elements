@@ -864,7 +864,7 @@ function combinations(arr, k) {
   return result;
 }
 function _form_new_formula_value(objects, cursorPosition, formula_value, active_val, onlyIncrement = false, splinesDeg = "", polyDeg = "") {
-  var additive = ['+', '-', '*', '^', '/', ':', '%', '', '%%']
+  var additive = ['+', '-', '*', '^', '/', ':', '%', '', '%%',',']
   var insertive = ['(', ')', '|', '&', '>', '<', '==', '!=', '>=', '<=', '%in%', '%/%']
   var wraparive = ['sqrt', 'log', 'log10', 'log2', 'abs', 'exp', 'ceiling', 'floor', "as.numeric", "max", "min", "mean", "median", "sd", "sum", "variance"]
   //Multiple variables NOT allowed
@@ -895,7 +895,7 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
     'B-spline': ['splines::bs(', ', deg = 5)'],
     'natural spline': ['splines::ns(', ', deg = 5)'],
     'Orthogonal polynomial': ['stats::poly(', ', deg = 5)'],
-    'Raw polynomial': ['stats::poly(', ', deg = 5)', ', raw = TRUE)']
+    'Raw polynomial': ['stats::poly(', ', deg = 5', ', raw = TRUE)']
 
   }
 
@@ -928,6 +928,11 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
   }
   var pasting = {
     'Concatenate': ['', ', sep ="" )'],
+    'FO': ['',')'],
+    'TWI': ['',')'],
+    'PQ': ['',')'],
+    'SO': ['',')']
+
   }
   if (objects.length > 1 && multiVariables.includes(active_val)) {
     dialog.showErrorBox("Formula Error", "The function " + active_val + " does not support multiple variables, please select one variable and retry")
@@ -1020,15 +1025,15 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
         formula_addon = `${complexerapDynamic[active_val][0]}` + objects.join(`${complexerapDynamic[active_val][1]} + ${complexerapDynamic[active_val][0]}`) + complexerapDynamic[active_val][1]
       } else if (active_val == "Raw polynomial") {
         complexerapDynamic[active_val][1] = ", deg =" + polyDeg;
-        formula_addon = `${complexerapDynamic[active_val][0]}` + objects.join(`${complexerapDynamic[active_val][1]} + ${complexerapDynamic[active_val][2]}+ ${complexerapDynamic[active_val][0]}`) + complexerapDynamic[active_val][1]
+        formula_addon = `${complexerapDynamic[active_val][0]}` + objects.join(`${complexerapDynamic[active_val][1]}  ${complexerapDynamic[active_val][2]}+ ${complexerapDynamic[active_val][0]}`) + complexerapDynamic[active_val][1]+ complexerapDynamic[active_val][2]
       }
     } else {
       if (active_val == "Orthogonal polynomial" || active_val == "B-spline" || active_val == "natural spline") {
-        formula_addon = `${complexerapDynamic[active_val][0]}${objects[0] !== undefined ? objects[0] : ""}${complexerapDynamic[active_val][1]}`
+        formula_addon = `${complexerapDynamic[active_val][0]}${objects[0] !== undefined ? objects[0] : "variable1"}${complexerapDynamic[active_val][1]}`
       }
       else if (active_val == "Raw polynomial") {
         complexerapDynamic[active_val][1] = ", deg =" + polyDeg;
-        formula_addon = `${complexerapDynamic[active_val][0]}${objects[0] !== undefined ? objects[0] : ""}${complexerapDynamic[active_val][1]}${complexerapDynamic[active_val][2]}`
+        formula_addon = `${complexerapDynamic[active_val][0]}${objects[0] !== undefined ? objects[0] : "variable1"}${complexerapDynamic[active_val][1]}${complexerapDynamic[active_val][2]}`
         //`${complexerapDynamic[active_val][0]}` + objects.join(`${complexerapDynamic[active_val][1]} + ${complexerapDynamic[active_val][2]}+ ${complexerapDynamic[active_val][0]}`) + complexerapDynamic[active_val][1]
       }
     }
@@ -1060,12 +1065,26 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
     sign = "+"
   } else if (Object.keys(pasting).indexOf(active_val) > -1) {
     sign = " "
-    if (objects.length >= 2) {
-      formula_addon = "paste(" + objects.join(`,`) + pasting[active_val][1]
-    } else if (objects.length == 1) {
-      dialog.showErrorBox("Formula Error", "The function " + active_val + " requires multiple variables, please retry")
-    } else {
-      formula_addon = "paste(variable 1, variable 2..." + pasting[active_val][1]
+
+    if (active_val == "Concatenate")
+    {
+        if (objects.length >= 2) {
+          formula_addon = "paste(" + objects.join(`,`) + pasting[active_val][1]
+        } else if (objects.length == 1) {
+          dialog.showErrorBox("Formula Error", "The function " + active_val + " requires multiple variables, please retry")
+        } else {
+          formula_addon = "paste(variable 1, variable 2..." + pasting[active_val][1]
+        }
+    } else 
+    {
+      sign = "+"
+      if (objects.length >= 2) {
+          formula_addon = `${active_val}(` + objects.join(`,`) + pasting[active_val][1]
+        } else if (objects.length == 1) {
+          dialog.showErrorBox("Formula Error", "The function " + active_val + " requires multiple variables, please retry")
+        } else {
+          formula_addon = `${active_val}(`+ "variable 1, variable 2..." + pasting[active_val][1]
+        }
     }
     //lengthInserted = formula_addon.length
     results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)

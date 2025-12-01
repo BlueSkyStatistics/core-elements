@@ -61,6 +61,15 @@ class formulaControl extends baseElement {
                     </button>
                 </div>
 
+                <div class="col p-0">
+                    <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
+                    val="," onclick="toggleButton(event, true)"  ondblclick="toFormula(event)"
+                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    title="${t('FBttip4')}">
+                        ,
+                    </button>
+                </div>
+
             </div>
         </div>
     </div>
@@ -220,6 +229,47 @@ class formulaControl extends baseElement {
             </div>
     </div>
 </div>
+
+<div class="row">
+        <div class="col col-xx"></div>
+        <div class="col col-rr">
+            <div class="row pr-15">
+                <div class="col p-0">
+                <button type="button" class="btn btn-outline-secondary 
+                    formula-btn w-100 m-0" val="FO" 
+                    onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
+                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    title="${t('FBttipFO18')}">
+                    FO
+                </button>
+                </div>
+                <div class="col p-0">
+                    <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
+                        val="TWI" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
+                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        title="${t('FBttipTWI19')}">
+                        TWI 
+                    </button>
+                </div>
+                <div class="col p-0">
+                    <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0{{if(options.ms.default=="asterix" )}}activated{{/if}}" 
+                    val="PQ" onclick="toggleButton(event, true)" ondblclick="toFormula(event)"
+                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    title="${t('FBttipPQ20')}">
+                        PQ
+                    </button>
+                </div>
+                <div class="col p-0">
+                    <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
+                    val="SO" onclick="toggleButton(event, true)"  ondblclick="toFormula(event)"
+                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    title="${t('FBttipSO21')}">
+                        SO
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="row">
         <div class="col col-xx">
