@@ -906,8 +906,12 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
     'Pad': ['str_pad(string = ', ', width = 5, side = "left", pad ="a" )'],
     'Trim': ['str_trim(string = ', ', side = "left" )'],
     'Extract Substring': ['substr(x= ', ', start ="starting position", stop ="Ending position" )'],
-    'Replace Pattern': ['str_replace(string= ', ', pattern="Enter pattern to replace", replacement="Enter string")'],
-    'Replace Pattern(ALL)': ['str_replace_all(string= ', ', pattern="Enter pattern to replace", replacement="Enter string")'],
+
+    'Find Pattern(1)': ['stringr::str_detect(string=', ', fixed("Enter pattern to find"))'],
+    'Find Pattern(2)': ['ifelse(str_detect(string = ', ', fixed("Enter pattern to find")), specify_value_if_found, specify_value_if_not_found)'],
+
+    'Replace Pattern': ['stringr::str_replace(string= ', ', pattern="Enter pattern you want to find", replacement="Enter the replacement string")'],
+    'Replace Pattern(ALL)': ['stringr::str_replace_all(string= ', ', pattern="Enter pattern to find", replacement="Enter replacement string")'],
     'ToOrdered': ['factor(x= ', ', ordered=TRUE)'],
     'ToFactor': ['factor(x= ', ' )'],
     'ToCharacter': ['as.character( ', ')'],

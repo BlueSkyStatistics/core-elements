@@ -76,6 +76,7 @@ class inputVariable extends baseElement {
         let pattern = ""
         var outer_this = this;
         var value = this.getVal()
+        let columnNames = null
         if (this.overwrite)
         {
             var dataset = getActiveDataset();
@@ -85,7 +86,7 @@ class inputVariable extends baseElement {
                 dialog.showMessageBoxSync({type: "error", buttons: ["Ok"], title: t('textBoxActiveDatasetMissingTitle'), message: `${t('textBoxActiveDatasetMissingMsg1')} ${dataset} ${t('textBoxActiveDatasetMissingMsg2')} ${dataset}`})
                 return false
             }
-            const columnNames = data.cols.map(col => col.Name[0]);
+            columnNames = data.cols.map(col => col.Name[0]);
             
         }      
         switch (this.overwrite){
