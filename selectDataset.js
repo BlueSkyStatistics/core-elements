@@ -5,6 +5,7 @@
  */
 
 var Sqrl = require('squirrelly');
+//const {getT} = global.requireFromRoot("localization");
 var baseElement = require('./baseElement').baseElement;
 let t = getT('menutoolbar')
 class selectDataset extends baseElement {

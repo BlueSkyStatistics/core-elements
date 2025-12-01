@@ -25,6 +25,19 @@ class OutputOpt {
                       to display, show '
                       &#60;.001'</label>
                   </div>
+                  <div class="form-row pb-3 align-items-baseline">
+                    <label class="form-check-label mr-2">Precision value for decimal numbers</label>
+                    <div class="form-check flex-grow-1">
+                        <input class="form-check-input" type="checkbox" id="precisionDigitsNA" name="precisionDigitsNA" 
+                            onchange="handlePrecisionValue(this)"
+                        />
+                        <label class="form-check-label mr-2" for="precisionDigitsNA">NA</label>
+                    </div>
+                    <div>
+                        <label class="form-check-label mr-2" for="precisionDigitsInput">Digits</label>                 
+                        <input class="w-25" type="number" id="precisionDigitsInput" name="precisionDigitsInput" />
+                    </div>
+                  </div>
                   <div id="dropasteriskdiv" class="form-check pb-3">
                     <input class="form-check-input" type="checkbox" id="dropasterisk" name="dropasterisk">
                     <label class="form-check-label" for="dropasterisk">Hide asterisk (*) in p value column</label>
@@ -67,6 +80,10 @@ class OutputOpt {
     `
     constructor(modal, config) {
         this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
+        global.handlePrecisionValue = el => {
+            const value = el.checked ? 'NA' : $('#precisionDigitsInput').val()
+            global.handlePrecisionValueChange(value)
+        }
     }
     canExecute() {
         return true
@@ -274,6 +291,15 @@ class DatabaseOpt {
                     <div class="form-check ml-3">
                       <input class="form-check-input" type="checkbox" id="useSysTnsAdmin" name="useSysTnsAdmin">
                       <label class="form-check-label" for="useSysTnsAdmin">Use system defaults</label>
+                    </div>
+                  <div>
+                    <div id="maxDBtblRowCountdiv" class="pb-3">
+                      <label class="form-check-label mr-2" for="maxDBtblRowCount">Maximum rows allowed for a database table</label>
+                      <input class="w-25 float-right" type="number" id="maxDBtblRowCount" name="maxDBtblRowCount">
+                    </div>
+                    <div id="maxDBtblColCountdiv" class="pb-3">
+                      <label class="form-check-label mr-2" for="maxDBtblColCount">Maximum columns allowed for a database table</label>
+                      <input class="w-25 float-right" type="number" id="maxDBtblColCount" name="maxDBtblColCount">
                     </div>
                   </div>
     `
