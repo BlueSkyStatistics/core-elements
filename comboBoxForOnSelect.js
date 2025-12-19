@@ -83,24 +83,9 @@ class comboBoxForOnSelect extends baseElement{
         // console.log(`#${this.id} - Dynamic populated:`,this.dynamicallyPopulated)
         if ($(`#${this.id}`).attr('dynamicallyPopulated') || this.dynamicallyPopulated)
         {
-          
           const $select = $(`#${this.id}`);
           $select.prev('ul.list-group').remove();   // the one listgroup.js created
           $select.removeData('listgroup');     
-          /*  
-          $(`#${this.id}`).attr("dynamicallyPopulated", "true")
-            this.dynamicallyPopulated = true
-           // $(`#${this.id}`).empty()
-           //clearComboChild(this.id)
-           $(`#${this.id}`).children().each(function (index, element) {
-            element.remove()
-          })
-          if ($(`#${this.id}`).siblings('.list-group').length != 0) {
-            $(`#${this.id}`).siblings('.list-group').remove()
-          } */
-
-
-
         }
         else {
         /* $(`#${this.id}`).find('option').each(function(index, item){
