@@ -1220,6 +1220,12 @@ function _filter(filter_setting, object) {
   return true
 }
 function r_on_select(modal_id, r_commands, val = "") {
+  //r_commands = JSON.parse(r_commands);
+  if (Array.isArray(val))
+  {
+    val = val.join(',');
+  }
+
   Object.keys(r_commands).forEach(function (item, index) {
     r_commands[item] = Sqrl.Render(r_commands[item], { dataset: { name: getActiveDataset() }, value: val })
   })
@@ -1270,6 +1276,24 @@ function renderCombo(element_id, content) {
   }
   clearCombo(element_id)
 }
+
+function renderComboOnSelect(element_id, content) {
+  clearComboChild(element_id)
+  var _def = $(`#${element_id}`).attr('default')
+  var _opt_template = `{{ each(options.options) }}
+      <option {{ if (options.default && options.default.split("|").includes(@this))}}selected="selected"{{/if}}>{{@this}}</option>
+    {{/each}}`
+  var _opt = Sqrl.Render(_opt_template, { options: content, default: _def })
+  $(`#${element_id}`).append(_opt);
+  if (!$(`#${element_id}`).parent()[0].classList.contains("simple-select")) {
+    /* var list_group = $($(`#${element_id}`).parent().html()).listgroup();
+    $(`#${element_id}`).before(list_group.siblings()[0]) */
+    $(`#${element_id}`).listgroup()
+  }
+  clearCombo(element_id)
+}
+
+
 function renderDependants(item) {
   if (item.getAttribute("data-dependants")) {
     item.getAttribute("data-dependants").split(",").forEach(function (dependant) {
@@ -1884,20 +1908,35 @@ module.exports.updateModalHandler = (element_id, content) => {
       renderCombo(element_id, content);
       $el.trigger('change');
       break;
+
+    case 'comboboxOnSelect':
+      renderComboOnSelect(element_id, content)
+      //$(`#${element_id}`).trigger('change');
+      $(`#${element_id}`).trigger('change');
+      break;
+
+    case 'comboboxOnSelect':
+      renderComboOnSelect(element_id, content)
+      $(`#${element_id}`).trigger('change');
+      break;
     case 'select':
       renderSelect(element_id, content);
       $el.trigger('change');
       break;
     case 'label':
-      if (typeof content === 'boolean') {
-        content = content.toString().toUpperCase();
-      } else if (Array.isArray(content)) {
-        content = content.join(", ");
-        if (content.length > 0) {
-          content = content.replace(/\\n/g, '\n');
-        }
-      } else {
-        content = content !== "" ? content : "OFF";
+      switch (typeof (content)) {
+        case "boolean":
+          content = content.toString().toUpperCase()
+          break;
+        case "object":
+          content = content.join(", ")
+          break;
+          /* if (content !="")
+          {
+            content = content.replace(/\\n/g, '\n');
+          }  */
+        default:
+          content = content !== "" ? content : "OFF"
       }
       $el.text(content);
       break;
