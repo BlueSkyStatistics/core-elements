@@ -46,6 +46,10 @@ class OutputOpt {
                     <label class="form-check-label mr-2" for="decimaldigits">Number of decimal digits to display</label>
                     <input class="w-25 float-right" type="number" id="decimaldigits" name="decimaldigits">
                   </div>
+                  <div id="decimaldigitsgriddiv" class="pb-3">
+                    <label class="form-check-label mr-2" style="width: 350px;" for="decimaldigitsgrid">Number of decimal digits to load in the data grid (blank is default)</label>
+                    <input class="w-25 float-right" type="number" id="decimaldigitsgrid" name="decimaldigitsgrid">
+                  </div>                  
                   <div id="maxtblperanalysisdiv" class="pb-3">
                     <label class="form-check-label mr-2" for="maxtblperanalysis">Maximum output tables per
                       analysis</label>
