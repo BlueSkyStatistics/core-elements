@@ -6,7 +6,7 @@
 
 var Sqrl = require('squirrelly');
 const common = require("./common")
-const {getT} = global.requireFromRoot("localization");
+//const {getT} = global.requireFromRoot("localization");
 var baseElement = require('./baseElement').baseElement;
 let t = getT('menutoolbar')
 
@@ -508,6 +508,22 @@ class computeBuilder extends baseElement{
                             data-toggle="tooltip" data-html="true" data-placement="top"   
                             title="${t('CBttip42')}">
                             <b>${t('CBbtnlbl42')}</b>
+                        </button>
+                    </div>
+                     <div class="col p-0">
+                        <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
+                            val="Find Pattern(1)" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
+                            data-toggle="tooltip" data-html="true" data-placement="top"   
+                            title="${t('CBttipFindPattern78')}">
+                            <b>${t('CBbtnlbl78')}</b>
+                        </button>
+                    </div>
+                     <div class="col p-0">
+                        <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
+                            val="Find Pattern(2)" onclick="toggleButton(event, true)" ondblclick="toFormula(event)" 
+                            data-toggle="tooltip" data-html="true" data-placement="top"   
+                            title="${t('CBttipFindPattern79')}">
+                            <b>${t('CBbtnlbl79')}</b>
                         </button>
                     </div>
                     <div class="col p-0">

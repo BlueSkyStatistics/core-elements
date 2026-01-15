@@ -875,7 +875,7 @@ function combinations(arr, k) {
   return result;
 }
 function _form_new_formula_value(objects, cursorPosition, formula_value, active_val, onlyIncrement = false, splinesDeg = "", polyDeg = "") {
-  var additive = ['+', '-', '*', '^', '/', ':', '%', '', '%%']
+  var additive = ['+', '-', '*', '^', '/', ':', '%', '', '%%',',']
   var insertive = ['(', ')', '|', '&', '>', '<', '==', '!=', '>=', '<=', '%in%', '%/%']
   var wraparive = ['sqrt', 'log', 'log10', 'log2', 'abs', 'exp', 'ceiling', 'floor', "as.numeric", "max", "min", "mean", "median", "sd", "sum", "variance"]
   //Multiple variables NOT allowed
@@ -906,7 +906,7 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
     'B-spline': ['splines::bs(', ', deg = 5)'],
     'natural spline': ['splines::ns(', ', deg = 5)'],
     'Orthogonal polynomial': ['stats::poly(', ', deg = 5)'],
-    'Raw polynomial': ['stats::poly(', ', deg = 5)', ', raw = TRUE)']
+    'Raw polynomial': ['stats::poly(', ', deg = 5', ', raw = TRUE)']
 
   }
 
@@ -917,8 +917,12 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
     'Pad': ['str_pad(string = ', ', width = 5, side = "left", pad ="a" )'],
     'Trim': ['str_trim(string = ', ', side = "left" )'],
     'Extract Substring': ['substr(x= ', ', start ="starting position", stop ="Ending position" )'],
-    'Replace Pattern': ['str_replace(string= ', ', pattern="Enter pattern to replace", replacement="Enter string")'],
-    'Replace Pattern(ALL)': ['str_replace_all(string= ', ', pattern="Enter pattern to replace", replacement="Enter string")'],
+
+    'Find Pattern(1)': ['stringr::str_detect(string=', ', fixed("Enter pattern to find"))'],
+    'Find Pattern(2)': ['dplyr::if_else(str_detect(string = ', ', fixed("Enter pattern to find")), specify_value_if_found, specify_value_if_not_found)'],
+
+    'Replace Pattern': ['stringr::str_replace(string= ', ', pattern="Enter pattern you want to find", replacement="Enter the replacement string")'],
+    'Replace Pattern(ALL)': ['stringr::str_replace_all(string= ', ', pattern="Enter pattern to find", replacement="Enter replacement string")'],
     'ToOrdered': ['factor(x= ', ', ordered=TRUE)'],
     'ToFactor': ['factor(x= ', ' )'],
     'ToCharacter': ['as.character( ', ')'],
@@ -939,6 +943,11 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
   }
   var pasting = {
     'Concatenate': ['', ', sep ="" )'],
+    'FO': ['',')'],
+    'TWI': ['',')'],
+    'PQ': ['',')'],
+    'SO': ['',')']
+
   }
   if (objects.length > 1 && multiVariables.includes(active_val)) {
     dialog.showErrorBox("Formula Error", "The function " + active_val + " does not support multiple variables, please select one variable and retry")
@@ -1031,15 +1040,15 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
         formula_addon = `${complexerapDynamic[active_val][0]}` + objects.join(`${complexerapDynamic[active_val][1]} + ${complexerapDynamic[active_val][0]}`) + complexerapDynamic[active_val][1]
       } else if (active_val == "Raw polynomial") {
         complexerapDynamic[active_val][1] = ", deg =" + polyDeg;
-        formula_addon = `${complexerapDynamic[active_val][0]}` + objects.join(`${complexerapDynamic[active_val][1]} + ${complexerapDynamic[active_val][2]}+ ${complexerapDynamic[active_val][0]}`) + complexerapDynamic[active_val][1]
+        formula_addon = `${complexerapDynamic[active_val][0]}` + objects.join(`${complexerapDynamic[active_val][1]}  ${complexerapDynamic[active_val][2]}+ ${complexerapDynamic[active_val][0]}`) + complexerapDynamic[active_val][1]+ complexerapDynamic[active_val][2]
       }
     } else {
       if (active_val == "Orthogonal polynomial" || active_val == "B-spline" || active_val == "natural spline") {
-        formula_addon = `${complexerapDynamic[active_val][0]}${objects[0] !== undefined ? objects[0] : ""}${complexerapDynamic[active_val][1]}`
+        formula_addon = `${complexerapDynamic[active_val][0]}${objects[0] !== undefined ? objects[0] : "variable1"}${complexerapDynamic[active_val][1]}`
       }
       else if (active_val == "Raw polynomial") {
         complexerapDynamic[active_val][1] = ", deg =" + polyDeg;
-        formula_addon = `${complexerapDynamic[active_val][0]}${objects[0] !== undefined ? objects[0] : ""}${complexerapDynamic[active_val][1]}${complexerapDynamic[active_val][2]}`
+        formula_addon = `${complexerapDynamic[active_val][0]}${objects[0] !== undefined ? objects[0] : "variable1"}${complexerapDynamic[active_val][1]}${complexerapDynamic[active_val][2]}`
         //`${complexerapDynamic[active_val][0]}` + objects.join(`${complexerapDynamic[active_val][1]} + ${complexerapDynamic[active_val][2]}+ ${complexerapDynamic[active_val][0]}`) + complexerapDynamic[active_val][1]
       }
     }
@@ -1071,12 +1080,26 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
     sign = "+"
   } else if (Object.keys(pasting).indexOf(active_val) > -1) {
     sign = " "
-    if (objects.length >= 2) {
-      formula_addon = "paste(" + objects.join(`,`) + pasting[active_val][1]
-    } else if (objects.length == 1) {
-      dialog.showErrorBox("Formula Error", "The function " + active_val + " requires multiple variables, please retry")
-    } else {
-      formula_addon = "paste(variable 1, variable 2..." + pasting[active_val][1]
+
+    if (active_val == "Concatenate")
+    {
+        if (objects.length >= 2) {
+          formula_addon = "paste(" + objects.join(`,`) + pasting[active_val][1]
+        } else if (objects.length == 1) {
+          dialog.showErrorBox("Formula Error", "The function " + active_val + " requires multiple variables, please retry")
+        } else {
+          formula_addon = "paste(variable 1, variable 2..." + pasting[active_val][1]
+        }
+    } else 
+    {
+      sign = "+"
+      if (objects.length >= 2) {
+          formula_addon = `${active_val}(` + objects.join(`,`) + pasting[active_val][1]
+        } else if (objects.length == 1) {
+          dialog.showErrorBox("Formula Error", "The function " + active_val + " requires multiple variables, please retry")
+        } else {
+          formula_addon = `${active_val}(`+ "variable 1, variable 2..." + pasting[active_val][1]
+        }
     }
     //lengthInserted = formula_addon.length
     results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
@@ -1199,6 +1222,12 @@ function _filter(filter_setting, object) {
   return true
 }
 function r_on_select(modal_id, r_commands, val = "") {
+  //r_commands = JSON.parse(r_commands);
+  if (Array.isArray(val))
+  {
+    val = val.join(',');
+  }
+
   Object.keys(r_commands).forEach(function (item, index) {
     r_commands[item] = Sqrl.Render(r_commands[item], { dataset: { name: getActiveDataset() }, value: val })
   })
@@ -1249,6 +1278,24 @@ function renderCombo(element_id, content) {
   }
   clearCombo(element_id)
 }
+
+function renderComboOnSelect(element_id, content) {
+  clearComboChild(element_id)
+  var _def = $(`#${element_id}`).attr('default')
+  var _opt_template = `{{ each(options.options) }}
+      <option {{ if (options.default && options.default.split("|").includes(@this))}}selected="selected"{{/if}}>{{@this}}</option>
+    {{/each}}`
+  var _opt = Sqrl.Render(_opt_template, { options: content, default: _def })
+  $(`#${element_id}`).append(_opt);
+  if (!$(`#${element_id}`).parent()[0].classList.contains("simple-select")) {
+    /* var list_group = $($(`#${element_id}`).parent().html()).listgroup();
+    $(`#${element_id}`).before(list_group.siblings()[0]) */
+    $(`#${element_id}`).listgroup()
+  }
+  clearCombo(element_id)
+}
+
+
 function renderDependants(item) {
   if (item.getAttribute("data-dependants")) {
     item.getAttribute("data-dependants").split(",").forEach(function (dependant) {
@@ -1830,6 +1877,26 @@ module.exports.rconsole_autocompleteHandler = (element_id, content) => {
    
 }
 
+module.exports.rconsole_autocompleteHandler = (element_id, content) => {
+  //const keys = content[0];
+  //const values = content[1];
+  
+  //Object.fromEntries(keys.map((k, i) => [k, values[i]]));
+  //cachedFunctions =Object.values(content[0]).map(arr => arr[0]);
+  //cachedFunctions =Object.entries(content[0]).map(([key, value]) => [key, value.signature]);
+  //cachedFunctions = Object.values(content[0]).map(item => item.signature);
+
+  //Code below works
+  //const signatureArray = Object.values(content[0]).map(item => item.signature);
+  //functionSignatures =  Object.fromEntries(
+  //Object.entries(content[0]).map(([key, value]) => [key, value.signature]));
+  loadedPackages =content[0]
+   
+}
+
+
+
+
 module.exports.updateModalHandler = (element_id, content) => {
   const $el = $(`#${element_id}`)
   const el_type = $el.attr('bs-type');
@@ -1843,20 +1910,35 @@ module.exports.updateModalHandler = (element_id, content) => {
       renderCombo(element_id, content);
       $el.trigger('change');
       break;
+
+    case 'comboboxOnSelect':
+      renderComboOnSelect(element_id, content)
+      //$(`#${element_id}`).trigger('change');
+      $(`#${element_id}`).trigger('change');
+      break;
+
+    case 'comboboxOnSelect':
+      renderComboOnSelect(element_id, content)
+      $(`#${element_id}`).trigger('change');
+      break;
     case 'select':
       renderSelect(element_id, content);
       $el.trigger('change');
       break;
     case 'label':
-      if (typeof content === 'boolean') {
-        content = content.toString().toUpperCase();
-      } else if (Array.isArray(content)) {
-        content = content.join(", ");
-        if (content.length > 0) {
-          content = content.replace(/\\n/g, '\n');
-        }
-      } else {
-        content = content !== "" ? content : "OFF";
+      switch (typeof (content)) {
+        case "boolean":
+          content = content.toString().toUpperCase()
+          break;
+        case "object":
+          content = content.join(", ")
+          break;
+          /* if (content !="")
+          {
+            content = content.replace(/\\n/g, '\n');
+          }  */
+        default:
+          content = content !== "" ? content : "OFF"
       }
       $el.text(content);
       break;

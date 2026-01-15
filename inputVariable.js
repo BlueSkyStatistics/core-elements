@@ -5,7 +5,7 @@
  */
 
 var Sqrl = require('squirrelly');
-const {getT} = global.requireFromRoot("localization");
+//const {getT} = global.requireFromRoot("localization");
 var baseElement = require('./baseElement').baseElement;
 let t = getT('menutoolbar')
 
@@ -77,12 +77,22 @@ class inputVariable extends baseElement {
         let pattern = ""
         var outer_this = this;
         var value = this.getVal()
-        var dataset = getActiveDataset();
-        var data = store.get(dataset); 
-        const columnNames = data.cols.map(col => col.Name[0]);
-        console.log()
+        let columnNames = null
+        if (this.overwrite)
+        {
+            var dataset = getActiveDataset();
+            var data = store.get(dataset); 
+            if (data ==null || data == undefined)
+            {
+                dialog.showMessageBoxSync({type: "error", buttons: ["Ok"], title: t('textBoxActiveDatasetMissingTitle'), message: `${t('textBoxActiveDatasetMissingMsg1')} ${dataset} ${t('textBoxActiveDatasetMissingMsg2')} ${dataset}`})
+                return false
+            }
+            columnNames = data.cols.map(col => col.Name[0]);
+            
+        }      
         switch (this.overwrite){
-            case "variable":
+
+               case "variable":
                if (columnNames.indexOf(value) > -1){
                 var ret = dialog.showMessageBoxSync({type: "question", buttons: ["Ok", "Cancel"], title: t('advTxtBxRulViolationMSgTitle1'), message: `${t('advTxtBxRulViolationMSg1')}: "${outer_this.label}" ${t('advTxtBxRulViolationMSg2')}: ${value}`})
                 if (ret === 0){

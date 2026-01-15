@@ -16,6 +16,7 @@ var labelVar = require('./label').element
 var input = require('./inputVariable').element 
 var radioButton = require('./radioButton').element
 var comboBox = require('./comboBox').element
+var comboBoxForOnSelect = require('./comboBoxForOnSelect').element
 var comboBoxWithChilderen = require('./comboBoxWithChilderen').element
 var inputSpinner = require('./inputSpinner').element
 var advancedSlider = require('./advancedSliderVariable').element
@@ -109,6 +110,7 @@ module.exports = {
     "input": input,
     "radioButton": radioButton,
     "comboBox": comboBox,
+    "comboBoxForOnSelect": comboBoxForOnSelect,
     "comboBoxWithChilderen": comboBoxWithChilderen,
     "inputSpinner": inputSpinner,
     "advancedSlider": advancedSlider,
