@@ -1886,7 +1886,7 @@ module.exports.rconsole_autocompleteHandler = (element_id, content) => {
 
   //Code below works
   //const signatureArray = Object.values(content[0]).map(item => item.signature);
-  //functionSignatures =  Object.fromEntries(
+  // =  Object.fromEntries(
   //Object.entries(content[0]).map(([key, value]) => [key, value.signature]));
   loadedPackages =content[0]
    
