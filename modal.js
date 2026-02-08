@@ -117,6 +117,11 @@ class modal {
                     {{modal.pre_start_r}}
                 </div>
             {{/if}}
+            {{if(options.modal.pre_start_js)}}
+                <div id="{{modal.id}}_pre_js" style="display:none">
+                    {{modal.pre_start_js}}
+                </div>
+            {{/if}}
         </div>
     </div>
 </div>`
