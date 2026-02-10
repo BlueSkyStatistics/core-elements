@@ -1,7 +1,7 @@
 /**
-  * This file is protected by copyright (c) 2023-2025 by BlueSky Statistics, LLC.
-  * All rights reserved. The copy, modification, or distribution of this file is not
-  * allowed without the prior written permission from BlueSky Statistics, LLC.
+ * This file is protected by copyright (c) 2023-2025 by BlueSky Statistics, LLC.
+ * All rights reserved. The copy, modification, or distribution of this file is not
+ * allowed without the prior written permission from BlueSky Statistics, LLC.
  */
 
 const common = require('./common')
@@ -13,7 +13,7 @@ var dstVariableList = require('./dstVariableList').element
 var dstVariable = require('./dstVariable').element
 var checkbox = require('./checkBox').element
 var labelVar = require('./label').element
-var input = require('./inputVariable').element 
+var input = require('./inputVariable').element
 var radioButton = require('./radioButton').element
 var comboBox = require('./comboBox').element
 var comboBoxForOnSelect = require('./comboBoxForOnSelect').element
@@ -43,6 +43,7 @@ var MiscOpt = require('./settingsOptions').MiscOpt
 var RLocaleOpt = require('./settingsOptions').RLocaleOpt
 var DatabaseOpt = require('./settingsOptions').DatabaseOpt
 var SaveAppSettings = require('./settingsOptions').SaveAppSettings
+var ChatIntegrationOpt = require('./settingsOptions').ChatIntegrationOpt
 var advancedTextBox = require('./advancedTextBox').element
 var semControl = require('./semControl').element
 var semSuppCtrl = require('./semSuppCtrl').element
@@ -50,13 +51,7 @@ var semModelTerms = require('./semModelTerms').element
 var semModelTermsDest = require('./semModelTermsDest').element
 var equalityConstraints = require('./equalityConstraints').element
 var reRunDatasetList = require('./reRunDatasetList').element
-var srcDataSetListForRerun =require('./srcDataSetListForRerun').element
-
-
-
-
-
-
+var srcDataSetListForRerun = require('./srcDataSetListForRerun').element
 
 
 module.exports = {
@@ -68,7 +63,7 @@ module.exports = {
     "moveToSrc": handlers.moveToSrc,
     "moveToDst": handlers.moveToDst,
     "arrangeFocus": handlers.arrangeFocus,
-    "toFormula": handlers.toFormula,  
+    "toFormula": handlers.toFormula,
     "toFocusedInput": handlers.toFocusedInput,
     "dropWrapped": handlers.dropWrapped,
     "dropToInputAditive": handlers.dropToInputAditive,
@@ -85,16 +80,11 @@ module.exports = {
     "enablyStickyDivs": handlers.enablyStickyDivs,
     "disableStickyDivs": handlers.disableStickyDivs,
     "r_before_modal": handlers.r_before_modal,
-     "js_before_modal": handlers.js_before_modal,
     "r_on_select": handlers.r_on_select,
-    "js_on_select": handlers.js_on_select,
-    "all_packages":handlers.all_packages,
-    "getDatasetsFromSelectedPackage": handlers.getDatasetsFromSelectedPackage,
-    "all_datasets":handlers.all_datasets,
-    "populateVariablesOfDataset":handlers.populateVariablesOfDataset,
-    "addToJoin":handlers.addToJoin,
+    "populateVariablesOfDataset": handlers.populateVariablesOfDataset,
+    "addToJoin": handlers.addToJoin,
     "updateModalHandler": handlers.updateModalHandler,
-    "rconsole_autocompleteHandler":handlers.rconsole_autocompleteHandler,
+    "rconsole_autocompleteHandler": handlers.rconsole_autocompleteHandler,
     "renderChild": handlers.renderChild,
     "renderDependants": handlers.renderDependants,
     "toFocusedInput": handlers.toFocusedInput,
@@ -130,31 +120,31 @@ module.exports = {
     "srcDataSetList": srcDataSetList,
     "tabsView": tabsView,
     "switchCase": switchCase,
-    "repMeasuresCTRL":repMeasuresCTRL,
-    "colorInput":colorInput,
+    "repMeasuresCTRL": repMeasuresCTRL,
+    "colorInput": colorInput,
     "fileOpenControl": fileOpenControl,
     "fileSaveControl": fileSaveControl,
     "labelHelpSixSigma": labelHelpSixSigma,
     "selectDataset": selectDataset,
-    "mergeJoin":mergeJoin,
+    "mergeJoin": mergeJoin,
     "OutputOpt": OutputOpt,
     "OutputTblOpt": OutputTblOpt,
     "MiscOpt": MiscOpt,
     "RLocaleOpt": RLocaleOpt,
     "DatabaseOpt": DatabaseOpt,
     "SaveAppSettings": SaveAppSettings,
+    "ChatIntegrationOpt": ChatIntegrationOpt,
     "selectElementMergeDatasets": handlers.selectElementMergeDatasets,
-    "addToJoin" : handlers.addToJoin,
-    "removeFromJoin" : handlers.removeFromJoin,
+    "addToJoin": handlers.addToJoin,
+    "removeFromJoin": handlers.removeFromJoin,
     "selectForDeletionMergeDatasets": handlers.selectForDeletionMergeDatasets,
-    "selectListItem":handlers.selectListItem,
-    "advancedTextBox":advancedTextBox,
-    "semControl":semControl,
-    "semSuppCtrl":semSuppCtrl,
-    "semModelTerms":semModelTerms,
-    "semModelTermsDest":semModelTermsDest,
-    "equalityConstraints":equalityConstraints,
-    "reRunDatasetList":reRunDatasetList,
-    "srcDataSetListForRerun":srcDataSetListForRerun
-    
+    "selectListItem": handlers.selectListItem,
+    "advancedTextBox": advancedTextBox,
+    "semControl": semControl,
+    "semSuppCtrl": semSuppCtrl,
+    "semModelTerms": semModelTerms,
+    "semModelTermsDest": semModelTermsDest,
+    "equalityConstraints": equalityConstraints,
+    "reRunDatasetList": reRunDatasetList,
+    "srcDataSetListForRerun": srcDataSetListForRerun
 }
