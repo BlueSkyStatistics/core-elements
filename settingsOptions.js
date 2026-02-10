@@ -1,7 +1,7 @@
 /**
-  * This file is protected by copyright (c) 2023-2025 by BlueSky Statistics, LLC.
-  * All rights reserved. The copy, modification, or distribution of this file is not
-  * allowed without the prior written permission from BlueSky Statistics, LLC.
+ * This file is protected by copyright (c) 2023-2025 by BlueSky Statistics, LLC.
+ * All rights reserved. The copy, modification, or distribution of this file is not
+ * allowed without the prior written permission from BlueSky Statistics, LLC.
  */
 
 var Sqrl = require('squirrelly');
@@ -78,17 +78,21 @@ class OutputOpt {
                     </select>
                   </div>
     `
+
     constructor(modal, config) {
-        this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
+        this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config})
         global.handlePrecisionValue = el => {
             const value = el.checked ? 'NA' : $('#precisionDigitsInput').val()
             global.handlePrecisionValueChange(value)
         }
     }
+
     canExecute() {
         return true
     }
-    clearContent() { }
+
+    clearContent() {
+    }
 }
 
 class OutputTblOpt {
@@ -129,13 +133,17 @@ class OutputTblOpt {
                     <input class="w-25 float-right" type="number" id="outputTableLaTexColSpace" name="outputTableLaTexColSpace">
                   </div>                  
     `
+
     constructor(modal, config) {
-        this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
+        this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config})
     }
+
     canExecute() {
         return true
     }
-    clearContent() { }
+
+    clearContent() {
+    }
 }
 
 class MiscOpt {
@@ -206,20 +214,24 @@ class MiscOpt {
         <label class="form-check-label" for="hidePasteWarning">Hide warning when pasting overflowing data</label>
       </div>      
     `
+
     constructor(modal, config) {
-        this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
+        this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config})
     }
+
     canExecute() {
         return true
     }
-    clearContent() { }
+
+    clearContent() {
+    }
 }
 
 
 class RLocaleOpt {
-  content;
-  id; 
-  htmlTemplate = `
+    content;
+    id;
+    htmlTemplate = `
                 <div id="rlocalediv" class="pb-3">
                   <label class="form-check-label mr-2" for="rlocale">Set R locale :</label>
                   <input list="rlocalelist" name="rlocale" class="w-25 float-right" id="rlocale">
@@ -272,13 +284,17 @@ class RLocaleOpt {
                   <input name="delimChar" class="w-25 float-right" id="delimChar" type="text">
                 </div>              
   `
-  constructor(modal, config) {
-      this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
-  }
-  canExecute() {
-      return true
-  }
-  clearContent() { }
+
+    constructor(modal, config) {
+        this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config})
+    }
+
+    canExecute() {
+        return true
+    }
+
+    clearContent() {
+    }
 }
 
 class DatabaseOpt {
@@ -303,13 +319,17 @@ class DatabaseOpt {
                     </div>
                   </div>
     `
+
     constructor(modal, config) {
-        this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
+        this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config})
     }
+
     canExecute() {
         return true
     }
-    clearContent() { }
+
+    clearContent() {
+    }
 }
 
 class SaveAppSettings {
@@ -318,13 +338,17 @@ class SaveAppSettings {
     htmlTemplate = `
 <button type="button" class="btn btn-secondary" onclick="saveUserConfig()">Save</button>
     `
+
     constructor(modal, config) {
-        this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
+        this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config})
     }
+
     canExecute() {
         return true
     }
-    clearContent() { }
+
+    clearContent() {
+    }
 }
 
 class LLMOpt {
@@ -367,8 +391,9 @@ class LLMOpt {
         <div id="llmSettingsSavedMsg" class="text-success mt-2" style="display:none;">LLM settings saved!</div>
       </div>
     `;
+
     constructor(modal, config) {
-        this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config });
+        this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config});
         const {store} = global
         // Attach event handler after DOM insertion
         setTimeout(() => {
@@ -387,14 +412,17 @@ class LLMOpt {
             if (keyEl) keyEl.value = key;
         }, 0);
     }
+
     canExecute() {
         return true;
     }
-    clearContent() { }
+
+    clearContent() {
+    }
 }
 
 
-global.saveLlmSettings = function() {
+global.saveLlmSettings = function () {
     const warningDiv = document.getElementById('llmSettingsWarning');
     const savedMsg = document.getElementById('llmSettingsSavedMsg');
     warningDiv.style.display = 'none';
@@ -413,7 +441,70 @@ global.saveLlmSettings = function() {
     store.set('llmModel', model);
     store.set('llmApiKey', key);
     savedMsg.style.display = '';
-    setTimeout(()=>{ savedMsg.style.display = 'none'; }, 2000);
+    setTimeout(() => {
+        savedMsg.style.display = 'none';
+    }, 2000);
+}
+
+class ChatIntegrationOpt {
+    content;
+    id;
+    htmlTemplate = `
+      <div id="chatIntegrationSettingsDiv" class="pb-3">
+        <h5>Chat Integration Settings</h5>
+        <div class="form-group pb-2">
+          <label for="aiModelsFetchUrl">AI Models Fetch URL
+            <span title="URL endpoint to fetch available AI models. Leave empty to use default models." style="cursor: help; color: #007bff;">&#9432;</span>
+          </label>
+          <div class="d-flex align-items-center">
+            <input type="text" class="form-control w-75" id="aiModelsFetchUrl" placeholder="https://example.com/api/models">
+            <button type="button" class="btn btn-outline-secondary btn-sm ml-2" onclick="clearAiModelsFetchUrl()" title="Clear URL">
+              <i class="fas fa-times"></i> Clear
+            </button>
+          </div>
+        </div>
+        <div class="form-text text-muted">Specify a custom endpoint to fetch AI models for chat integration.</div>
+        <button id="chatIntegrationSaveBtn" class="btn btn-primary mt-3" onclick="saveChatIntegrationSettings()">Save Settings</button>
+        <div id="chatIntegrationSavedMsg" class="text-success mt-2" style="display:none;">Settings saved!</div>
+      </div>
+    `;
+
+    constructor(modal, config) {
+        this.content = Sqrl.Render(this.htmlTemplate, {modal: modal, ms: config});
+        const {store} = global;
+        setTimeout(() => {
+            const urlEl = document.getElementById('aiModelsFetchUrl');
+            if (urlEl) {
+                urlEl.value = store.get('aiModelsFetchUrl', '');
+            }
+        }, 0);
+    }
+
+    canExecute() {
+        return true;
+    }
+
+    clearContent() {
+    }
+}
+
+global.clearAiModelsFetchUrl = function () {
+    const urlEl = document.getElementById('aiModelsFetchUrl');
+    if (urlEl) {
+        urlEl.value = '';
+    }
+    store.set('aiModelsFetchUrl', '');
+}
+
+global.saveChatIntegrationSettings = function () {
+    const savedMsg = document.getElementById('chatIntegrationSavedMsg');
+    savedMsg.style.display = 'none';
+    const url = document.getElementById('aiModelsFetchUrl').value.trim();
+    store.set('aiModelsFetchUrl', url);
+    savedMsg.style.display = '';
+    setTimeout(() => {
+        savedMsg.style.display = 'none';
+    }, 2000);
 }
 
 module.exports.OutputOpt = OutputOpt;
@@ -423,3 +514,4 @@ module.exports.RLocaleOpt = RLocaleOpt;
 module.exports.DatabaseOpt = DatabaseOpt;
 module.exports.SaveAppSettings = SaveAppSettings;
 module.exports.LLMOpt = LLMOpt;
+module.exports.ChatIntegrationOpt = ChatIntegrationOpt;
