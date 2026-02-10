@@ -9,6 +9,7 @@ const {getT} = global.requireFromRoot("localization");
 const Sqrl = require('squirrelly')
 const {extractBeforeLastUnderscore, deleteFromSemModelCtrlsDragDrop} = require("./utility");
 let t = getT('menutoolbar')
+var packages_and_datasets={}
 
 function attachActionToMoveArrow(parentId) {
   var modal_id = document.getElementById(parentId).getAttribute("modal_id");
@@ -1235,6 +1236,88 @@ function r_on_select(modal_id, r_commands, val = "") {
     ipcRenderer.invoke('updateModal', { element_id: `${modal_id}_${item}`, cmd: r_commands[item] })
   })
 }
+
+module.exports.js_before_modal = (modal_id) => {
+	var js_commands = JSON.parse($(`#${modal_id}_pre_js`).html())
+	js_on_select(modal_id, js_commands)
+   $(`#${modal_id}`).modal('show');
+}
+
+
+
+
+ module.exports.js_on_select = async function js_on_select(modal_id, js_commands, val = "") {
+
+ if (Array.isArray(val))
+  {
+    val = val.join(',');
+  }
+
+  Object.keys(js_commands).forEach(function (item, index) {
+    js_commands[item] = Sqrl.Render(js_commands[item], { dataset: { name: getActiveDataset() }, value: val })
+  })
+
+ for (const [key, fnName] of Object.entries(js_commands)) {
+    const fn = module.exports[fnName];   // or handlers[fnName] if you store handlers in an object
+    if (typeof fn !== "function") {
+      throw new Error(`Handler "${fnName}" not found or not a function (key="${key}")`);
+    }
+    //This is important as it ensures that the file is loaded only once
+    //So if the function all_packages is called, all_datasets will not run until all_packages is complete 
+    await fn(modal_id, key, val); // pass key to every function (+ val if you want)
+  }
+}
+
+module.exports.all_packages = async function all_packages(modal_id, ctrl_name) {
+if (Object.keys(packages_and_datasets).length == 0)
+{
+  const res = await ipcRenderer.invoke("load_packages_datasets");
+
+  if (!res || !res.success) {
+    throw new Error(res?.error || "Failed to load packages_and_datasets");
+  }
+
+  packages_and_datasets = res.data;  // ✅ save to variable
+}
+updateModalHandler(`${modal_id}_${ctrl_name}`, packages_and_datasets.packages)
+};
+
+
+
+module.exports.getDatasetsFromSelectedPackage = function getDatasetsFromSelectedPackage(modal_id, ctrl_name, val) {
+ // let arr =[]
+  //arr.push(val)
+  let tempResults =[]
+  let results =[]
+  if (val =="All_Installed_Packages")
+  {
+    tempResults = packages_and_datasets.datasets
+  }else
+  {
+    tempResults = packages_and_datasets.packageToDataset[val];
+    //This is when the package has no datasets, we want to return an empty array so the dataset combo is cleared
+    if (tempResults == undefined)
+    {
+      tempResults =[""]
+    }
+  }
+  //If the package has only 1 dataset, tempResults will not be an array but a string, we want to make it an array so the combo rendering works correctly
+  if (!Array.isArray(tempResults))
+  {
+    results.push(tempResults)
+  } else{
+    results = tempResults
+  }
+  updateModalHandler(`${modal_id}_${ctrl_name}`, results)
+}
+
+
+
+module.exports.all_datasets = function all_datasets(modal_id, ctrl_name) {
+  updateModalHandler(`${modal_id}_${ctrl_name}`, packages_and_datasets.datasets)
+};
+
+
 function clearComboChild(el_id) {
   $(`#${el_id}`).children().each(function (index, element) {
     element.remove()

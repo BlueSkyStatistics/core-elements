@@ -29,6 +29,15 @@ class select extends baseElement{
         })
     </script>
     {{/if}}
+
+    {{ if (options.ms.onselect_js != "" ) }}
+    <script>
+        $(\`#{{modal.id}}_{{ms.no}}\`).on('change', function(){
+            js_on_select('{{modal.id}}', {{ms.onselect_js | safe}}, $(this).val())
+        })
+    </script>
+    {{/if}}
+
     </div>
     `
     constructor(modal, config) {
@@ -40,6 +49,7 @@ class select extends baseElement{
         }
         this.defaults = config.hasOwnProperty("default") ? config.default : ""
         config.onselect_r = config.hasOwnProperty("onselect_r") ? JSON.stringify(config.onselect_r) : ""
+        config.onselect_js = config.hasOwnProperty("onselect_js") ? JSON.stringify(config.onselect_js) : ""
         this.content = Sqrl.Render(this.htmlTemplate, {
             modal: modal,
             ms: config
