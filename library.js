@@ -41,7 +41,7 @@ var OutputOpt = require('./settingsOptions').OutputOpt
 var OutputTblOpt = require('./settingsOptions').OutputTblOpt
 var MiscOpt = require('./settingsOptions').MiscOpt
 var RLocaleOpt = require('./settingsOptions').RLocaleOpt
-var DatabaseOpt = require('./settingsOptions').DatabaseOpt
+
 var SaveAppSettings = require('./settingsOptions').SaveAppSettings
 var advancedTextBox = require('./advancedTextBox').element
 var semControl = require('./semControl').element
@@ -141,7 +141,6 @@ module.exports = {
     "OutputTblOpt": OutputTblOpt,
     "MiscOpt": MiscOpt,
     "RLocaleOpt": RLocaleOpt,
-    "DatabaseOpt": DatabaseOpt,
     "SaveAppSettings": SaveAppSettings,
     "selectElementMergeDatasets": handlers.selectElementMergeDatasets,
     "addToJoin" : handlers.addToJoin,

@@ -281,37 +281,6 @@ class RLocaleOpt {
   clearContent() { }
 }
 
-class DatabaseOpt {
-    content;
-    id;
-    htmlTemplate = `
-		              <div id="tnsadminOraclediv" class="pb-3">
-                    <label class="form-check-label mr-2" for="tnsadminpath">Oracle TNS_ADMIN path (use forward slash in path)</label>
-                    <input class="w-25 float-right" type="text" id="tnsadminpath" name="tnsadminpath">
-                    <div class="form-check ml-3">
-                      <input class="form-check-input" type="checkbox" id="useSysTnsAdmin" name="useSysTnsAdmin">
-                      <label class="form-check-label" for="useSysTnsAdmin">Use system defaults</label>
-                    </div>
-                  <div>
-                    <div id="maxDBtblRowCountdiv" class="pb-3">
-                      <label class="form-check-label mr-2" for="maxDBtblRowCount">Maximum rows allowed for a database table</label>
-                      <input class="w-25 float-right" type="number" id="maxDBtblRowCount" name="maxDBtblRowCount">
-                    </div>
-                    <div id="maxDBtblColCountdiv" class="pb-3">
-                      <label class="form-check-label mr-2" for="maxDBtblColCount">Maximum columns allowed for a database table</label>
-                      <input class="w-25 float-right" type="number" id="maxDBtblColCount" name="maxDBtblColCount">
-                    </div>
-                  </div>
-    `
-    constructor(modal, config) {
-        this.content = Sqrl.Render(this.htmlTemplate, { modal: modal, ms: config })
-    }
-    canExecute() {
-        return true
-    }
-    clearContent() { }
-}
-
 class SaveAppSettings {
     content;
     id;
@@ -332,5 +301,4 @@ module.exports.OutputOpt = OutputOpt;
 module.exports.OutputTblOpt = OutputTblOpt;
 module.exports.MiscOpt = MiscOpt;
 module.exports.RLocaleOpt = RLocaleOpt;
-module.exports.DatabaseOpt = DatabaseOpt;
 module.exports.SaveAppSettings = SaveAppSettings;
