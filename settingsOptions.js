@@ -450,20 +450,20 @@ class ChatIntegrationOpt {
     content;
     id;
     htmlTemplate = `
-      <div id="chatIntegrationSettingsDiv" class="pb-3">
+      <div id="chatIntegrationSettingsDiv" class="p-3" style=" background: #A8B6C4;">
         <h5>Chat Integration Settings</h5>
         <div class="form-group pb-2">
           <label for="aiModelsFetchUrl">AI Models Fetch URL
             <span title="URL endpoint to fetch available AI models. Leave empty to use default models." style="cursor: help; color: #007bff;">&#9432;</span>
           </label>
           <div class="d-flex align-items-center">
-            <input type="text" class="form-control w-75" id="aiModelsFetchUrl" placeholder="https://example.com/api/models">
+            <input type="text" class="form-control w-75"  id="aiModelsFetchUrl" placeholder="https://example.com/api/models">
             <button type="button" class="btn btn-outline-secondary btn-sm ml-2" onclick="clearAiModelsFetchUrl()" title="Clear URL">
               <i class="fas fa-times"></i> Clear
             </button>
           </div>
         </div>
-        <div class="form-text text-muted">Specify a custom endpoint to fetch AI models for chat integration.</div>
+        <div class="form-text text-muted text-light">Specify a custom endpoint to fetch AI models for chat integration.</div>
         <button id="chatIntegrationSaveBtn" class="btn btn-primary mt-3" onclick="saveChatIntegrationSettings()">Save Settings</button>
         <div id="chatIntegrationSavedMsg" class="text-success mt-2" style="display:none;">Settings saved!</div>
       </div>
