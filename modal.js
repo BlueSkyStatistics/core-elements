@@ -158,8 +158,7 @@ class modal {
     }
 
     hide() {
-        $(`#${this.id}`).removeAttr("dataset");
-        $(`#${this.id}`).modal('hide');
+        $(`#${this.id}`).removeAttr("dataset").modal('hide');
     }
 
     extractData() {
