@@ -1096,7 +1096,11 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
       if (objects.length >= 2) {
           formula_addon = `${active_val}(` + objects.join(`,`) + pasting[active_val][1]
         } else if (objects.length == 1) {
-          dialog.showErrorBox("Formula Error", "The function " + active_val + " requires multiple variables, please retry")
+          if (active_val === 'PQ' || active_val === 'FO') {
+            formula_addon = `${active_val}(` + objects[0] + pasting[active_val][1]
+          } else {
+            dialog.showErrorBox("Formula Error", "The function " + active_val + " requires multiple variables, please retry")
+          }
         } else {
           formula_addon = `${active_val}(`+ "variable 1, variable 2..." + pasting[active_val][1]
         }
