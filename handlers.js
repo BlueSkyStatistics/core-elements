@@ -922,8 +922,8 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
     'Find Pattern(1)': ['stringr::str_detect(string=', ', fixed("Enter pattern to find"))'],
     'Find Pattern(2)': ['dplyr::if_else(str_detect(string = ', ', fixed("Enter pattern to find")), specify_value_if_found, specify_value_if_not_found)'],
 
-    'Replace Pattern': ['stringr::str_replace(string= ', ', pattern="Enter pattern you want to find", replacement="Enter the replacement string")'],
-    'Replace Pattern(ALL)': ['stringr::str_replace_all(string= ', ', pattern="Enter pattern to find", replacement="Enter replacement string")'],
+    'Replace Pattern': ['stringr::str_replace(string= ', ', pattern=fixed("Enter pattern you want to find"), replacement="Enter the replacement string")'],
+    'Replace Pattern(ALL)': ['stringr::str_replace_all(string= ', ', pattern=fixed("Enter pattern to find"), replacement="Enter replacement string")'],
     'ToOrdered': ['factor(x= ', ', ordered=TRUE)'],
     'ToFactor': ['factor(x= ', ' )'],
     'ToCharacter': ['as.character( ', ')'],
@@ -2017,19 +2017,22 @@ function populateVariablesOfDataset(ctrlToPopulate, title, value, type) {
   var dataset = value;
   var item_id = ctrlToPopulate
   var data = store.get(dataset);
+  const isDraggable = $(`#${ctrlToPopulate}`).attr('bs-draggable') === 'true';
   if (data !== undefined) {
     var order = []
     data.cols.forEach(element => {
       var item_name = element.Name[0];
-      order.push(`${item_id}_${value}_${item_name.replace(/ /g, "_")}`)
-      $(`#${item_id}`).append(`<a href="#" 
-                            id="${item_id}_${value}_${item_name.replace(/ /g, "_")}"
-                            class="list-group-item list-group-item-sm list-group-item-action measure-${element.Measure[0]} class-${element.ColClass[0]}" 
-                            draggable="true" 
-                            bs-row-type="${element.Type[0]}" 
-                            bs-row-class="${element.ColClass[0]}" 
-                            bs-row-measure="${element.Measure[0]}" 
+      var itemId = `${item_id}_${value}_${item_name.replace(/ /g, "_")}`;
+      order.push(itemId)
+      $(`#${item_id}`).append(`<a href="#"
+                            id="${itemId}"
+                            class="list-group-item list-group-item-sm list-group-item-action measure-${element.Measure[0]} class-${element.ColClass[0]}"
+                            draggable="${isDraggable}"
+                            bs-row-type="${element.Type[0]}"
+                            bs-row-class="${element.ColClass[0]}"
+                            bs-row-measure="${element.Measure[0]}"
                             ondrop="drop(event)"
+                            ${isDraggable ? 'ondragstart="drag(event, \'copy\')"' : ''}
                             onclick="selectElementMergeDatasets(event)">${item_name}</a>`)
     });
     $(`#${item_id}`).attr('order', order.join("|||"))

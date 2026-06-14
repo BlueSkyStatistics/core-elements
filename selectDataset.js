@@ -19,7 +19,8 @@ class selectDataset extends baseElement {
     <div class="form-check list-group var-list" multiple
      id="{{modal.id}}_{{ms.no}}actVars"
      modal_id="{{modal.id}}"
-     {{if (options.ms.action)}}act="{{ms.action}}"{{#else}}act="copy"{{/if}}  
+     {{if (options.ms.action)}}act="{{ms.action}}"{{#else}}act="copy"{{/if}}
+     bs-draggable="{{if (options.ms.draggable)}}true{{#else}}false{{/if}}"
      bs-type="cols" ondrop="drop(event)" ondragover="allowDrop(event)">
     </div>
     <div class="simple-select">
@@ -39,7 +40,8 @@ class selectDataset extends baseElement {
     <div class="form-check list-group var-list" multiple
      id="{{modal.id}}_{{ms.no}}selVars"
      modal_id="{{modal.id}}"
-     {{if (options.ms.action)}}act="{{ms.action}}"{{#else}}act="copy"{{/if}}  
+     {{if (options.ms.action)}}act="{{ms.action}}"{{#else}}act="copy"{{/if}}
+     bs-draggable="{{if (options.ms.draggable)}}true{{#else}}false{{/if}}"
      bs-type="cols" ondrop="drop(event)" ondragover="allowDrop(event)">
     </div>
     </div>
@@ -51,6 +53,7 @@ class selectDataset extends baseElement {
         if (config.required) {
             this.required = config.required
         }
+        this.draggable = config.hasOwnProperty("draggable") ? config.draggable : false
         this.defaults = config.hasOwnProperty("default") ? config.default : ""
         config.onselect_r = config.hasOwnProperty("onselect_r") ? JSON.stringify(config.onselect_r) : ""
         this.content = Sqrl.Render(this.htmlTemplate, {
