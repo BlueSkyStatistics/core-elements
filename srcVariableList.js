@@ -59,7 +59,11 @@ class srcVariableList {
     let flagMaxWidthChange = false
     var item_name =""  
     var dataset = getActiveDataset();
-    var data = store.get(dataset); 
+    var data = store.get(dataset);
+    if (data === undefined) {
+        console.error('No data for dataset: ', dataset)
+        return
+    }
     data.cols.forEach(element =>    {
         item_name = element.Name[0];
         tempSpan.textContent = item_name
