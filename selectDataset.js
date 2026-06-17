@@ -21,6 +21,7 @@ class selectDataset extends baseElement {
      modal_id="{{modal.id}}"
      {{if (options.ms.action)}}act="{{ms.action}}"{{#else}}act="copy"{{/if}}
      bs-draggable="{{if (options.ms.draggable)}}true{{#else}}false{{/if}}"
+     bs-drag-action="{{if (options.ms.dragAction)}}{{ms.dragAction}}{{#else}}copy{{/if}}"
      bs-type="cols" ondrop="drop(event)" ondragover="allowDrop(event)">
     </div>
     <div class="simple-select">
@@ -42,6 +43,7 @@ class selectDataset extends baseElement {
      modal_id="{{modal.id}}"
      {{if (options.ms.action)}}act="{{ms.action}}"{{#else}}act="copy"{{/if}}
      bs-draggable="{{if (options.ms.draggable)}}true{{#else}}false{{/if}}"
+     bs-drag-action="{{if (options.ms.dragAction)}}{{ms.dragAction}}{{#else}}copy{{/if}}"
      bs-type="cols" ondrop="drop(event)" ondragover="allowDrop(event)">
     </div>
     </div>
@@ -54,6 +56,7 @@ class selectDataset extends baseElement {
             this.required = config.required
         }
         this.draggable = config.hasOwnProperty("draggable") ? config.draggable : false
+        this.dragAction = config.hasOwnProperty("dragAction") ? config.dragAction : 'copy'
         this.defaults = config.hasOwnProperty("default") ? config.default : ""
         config.onselect_r = config.hasOwnProperty("onselect_r") ? JSON.stringify(config.onselect_r) : ""
         this.content = Sqrl.Render(this.htmlTemplate, {
@@ -103,7 +106,7 @@ class selectDataset extends baseElement {
         //This may be from a previous launch of the mergedatasetsnew dialog
         //This may be from the history from a mergedatasetsnew dialog launched from history
         if (noOfdatasets > 0) {
-            for (i = 0; i < noOfdatasets; i++) {
+            for (let i = 0; i < noOfdatasets; i++) {
                 document.getElementById(this.id).remove(0);
             }
         }

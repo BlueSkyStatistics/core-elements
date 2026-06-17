@@ -2018,6 +2018,7 @@ function populateVariablesOfDataset(ctrlToPopulate, title, value, type) {
   var item_id = ctrlToPopulate
   var data = store.get(dataset);
   const isDraggable = $(`#${ctrlToPopulate}`).attr('bs-draggable') === 'true';
+  const dragAction = $(`#${ctrlToPopulate}`).attr('bs-drag-action') || 'copy';
   if (data !== undefined) {
     var order = []
     data.cols.forEach(element => {
@@ -2032,7 +2033,7 @@ function populateVariablesOfDataset(ctrlToPopulate, title, value, type) {
                             bs-row-class="${element.ColClass[0]}"
                             bs-row-measure="${element.Measure[0]}"
                             ondrop="drop(event)"
-                            ${isDraggable ? 'ondragstart="drag(event, \'copy\')"' : ''}
+                            ${isDraggable ? `ondragstart="drag(event, '${dragAction}')"` : ''}
                             onclick="selectElementMergeDatasets(event)">${item_name}</a>`)
     });
     $(`#${item_id}`).attr('order', order.join("|||"))
