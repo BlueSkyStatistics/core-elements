@@ -64,7 +64,7 @@ class srcVariableList {
         console.error('No data for dataset: ', dataset)
         return
     }
-    data.cols.forEach(element =>    {
+    data.cols?.forEach(element =>    {
         item_name = element.Name[0];
         tempSpan.textContent = item_name
         textWidth = tempSpan.offsetWidth; // Measure the rendered text width
@@ -88,7 +88,7 @@ class srcVariableList {
                             // the filter function prevents selected items from modelTermsDst (structural parameters) from being moved
                             //Every item in modeltermsdst has a class termsDst
                             //selectModelTerms ensures at the class active gets added to selected items in the structural parameters and coVarsDst in production mode
-                            data.cols.forEach(element => {
+                            data.cols?.forEach(element => {
                                 var item_name = element.Name[0];
                                 order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
                                 $(`#${item_id}`).append(`<a href="#" 
@@ -113,7 +113,7 @@ class srcVariableList {
                                 //If minwidth is not set the variable name is not visible as it is truncated
                                 if ( flagMaxWidthChange)
                                 {
-                                    data.cols.forEach(element =>    {
+                                    data.cols?.forEach(element =>    {
                                         item_name = element.Name[0];
                                         order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
                                         $(`#${item_id}`).append(`<a href="#" 
@@ -131,7 +131,7 @@ class srcVariableList {
                                     $('#' + item_id).attr('maxVarWidth', maxWidth.toString()+"px" );
                                 } else 
                                 {
-                                    data.cols.forEach(element =>    {
+                                    data.cols?.forEach(element =>    {
                                         item_name = element.Name[0];
                                         order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
                                         $(`#${item_id}`).append(`<a href="#" 
