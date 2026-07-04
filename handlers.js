@@ -893,7 +893,7 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
     'factorial': [`factorial(x= `, `)`],
     'pigamma': [`pigamma(x= `, `, deriv = 0)`],
     'Length': [`str_length(string= `, `)`],
-    'Count(matches)': [`str_count(string= `, `, pattern ='Enter the pattern')`],
+    'Count(matches)': [`str_count(string= `, `, pattern =fixed('Enter the pattern'))`],
     'Extract a Number': [`str_extract(string= `, `, pattern="\\\\d+\\\\.*\\\\d*")`],
     'Day of Month': ['as.numeric(strftime(x= ', ', format ="%e", tz=""))'],
     'Day of Year': ['as.numeric(strftime(x= ', ', format ="%j", tz=""))'],
@@ -1022,7 +1022,7 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
     if (objects.length > 1) {
       formula_addon = `${complexerap[active_val][0]}` + objects.join(`${complexerap[active_val][1]} + ${complexerap[active_val][0]}`) + complexerap[active_val][1]
     } else {
-      formula_addon = `${complexerap[active_val][0]}${objects[0] !== undefined ? objects[0] : ""}${complexerap[active_val][1]}`
+      formula_addon = `${complexerap[active_val][0]}${objects[0] !== undefined ? objects[0] : 'Enter variable name'}${complexerap[active_val][1]}`
     }
     //lengthInserted =formula_addon.length
     results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
@@ -1061,7 +1061,7 @@ function _form_new_formula_value(objects, cursorPosition, formula_value, active_
     if (objects.length > 1) {
       formula_addon = "paste(" + `${complexerapstr[active_val][0]}` + objects.join(`${complexerapstr[active_val][1]} , ${complexerapstr[active_val][0]}`) + complexerapstr[active_val][1] + ", sep='_')"
     } else {
-      formula_addon = `${complexerapstr[active_val][0]}${objects[0] !== undefined ? objects[0] : ""}${complexerapstr[active_val][1]}`
+      formula_addon = `${complexerapstr[active_val][0]}${objects[0] !== undefined ? objects[0] : 'Enter variable name'}${complexerapstr[active_val][1]}`
     }
     //lengthInserted =formula_addon.length
     results = _calculate_position(formula_value, formula_addon, cursorPosition, sign, additive, onlyIncrement)
