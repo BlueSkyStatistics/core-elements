@@ -166,6 +166,15 @@ class MiscOpt {
           name="useLocalFile">
         <label class="form-check-label" for="useLocalFile">Use Local Log File (Applied after application restart)</label>
       </div>
+      <!-- spawnLogging checkbox removed intentionally — toggle this setting directly in
+           appconfig.v*.json (APPDATA) by setting "spawnLogging": true/false -->
+      <!--
+      <div id="spawnLoggingDiv" class="form-check pb-3">
+        <input class="form-check-input" type="checkbox" id="spawnLogging"
+          name="spawnLogging">
+        <label class="form-check-label" for="spawnLogging">Enable RConsole spawn logging to rconsole-spawn.log in APPDATA (Applied after application restart)</label>
+      </div>
+      -->      
       <div id="disableGAdiv" class="form-check pb-3">
         <input class="form-check-input" type="checkbox" id="disableGA"
           name="disableGA">
