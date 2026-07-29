@@ -221,7 +221,10 @@ class MiscOpt {
       <div id="hidePasteWarningDiv" class="form-check pb-3">
         <input class="form-check-input" type="checkbox" id="hidePasteWarning" name="hidePasteWarning">
         <label class="form-check-label" for="hidePasteWarning">Hide warning when pasting overflowing data</label>
-      </div>      
+      </div>
+      <div id="downloadDialogStructureDiv" class="pb-3">
+        <button class="btn btn-secondary" onclick="downloadDialogStructure()">Download dialog structure</button>
+      </div>
     `
 
     constructor(modal, config) {
