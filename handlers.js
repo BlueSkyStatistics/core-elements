@@ -1352,8 +1352,23 @@ function clearCombo(id) {
   })
 }
 function renderCombo(element_id, content) {
+  // On dialog recall, populateModal() restores a saved selection before this
+  // (slower, R round-trip driven) refresh resolves. Capture whatever is
+  // currently selected so the rebuild below doesn't silently wipe it out -
+  // it's re-applied afterward only if it's still a valid option.
+  var _activeSelection = $(`#${element_id}`).siblings("ul").find("a.active").map(function () {
+    return $(this).text().trim();
+  }).get();
+  if (_activeSelection.length === 0) {
+    _activeSelection = $(`#${element_id}`).find('option:selected').map(function () {
+      return this.value;
+    }).get();
+  }
   clearComboChild(element_id)
   var _def = $(`#${element_id}`).attr('default')
+  if (_activeSelection.length) {
+    _def = _activeSelection.join("|")
+  }
   var _opt_template = `{{ each(options.options) }}
       <option {{ if (options.default && options.default.split("|").includes(@this))}}selected="selected"{{/if}}>{{@this}}</option>
     {{/each}}`
