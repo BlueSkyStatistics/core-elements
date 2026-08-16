@@ -42,6 +42,10 @@ class OutputOpt {
                     <input class="form-check-input" type="checkbox" id="dropasterisk" name="dropasterisk">
                     <label class="form-check-label" for="dropasterisk">Hide asterisk (*) in p value column</label>
                   </div>
+                  <div id="thousandsSeparatordiv" class="form-check pb-3">
+                    <input class="form-check-input" type="checkbox" id="thousandsSeparator" name="thousandsSeparator">
+                    <label class="form-check-label" for="thousandsSeparator">Display thousands separator in the data grid</label>
+                  </div>
                   <div id="decimaldigitsdiv" class="pb-3">
                     <label class="form-check-label mr-2" for="decimaldigits">Number of decimal digits to display</label>
                     <input class="w-25 float-right" type="number" id="decimaldigits" name="decimaldigits">
