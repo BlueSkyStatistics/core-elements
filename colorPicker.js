@@ -26,7 +26,7 @@ class colorPicker extends baseElement {
     </div>
     <div class="row">
         <div class="col-12">
-            <input class="w-20" type="color" bs-type="{{if(options.ms.type)}}{{ms.type}}{{#else}}text{{/if}}" rel="txtTooltip" title=${t('colpickerttip1')} data-toggle="tooltip" data-placement="bottom"
+            <input class="w-20" type="color" bs-type="{{if(options.ms.type)}}{{ms.type}}{{#else}}text{{/if}}" rel="txtTooltip" title=${t('colpickerttip1')} data-bs-toggle="tooltip" data-bs-placement="bottom"
                    id="{{modal.id}}_{{ms.no}}" 
                    {{if(options.ms.placeholder)}} placeholder="{{ms.placeholder}}" {{/if}}
                    no="{{ms.no}}" extractable=true extractionRule="{{ms.extraction}}" 

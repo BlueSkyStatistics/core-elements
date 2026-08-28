@@ -13,7 +13,7 @@ class repMeasuresCTRL extends baseElement {
     content;
     id;
     htmlTemplate = `
-    <a class="btn btn-sm btn-secondary btn-block mb-0" data-toggle="collapse" href="#{{modal.id}}_{{ms.no}}" role="button" aria-expanded="false" aria-controls="{{modal.id}}_{{ms.no}}">
+    <a class="btn btn-sm btn-secondary btn-block mb-0" data-bs-toggle="collapse" href="#{{modal.id}}_{{ms.no}}" role="button" aria-expanded="false" aria-controls="{{modal.id}}_{{ms.no}}">
     ${t('RMstr0')}
     <div class="ripple-container"></div>
     </a>

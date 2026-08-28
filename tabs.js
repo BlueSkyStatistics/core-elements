@@ -17,7 +17,7 @@ class tabsComponents {
             <li class="nav-item">
                 <a class="nav-link btn-secondary btn-top-menu {{@this.state}}" 
                 id="{{modal.id}}_{{ms.no}}_{{@this.no}}_tab"
-                data-toggle="tab" 
+                data-bs-toggle="tab" 
                 href="#{{modal.id}}_{{ms.no}}_{{@this.no}}"
                 role="tab" aria-controls="{{modal.id}}_{{ms.no}}_{{@this.no}}" 
                 el-group="{{modal.id}}_{{@this.no}}"

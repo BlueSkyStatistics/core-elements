@@ -50,7 +50,7 @@ class switchCase extends baseElement {
                         <ul class="nav nav-pils sclist nav-black" style="width:100%" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link btn-secondary btn-top-menu active" 
-                                style="-webkit-app-region: no-drag;" data-toggle="tab" 
+                                style="-webkit-app-region: no-drag;" data-bs-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab1" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab1" 
                                 aria-selected="true" role="tab">
                                 ${t('SCtabArithmetic')}
@@ -58,7 +58,7 @@ class switchCase extends baseElement {
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link btn-secondary btn-top-menu" 
-                                style="-webkit-app-region: no-drag;" data-toggle="tab" 
+                                style="-webkit-app-region: no-drag;" data-bs-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab2" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab2" 
                                 aria-selected="true" role="tab">
                                 ${t('SCtabLogical')}
@@ -66,7 +66,7 @@ class switchCase extends baseElement {
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link btn-secondary btn-top-menu" 
-                                style="-webkit-app-region: no-drag;" data-toggle="tab" 
+                                style="-webkit-app-region: no-drag;" data-bs-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab3" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab3" 
                                 aria-selected="true" role="tab">
                                 ${t('SCtabMath')}
@@ -74,7 +74,7 @@ class switchCase extends baseElement {
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link btn-secondary btn-top-menu" 
-                                style="-webkit-app-region: no-drag;" data-toggle="tab" 
+                                style="-webkit-app-region: no-drag;" data-bs-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab4" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab4" 
                                 aria-selected="true" role="tab">
                                 ${t('SCtabString1')}
@@ -84,7 +84,7 @@ class switchCase extends baseElement {
                             
                             <li class="nav-item">
                                 <a class="nav-link btn-secondary btn-top-menu" 
-                                style="-webkit-app-region: no-drag;" data-toggle="tab" 
+                                style="-webkit-app-region: no-drag;" data-bs-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab5" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab5" 
                                 aria-selected="true" role="tab">
                                 ${t('SCtabString2')}
@@ -92,7 +92,7 @@ class switchCase extends baseElement {
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link btn-secondary btn-top-menu" 
-                                style="-webkit-app-region: no-drag;" data-toggle="tab" 
+                                style="-webkit-app-region: no-drag;" data-bs-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab6" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab6" 
                                 aria-selected="true" role="tab">
                                 ${t('SCtabConversion')}
@@ -100,7 +100,7 @@ class switchCase extends baseElement {
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link btn-secondary btn-top-menu" 
-                                style="-webkit-app-region: no-drag;" data-toggle="tab" 
+                                style="-webkit-app-region: no-drag;" data-bs-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab7" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab7" 
                                 aria-selected="true" role="tab">
                                 ${t('SCtabStatistical')}
@@ -108,7 +108,7 @@ class switchCase extends baseElement {
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link btn-secondary btn-top-menu" 
-                                style="-webkit-app-region: no-drag;" data-toggle="tab" 
+                                style="-webkit-app-region: no-drag;" data-bs-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab8" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab8" 
                                 aria-selected="true" role="tab">
                                 ${t('SCtabRandomNumbers')}
@@ -116,7 +116,7 @@ class switchCase extends baseElement {
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link btn-secondary btn-top-menu" 
-                                style="-webkit-app-region: no-drag;" data-toggle="tab" 
+                                style="-webkit-app-region: no-drag;" data-bs-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab9" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab9" 
                                 aria-selected="true" role="tab">
                                 ${t('SCtabDate1')}
@@ -124,7 +124,7 @@ class switchCase extends baseElement {
                             </li>
                                 <li class="nav-item">
                                 <a class="nav-link btn-secondary btn-top-menu" 
-                                style="-webkit-app-region: no-drag;" data-toggle="tab" 
+                                style="-webkit-app-region: no-drag;" data-bs-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab10" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab10" 
                                 aria-selected="true" role="tab">
                                 ${t('SCtabDate2')}
@@ -133,7 +133,7 @@ class switchCase extends baseElement {
                                 </li>
                                 <li class="nav-item">
                                 <a class="nav-link btn-secondary btn-top-menu" 
-                                style="-webkit-app-region: no-drag;" data-toggle="tab" 
+                                style="-webkit-app-region: no-drag;" data-bs-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab11" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab11" 
                                 aria-selected="true" role="tab">
                                 ${t('SCtabDate3')}
@@ -141,7 +141,7 @@ class switchCase extends baseElement {
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link btn-secondary btn-top-menu" 
-                                style="-webkit-app-region: no-drag;" data-toggle="tab" 
+                                style="-webkit-app-region: no-drag;" data-bs-toggle="tab" 
                                 href="#{{modal.id}}_{{ms.no}}_tab12" onclick="resetComputeBuilderButtons(event); return true;" aria-controls="{{modal.id}}_{{ms.no}}_tab12" 
                                 aria-selected="true" role="tab">
                                 ${t('SCtabDate4')}
@@ -162,7 +162,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary 
                                 formula-btn w-100 m-0 activated" val="+" 
                                 onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip1')}">
                                 <i class="fas fa-plus"></i>
                             </button>
@@ -170,7 +170,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="-" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip2')}">
                                 <i class="fas fa-minus"></i>
                             </button>
@@ -178,7 +178,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="*" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
-                            data-toggle="tooltip" data-html="true" data-placement="top"   
+                            data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                             title="${t('SCttip3')}">
                                 <i class="fas fa-asterisk"></i>
                             </button>
@@ -186,7 +186,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="/" onclick="toggleButton(event, true)"  ondblclick="toFocusedInput(event)"
-                            data-toggle="tooltip" data-html="true" data-placement="top"   
+                            data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                             title="${t('SCttip4')}">
                                 /
                             </button>
@@ -194,7 +194,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="^" onclick="toggleButton(event, true)"  ondblclick="toFocusedInput(event)"
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip5')}">
                                 ^
                             </button>
@@ -205,7 +205,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary 
                                 formula-btn w-100 m-0" val="sqrt" 
                                 onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip6')}">
                                 ${t('SCbtnlbl6')}
                             </button>
@@ -213,7 +213,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="log" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip7')}">
                                 ${t('SCbtnlbl7')}
                             </button>
@@ -221,7 +221,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="log10" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
-                            data-toggle="tooltip" data-html="true" data-placement="top"   
+                            data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                             title="${t('SCttip8')}">
                             ${t('SCbtnlbl8')}
                             </button>
@@ -229,7 +229,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="log2" onclick="toggleButton(event, true)"  ondblclick="toFocusedInput(event)"
-                            data-toggle="tooltip" data-html="true" data-placement="top"   
+                            data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                             title="${t('SCttip9')}">
                             ${t('SCbtnlbl9')}
                             </button>
@@ -240,7 +240,7 @@ class switchCase extends baseElement {
                             <button type="button" class="btn btn-outline-secondary 
                                 formula-btn w-100 m-0" val="%%" 
                                 onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip10')}">
                             ${t('SCbtnlbl10')}
                             </button>
@@ -248,7 +248,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="abs" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip11')}">
                             ${t('SCbtnlbl11')}
                             </button>
@@ -256,7 +256,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="exp" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
-                            data-toggle="tooltip" data-html="true" data-placement="top"   
+                            data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                             title="${t('SCttip12')}">
                             ${t('SCbtnlbl12')}
                             </button>
@@ -268,7 +268,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val=">" onclick="toFocusedInput(event)" 
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip13')}">
                                 <b>&gt;</b>
                             </button>
@@ -276,7 +276,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="<" onclick="toFocusedInput(event)"  
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip14')}">
                                 <b>&lt;</b>
                             </button>
@@ -284,7 +284,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val=">=" onclick="toFocusedInput(event)"  
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip15')}">
                                 <b>&gt;=</b>
                             </button>
@@ -292,7 +292,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="<=" onclick="toFocusedInput(event)"  
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip16')}">
                                 <b>&lt;=</b>
                             </button>
@@ -300,7 +300,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="==" onclick="toFocusedInput(event)"  
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip17')}">
                                 <b>==</b>
                             </button>
@@ -308,7 +308,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="!=" onclick="toFocusedInput(event)"  
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip18')}">
                                 <b>!=</b>
                             </button>
@@ -318,7 +318,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="|" onclick="toFocusedInput(event)"  
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip19')}">
                                 <b>|</b>
                             </button>
@@ -326,7 +326,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="&" onclick="toFocusedInput(event)"  
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip20')}">
                                 <b>&amp;</b>
                             </button>
@@ -334,7 +334,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="%/%" onclick="toFocusedInput(event)"  
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip21')}">
                                 <b>${t('SCbtnlbl21')}</b>
                             </button>
@@ -342,7 +342,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="isTRUE" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
-                            data-toggle="tooltip" data-html="true" data-placement="top"   
+                            data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                             title="${t('SCttip22')}">
                                 ${t('SCbtnlbl22')}
                             </button>
@@ -350,7 +350,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="is.na" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
-                            data-toggle="tooltip" data-html="true" data-placement="top"   
+                            data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                             title="${t('SCttip23')}">
                                 ${t('SCbtnlbl23')}
                             </button>
@@ -358,7 +358,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" val="%in%" 
                             onclick="toFocusedInput(event)"
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip24')}">
                                 ${t('SCbtnlbl24')}
                             </button>
@@ -370,7 +370,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="round" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip25')}">
                                 <b>${t('SCbtnlbl25')}</b>
                             </button>
@@ -378,7 +378,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="ceiling" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip26')}">
                                 <b>${t('SCbtnlbl26')}</b>
                             </button>
@@ -386,7 +386,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="floor" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip27')}">
                                 <b>${t('SCbtnlbl27')}</b>
                             </button>
@@ -394,7 +394,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="signif" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip28')}">
                                 <b>${t('SCbtnlbl28')}</b>
                             </button>
@@ -402,7 +402,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="gamma" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip29')}">
                                 <b>${t('SCbtnlbl29')}</b>
                             </button>
@@ -410,7 +410,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="lgamma" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip30')}">
                                 <b>${t('SCbtnlbl30')}</b>
                             </button>
@@ -418,7 +418,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="beta" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip31')}">
                                 <b>${t('SCbtnlbl31')}</b>
                             </button>
@@ -426,7 +426,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="lbeta" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip32')}">
                                 <b>${t('SCbtnlbl32')}</b>
                             </button>
@@ -434,7 +434,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="factorial" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                            data-toggle="tooltip" data-html="true" data-placement="top"   
+                            data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                             title="${t('SCttip33')}">
                             <b>${t('SCbtnlbl33')}</b>
                             </button>
@@ -442,7 +442,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                             val="pigamma" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                            data-toggle="tooltip" data-html="true" data-placement="top"   
+                            data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                             title="${t('SCttip34')}">
                             <b>${t('SCbtnlbl34')}</b>
                             </button>
@@ -454,7 +454,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="toupper" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                                    data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                     title="${t('SCttip35')}">
                                     <b>${t('SCbtnlbl35')}</b>
                                 </button>
@@ -462,7 +462,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                     val="tolower" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                                    data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                     title="${t('SCttip36')}">
                                     <b>${t('SCbtnlbl36')}</b>
                                 </button>
@@ -470,7 +470,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="Pad" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip37')}">
                                 <b>${t('SCbtnlbl37')}</b>
                             </button>
@@ -478,7 +478,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="Trim" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip38')}">
                                 <b>${t('SCbtnlbl38')}</b>
                             </button>
@@ -486,7 +486,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="Length" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip39')}">
                                 <b>${t('SCbtnlbl39')}</b>
                             </button>
@@ -494,7 +494,7 @@ class switchCase extends baseElement {
                         <div class="col p-0">
                             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                                 val="Count(matches)" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                                data-toggle="tooltip" data-html="true" data-placement="top"   
+                                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                                 title="${t('SCttip40')}">
                                 <b>${t('SCbtnlbl40')}</b>
                             </button>
@@ -506,7 +506,7 @@ class switchCase extends baseElement {
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Extract Substring" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip41')}">
                         <b>${t('SCbtnlbl41')}</b>
                     </button>
@@ -514,7 +514,7 @@ class switchCase extends baseElement {
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Concatenate" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip42')}">
                         <b>${t('SCbtnlbl42')}</b>
                     </button>
@@ -522,7 +522,7 @@ class switchCase extends baseElement {
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Replace Pattern" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip43')}">
                         <b>${t('SCbtnlbl43')}</b>
                     </button>
@@ -530,7 +530,7 @@ class switchCase extends baseElement {
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Replace Pattern(ALL)" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip44')}">
                         <b>${t('SCbtnlbl44')}</b>
                     </button>
@@ -538,7 +538,7 @@ class switchCase extends baseElement {
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Extract a Number" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip45')}">
                         <b>${t('SCbtnlbl45')}r</b>
                     </button>
@@ -550,7 +550,7 @@ class switchCase extends baseElement {
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="as.numeric" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip46')}">
                         <b>${t('SCbtnlbl46')}</b>
                     </button>
@@ -558,7 +558,7 @@ class switchCase extends baseElement {
                 <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="ToCharacter" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip47')}">
                         <b>${t('SCbtnlbl47')}</b>
                     </button>
@@ -566,7 +566,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="ToFactor" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                     title="${t('SCttip48')}">
                     <b>${t('SCbtnlbl48')}</b>
                 </button>
@@ -574,7 +574,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="ToOrdered" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                     title="${t('SCttip49')}">
                     <b>${t('SCbtnlbl49')}</b>
                 </button>
@@ -582,7 +582,7 @@ class switchCase extends baseElement {
                 <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="ToLogical" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                     title="${t('SCttip50')}">
                     <b>${t('SCbtnlbl50')}</b>
                 </button>
@@ -594,7 +594,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="max" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                     title="${t('SCttip51')}">
                     <b>${t('SCbtnlbl51')}</b>
                 </button>
@@ -602,7 +602,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="min" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                     title="${t('SCttip52')}">
                     <b>${t('SCbtnlbl52')}</b>
                 </button>
@@ -610,7 +610,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="mean" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                     title="${t('SCttip53')}">
                     <b>${t('SCbtnlbl53')}</b>
                 </button>
@@ -618,7 +618,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="median" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                     title="${t('SCttip54')}">
                     <b>${t('SCbtnlbl54')}</b>
                 </button>
@@ -626,7 +626,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="sd" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                     title="${t('SCttip55')}">
                     <b>${t('SCbtnlbl55')}</b>
                 </button>
@@ -634,7 +634,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="sum" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                     title="${t('SCttip56')}">
                     <b>${t('SCbtnlbl56')}</b>
                 </button>
@@ -642,7 +642,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                 <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                     val="variance" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                    data-toggle="tooltip" data-html="true" data-placement="top"   
+                    data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                     title="${t('SCttip57')}">
                     <b>${t('SCbtnlbl57')}</b>
                 </button>
@@ -654,7 +654,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="runif" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)"
-                data-toggle="tooltip" data-html="true" data-placement="top"   
+                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                 title="${t('SCttip58')}">
                 <b>${t('SCbtnlbl58')}</b>
             </button>
@@ -662,7 +662,7 @@ class switchCase extends baseElement {
         <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="sample" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                data-toggle="tooltip" data-html="true" data-placement="top"   
+                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                 title="${t('SCttip59')}">
                 <b>${t('SCbtnlbl59')}</b>
             </button>
@@ -670,7 +670,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="rnorm" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip60')}">
                         <b>${t('SCbtnlbl60')}</b>
                     </button>
@@ -682,7 +682,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Day of Week" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                data-toggle="tooltip" data-html="true" data-placement="top"   
+                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                 title="${t('SCttip61')}">
                 <b>${t('SCbtnlbl61')}</b>
             </button>
@@ -690,7 +690,7 @@ class switchCase extends baseElement {
         <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Day of Month" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                data-toggle="tooltip" data-html="true" data-placement="top"   
+                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                 title="${t('SCttip62')}">
                 <b>${t('SCbtnlbl62')}</b>
             </button>
@@ -698,7 +698,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Day of Year" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip63')}">
                         <b>${t('SCbtnlbl63')}</b>
                     </button>
@@ -706,7 +706,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Week of Year" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip64')}">
                         <b>${t('SCbtnlbl64')}</b>
                     </button>
@@ -714,7 +714,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Month" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip65')}">
                         <b>${t('SCbtnlbl65')}</b>
                     </button>
@@ -722,7 +722,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Month(decimal)" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip66')}">
                         <b>${t('SCbtnlbl66')}</b>
                     </button>
@@ -734,7 +734,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Quarters" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                data-toggle="tooltip" data-html="true" data-placement="top"   
+                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                 title="${t('SCttip67')}">
                 <b>${t('SCbtnlbl67')}</b>
             </button>
@@ -742,7 +742,7 @@ class switchCase extends baseElement {
         <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Year(XXXX)" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                data-toggle="tooltip" data-html="true" data-placement="top"   
+                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                 title="${t('SCttip68')}">
                 <b>${t('SCbtnlbl68')}</b>
             </button>
@@ -750,7 +750,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Year(XX)" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip69')}">
                         <b>${t('SCbtnlbl69')}</b>
                     </button>
@@ -758,7 +758,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Hour(00-12)" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip70')}">
                         <b>${t('SCbtnlbl70')}</b>
                     </button>
@@ -766,7 +766,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Hour(00-23)" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip71')}">
                         <b>${t('SCbtnlbl71')}</b>
                     </button>
@@ -774,7 +774,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
                     <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                         val="Minutes" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                        data-toggle="tooltip" data-html="true" data-placement="top"   
+                        data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                         title="${t('SCttip72')}">
                         <b>${t('SCbtnlbl72')}</b>
                     </button>
@@ -782,7 +782,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Secs" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                data-toggle="tooltip" data-html="true" data-placement="top"   
+                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                 title="${t('SCttip73')}">
                 <b>${t('SCbtnlbl73')}</b>
             </button>
@@ -794,7 +794,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Date from String" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                data-toggle="tooltip" data-html="true" data-placement="top"   
+                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                 title="${t('SCttip74')}">
                 <b>${t('SCbtnlbl74')}</b>
             </button>
@@ -802,7 +802,7 @@ class switchCase extends baseElement {
         <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Date Difference" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                data-toggle="tooltip" data-html="true" data-placement="top"   
+                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                 title="${t('SCttip75')}">
                 <b>${t('SCbtnlbl75')}</b>
             </button>
@@ -814,7 +814,7 @@ class switchCase extends baseElement {
             <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="Numeric to date" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                data-toggle="tooltip" data-html="true" data-placement="top"   
+                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                 title="${t('SCttip76')}">
                 <b>${t('SCbtnlbl76')}</b>
             </button>
@@ -822,7 +822,7 @@ class switchCase extends baseElement {
         <div class="col p-0">
             <button type="button" class="btn btn-outline-secondary formula-btn w-100 m-0" 
                 val="String to date" onclick="toggleButton(event, true)" ondblclick="toFocusedInput(event)" 
-                data-toggle="tooltip" data-html="true" data-placement="top"   
+                data-bs-toggle="tooltip" data-bs-html="true" data-bs-placement="top"   
                 title="${t('SCttip77')}">
                 <b>${t('SCbtnlbl77')}</b>
             </button>
