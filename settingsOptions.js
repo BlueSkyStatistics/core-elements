@@ -507,6 +507,11 @@ class ChatIntegrationOpt {
           </div>
         </div>
         <div class="form-text text-muted text-light">Specify a custom endpoint to fetch AI models for chat integration.</div>
+        <div class="form-check form-switch pb-2">
+          <input class="form-check-input" type="checkbox" id="showToolCallCardCheckbox" ${global.store.get('showToolCallCard', false) ? 'checked' : ''} onchange="onShowToolCallCardChange(this.checked)">
+          <label class="form-check-label" for="showToolCallCardCheckbox">Show tool call details in chat</label>
+        </div>
+        <div class="form-text text-muted text-light">When off, an assistant message that's just a tool call (no other content) is hidden from the chat panel.</div>
         <button id="chatIntegrationSaveBtn" class="btn btn-primary mt-3" onclick="saveChatIntegrationSettings()">Save Settings</button>
         <div id="chatIntegrationSavedMsg" class="text-success mt-2" style="display:none;">Settings saved!</div>
       </div>
@@ -528,6 +533,15 @@ class ChatIntegrationOpt {
     }
 
     clearContent() {
+    }
+}
+
+global.onShowToolCallCardChange = function (checked) {
+    const {store} = global;
+    store.set('showToolCallCard', checked);
+    const chatContainer = document.getElementById('chat-container');
+    if (chatContainer) {
+        chatContainer.classList.toggle('show-tool-call-card', checked);
     }
 }
 
