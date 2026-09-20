@@ -49,7 +49,7 @@ class modal {
     }
 
     htmlTemplate = `<div class="modal right fade" id="{{modal.id}}" {{if (options.modal.parameterCount != undefined)}} parameterCount = "{{modal.parameterCount}}" {{/if}} tabindex="-1" role="dialog" 
-    data-backdrop="false" data-keyboard="false"
+    data-bs-backdrop="false" data-bs-keyboard="false"
     aria-labelledby="{{modal.id}}Label"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -60,32 +60,32 @@ class modal {
                         <h5 class="modal-title" id="{{modal.id}}Label">{{modal.label}}</h5>
                     </div>
                     <div class="col-5 float-right pt-2">
-                        <button type="button" data-dismiss="modal" class="close enable-tooltip"
-                        data-toggle="tooltip" title="Close dialog">
+                        <button type="button" onclick="$('#{{modal.id}}').removeAttr('dataset').modal('hide')" class="close enable-tooltip"
+                        data-bs-toggle="tooltip" title="Close dialog">
                             <i class="fas fa-times"></i>
                         </button>
                         <button type="button" action="help" class="close ${hideclass} mr-1 enable-tooltip" id="{{modal.id}}HelpWin"
-                        data-toggle="tooltip" title="Open Help in a Window">
+                        data-bs-toggle="tooltip" title="Open Help in a Window">
                             <i class="icon-expand mr-1"></i>
                         </button>                           
                         <button type="button" action="help" class="close ${hideclassOldHelp}  mr-1 enable-tooltip" id="{{modal.id}}Help"
-                        data-toggle="tooltip" title="Help on dialog">
+                        data-bs-toggle="tooltip" title="Help on dialog">
                             <i class="fas fa-question"></i>
                         </button>
                         <button type="button" action="syntax" class="close ${hideclassSyntax}  mr-1 enable-tooltip viewmodestyle" id="{{modal.id}}Syntax"
-                        data-toggle="tooltip" title="Show R Syntax">
+                        data-bs-toggle="tooltip" title="Show R Syntax">
                             <i class="fas fa-code"></i>
                         </button>
                         <button type="button" action="submit" class="close btn-tooltip mr-0 enable-tooltip viewmodestyle" id="{{modal.id}}Submit"
-                        data-toggle="tooltip" title="Execute dialog">
+                        data-bs-toggle="tooltip" title="Execute dialog">
                             <i class="fas fa-play"></i>
                         </button>
-                        <button type="button" data-dismiss="modal" action="save" class="close d-none btn-tooltip mr-0 enable-tooltip" id="{{modal.id}}Save"
-                        data-toggle="tooltip" title="Save Settings">
+                        <button type="button" onclick="$('#{{modal.id}}').removeAttr('dataset').modal('hide')" action="save" class="close d-none btn-tooltip mr-0 enable-tooltip" id="{{modal.id}}Save"
+                        data-bs-toggle="tooltip" title="Save Settings">
                             <i class="fas fa-save"></i>
                         </button>
                         <button type="button" action="attach" class="close mr-1 enable-tooltip" id="{{modal.id}}Attach"
-                        data-toggle="tooltip" title="Attach" style="display: none;">
+                        data-bs-toggle="tooltip" title="Attach" style="display: none;">
                             <i class="fas fa-window-restore"></i>
                         </button>                        
                     </div>

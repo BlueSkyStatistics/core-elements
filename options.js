@@ -13,8 +13,8 @@ class optionsMenu {
     config;
     htmlTemplate = `
     <div>
-      <a class="btn btn-sm btn-secondary btn-block mb-0" 
-        data-toggle="collapse" href="#{{modal.id}}_{{ms.no}}" 
+      <a class="btn btn-sm btn-secondary btn-block mb-0"
+        data-bs-toggle="collapse" href="#{{modal.id}}_{{ms.no}}"
         role="button" aria-expanded="false" aria-controls="{{modal.id}}_{{ms.no}}">
       {{if(options.ms.name)}} {{ms.name}} {{#else}} ${t('OptVarDefaultLbl')} {{/if}}
         <div class="ripple-container"></div>
