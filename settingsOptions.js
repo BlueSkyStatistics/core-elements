@@ -154,6 +154,10 @@ class MiscOpt {
     content;
     id;
     htmlTemplate = `
+      <div id="datasetisrequireddiv" class="form-check pb-3">
+        <input class="form-check-input" type="checkbox" id="datasetisrequired" name="datasetisrequired">
+        <label class="form-check-label" for="datasetisrequired">Non-empty active dataset is required to launch the dialog</label>
+      </div>
       <div id="hideRDataWarningdiv" class="form-check pb-3">
         <input class="form-check-input" type="checkbox" id="hideRDataWarning" name="hideRDataWarning">
         <label class="form-check-label" for="hideRDataWarning">Hide warning when RData file is
