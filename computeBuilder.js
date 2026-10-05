@@ -29,7 +29,7 @@ class computeBuilder extends baseElement{
             <div class="col col-xx"></div>
             <div class="col col-rr pl-60">
                 <div class="d-flex nav-black unselectable">
-                    <div class="scmenu" style="width: calc(90vw);">
+                    <div class="scmenu" style="width: 100%;">
                     <div class="scroller scroller-menu-left"><img src="assets/images/chevron_left.svg" /></div>
                     <div class="scroller scroller-menu-right"><img src="assets/images/chevron_right.svg" /></div>
                         <div class="scwrapper">
