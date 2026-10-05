@@ -8,7 +8,15 @@ var Sqrl = require('squirrelly');
 const common = require("./common")
 let showExtrnalHelpicon = store.get("showExtrnalHelpicon", false)
 let showoldHelpicon = store.get("showOldDialogHelpicon", true)
-let showSyntaxicon = configStore.get("noR")   
+let showSyntaxicon = configStore.get("noR")
+
+// A070yMucW8KW is the same global flag used to show/hide the "Show code" ('</>')
+// icon in the output section and the R-syntax eye icon in the chat panel. Reuse
+// it here so the '</>' syntax button in dialog modals is hidden consistently.
+const _A070yMucW8KW = store.get('A070yMucW8KW', true);
+if (_A070yMucW8KW === false || _A070yMucW8KW === 'false') {
+    showSyntaxicon = true;
+}
 
 let hideclass = "d-none"
 if(showExtrnalHelpicon){
