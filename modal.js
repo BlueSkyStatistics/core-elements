@@ -57,8 +57,8 @@ class modal {
     }
 
     htmlTemplate = `<div class="modal right fade" id="{{modal.id}}" {{if (options.modal.parameterCount != undefined)}} parameterCount = "{{modal.parameterCount}}" {{/if}} tabindex="-1" role="dialog" 
-    data-backdrop="false" data-keyboard="false"
-    data-bs-backdrop="false" data-bs-keyboard="false"
+    data-backdrop="false" data-keyboard="false" data-focus="false"
+    data-bs-backdrop="false" data-bs-keyboard="false" data-bs-focus="false"
     aria-labelledby="{{modal.id}}Label"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
