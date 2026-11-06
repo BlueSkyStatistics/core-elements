@@ -27,16 +27,17 @@ function removenewline(str) {
 function fetchAllColumnAttributes() {
     let allColumnsProperties = {};
     let dataset = getActiveDataset();
-    let data = store.get(dataset);
-    if (data !== undefined) {
-        data.cols.forEach(element => {
-            let colinfo = {};
-            colinfo.Name = element.Name[0];
-            colinfo.Type = element.Type[0];
-            colinfo.ColClass = element.ColClass[0];
-            colinfo.Measure = element.Measure[0];
-            allColumnsProperties[colinfo.Name] = colinfo;
-        });
+    let data = !!dataset && store.get(dataset);
+    if (!!data) {
+        allColumnsProperties = data.cols.reduce((acc, i) => {
+            acc[i.Name[0]] = {
+                Name: i.Name[0],
+                Type: i.Type[0],
+                ColClass: i.ColClass[0],
+                Measure: i.Measure[0]
+            };
+            return acc
+        }, {});
     }
     return allColumnsProperties;
 }
