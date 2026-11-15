@@ -5,6 +5,7 @@
  */
 
 const {getT: utilityGetT} = requireFromRoot("localization.js");
+const Sqrl = require('squirrelly');
 
 function removenewline(str) {
     //new line followed my one or more tabs
