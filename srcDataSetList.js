@@ -7,6 +7,8 @@
 
 
 var Sqrl = require('squirrelly');
+// Resolved from the app root: this library can be installed as a module outside assets/.
+const {escapeHtml} = global.requireFromRoot("assets/js/utils/htmlSafety");
 const {getT} = global.requireFromRoot("localization");
 let t = getT('menutoolbar')
 
@@ -74,7 +76,7 @@ class srcDatasetList {
                         datasets.forEach(element => {
                             order.push(`${item_id}_${getActiveDataset()}_${element.replace(/ /g,"_")}`)
                             $(`#${item_id}`).append(`<a href="#" 
-                            id="${item_id}_${getActiveDataset()}_${element.replace(/ /g,"_")}"
+                            id="${escapeHtml(`${item_id}_${getActiveDataset()}_${element.replace(/ /g,"_")}`)}"
                             class="list-group-item list-group-item-sm list-group-item-action measure-dataset class-dataset" 
                             draggable="true" 
                             bs-row-type="dataset" 
@@ -83,13 +85,13 @@ class srcDatasetList {
                             style="min-width: ${maxWidth}px"; 
                             ondragstart="drag(event, '${_action}')"
                             ondrop="drop(event)"
-                            onclick="selectElement(event)">${element}</a>`) 
+                            onclick="selectElement(event)">${escapeHtml(element)}</a>`) 
                         });
                     } else {
                         datasets.forEach(element => {
                             order.push(`${item_id}_${getActiveDataset()}_${element.replace(/ /g,"_")}`)
                             $(`#${item_id}`).append(`<a href="#" 
-                            id="${item_id}_${getActiveDataset()}_${element.replace(/ /g,"_")}"
+                            id="${escapeHtml(`${item_id}_${getActiveDataset()}_${element.replace(/ /g,"_")}`)}"
                             class="list-group-item list-group-item-sm list-group-item-action measure-dataset class-dataset" 
                             draggable="true" 
                             bs-row-type="dataset" 
@@ -97,7 +99,7 @@ class srcDatasetList {
                             bs-row-measure="dataset" 
                             ondragstart="drag(event, '${_action}')"
                             ondrop="drop(event)"
-                            onclick="selectElement(event)">${element}</a>`) 
+                            onclick="selectElement(event)">${escapeHtml(element)}</a>`) 
                         });
 
                     }

@@ -5,6 +5,8 @@
  */
 
 const { getMultiVal } = require("./common");
+// Resolved from the app root: this library can be installed as a module outside assets/.
+const {escapeHtml} = global.requireFromRoot("assets/js/utils/htmlSafety");
 const {getT} = global.requireFromRoot("localization");
 const Sqrl = require('squirrelly')
 const {extractBeforeLastUnderscore, deleteFromSemModelCtrlsDragDrop} = require("./utility");
@@ -2041,7 +2043,7 @@ function populateVariablesOfDataset(ctrlToPopulate, title, value, type) {
       var itemId = `${item_id}_${value}_${item_name.replace(/ /g, "_")}`;
       order.push(itemId)
       $(`#${item_id}`).append(`<a href="#"
-                            id="${itemId}"
+                            id="${escapeHtml(itemId)}"
                             class="list-group-item list-group-item-sm list-group-item-action measure-${element.Measure[0]} class-${element.ColClass[0]}"
                             draggable="${isDraggable}"
                             bs-row-type="${element.Type[0]}"
@@ -2049,7 +2051,7 @@ function populateVariablesOfDataset(ctrlToPopulate, title, value, type) {
                             bs-row-measure="${element.Measure[0]}"
                             ondrop="drop(event)"
                             ${isDraggable ? `ondragstart="drag(event, '${dragAction}')"` : ''}
-                            onclick="selectElementMergeDatasets(event)">${item_name}</a>`)
+                            onclick="selectElementMergeDatasets(event)">${escapeHtml(item_name)}</a>`)
     });
     $(`#${item_id}`).attr('order', order.join("|||"))
   } else {
