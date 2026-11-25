@@ -437,24 +437,10 @@ function createRepeatedMeasures(measureList, factorList, modal_id, nos) {
 }
 
 
+// Whether the OS lets the user write in a folder (e.g. the R library). The main process checks
+// (Phase 2.3: the window has no fs of its own and may not write test files into arbitrary folders).
 function hasWritePermission(fpath) {
-    let canWrite = false;
-    if (fs.existsSync(fpath)) {
-        try {
-            fpath = changeBkslashToFrwdslash(path.join(fpath, "tempfile.txt"))
-            fs.writeFileSync(fpath, "check write permission", (err) => {
-            });
-
-            fs.unlink(fpath, (err) => {
-            });
-            canWrite = true;
-
-        } catch (err) {
-            console.error('Cannot write')
-            console.log(err.message);
-        }
-    }
-    return (canWrite);
+    return global.requireFromRoot("assets/js/utils/fileBridge").canWrite(fpath);
 }
 
 //type = normal is used for latent variables and higher order factors
