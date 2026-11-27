@@ -22,7 +22,7 @@ class fileOpenControl extends baseElement{
     htmlTemplate = `<div class="{{if(options.ms.style)}}{{ms.style}}{{/if}} {{if(options.ms.ml)}}ml-{{ms.ml}}{{/if}}">
         <div class="row">
             <div class="col-12">
-                <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
+                <label for="{{modal.id}}_{{ms.no}}" class="mt-2 me-2 small-label">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
             </div>
         </div>
         <div class="row">

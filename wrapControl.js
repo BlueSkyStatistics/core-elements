@@ -60,7 +60,7 @@ class wrapControl extends baseElement {
                 <label class="form-check-label" for="{{modal.id}}_{{ms.no}}_checkbox">${t('wrapCtrllabel1')}</label>
             </div>
             <div class="form-group">
-            <label for="{{modal.id}}_{{ms.no}}_input" class="mr-2 small-label">${t('wrapCtrllabel2')}</label>
+            <label for="{{modal.id}}_{{ms.no}}_input" class="me-2 small-label">${t('wrapCtrllabel2')}</label>
             <input class="w-100" type="text" bs-type="text" 
                 id="{{modal.id}}_{{ms.no}}_input" 
                 no="{{ms.no}}_input"

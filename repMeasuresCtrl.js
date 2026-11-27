@@ -21,7 +21,7 @@ class repMeasuresCTRL extends baseElement {
         <div class="card card-body card-dark">
             <div>
                 <div class="row" >
-                <div class ="ml-2">
+                <div class ="ms-2">
                 ${t('RMstr0a')}:<br/><br/>
 ${t('RMstr1')}<br/>
 ${t('RMstr2')}<br/>
@@ -31,7 +31,7 @@ ${t('RMstr5')}<br/>
 ${t('RMstr6')}<br/><br/>
                 </div>
                     <div class="col-12">
-                        <label  class="mt-2 mr-2 small-label">${t('RMlbl1')}</label>
+                        <label  class="mt-2 me-2 small-label">${t('RMlbl1')}</label>
                     </div>
                 </div>
                 <div class="row ">
@@ -47,7 +47,7 @@ ${t('RMstr6')}<br/><br/>
                 </div>
                 <div class="row mt-2">
                     <div class="col-12">
-                        <label class="mt-2 mr-2 small-label">${t('RMlbl2')}</label>
+                        <label class="mt-2 me-2 small-label">${t('RMlbl2')}</label>
                         <input class="w-25" type="number" bs-type="text" id="{{modal.id}}_{{ms.no}}_levels" no="{{ms.no}}_levels" extractable=true extractionRule="{{ms.extraction}}" min="2" max="9999" step="1" value="2" default="2" >
                     </div>
                 </div>
@@ -58,7 +58,7 @@ ${t('RMstr6')}<br/><br/>
                 </div>
                 <div class="row" >
                     <div class="col-6">
-                        <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label {{if(options.ms.style)}}{{ms.style}}{{/if}}">${t('RMlbl3')}{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
+                        <label for="{{modal.id}}_{{ms.no}}" class="mt-2 me-2 small-label {{if(options.ms.style)}}{{ms.style}}{{/if}}">${t('RMlbl3')}{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
                     </div>
                 </div>
                 <div class="row"  >
@@ -74,7 +74,7 @@ ${t('RMstr6')}<br/><br/>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <label  class="mt-2 mr-2 small-label">${t('RMlbl4')}</label>
+                        <label  class="mt-2 me-2 small-label">${t('RMlbl4')}</label>
                     </div>
                 </div>
                 <div class="row ">
@@ -95,7 +95,7 @@ ${t('RMstr6')}<br/><br/>
                 </div>
                 <div class="row" >
                     <div class="col-6">
-                        <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label {{if(options.ms.style)}}{{ms.style}}{{/if}}">${t('RMlbl5')}{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
+                        <label for="{{modal.id}}_{{ms.no}}" class="mt-2 me-2 small-label {{if(options.ms.style)}}{{ms.style}}{{/if}}">${t('RMlbl5')}{{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
                     </div>
                 </div>
                 <div class="row"  >

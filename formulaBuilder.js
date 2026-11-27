@@ -144,7 +144,7 @@ class formulaControl extends baseElement {
                     </select>
                 </div>
                 <div class="col p-0">
-                <div class="formula-btn pl-1 m-0" val="^" onclick="toggleSelectPoly(event,&quot;{{modal.id}}_{{ms.no}}_polyTerms&quot; )">
+                <div class="formula-btn ps-1 m-0" val="^" onclick="toggleSelectPoly(event,&quot;{{modal.id}}_{{ms.no}}_polyTerms&quot; )">
                     ${t('FBbtnlbl11')}
                     <input class="w-25 formula-select formula-options" type="number" id="{{modal.id}}_{{ms.no}}_polyTerms" 
                         bs-type="text" min="0" max="10000" step="1"  default="2" value="2" 
@@ -161,7 +161,7 @@ class formulaControl extends baseElement {
         <div class="col col-rr">
             <div class="row pr-15">
             <div class="col  p-0">
-                <div class="formula-btn pl-1 m-0" val="df for splines">
+                <div class="formula-btn ps-1 m-0" val="df for splines">
                     ${t('FBbtnlbl12')}
                     <input class="w-25 formula-select formula-options" type="number" id="{{modal.id}}_{{ms.no}}_splinesDeg" 
                     bs-type="text" min="0" max="10000" step="1"  default="5" value="5" 
@@ -194,7 +194,7 @@ class formulaControl extends baseElement {
                     </button>
                 </div>
                <div class="col p-0">
-                    <div class="formula-btn pl-1 m-0" val="Polynomial degree">
+                    <div class="formula-btn ps-1 m-0" val="Polynomial degree">
                     ${t('FBbtnlbl13')}
                     <input class="w-25 formula-select formula-options" type="number" id="{{modal.id}}_{{ms.no}}_polyDeg" 
                     bs-type="text" min="0" max="10000" step="1"  default="5" value="5" 

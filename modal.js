@@ -57,43 +57,43 @@ class modal {
     }
 
     htmlTemplate = `<div class="modal right fade" id="{{modal.id}}" {{if (options.modal.parameterCount != undefined)}} parameterCount = "{{modal.parameterCount}}" {{/if}} tabindex="-1" role="dialog" 
-    data-backdrop="false" data-keyboard="false" data-focus="false"
+    data-bs-backdrop="false" data-bs-keyboard="false" data-bs-focus="false"
     data-bs-backdrop="false" data-bs-keyboard="false" data-bs-focus="false"
     aria-labelledby="{{modal.id}}Label"
     aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
-            <div class="modal-header modal-header--sticky pr-1 pl-3">
+            <div class="modal-header modal-header--sticky pe-1 ps-3">
                 <div class="row w-100">
                     <div class="col-7">
                         <h5 class="modal-title" id="{{modal.id}}Label">{{modal.label}}</h5>
                     </div>
-                    <div class="col-5 float-right pt-2">
+                    <div class="col-5 float-end pt-2">
                         <button type="button" onclick="$('#{{modal.id}}').removeAttr('dataset').modal('hide')" class="close enable-tooltip"
                         data-bs-toggle="tooltip" title="Close dialog">
                             <i class="fas fa-times"></i>
                         </button>
-                        <button type="button" action="help" class="close ${hideclass} mr-1 enable-tooltip" id="{{modal.id}}HelpWin"
+                        <button type="button" action="help" class="close ${hideclass} me-1 enable-tooltip" id="{{modal.id}}HelpWin"
                         data-bs-toggle="tooltip" title="Open Help in a Window">
-                            <i class="icon-expand mr-1"></i>
+                            <i class="icon-expand me-1"></i>
                         </button>                           
-                        <button type="button" action="help" class="close ${hideclassOldHelp}  mr-1 enable-tooltip" id="{{modal.id}}Help"
+                        <button type="button" action="help" class="close ${hideclassOldHelp}  me-1 enable-tooltip" id="{{modal.id}}Help"
                         data-bs-toggle="tooltip" title="Help on dialog">
                             <i class="fas fa-question"></i>
                         </button>
-                        <button type="button" action="syntax" class="close ${hideclassSyntax}  mr-1 enable-tooltip viewmodestyle" id="{{modal.id}}Syntax"
+                        <button type="button" action="syntax" class="close ${hideclassSyntax}  me-1 enable-tooltip viewmodestyle" id="{{modal.id}}Syntax"
                         data-bs-toggle="tooltip" title="Show R Syntax">
                             <i class="fas fa-code"></i>
                         </button>
-                        <button type="button" action="submit" class="close btn-tooltip mr-0 enable-tooltip viewmodestyle" id="{{modal.id}}Submit"
+                        <button type="button" action="submit" class="close btn-tooltip me-0 enable-tooltip viewmodestyle" id="{{modal.id}}Submit"
                         data-bs-toggle="tooltip" title="Execute dialog">
                             <i class="fas fa-play"></i>
                         </button>
-                        <button type="button" onclick="$('#{{modal.id}}').removeAttr('dataset').modal('hide')" action="save" class="close d-none btn-tooltip mr-0 enable-tooltip" id="{{modal.id}}Save"
+                        <button type="button" onclick="$('#{{modal.id}}').removeAttr('dataset').modal('hide')" action="save" class="close d-none btn-tooltip me-0 enable-tooltip" id="{{modal.id}}Save"
                         data-bs-toggle="tooltip" title="Save Settings">
                             <i class="fas fa-save"></i>
                         </button>
-                        <button type="button" action="attach" class="close mr-1 enable-tooltip" id="{{modal.id}}Attach"
+                        <button type="button" action="attach" class="close me-1 enable-tooltip" id="{{modal.id}}Attach"
                         data-bs-toggle="tooltip" title="Attach" style="display: none;">
                             <i class="fas fa-window-restore"></i>
                         </button>                        

@@ -23,7 +23,7 @@ class inputSpinner extends baseElement {
     htmlTemplate = `
     <div class="row {{if(options.ms.ml)}} ml-{{ms.ml}} {{/if}} {{if(options.ms.style)}} {{ms.style}} {{/if}}">
     <div class="col-12">
-    <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
+    <label for="{{modal.id}}_{{ms.no}}" class="mt-2 me-2 small-label">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
     <input class="w-25" type="number" bs-type="text" id="{{modal.id}}_{{ms.no}}" no="{{ms.no}}" extractable=true extractionRule="{{ms.extraction}}" min="{{ms.min}}" max="{{ms.max}}" step="{{ms.step}}" value="{{ms.value}}" {{if(options.ms.wrapped)}}  wrapped="{{ms.wrapped}}" {{/if}} {{if(options.ms.value !== undefined)}} default="{{ms.value}}" value="{{ms.value}}" {{#else}} default="" {{/if}}>
     </div>
     </div>`

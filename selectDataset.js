@@ -25,7 +25,7 @@ class selectDataset extends baseElement {
      bs-type="cols" ondrop="drop(event)" ondragover="allowDrop(event)">
     </div>
     <div class="simple-select">
-        <label id="{{modal.id}}_{{ms.no}}label" class="mt-2 mr-2 small-label {{if(options.ms.style)}}{{ms.style}}{{/if}}">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
+        <label id="{{modal.id}}_{{ms.no}}label" class="mt-2 me-2 small-label {{if(options.ms.style)}}{{ms.style}}{{/if}}">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
         <select class="form-select mb-3 w-100" bs-type="select" id="{{modal.id}}_{{ms.no}}" no="{{ms.no}}" extractable=true default="{{ms.default}}" extractionRule="{{ms.extraction}}">
             {{ each(options.ms.options) }}
                 <option {{ if (options.ms.hasOwnProperty("default") && options.ms.default == @this)}} selected="selected"{{/if}}>{{@this}}</option>

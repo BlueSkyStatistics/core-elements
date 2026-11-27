@@ -26,15 +26,15 @@ class OutputOpt {
                       &#60;.001'</label>
                   </div>
                   <div class="form-row pb-3 align-items-baseline">
-                    <label class="form-check-label mr-2">Precision value for decimal numbers</label>
+                    <label class="form-check-label me-2">Precision value for decimal numbers</label>
                     <div class="form-check flex-grow-1">
                         <input class="form-check-input" type="checkbox" id="precisionDigitsNA" name="precisionDigitsNA" 
                             onchange="handlePrecisionValue(this)"
                         />
-                        <label class="form-check-label mr-2" for="precisionDigitsNA">NA</label>
+                        <label class="form-check-label me-2" for="precisionDigitsNA">NA</label>
                     </div>
                     <div>
-                        <label class="form-check-label mr-2" for="precisionDigitsInput">Digits</label>                 
+                        <label class="form-check-label me-2" for="precisionDigitsInput">Digits</label>                 
                         <input class="w-25" type="number" id="precisionDigitsInput" name="precisionDigitsInput" />
                     </div>
                   </div>
@@ -47,21 +47,21 @@ class OutputOpt {
                     <label class="form-check-label" for="thousandsSeparator">Display thousands separator in the data grid</label>
                   </div>
                   <div id="decimaldigitsdiv" class="pb-3">
-                    <label class="form-check-label mr-2" for="decimaldigits">Number of decimal digits to display</label>
-                    <input class="w-25 float-right" type="number" id="decimaldigits" name="decimaldigits">
+                    <label class="form-check-label me-2" for="decimaldigits">Number of decimal digits to display</label>
+                    <input class="w-25 float-end" type="number" id="decimaldigits" name="decimaldigits">
                   </div>
                   <div id="maxtblperanalysisdiv" class="pb-3">
-                    <label class="form-check-label mr-2" for="maxtblperanalysis">Maximum output tables per
+                    <label class="form-check-label me-2" for="maxtblperanalysis">Maximum output tables per
                       analysis</label>
-                    <input class="w-25 float-right" type="number" id="maxtblperanalysis" name="maxtblperanalysis">
+                    <input class="w-25 float-end" type="number" id="maxtblperanalysis" name="maxtblperanalysis">
                   </div>
                   <div id="maxrowsperouttbldiv" class="pb-3">
-                    <label class="form-check-label mr-2" for="maxrowsperouttbl">Maximum rows per output table</label>
-                    <input class="w-25 float-right" type="number" id="maxrowsperouttbl" name="maxrowsperouttbl">
+                    <label class="form-check-label me-2" for="maxrowsperouttbl">Maximum rows per output table</label>
+                    <input class="w-25 float-end" type="number" id="maxrowsperouttbl" name="maxrowsperouttbl">
                   </div>
                   <div id="maxcolsperouttbldiv" class="pb-3">
-                    <label class="form-check-label mr-2" for="maxcolsperouttbl">Maximum columns per output table</label>
-                    <input class="w-25 float-right" type="number" id="maxcolsperouttbl" name="maxcolsperouttbl">
+                    <label class="form-check-label me-2" for="maxcolsperouttbl">Maximum columns per output table</label>
+                    <input class="w-25 float-end" type="number" id="maxcolsperouttbl" name="maxcolsperouttbl">
                   </div>
                   <div id="showInlineSyntaxdiv" class="form-check pb-3">
                     <input class="form-check-input" type="checkbox" id="showInlineSyntax" name="showInlineSyntax">
@@ -72,8 +72,8 @@ class OutputOpt {
                     <label class="form-check-label" for="showRSyntaxdiv">Hide 'R Editor' and R syntax in the output (requires app relaunch)</label>
                   </div>                  
                   <div id="uithemediv" class="pb-3">
-                    <label class="form-check-label mr-2">UI Theme</label>
-                    <select class="form-select w-25 float-right" id="uitheme">
+                    <label class="form-check-label me-2">UI Theme</label>
+                    <select class="form-select w-25 float-end" id="uitheme">
                       <option value="default-theme">Default</option>
                       <option value="gray-theme">Gray</option>
                       <option value="indigo-theme">Indigo</option>
@@ -104,8 +104,8 @@ class OutputTblOpt {
     id;
     htmlTemplate = `
                   <div id="outputTableThemediv" class="pb-3">
-                    <label class="form-check-label mr-2">Output table theme</label>
-                    <select class="form-select w-25 float-right" id="outputTableTheme">
+                    <label class="form-check-label me-2">Output table theme</label>
+                    <select class="form-select w-25 float-end" id="outputTableTheme">
                       <option value="kable_styling">Default</option>
                       <option value="kable_classic">APA</option>
                       <option value="kable_classic_2">Classic 2</option>
@@ -116,8 +116,8 @@ class OutputTblOpt {
                     </select>
                   </div>
                   <div id="outputTableFontdiv" class="pb-3">
-                    <label class="form-check-label mr-2">Output table font</label>
-                    <select class="form-select h-25 w-25 float-right" id="outputTableFont">
+                    <label class="form-check-label me-2">Output table font</label>
+                    <select class="form-select h-25 w-25 float-end" id="outputTableFont">
                       <option value="PT Sans">PT Sans</option>
                       <option value="sans">Sans</option>
                       <option value="serif">Serif</option>
@@ -125,16 +125,16 @@ class OutputTblOpt {
                     </select>
                   </div>
                   <div id="outputTableFontSizediv" class="pb-3">
-                    <label class="form-check-label mr-2" for="outputTableFontSize">Output table font size</label>
-                    <input class="w-25 float-right" type="number" id="outputTableFontSize" name="outputTableFontSize">
+                    <label class="form-check-label me-2" for="outputTableFontSize">Output table font size</label>
+                    <input class="w-25 float-end" type="number" id="outputTableFontSize" name="outputTableFontSize">
                   </div>
                   <div id="showLaTexdiv" class="form-check pb-3">
                     <input class="form-check-input" type="checkbox" id="showLaTex" name="showLaTex" onclick="latexCheckedChange(this)">
                     <label class="form-check-label" for="showLaTex">Show LaTeX in the output</label>
                   </div>
                   <div id="outputTableLaTexColSpacediv" class="pb-3">
-                    <label class="form-check-label mr-2" for="outputTableLaTexColSpace">LaTeX column spacing (pt)</label>
-                    <input class="w-25 float-right" type="number" id="outputTableLaTexColSpace" name="outputTableLaTexColSpace">
+                    <label class="form-check-label me-2" for="outputTableLaTexColSpace">LaTeX column spacing (pt)</label>
+                    <input class="w-25 float-end" type="number" id="outputTableLaTexColSpace" name="outputTableLaTexColSpace">
                   </div>                  
     `
 
@@ -221,8 +221,8 @@ class MiscOpt {
         <label class="form-check-label" for="debugRCode">Capture all R calls to the logs</label>
       </div>
       <div id="appEncodingdiv" class="pb-3">
-      <label class="form-check-label mr-2">Application encoding (Applied after application restart)</label>
-        <select class="form-select h-25 w-25 float-right" id="appencoding">
+      <label class="form-check-label me-2">Application encoding (Applied after application restart)</label>
+        <select class="form-select h-25 w-25 float-end" id="appencoding">
           <option value="ascii">ascii</option>
           <option value="utf8">utf8</option>
           <option value="latin1">latin1</option>
@@ -240,8 +240,8 @@ class MiscOpt {
         For the files of type Excel, CSV, DAT and SAS we automatically convert all the character variables to factor. For all other file types, we rely on the R package to set the class of the dataset variables. This setting post processes the dataset after opening it to allow you to control the creation of factor variables based on the criteria below.
         </label>
         <div id="maxfactorcountdiv" class="pb-3">
-          <label class="form-check-label ml-4 w-50" for="maxfactorcount">Specify the maximum number of distinct values to control creation of factor variables. When the number of unique values in a variable exceeds the speicified value we will create a variable of class character else a variable of class factor is created.</label>
-          <input class="w-25 float-right" type="number" id="maxfactorcount" name="maxfactorcount">
+          <label class="form-check-label ms-4 w-50" for="maxfactorcount">Specify the maximum number of distinct values to control creation of factor variables. When the number of unique values in a variable exceeds the speicified value we will create a variable of class character else a variable of class factor is created.</label>
+          <input class="w-25 float-end" type="number" id="maxfactorcount" name="maxfactorcount">
         </div>
         <label>
           1: Uncheck this setting to load character variables as character. 
@@ -280,8 +280,8 @@ class RLocaleOpt {
     id;
     htmlTemplate = `
                 <div id="rlocalediv" class="pb-3">
-                  <label class="form-check-label mr-2" for="rlocale">Set R locale :</label>
-                  <input list="rlocalelist" name="rlocale" class="w-25 float-right" id="rlocale">
+                  <label class="form-check-label me-2" for="rlocale">Set R locale :</label>
+                  <input list="rlocalelist" name="rlocale" class="w-25 float-end" id="rlocale">
                     <datalist id="rlocalelist">
                     <option value="Chinese (Simplified)">
                     <option value="Turkish">
@@ -291,44 +291,44 @@ class RLocaleOpt {
                   </datalist>                
                   <div id="rlocalekiddiv" class="pb-3">
                     <p>
-                    <label class="form-check-label mr-2">1. If you want to set to the system default locale, manually delete any text in the field if it is not already empty.</label>
+                    <label class="form-check-label me-2">1. If you want to set to the system default locale, manually delete any text in the field if it is not already empty.</label>
                     <p>
-                    <label class="form-check-label mr-2">The following examples are illustration purposes only to explain what system default locale setting means  </label>
+                    <label class="form-check-label me-2">The following examples are illustration purposes only to explain what system default locale setting means  </label>
                     <p>
-                    <label class="form-check-label mr-2">
+                    <label class="form-check-label me-2">
                     Example 1: if you purchased and configured a PC in the USA, your system defaut locale will likely be something like "English_United States".
                     </label>
                     <p>
-                    <label class="form-check-label mr-2">
+                    <label class="form-check-label me-2">
                     Example 2: if you purchased and configured a PC in China, your system default locale will likely be something like "Chinese (Simplified)".
                     </label>
                     <p>
-                    <label class="form-check-label mr-2">2. To pick a locale from the dropdown, first make the text field empty by manully deleting any text. Click on the text field to get the dropdown to appear with multiple choices. If you do not find a suitable locale choice in the dropdown, you can hand type a valid locale in the text field.</label>
+                    <label class="form-check-label me-2">2. To pick a locale from the dropdown, first make the text field empty by manully deleting any text. Click on the text field to get the dropdown to appear with multiple choices. If you do not find a suitable locale choice in the dropdown, you can hand type a valid locale in the text field.</label>
                     <p>
-                    <label class="form-check-label mr-2">3. Whenever you want to change the locale and select from the dropdown, you must first manually delete the current text entry to make the text field empty, and then you will see the dropdown to pick a value from.</label>
+                    <label class="form-check-label me-2">3. Whenever you want to change the locale and select from the dropdown, you must first manually delete the current text entry to make the text field empty, and then you will see the dropdown to pick a value from.</label>
                     <p>
-                    <label class="form-check-label mr-2">Note: If the graphs/plots are not displaying the legends correctly in the correct locales, you must also go to the Theme dialog (see toolbar above) and select a suitable font from the dropdown list. </label>
+                    <label class="form-check-label me-2">Note: If the graphs/plots are not displaying the legends correctly in the correct locales, you must also go to the Theme dialog (see toolbar above) and select a suitable font from the dropdown list. </label>
                     <p>
-                    <label class="form-check-label mr-2">
+                    <label class="form-check-label me-2">
                     Example : if you set locale to "Chinese (Simplified)", you should also set the font to "Microsoft Yahei" or "SimSun" in the Theme dialog</label>
                     <p>
-                    <label class="form-check-label mr-2">visit the support page on our website (www.blueskystatistics.com) for the related technote and further deatils</label>
+                    <label class="form-check-label me-2">visit the support page on our website (www.blueskystatistics.com) for the related technote and further deatils</label>
                   </div>            
                 </div>
                 <div id="delimmarkerdiv" class="pb-3"> 
-                  <label class="form-check-label mr-2" for="delimMarker">Settings related to Copy/Paste operations on the datagrid:</label>
+                  <label class="form-check-label me-2" for="delimMarker">Settings related to Copy/Paste operations on the datagrid:</label>
                 </div>  
-                <div id="decimalmarkerdiv" class="pb-3 ml-4"> 
-                  <label class="form-check-label mr-2" for="decimalMarker">Set decimal marker character :</label>
-                  <input name="decimalMarker" class="w-25 float-right" id="decimalMarker" type="text">
+                <div id="decimalmarkerdiv" class="pb-3 ms-4"> 
+                  <label class="form-check-label me-2" for="decimalMarker">Set decimal marker character :</label>
+                  <input name="decimalMarker" class="w-25 float-end" id="decimalMarker" type="text">
                 </div>
-                <div id="displaymarkerdiv" class="pb-3 ml-4"> 
-                  <label class="form-check-label mr-2" for="displayMarker">Set display marker character :</label>
-                  <input name="displayMarker" class="w-25 float-right" id="displayMarker" type="text">
+                <div id="displaymarkerdiv" class="pb-3 ms-4"> 
+                  <label class="form-check-label me-2" for="displayMarker">Set display marker character :</label>
+                  <input name="displayMarker" class="w-25 float-end" id="displayMarker" type="text">
                 </div>   
-                 <div id="delimChardiv" class="pb-3 ml-4"> 
-                  <label class="form-check-label mr-2" for="delimChar">Set delim character e.g. \\t, \\n:</label>
-                  <input name="delimChar" class="w-25 float-right" id="delimChar" type="text">
+                 <div id="delimChardiv" class="pb-3 ms-4"> 
+                  <label class="form-check-label me-2" for="delimChar">Set delim character e.g. \\t, \\n:</label>
+                  <input name="delimChar" class="w-25 float-end" id="delimChar" type="text">
                 </div>              
   `
 
@@ -349,20 +349,20 @@ class DatabaseOpt {
     id;
     htmlTemplate = `
 		              <div id="tnsadminOraclediv" class="pb-3">
-                    <label class="form-check-label mr-2" for="tnsadminpath">Oracle TNS_ADMIN path (use forward slash in path)</label>
-                    <input class="w-25 float-right" type="text" id="tnsadminpath" name="tnsadminpath">
-                    <div class="form-check ml-3">
+                    <label class="form-check-label me-2" for="tnsadminpath">Oracle TNS_ADMIN path (use forward slash in path)</label>
+                    <input class="w-25 float-end" type="text" id="tnsadminpath" name="tnsadminpath">
+                    <div class="form-check ms-3">
                       <input class="form-check-input" type="checkbox" id="useSysTnsAdmin" name="useSysTnsAdmin">
                       <label class="form-check-label" for="useSysTnsAdmin">Use system defaults</label>
                     </div>
                   <div>
                     <div id="maxDBtblRowCountdiv" class="pb-3">
-                      <label class="form-check-label mr-2" for="maxDBtblRowCount">Maximum rows allowed for a database table</label>
-                      <input class="w-25 float-right" type="number" id="maxDBtblRowCount" name="maxDBtblRowCount">
+                      <label class="form-check-label me-2" for="maxDBtblRowCount">Maximum rows allowed for a database table</label>
+                      <input class="w-25 float-end" type="number" id="maxDBtblRowCount" name="maxDBtblRowCount">
                     </div>
                     <div id="maxDBtblColCountdiv" class="pb-3">
-                      <label class="form-check-label mr-2" for="maxDBtblColCount">Maximum columns allowed for a database table</label>
-                      <input class="w-25 float-right" type="number" id="maxDBtblColCount" name="maxDBtblColCount">
+                      <label class="form-check-label me-2" for="maxDBtblColCount">Maximum columns allowed for a database table</label>
+                      <input class="w-25 float-end" type="number" id="maxDBtblColCount" name="maxDBtblColCount">
                     </div>
                   </div>
     `
@@ -505,7 +505,7 @@ class ChatIntegrationOpt {
           </label>
           <div class="d-flex align-items-center">
             <input type="text" class="form-control w-75"  id="aiModelsFetchUrl" placeholder="https://example.com/api/models">
-            <button type="button" class="btn btn-outline-secondary btn-sm ml-2" onclick="clearAiModelsFetchUrl()" title="Clear URL">
+            <button type="button" class="btn btn-outline-secondary btn-sm ms-2" onclick="clearAiModelsFetchUrl()" title="Clear URL">
               <i class="fas fa-times"></i> Clear
             </button>
           </div>

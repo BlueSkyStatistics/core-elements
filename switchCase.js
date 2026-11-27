@@ -37,7 +37,7 @@ class switchCase extends baseElement {
             <button class='btn btn-secondary h6 btn-submenu-text' onclick='addElseToSwitchCase("{{modal.id}}_{{ms.no}}")'><i class="fas fa-plus"></i>${t('SCelsebtn')}</button>
         </div>
         <div class="col-6">
-            <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
+            <label for="{{modal.id}}_{{ms.no}}" class="mt-2 me-2 small-label">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
         </div>
     </div>
     <div class="row">

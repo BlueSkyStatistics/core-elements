@@ -19,7 +19,7 @@ class comboBox extends baseElement{
     defaults;
     label = null
     htmlTemplate = `<div>
-        <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label {{if(options.ms.style)}}{{ms.style}}{{/if}}">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
+        <label for="{{modal.id}}_{{ms.no}}" class="mt-2 me-2 small-label {{if(options.ms.style)}}{{ms.style}}{{/if}}">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
         <div class="list-group ms-list {{if(options.ms.style)}}{{ms.style}}{{/if}}">
             <select class="list-group borderless" bs-type="combobox" {{ if (options.ms.multiple) }} multiple {{/if}} {{ if (options.ms.dynamicallyPopulated) }} dynamicallyPopulated=true {{/if}} id="{{modal.id}}_{{ms.no}}" no="{{ms.no}}" extractable=true default="{{ms.default}}" extractionRule="{{ms.extraction}}">
                 {{ each(options.ms.options) }}

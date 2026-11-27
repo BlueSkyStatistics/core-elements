@@ -1617,7 +1617,7 @@ module.exports.addRowToSwitchCase = (el) => {
     var el_index_if = parseInt($(`#${el}`).children().last().attr('el_index'))
     el_index = el_index_else > el_index_if ? el_index_else + 1 : el_index_if + 1
   }
-  var switchEl = `<div class="row bg-gray m-1 p-2 mr-3" el_index=${el_index}>
+  var switchEl = `<div class="row bg-gray m-1 p-2 me-3" el_index=${el_index}>
     <div class="col-11">
         <div class="row">
             <div class="col-2">
@@ -1649,7 +1649,7 @@ module.exports.addElseToSwitchCase = (el) => {
   } else {
     var el_index = parseInt($(`#${el}`).children().last().attr('el_index'))
     el_index = isNaN(el_index) ? 0 : el_index + 1
-    $(`#${el}`).append(`<div class="row bg-gray m-1 p-2 mr-3" el_index=${el_index}>
+    $(`#${el}`).append(`<div class="row bg-gray m-1 p-2 me-3" el_index=${el_index}>
       <div class="col-11">
           <div class="row">
               <div class="col-2">

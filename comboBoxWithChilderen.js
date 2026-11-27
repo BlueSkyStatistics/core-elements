@@ -19,7 +19,7 @@ class comboBoxWithChildren extends baseElement {
     first_kid;
     label = null
     htmlTemplate = `
-    <label for="{{modal.id}}_{{ms.no}}" class="mt-2 mr-2 small-label">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
+    <label for="{{modal.id}}_{{ms.no}}" class="mt-2 me-2 small-label">{{ms.label}} {{if(options.ms.required)}}<span class="required">*</span>{{/if}}</label>
     <div class="row">
     <div class="col-6">
             <div class="list-group ms-list">
