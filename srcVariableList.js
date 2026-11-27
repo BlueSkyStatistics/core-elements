@@ -6,6 +6,8 @@
 
 
 var Sqrl = require('squirrelly');
+// Resolved from the app root: this library can be installed as a module outside assets/.
+const {escapeHtml} = global.requireFromRoot("assets/js/utils/htmlSafety");
 const {getT} = global.requireFromRoot("localization");
 // const i18next = require("i18next");
 let t = getT('menutoolbar')
@@ -92,14 +94,14 @@ class srcVariableList {
                                 var item_name = element.Name[0];
                                 order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
                                 $(`#${item_id}`).append(`<a href="#" 
-                                id="${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}"
+                                id="${escapeHtml(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)}"
                                 class="list-group-item list-group-item-sm termsDst list-group-item-action measure-${element.Measure[0]} class-${element.ColClass[0]}" 
                                 draggable="true" 
                                 bs-row-type="${element.Type[0]}" 
                                 bs-row-class="${element.ColClass[0]}" 
                                 bs-row-measure="${element.Measure[0]}" 
                                 onclick="selectModelTerms(event)"
-                                >${item_name}</a>`) 
+                                >${escapeHtml(item_name)}</a>`) 
                             });
                             $(`#${item_id}`).attr('order', order.join("|||"))  
                         }
@@ -117,7 +119,7 @@ class srcVariableList {
                                         item_name = element.Name[0];
                                         order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
                                         $(`#${item_id}`).append(`<a href="#" 
-                                        id="${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}"
+                                        id="${escapeHtml(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)}"
                                         class="list-group-item list-group-item-sm list-group-item-action measure-${element.Measure[0]} class-${element.ColClass[0]}" 
                                         draggable="true" 
                                         bs-row-type="${element.Type[0]}" 
@@ -126,7 +128,7 @@ class srcVariableList {
                                         style="min-width: ${maxWidth}px"; 
                                         ondragstart="drag(event, '${_action}')"
                                         ondrop="drop(event)"
-                                        onclick="selectElement(event)">${item_name}</a>`) 
+                                        onclick="selectElement(event)">${escapeHtml(item_name)}</a>`) 
                                     })
                                     $('#' + item_id).attr('maxVarWidth', maxWidth.toString()+"px" );
                                 } else 
@@ -135,7 +137,7 @@ class srcVariableList {
                                         item_name = element.Name[0];
                                         order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)
                                         $(`#${item_id}`).append(`<a href="#" 
-                                        id="${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}"
+                                        id="${escapeHtml(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g,"_")}`)}"
                                         class="list-group-item list-group-item-sm list-group-item-action measure-${element.Measure[0]} class-${element.ColClass[0]}" 
                                         draggable="true" 
                                         bs-row-type="${element.Type[0]}" 
@@ -143,7 +145,7 @@ class srcVariableList {
                                         bs-row-measure="${element.Measure[0]}"                
                                         ondragstart="drag(event, '${_action}')"
                                         ondrop="drop(event)"
-                                        onclick="selectElement(event)">${item_name}</a>`) 
+                                        onclick="selectElement(event)">${escapeHtml(item_name)}</a>`) 
                                     })
                                 }                  
                                 $(`#${item_id}`).attr('order', order.join("|||"))

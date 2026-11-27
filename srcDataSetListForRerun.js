@@ -7,6 +7,8 @@
 
 
 var Sqrl = require('squirrelly');
+// Resolved from the app root: this library can be installed as a module outside assets/.
+const {escapeHtml} = global.requireFromRoot("assets/js/utils/htmlSafety");
 const {getT} = global.requireFromRoot("localization");
 let t = getT('menutoolbar')
 
@@ -51,14 +53,14 @@ class srcDataSetListForRerun {
                     datasets.forEach(element => {
                         order.push(`${item_id}_${getActiveDataset()}_${element.replace(/ /g,"_")}`)
                         $(`#${item_id}`).append(`<a href="#" 
-                        id="${item_id}_${getActiveDataset()}_${element.replace(/ /g,"_")}"
+                        id="${escapeHtml(`${item_id}_${getActiveDataset()}_${element.replace(/ /g,"_")}`)}"
                         class="list-group-item list-group-item-sm list-group-item-action measure-dataset class-dataset" 
                         draggable="true" 
                         bs-row-type="dataset" 
                         bs-row-class="dataset" 
                         bs-row-measure="dataset" 
                         onclick="selectModelTerms(event)"
-                        >${element}</a>`) 
+                        >${escapeHtml(element)}</a>`) 
                     });
                     $(`#${item_id}`).attr('order', order.join("|||"))
                 }

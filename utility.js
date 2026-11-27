@@ -6,6 +6,8 @@
 
 const {getT: utilityGetT} = requireFromRoot("localization.js");
 const Sqrl = require('squirrelly');
+// Resolved from the app root: this library can be installed as a module outside assets/.
+const {escapeHtml} = global.requireFromRoot("assets/js/utils/htmlSafety");
 
 function removenewline(str) {
     //new line followed my one or more tabs
@@ -435,24 +437,10 @@ function createRepeatedMeasures(measureList, factorList, modal_id, nos) {
 }
 
 
+// Whether the OS lets the user write in a folder (e.g. the R library). The main process checks
+// (Phase 2.3: the window has no fs of its own and may not write test files into arbitrary folders).
 function hasWritePermission(fpath) {
-    let canWrite = false;
-    if (fs.existsSync(fpath)) {
-        try {
-            fpath = changeBkslashToFrwdslash(path.join(fpath, "tempfile.txt"))
-            fs.writeFileSync(fpath, "check write permission", (err) => {
-            });
-
-            fs.unlink(fpath, (err) => {
-            });
-            canWrite = true;
-
-        } catch (err) {
-            console.error('Cannot write')
-            console.log(err.message);
-        }
-    }
-    return (canWrite);
+    return global.requireFromRoot("assets/js/utils/fileBridge").canWrite(fpath);
 }
 
 //type = normal is used for latent variables and higher order factors
@@ -693,7 +681,7 @@ function actionOnCreateLatentVarHighorderVar(textBoxId, modalId, ctrlId)
                     {
                         order.push(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g, "_")}`)
                         $(`#${item_id}`).append(`<a href="#"
-                                    id="${item_id}_${getActiveDataset()}_${item_name.replace(/ /g, "_")}"
+                                    id="${escapeHtml(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g, "_")}`)}"
                                     class="list-group-item list-group-item-sm list-group-item-action measure-scale class-numeric"
                                     draggable="true"
                                     bs-row-type="double"
@@ -702,14 +690,14 @@ function actionOnCreateLatentVarHighorderVar(textBoxId, modalId, ctrlId)
                                     ondragstart="drag(event, 'move')"
                                     ondrop="drop(event)"
                                     type ="sem"
-                                    onclick="selectElement(event)">${item_name}</a>`)
+                                    onclick="selectElement(event)">${escapeHtml(item_name)}</a>`)
                         $(`#${item_id}`).attr('order', order.join("|||"))
                     }
                 }
                 else
                 {
                     $(`#${item_id}`).append(`<a href="#"
-                    id="${item_id}_${getActiveDataset()}_${item_name.replace(/ /g, "_")}"
+                    id="${escapeHtml(`${item_id}_${getActiveDataset()}_${item_name.replace(/ /g, "_")}`)}"
                     class="list-group-item list-group-item-sm termsDst list-group-item-action measure-scale class-numeric"
                     draggable="true"
                     bs-row-type="double"
@@ -717,7 +705,7 @@ function actionOnCreateLatentVarHighorderVar(textBoxId, modalId, ctrlId)
                     bs-row-measure="scale"
                     type ="sem"
                     onclick="selectModelTerms(event)"
-                    >${item_name}</a>`)
+                    >${escapeHtml(item_name)}</a>`)
                 }
             }
         )
@@ -1203,32 +1191,32 @@ function populateEqualityConstraint (var1, var2, eqDstId, sign, structuralParame
     {
     //firstTerm and secondTerm keep track of original variables so that they can be deleted when the latent variables are removed
     $(`#${eqDstId}`).append(`<a href="#"
-                        id="${item_id}_${getActiveDataset()}_${var3Id.replace(/ /g, "_")}"
+                        id="${escapeHtml(item_id)}_${escapeHtml(getActiveDataset())}_${escapeHtml(var3Id.replace(/ /g, "_"))}"
                         class="list-group-item list-group-item-sm list-group-item-action measure-scale class-numeric"
                         draggable="true"
                         bs-row-type="double"
                         bs-row-class="${iconType}"
-                        firstTerm = "${var1}"
-                        secondTerm = "${var2}"
+                        firstTerm = "${escapeHtml(var1)}"
+                        secondTerm = "${escapeHtml(var2)}"
                         ondragstart="drag(event, 'move')"
                         bs-row-measure="scale"
                         onclick="selectElement(event)"
-                        >${var3}</a>`)
+                        >${escapeHtml(var3)}</a>`)
     } else
     {
         $(`#${eqDstId}`).append(`<a href="#"
-        id="${item_id}_${getActiveDataset()}_${var3Id.replace(/ /g, "_")}"
+        id="${escapeHtml(item_id)}_${escapeHtml(getActiveDataset())}_${escapeHtml(var3Id.replace(/ /g, "_"))}"
         class="list-group-item list-group-item-sm list-group-item-action measure-scale class-numeric"
         draggable="true"
         bs-row-type="double"
         bs-row-class="structuralParameter"
-        firstTerm = "${var1}"
-        secondTerm = "${var2}"
+        firstTerm = "${escapeHtml(var1)}"
+        secondTerm = "${escapeHtml(var2)}"
         structuralParameter = true
         ondragstart="drag(event, 'move')"
         bs-row-measure="scale"
         onclick="selectElement(event)"
-        >${var3}</a>`)
+        >${escapeHtml(var3)}</a>`)
     }
 }
 
@@ -1257,16 +1245,16 @@ function autoPopCovarTerm (var1, var2, modalId)
         if (!document.getElementById(`${destId}${var1}_${getActiveDataset()}_${var2.replace(/ /g, "_")}`))
         {
             $(`#${destId}`).append(`<a href="#"
-            id="${destId}${var1}_${getActiveDataset()}_${var2.replace(/ /g, "_")}"
+            id="${escapeHtml(destId)}${escapeHtml(var1)}_${escapeHtml(getActiveDataset())}_${escapeHtml(var2.replace(/ /g, "_"))}"
             class="list-group-item list-group-item-sm list-group-item-action measure-scale class-numeric termsDst"
             bs-row-type="double"
             bs-row-class="${iconType}"
             bs-row-measure="scale"
-            firstTerm = "${var1}"
-            secondTerm = "${var2}"
+            firstTerm = "${escapeHtml(var1)}"
+            secondTerm = "${escapeHtml(var2)}"
             type ="sem"
             onclick="selectModelTerms(event)"
-            >${var3}</a>`)
+            >${escapeHtml(var3)}</a>`)
         }
     } else if ( deletedCoVars.indexOf(var3) == -1 )
     //I need the check above as if there are manually deleted covariances, I don't want autopopulation to add manually deleted covariances
@@ -1278,17 +1266,17 @@ function autoPopCovarTerm (var1, var2, modalId)
         if (!document.getElementById(`${destId}${var1}_${getActiveDataset()}_${var2.replace(/ /g, "_")}`))
         {
             $(`#${destId}`).append(`<a href="#"
-                                id="${destId}${var1}_${getActiveDataset()}_${var2.replace(/ /g, "_")}"
+                                id="${escapeHtml(destId)}${escapeHtml(var1)}_${escapeHtml(getActiveDataset())}_${escapeHtml(var2.replace(/ /g, "_"))}"
                                 class="list-group-item list-group-item-sm list-group-item-action measure-scale class-numeric termsDst"
                                 draggable="true"
                                 bs-row-type="double"
                                 bs-row-class="${iconType}"
                                 bs-row-measure="scale"
-                                firstTerm = "${var1}"
-                                secondTerm = "${var2}"
+                                firstTerm = "${escapeHtml(var1)}"
+                                secondTerm = "${escapeHtml(var2)}"
                                 type ="sem"
                                 onclick="selectModelTerms(event)"
-                                >${var3}</a>`)
+                                >${escapeHtml(var3)}</a>`)
         }
     }
 }
@@ -1692,16 +1680,16 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
         //Every item in modeltermsdst has a class termsDst
         //selectModelTerms ensures at the class active gets added to selected items in the structural parameters and coVarsDst in production mode
         $(`#${destId}`).append(`<a href="#"
-                    id="${destId}_${var1}_${getActiveDataset()}_${var2.replace(/ /g, "_")}"
+                    id="${escapeHtml(destId)}_${escapeHtml(var1)}_${escapeHtml(getActiveDataset())}_${escapeHtml(var2.replace(/ /g, "_"))}"
                     class="list-group-item list-group-item-sm list-group-item-action measure-scale class-numeric active termsDst"
                     bs-row-type="double"
                     bs-row-class="${iconType}"
                     bs-row-measure="scale"
                     type ="sem"
-                    firstTerm = "${var1}"
-                    secondTerm = "${var2}"
+                    firstTerm = "${escapeHtml(var1)}"
+                    secondTerm = "${escapeHtml(var2)}"
                     onclick="selectModelTerms(event)"
-                    >${var3}</a>`)
+                    >${escapeHtml(var3)}</a>`)
         
         //We want to keep track of the manually added covariances
         if (extractionRule == "coVariances")
@@ -1746,19 +1734,19 @@ function addToModelTermsDest( ctrl1Id, ctrl2Id, destId  )
                 if ($(`#sem${element}`).find(`#sem${element}_${getActiveDataset()}_${var1.replace(/\./g, "\\.")}${var2.replace(/ /g, "_").replace(/\./g, "\\.")}`).length == 0)
                 {
                     $(`#sem${element}`).append(`<a href="#"
-                    id="sem${element}_${getActiveDataset()}_${var1}${var2.replace(/ /g, "_")}"
+                    id="sem${escapeHtml(element)}_${escapeHtml(getActiveDataset())}_${escapeHtml(var1)}${escapeHtml(var2.replace(/ /g, "_"))}"
                     class="list-group-item list-group-item-sm list-group-item-action measure-scale class-numeric"
                     draggable="true"
                     bs-row-type="double"
                     bs-row-class="semFactor"
                     bs-row-measure="scale"
                     type ="sem"
-                    firstTerm = "${var1}"
-                    secondTerm = "${var2}"
+                    firstTerm = "${escapeHtml(var1)}"
+                    secondTerm = "${escapeHtml(var2)}"
                     ondragstart="drag(event, 'move')"
                     ondrop="drop(event)" 
                     onclick="selectElement(event)"            
-                    >${var3}</a>`)
+                    >${escapeHtml(var3)}</a>`)
                 }
             })
             let autoPopCovarId =  "sem" + "_" + "autoComputeCovar"
